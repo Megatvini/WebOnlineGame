@@ -30,18 +30,14 @@
         }
       };
 
+      socket.onclose = function(arg) {
+        console.log(arg.data);
+      };
+
       function circle(x,y,r) {
         ctx.beginPath();
         ctx.arc(x, y, r, 0, Math.PI*2, true);
         ctx.fill();
-      }
-
-      function rect(x,y,w,h) {
-        ctx.beginPath();
-        ctx.rect(x,y,w,h);
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
       }
 
       function clear() {
