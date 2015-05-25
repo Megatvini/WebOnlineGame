@@ -19,7 +19,7 @@
       var ctx = canvas.getContext("2d");
       var WIDTH = 300;
       var HEIGHT = 200;
-      var socket = new WebSocket("ws://192.168.0.102:8080/app");
+      var socket = new WebSocket("ws://192.168.77.11:8080/app");
       socket.onmessage = function(msg) {
         clear();
         var points = msg.data.split("#");
@@ -34,23 +34,30 @@
         console.log(arg.data);
       };
 
+      socket.onerror = function (arg) {
+        console.log(arg.data);
+      };
+
       function circle(x,y,r) {
         ctx.beginPath();
         ctx.arc(x, y, r, 0, Math.PI*2, true);
         ctx.fill();
-      }
+      };
 
       function clear() {
         ctx.clearRect(0, 0, WIDTH, HEIGHT);
-      }
+      };
 
       function doKeyDown(evt){
-        try {
-          socket.send(evt.keyCode.toString());
-        } catch (e) {
-          console.log(e.data);
+        var keyCode = evt.keyCode;
+        if (keyCode >=37 && keyCode <=40) {
+          try {
+            socket.send(keyCode.toString());
+          } catch (e) {
+            console.log(e.data);
+          }
         }
-      }
+      };
 
       window.addEventListener('keydown',doKeyDown,true);
     });
