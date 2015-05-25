@@ -50,24 +50,25 @@ public class App {
     }
 
     private void sendDataToUsers() {
-        String toSend = "";
-        Iterator<Session> it = connectedUsers.keySet().iterator();
-        while (it.hasNext()) {
-            Session s = it.next();
-            toSend+= connectedUsers.get(s).toString() + "#";
-        }
+        synchronized (connectedUsers) {
+            String toSend = "";
+            Iterator<Player> iterator = connectedUsers.values().iterator();
+            while (iterator.hasNext()) {
+                Player p = iterator.next();
+                toSend+= p.toString() + "#";
+            }
 
-        it = connectedUsers.keySet().iterator();
-        while (it.hasNext()) {
-            Session s = it.next();
-            try {
-                s.getBasicRemote().sendText(toSend);
-            } catch (IOException e) {
-                //e.printStackTrace();
-                System.out.println("Could not send text");
+            Iterator<Session> it = connectedUsers.keySet().iterator();
+            while (it.hasNext()) {
+                Session s = it.next();
+                try {
+                    s.getBasicRemote().sendText(toSend);
+                } catch (IOException e) {
+                    //e.printStackTrace();
+                    System.out.println("Could not send text");
+                }
             }
         }
-
         //System.out.println("trying to send: " + toSend);
     }
 }

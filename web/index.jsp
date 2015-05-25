@@ -5,6 +5,7 @@
   Time: 12:27
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html>
@@ -42,11 +43,11 @@
         ctx.beginPath();
         ctx.arc(x, y, r, 0, Math.PI*2, true);
         ctx.fill();
-      };
+      }
 
       function clear() {
         ctx.clearRect(0, 0, WIDTH, HEIGHT);
-      };
+      }
 
       function doKeyDown(evt){
         var keyCode = evt.keyCode;
@@ -57,7 +58,7 @@
             console.log(e.data);
           }
         }
-      };
+      }
 
       window.addEventListener('keydown',doKeyDown,true);
     });
@@ -66,7 +67,7 @@
 <body>
 <section>
   <div>
-    <canvas id="canvas" width="300" height="200" style="border:1px solid #000000;">
+    <canvas id="canvas" width="300" height="200" style="border:3px solid #11ff00;">
       This text is displayed if your browser does not support HTML5 Canvas.
     </canvas>
   </div>
