@@ -36,9 +36,10 @@ public class GameServer {
         String playerName = "";
         String move = "";
         analizeMessage(msg, cmd, playerName, move);
+        World world = rooms.get(playerName);
 
         switch (cmd) {
-            case "initialization": {
+            case "init": {
                 connections.put(playerName, session);
                 if (rooms.get(playerName) == null) {
                     //TODO create new world object
@@ -48,11 +49,18 @@ public class GameServer {
                     //world.addPlayer(playerName);
                 } else {
                     //put the playerName in rooms.get(playerName)
+                    //if there are as many players in the world as
+                    //in roommates.get(playerName).size() then
+                    //world.gameStarted();
+                    //sendMazeToAllPlayers(world);
+                    //sendStateToAllPlayers(world);
                 }
-                //send the maze to the playerName via session;
             }
             case "move": {
-
+                //here will be dx, dy from player message instead of
+                //2 and 3
+                world.playerMove(playerName, 2, 3);
+                sendWorldStateToUsers(world);
             }
         }
     }
@@ -61,6 +69,27 @@ public class GameServer {
 
     }
 
+    private void sendWorldStateToUsers(World world) {
+        String toSend = world.getState();
+        world.getPlayers().forEach(x -> {
+            try {
+                connections.get(x).getBasicRemote().sendText(toSend);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void sendWorldMazeToUsers(World world) {
+        String toSend = world.getMaze();
+        world.getPlayers().forEach(x -> {
+            try {
+                connections.get(x).getBasicRemote().sendText(toSend);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
     @OnClose
     public void onClose(Session session) {
