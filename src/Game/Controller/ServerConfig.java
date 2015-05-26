@@ -20,6 +20,6 @@ public class ServerConfig extends ServerEndpointConfig.Configurator {
     @Override
     public void modifyHandshake(ServerEndpointConfig config, HandshakeRequest request, HandshakeResponse response) {
         HttpSession httpSession = (HttpSession) request.getHttpSession();
-        config.getUserProperties().put("servletContext", httpSession);
+        config.getUserProperties().put("httpSession", httpSession);
     }
 }
