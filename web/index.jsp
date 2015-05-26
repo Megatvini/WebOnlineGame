@@ -20,7 +20,7 @@
       var ctx = canvas.getContext("2d");
       var WIDTH = 300;
       var HEIGHT = 200;
-      var socket = new WebSocket("ws://192.168.77.11:8080/app");
+      var socket = new WebSocket("ws://localhost:8080/game");
       socket.onmessage = function(msg) {
         clear();
         var points = msg.data.split("#");

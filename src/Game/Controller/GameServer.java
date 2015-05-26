@@ -1,15 +1,16 @@
+package Game.Controller;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.*;
 
-@ServerEndpoint(value="/app", configurator=MyConfig.class)
-public class App {
-    Map<Session, Player> connectedUsers = Collections.synchronizedMap(new HashMap<Session, Player>());
+@ServerEndpoint(value="/game", configurator=ServerConfig.class)
+public class GameServer {
+    private Map<Session, Player> connectedUsers = Collections.synchronizedMap(new HashMap<Session, Player>());
 
     @OnOpen
-    public void open(Session session) {
+    public void open(Session session, EndpointConfig config) {
         connectedUsers.put(session, new Player(150, 100));
         sendDataToUsers();
         System.out.println("new user has connected, size is " + connectedUsers.size() + " this: " + this);
@@ -28,10 +29,10 @@ public class App {
                 user.setY(user.getY() + 5);
                 break;
             case 37:  /* Left arrow was pressed */
-                user.setX(user.getX()-5);
+                user.setX(user.getX() - 5);
                 break;
             case 39:  /* Right arrow was pressed */
-                user.setX(user.getX()+5);
+                user.setX(user.getX() + 5);
                 break;
         }
         sendDataToUsers();
@@ -46,11 +47,12 @@ public class App {
     @OnError
     public void onError(Session session, Throwable t) {
         System.out.println("OnError");
-        t.printStackTrace();
+        //t.printStackTrace();
     }
 
     private void sendDataToUsers() {
         synchronized (connectedUsers) {
+            //generate string
             String toSend = "";
             Iterator<Player> iterator = connectedUsers.values().iterator();
             while (iterator.hasNext()) {
@@ -58,6 +60,7 @@ public class App {
                 toSend+= p.toString() + "#";
             }
 
+            //send string to all users
             Iterator<Session> it = connectedUsers.keySet().iterator();
             while (it.hasNext()) {
                 Session s = it.next();

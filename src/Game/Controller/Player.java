@@ -1,3 +1,5 @@
+package Game.Controller;
+
 /**
  * Created by Nika on 00:17, 5/25/2015.
  */
