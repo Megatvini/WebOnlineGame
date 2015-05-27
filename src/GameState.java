@@ -1,3 +1,7 @@
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+
 import javax.websocket.Session;
 import java.awt.*;
 import java.io.IOException;
@@ -9,22 +13,20 @@ import java.util.concurrent.Semaphore;
 
 
 public  class  GameState {
-    private Map<Integer,Player> players ;
+    @Expose  private Player[] players ;
+
     private Map<Integer,Session> sessionMap ;
     public Semaphore semaphore  ;
-    private Map<Integer,Potion> potions ;
-    private final int MAX_POTIONS = 100 ;
-    private  final int NULL_POTIONxy = -1000;
-    private  final int NULL_POTIONid = -1;
+    @Expose private Potion [] potions ;
 
 
     /**
      * constructor
      */
     public GameState() {
-        this.players = new HashMap<>();
+        this.players = new Player[4];
         this.semaphore = new Semaphore(1);
-        potions = new HashMap<>();
+        potions = new Potion[100];
         sessionMap  = new HashMap<>();
     }
 
@@ -32,14 +34,19 @@ public  class  GameState {
 
     public void deletePotionIfExists(double x , double y ){
         Potion temp  = new Potion(x,y,-1);
-        potions.values().stream().filter(potion -> potion.equals(temp)).forEach(potion ->
-                potions.put(potion.getId(), new Potion(NULL_POTIONxy,NULL_POTIONxy,potion.getId())));
+        for (int i = 0 ; i < potions.length ;i ++){
+            if (temp.equals(potions[i])){
+                potions[i]= new Potion(-1000,-1000,-1);
+            }
+
+        }
 
 
     }
 
     public void setPotion(double x , double y ,int i){
-        potions.put(i,new Potion(x,y,i));
+
+        potions[i] = new Potion(x,y,i);
     }
 
     public synchronized List<Session>  getSessions() {
@@ -55,8 +62,8 @@ public  class  GameState {
         sessionMap.put(id,session);
     }
     public synchronized Player getPlayerById(int playerId){
-        if (playerId<players.size())
-            return players.get(playerId);
+        if (playerId<players.length)
+            return players[playerId];
         else return null;
     }
 
@@ -66,45 +73,33 @@ public  class  GameState {
 
     public synchronized void setPlayerById(int playerId,double x, double y){
 
-        if (playerId>=players.size()){
+        if (playerId>=players.length){
             addPlayer(playerId, x, y);
         }
-        if (players.get(playerId)!=null) {
-            players.get(playerId).setX(x);
-            players.get(playerId).setY(y);
+        if (players[playerId]!=null) {
+            players[playerId].setX(x);
+            players[playerId].setY(y);
         }
 
     }
 
     private synchronized void addPlayer(int playerId, double x, double y) {
-        players.put(playerId,new Player(playerId,x,y));
+        players[playerId] = new Player(playerId,x,y) ;
     }
 
     public int getPlayerNum(){
-        return players.size();
+        return players.length;
     }
 
     public int getMAX_POTIONS() {
-        return MAX_POTIONS;
+        return 100;
     }
+
 
     @Override
     public String toString() {
-        String toSend = "";
-        for (int i = 0 ; i  <players.size(); i ++ ){
-            Player p = players.get(i);
-            toSend+=p.getId()+":"+p.getX()+":"+p.getY()+",";
-        }
-        toSend+="#";
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
-        for (int i = 0 ; i < potions.size();i++){
-            Potion p = potions.get(i);
-            if (p.getX()!=NULL_POTIONxy) {
-                toSend += p.getId() + ":" + p.getX() + ":" + p.getY() + ",";
-            }else{
-                toSend+=p.getId()+":null,";
-            }
-        }
-        return toSend;
+        return gson.toJson(this);
     }
 }

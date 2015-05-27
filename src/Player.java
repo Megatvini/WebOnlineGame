@@ -1,10 +1,14 @@
-import javax.websocket.Session;
+import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 
 
 public class Player {
-    double x ;
-    double y ;
-    int id ;
+    @Expose
+    private double x;
+    @Expose
+    private double y;
+    @Expose
+    private int id ;
 
 
 
@@ -43,10 +47,7 @@ public class Player {
 
     @Override
     public String toString() {
-        return "Player{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
+        return new Gson().toJson(this);
     }
 
     @Override

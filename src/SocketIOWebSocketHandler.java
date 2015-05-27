@@ -22,6 +22,22 @@ public class SocketIOWebSocketHandler  {
        gameState = GameStateStatic.getState();
         System.out.println("opened session >>--" + session.getId());
         int size =gameState.getPlayerNum();
+        try {
+            gameState.semaphore.acquire();
+            int s  = Integer.parseInt(session.getId());
+
+            session.getBasicRemote().sendText("init#"+s);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        finally {
+            gameState.semaphore.release();
+        }
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         int id = 0  ;
         switch (size){
             case 0: gameState.setPlayerById(size,10,10);
@@ -49,21 +65,10 @@ public class SocketIOWebSocketHandler  {
 
     @OnMessage
     public void message(Session session, String msg) throws IOException {
-            if (msg.equals("need")){
-                try {
-                    gameState.semaphore.acquire();
-                    session.getBasicRemote().sendText("init,"+session.getId());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                finally {
-                    gameState.semaphore.release();
-                }
 
-            }else{
                 int userId = Integer.parseInt(session.getId());
                 updateStateOnServer(userId, msg);
-            }
+
 
 
     }

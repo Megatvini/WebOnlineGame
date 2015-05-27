@@ -1,8 +1,13 @@
+import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 
 public class Potion {
-    double x;
-    double y;
-    int id ;
+    @Expose
+    private double x;
+    @Expose
+    private double y;
+    @Expose
+    private int id ;
 
     @Override
     public boolean equals(Object o) {
@@ -54,9 +59,6 @@ public class Potion {
 
     @Override
     public String toString() {
-        return "Potion{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
+        return new Gson().toJson(this);
     }
 }
