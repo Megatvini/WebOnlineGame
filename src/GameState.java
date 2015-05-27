@@ -13,20 +13,20 @@ import java.util.concurrent.Semaphore;
 
 
 public  class  GameState {
-    @Expose  private Player[] players ;
+    @Expose  private HashMap<Integer,Player>players ;
 
     private Map<Integer,Session> sessionMap ;
     public Semaphore semaphore  ;
-    @Expose private Potion [] potions ;
+    @Expose private HashMap<Integer,Potion> potions ;
 
 
     /**
      * constructor
      */
     public GameState() {
-        this.players = new Player[4];
+        this.players = new HashMap<>();
         this.semaphore = new Semaphore(1);
-        potions = new Potion[100];
+        potions = new HashMap<>();
         sessionMap  = new HashMap<>();
     }
 
@@ -34,19 +34,19 @@ public  class  GameState {
 
     public void deletePotionIfExists(double x , double y ){
         Potion temp  = new Potion(x,y,-1);
-        for (int i = 0 ; i < potions.length ;i ++){
-            if (temp.equals(potions[i])){
-                potions[i]= new Potion(-1000,-1000,-1);
+        HashMap<Integer,Potion> z = new HashMap<>(potions);
+        for (Potion p : z.values()){
+            if (p.equals(temp)) {
+               // System.out.println(this.toString());
+                potions.put(p.getId(), new Potion(-10000, -10000, p.getId()));
             }
-
         }
 
 
     }
 
     public void setPotion(double x , double y ,int i){
-
-        potions[i] = new Potion(x,y,i);
+        potions.put(i,new Potion(x,y,i));
     }
 
     public synchronized List<Session>  getSessions() {
@@ -62,8 +62,8 @@ public  class  GameState {
         sessionMap.put(id,session);
     }
     public synchronized Player getPlayerById(int playerId){
-        if (playerId<players.length)
-            return players[playerId];
+        if (playerId<players.size())
+            return players.get(playerId);
         else return null;
     }
 
@@ -73,22 +73,22 @@ public  class  GameState {
 
     public synchronized void setPlayerById(int playerId,double x, double y){
 
-        if (playerId>=players.length){
+        if (playerId>=players.size()){
             addPlayer(playerId, x, y);
         }
-        if (players[playerId]!=null) {
-            players[playerId].setX(x);
-            players[playerId].setY(y);
+        if (players.get(playerId)!=null) {
+            players.get(playerId).setX(x);
+            players.get(playerId).setY(y);
         }
 
     }
 
     private synchronized void addPlayer(int playerId, double x, double y) {
-        players[playerId] = new Player(playerId,x,y) ;
+        players.put(playerId,new Player(playerId,x,y));
     }
 
     public int getPlayerNum(){
-        return players.length;
+        return players.size();
     }
 
     public int getMAX_POTIONS() {

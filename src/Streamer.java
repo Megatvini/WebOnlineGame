@@ -10,8 +10,9 @@ public class Streamer {
     public Streamer(GameState gameState){
         if (!started){
             new StreamerThread (gameState).start();
-            new PotionThread(gameState).start();
+           new PotionThread(gameState).start();
             started=true;
+            System.out.println("stream started");
         }
     }
 
@@ -20,19 +21,32 @@ public class Streamer {
         public StreamerThread(GameState gameState){
             this.gameState=gameState;
         }
-
         @Override
         public void run(){
-            String toSend = gameState.toString();
-            for (Session session : gameState.getSessions()){
+            while (true) {
                 try {
-                    gameState.semaphore.acquire();
-                    if (toSend.length()>=2)
+                    sleep(15);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                oneUpdate();
+            }
+        }
+
+        private void oneUpdate() {
+
+            String toSend = this.gameState.toString();
+            //System.out.println(toSend);
+            for (Session session : this.gameState.getSessions()){
+                try {
+                    this.gameState.semaphore.acquire();
+                   // System.out.println(toSend);
                     session.getBasicRemote().sendText(toSend);
+
                 } catch (IOException | InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    gameState.semaphore.release();
+                    this.gameState.semaphore.release();
                 }
             }
         }
@@ -48,7 +62,13 @@ public class Streamer {
 
         @Override
         public void run(){
+
             for (int i = 0; i < gameState.getMAX_POTIONS(); i++) {
+                try {
+                    sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 String x = String.format("%.2f", Helpers.randDouble(0,400));
                 String y = String.format("%.2f", Helpers.randDouble(0,400));
                 double d = Double.parseDouble(x);
