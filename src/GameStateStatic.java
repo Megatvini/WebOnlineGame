@@ -7,7 +7,7 @@ public class GameStateStatic {
 
     private static  GameState gameState  = null;
     private GameStateStatic(){
-       gameState = new GameState(new ArrayList<>());
+       gameState = new GameState();
     }
     public static GameState getState(){
         if (gameState==null) {

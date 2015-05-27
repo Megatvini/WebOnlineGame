@@ -9,7 +9,8 @@ var Client = IgeClass.extend({
 		self.obj = [];
 		self.playerNum = 0 ;
 		var items = [],
-			itemNum = 0 ;
+			itemNum = 0,
+			myIid;
 
 		self.gameTexture = {};
 
@@ -79,6 +80,7 @@ var Client = IgeClass.extend({
 					};
 					connection.onclose = function(){
 						console.log('Connection closed');
+
 					};
 					connection.onerror = function(error){
 						console.log('Error detected: ' + error);
@@ -86,79 +88,46 @@ var Client = IgeClass.extend({
 					connection.onmessage = function(e){
 						var server_message = e.data;
 						//console.log(server_message);
-						var res = server_message.split(",");
+						var res = server_message.split("#");
+						if(res[0]=="init"){
+							myIid=Number(res[1]);
+							setInterval(sendUpdate(),30);
+						}
+						//0:100.0:33.0,1:12.0:33.0,#0:null,1:12.0:12.0,
+						var players = res[0];
+						for(var i  = 0 ; i < players.length;i++){
+							var onePlayer = players[i].split(":");
+							var id = Number(onePlayer[0]),
+								x = Number(onePlayer[1]),
+								y = Number(onePlayer[2]);
 
-						if(res[0]=="initialization"){        ///      vnaxot vin tamashobs
-							//initialization,id:10:10,id:300:300
-							//chavtvirtot motamasheebi
-							for(var i = 1 ; i < res.length;i++){
-								var object = res[i].split(":");
-								self.obj[i-1]=new Character()
-									.id(""+(i-1))
-									.setType(i-1)
-									.translateTo(Number(object[0]),Number(object[1]),0)
+							if(typeof (self.obj[id])=='undefined'){
+								self.obj[id]=new Character()
+									.id(""+(id))
+									.setType(id)
+									.translateTo(x,y,0)
 									.mount(self.scene1);
-								self.playerNum++;
-							}
-							self.player1=self.obj[self.playerNum-1]
-								.addComponent(PlayerComponent)
-								.drawBounds(false)
-								.mount(self.scene1);
-							// Translate the camera to the initial player position
-							self.vp1.camera.lookAt(self.player1);
-
-							// Tell the camera to track our player character with some
-							// tracking smoothing (set to 20)
-							self.vp1.camera.trackTranslate(self.player1, 20);
-							setInterval(sendUpdate,66);
-						}
-						if(res[0]=="update"){
-							//console.log("U >>--" +server_message);
-							for(var j = 1 ; j < res.length;j++){
-								var objects = res[j].split(":");
-								var id = Number(objects[0]);
-								var newX = Number(objects[1]);
-								var newY = Number(objects[2]);
-								self.obj[id].translateTo(newX,newY,0);
+								if(id==myIid){
+									self.obj[myIid]
+										.addComponent(PlayerComponent)
+										.drawBounds(false);
+								}
+							}else{
+								if(id!=myIid) {
+									self.obj[id].translateTo(x, y, 0);
+								}
 							}
 						}
-						if(res[0]=="freshman") {
-							console.log("F >>--" +server_message);
-							var ob1 = res[1].split(":");
-							self.obj[self.playerNum] = new Character()
-								.id("" + self.playerNum)
-								.setType(self.playerNum)
-								.translateTo(Number(ob1[0]), Number(ob1[1]),0)
-								.mount(self.scene1);
-							self.playerNum++;
-						}
-						if(res[0]=="itemCreated"){
-							console.log("before created "+items);
-							console.log(server_message);
-							var cos = res[1].split(":");
-							items[cos[0]]= new IgeEntity()
-								.id("item"+itemNum)
-								.texture(self.gameTexture.simpleBox)
-								.depth(1)
-								.translateTo(Number(cos[1]),Number(cos[2]),0)
-								.mount(self.scene1);
-							console.log("after created "+items);
-							itemNum++;
-							// Create an entity that will follow the mouse
+						/*var potions = res[1];
+						for( i  = 0 ; i < potions.length;i++){
 
-						}
-						if(res[0]=="itemRemoved"){
-							console.log("before removed "+items);
-							console.log(server_message);
-							cos = res[1];
-							var itemId = Number(cos[0]);
-							items[itemId].destroy();
-							console.log("after removed "+items);
-						}
+						}*/
+
+
 
 					};
 					function sendUpdate(){
-						var t = self.player1.worldPosition();
+						var t = self.obj[myIid].worldPosition();
 						connection.send(t);
 					}
 

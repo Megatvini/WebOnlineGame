@@ -6,21 +6,14 @@ public class Player {
     double y ;
     int id ;
 
-    public Session getSession() {
-        return session;
-    }
 
-    public void setSession(Session session) {
-        this.session = session;
-    }
 
-    Session session ;
 
-    public Player(int id, double x, double y, Session session) {
+
+    public Player(int id, double x, double y) {
         this.id = id;
         this.y = y;
         this.x = x;
-        this.session = session;
     }
 
     public int getId() {
@@ -48,17 +41,12 @@ public class Player {
     }
 
 
-    public  String toString(){
-        return x+","+y;
-    }
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Player player = (Player) o;
-        return id == player.id;
-
+    public String toString() {
+        return "Player{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 
     @Override
