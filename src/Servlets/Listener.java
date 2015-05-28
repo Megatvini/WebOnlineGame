@@ -27,7 +27,23 @@ public class Listener implements ServletContextListener,
          initialized(when the Web application is deployed). 
          You can initialize servlet context related data here.
       */
-        sce.getServletContext().setAttribute("roommates", Collections.synchronizedMap(new HashMap<>()));
+        Map<String, List<String>> roomMates = Collections.synchronizedMap(new HashMap<>());
+        List<String> room1 = new ArrayList<>();
+        room1.add("room1player1");
+        room1.add("room1player2");
+        room1.add("room1player3");
+
+        List<String> room2 = new ArrayList<>();
+        room2.add("room2player1");
+        room2.add("room2player2");
+        room2.add("room2player3");
+        room2.add("room2player4");
+
+        room1.forEach(x->roomMates.put(x, room1));
+        room2.forEach(x->roomMates.put(x, room2));
+
+
+        sce.getServletContext().setAttribute("roomMates", roomMates);
     }
 
     public void contextDestroyed(ServletContextEvent sce) {
