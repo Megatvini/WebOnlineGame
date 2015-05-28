@@ -1,16 +1,14 @@
 package Interfaces.View;
 
+import java.util.HashSet;
+
 /**
  * Created by gukam on 5/28/2015.
  */
-public interface iProfile {
+public interface iProfile extends iShorProfile{
     public enum Gender {
         MALE, FEMALE
     }
-
-    public String getNickname();
-
-    public String getPicturePath();
 
     public String getFirstname();
 
@@ -20,5 +18,5 @@ public interface iProfile {
 
     public Gender getGender();
 
-    public int getRank();
+    public HashSet<iShorProfile> getFriends();
 }
