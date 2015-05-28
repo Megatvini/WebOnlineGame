@@ -45,15 +45,14 @@
 <body class="skin-blue sidebar-mini">
 <div class="wrapper">
 
-<jsp:include page="Controller.Header.jsp" flush="true">
-  <jsp:include page="Controller.Sidebar.jsp" flush="true">
-
+  <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
+  <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
     <h1>HELLO WORLD!</h1>
   </div><!-- /.content-wrapper -->
-  <jsp:include page="Controller.Footer.jsp" flush="true">
+  <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
 
 <!-- jQuery 2.1.4 -->
