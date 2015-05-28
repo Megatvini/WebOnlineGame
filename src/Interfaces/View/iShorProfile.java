@@ -9,4 +9,6 @@ public interface iShorProfile {
     public String getPicturePath();
 
     public int getRank();
+
+    public int getID();
 }
