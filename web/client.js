@@ -29,7 +29,7 @@ var Client = IgeClass.extend({
 			ige.start(function (success) {
 				// Check if the engine started successfully
 				function initSocket() {
-					var connection = new WebSocket('ws://192.168.78.111:8080/app');
+					var connection = new WebSocket('ws://localhost:8080/app');
 					connection.onopen = function () {
 						console.log("connection opened");
 
