@@ -1,4 +1,4 @@
-package Interfaces;
+package Interfaces.View;
 
 /**
  * Created by gukam on 5/28/2015.
