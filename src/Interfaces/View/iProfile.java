@@ -4,6 +4,10 @@ package Interfaces.View;
  * Created by gukam on 5/28/2015.
  */
 public interface iProfile {
+    public enum Gender {
+        MALE, FEMALE
+    }
+
     public String getNickname();
 
     public String getPicturePath();
@@ -14,5 +18,7 @@ public interface iProfile {
 
     public String getMail();
 
-    public String getSex();
+    public Gender getGender();
+
+    public int getRank();
 }
