@@ -1,10 +1,12 @@
 package Interfaces.Model;
 
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * Created by gukam on 5/28/2015.
  */
 public interface DBManager {
-    public void Excecute(Statement stmt);
+    public void excecute(Statement stmt);
+
+    public Connection  getConnection();
 }
