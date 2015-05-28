@@ -219,7 +219,7 @@
       </ul>
     </div>
     <!-- search form -->
-    <form action="#" method="get" class="sidebar-form" style="height: 30px;">
+    <form action="#" method="get" class="sidebar-form" style="height: 30px; max-width: 550px;">
       <div class="input-group">
         <input style="height: 28px;" type="text" name="q" class="form-control" placeholder="Search..."/>
               <span class="input-group-btn">
