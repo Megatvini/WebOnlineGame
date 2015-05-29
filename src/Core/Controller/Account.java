@@ -1,5 +1,6 @@
 package Core.Controller;
 
+import Core.Model.UserControl;
 import Interfaces.Controller.iAccount;
 import Interfaces.View.iProfile;
 import Interfaces.View.iShorProfile;
@@ -10,97 +11,114 @@ import java.util.HashSet;
  * Created by gukam on 5/29/2015.
  */
 public class Account implements iAccount {
-    public Account(int id){
+    public Account(String nickname){
 
     }
 
+    public Account(){
+
+    }
+
+
+    private String _nickname;
+    @Override
+    public String getNickname() {
+
+        return _nickname;
+    }
     @Override
     public void setNickname(String nickname) {
-
+        _nickname=nickname;
     }
 
+
+    private String _picPath;
+    @Override
+    public String getPicturePath() {
+        return _picPath;
+    }
     @Override
     public void setPicturePath(String PicPath) {
-
+        _picPath=PicPath;
     }
 
+
+    private String _fisrtname;
+    @Override
+    public String getFirstname() {
+        return _fisrtname;
+    }
     @Override
     public void setFirstname(String fisrtname) {
-
+        _fisrtname=fisrtname;
     }
 
+
+    private String _lastname;
+    @Override
+    public String getLastname() {
+
+        return _lastname;
+    }
     @Override
     public void setLastname(String lastname) {
-
+        _lastname=lastname;
     }
 
+    private String _mail;
+    @Override
+    public String getMail() {
+
+        return _mail;
+    }
     @Override
     public void setMail(String mail) {
-
+        _mail=mail;
     }
 
+    private Gender _gender;
+    @Override
+    public Gender getGender() {
+
+        return _gender;
+    }
     @Override
     public void setGender(Gender gender) {
-
+        _gender=gender;
     }
 
+    private int _rank;
+    @Override
+    public int getRank() {
+
+        return _rank;
+    }
     @Override
     public void setRank(int rank) {
-
+        _rank=rank;
     }
 
     @Override
     public void save() {
-
-    }
-
-    @Override
-    public String getFirstname() {
-        return "guka";
-    }
-
-    @Override
-    public String getLastname() {
-        return "mazanashvili";
-    }
-
-    @Override
-    public String getMail() {
-        return "guka.mazanashvili@live.com";
-    }
-
-    @Override
-    public Gender getGender() {
-        return Gender.MALE;
+        UserControl.RegisterUser(this);
     }
 
     @Override
     public HashSet<iShorProfile> getFriends() {
+
         return null;
     }
 
     @Override
-    public boolean isOnline() {
+    public boolean isOnline()
+    {
         return true;
     }
 
-    @Override
-    public String getNickname() {
-        return "gukamaz";
-    }
-
-    @Override
-    public String getPicturePath() {
-        return "https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-xtp1/v/t1.0-9/10153796_871894479503609_8567839018459852948_n.jpg?oh=75e5b52126a6b46b3f424e1500d028b8&oe=55F08F06&__gda__=1438776880_f74066263b198b61d991c930e3b7f89b";
-    }
-
-    @Override
-    public int getRank() {
-        return 10;
-    }
 
     @Override
     public int getID() {
+
         return 1;
     }
 }
