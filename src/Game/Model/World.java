@@ -89,4 +89,6 @@ public interface World {
      * @return list of all player names currently in world
      */
     List<String> getPlayers();
+
+    boolean gameIsOver();
 }

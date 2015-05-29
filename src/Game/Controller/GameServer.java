@@ -15,16 +15,23 @@ public class GameServer {
     private Map<String, List<String>> roomMates;
     private Map<String, World> rooms;
     private Map<String, Session> connections;
+    private ScheduledThreadPoolExecutor executor;
 
     public GameServer() {
         rooms = Collections.synchronizedMap(new HashMap<>());
         connections = Collections.synchronizedMap(new HashMap<>());
+        executor = new ScheduledThreadPoolExecutor(10);
     }
-
 
     @OnOpen
     public void open(Session session, EndpointConfig config) {
         System.out.println("someone connected");
+        try {
+            session.getBasicRemote().sendText("hello");
+        } catch (IOException e) {
+            System.out.println("could not send hello onOpen");
+            e.printStackTrace();
+        }
         if (roomMates == null) RoomMateMap(config);
     }
 
@@ -37,19 +44,64 @@ public class GameServer {
     public void onMessage(String msg, Session session) {
         System.out.println("message received: " + msg);
         String playerName = msg.split(":")[0];
+        String cmd = msg.split(":")[1];
+
+        doCommand(playerName, cmd, session);
         //save connection to this player
+    }
+
+    private void doCommand(String playerName, String cmd, Session session) {
+        System.out.println("CMD is : " + cmd);
+        switch (cmd) {
+            case "init":
+                initialConnection(playerName, session);
+                break;
+            case "update":
+                rooms.get(playerName).setPlayerCoordinates(playerName, 1, 2);
+                System.out.println("player sent update");
+                break;
+        }
+    }
+
+    private void initialConnection(String playerName, Session session) {
         connections.put(playerName, session);
 
         if (rooms.get(playerName) == null) {
             World world = new WorldMock();
             world.addPlayer(playerName);
-            roomMates.get(playerName).forEach(x-> {
-                rooms.put(x, world);
-            });
-            //add scheduled executor
+            roomMates.get(playerName).forEach(x-> rooms.put(x, world));
         } else {
-            rooms.get(playerName).addPlayer(playerName);
+            World world = rooms.get(playerName);
+            world.addPlayer(playerName);
+            if (world.getPlayers().size() == roomMates.get(playerName).size()) {
+                //add scheduled executor
+                System.out.println("Room is Full");
+                addSchedule(world);
+            }
         }
+    }
+
+    private void addSchedule(World world) {
+        executor.scheduleAtFixedRate(() -> {
+            if (world.gameIsOver()) {
+                System.out.println("GAMEISOVER");
+                world.getPlayers().forEach(x->{
+                    roomMates.remove(x);
+                    rooms.remove(x);
+                });
+                throw new RuntimeException("Game is Over");
+            }
+
+            world.getPlayers().forEach(x -> {
+                try {
+                    connections.get(x).getBasicRemote().sendText(world.getState());
+                } catch (IOException e) {
+                    System.out.println("could not send gameState to " + x);
+                    //e.printStackTrace();
+                }
+            });
+        }, 100, 500, TimeUnit.MILLISECONDS);
+
     }
 
 
@@ -64,10 +116,4 @@ public class GameServer {
         //t.printStackTrace();
     }
 
-    private class Worker extends Thread {
-        public Worker(World world) {
-
-        }
-
-    }
 }

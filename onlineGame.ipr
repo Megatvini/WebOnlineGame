@@ -182,15 +182,20 @@
   <component name="libraryTable">
     <library name="WebSocket" type="WebSocket">
       <CLASSES>
-        <root url="jar://$USER_HOME$/tomcat/apache-tomcat-8.0.21/lib/websocket-api.jar!/" />
-        <root url="file://$USER_HOME$/tomcat/apache-tomcat-8.0.21/lib" />
+        <root url="jar://$PROJECT_DIR$/lib/gson-1.1.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/javax.json.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/javax.websocket-api.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/tyrus-client.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/tyrus-container-glassfish-cdi.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/tyrus-container-grizzly.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/tyrus-container-servlet.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/tyrus-core.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/tyrus-server.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/tyrus-spi.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/tyrus-websocket-core.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES>
-        <root url="file://$USER_HOME$/tomcat/apache-tomcat-8.0.21/lib" />
-      </SOURCES>
-      <jarDirectory url="file://$USER_HOME$/tomcat/apache-tomcat-8.0.21/lib" recursive="false" />
-      <jarDirectory url="file://$USER_HOME$/tomcat/apache-tomcat-8.0.21/lib" recursive="false" type="SOURCES" />
+      <SOURCES />
     </library>
   </component>
 </project>

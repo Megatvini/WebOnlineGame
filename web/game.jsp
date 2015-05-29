@@ -20,10 +20,12 @@
       var ctx = canvas.getContext("2d");
       var WIDTH = 300;
       var HEIGHT = 200;
+      var playerID = getCookie("playerID")
       var socket = new WebSocket("ws://localhost:8080/game");
 
       socket.onopen = function() {
         console.log("connection is open!");
+        socket.send(playerID + ":" + "init");
         window.addEventListener('keydown',doKeyDown,true);
       };
 
@@ -62,11 +64,9 @@
           return;
         }
         var keyCode = evt.keyCode;
-        var str = getCookie("playerID");
-
         if (keyCode >=37 && keyCode <=40) {
           try {
-            var toSend = str + ":" + keyCode.toString();
+            var toSend = playerID + ":" + "update";
             console.log("trying to send: " + toSend);
             socket.send(toSend);
           } catch (e) {
