@@ -1,5 +1,7 @@
 package Core.Servlets;
 
+import Core.Controller.Account;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +15,10 @@ import java.io.IOException;
 @WebServlet("/Registration")
 public class Register extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        Account account = new Account();
+        account.setNickname(request.getParameter("nickname"));
+        account.save();
+        response.sendRedirect("../index.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
