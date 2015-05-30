@@ -18,7 +18,7 @@ public class Register extends HttpServlet {
         Account account = new Account();
         account.setNickname(request.getParameter("nickname"));
         account.save();
-        response.sendRedirect("../index.jsp");
+        response.sendRedirect("index.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
