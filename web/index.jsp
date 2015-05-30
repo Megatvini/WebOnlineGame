@@ -1,3 +1,6 @@
+<%@ page import="Core.ViewManager" %>
+<%@ page import="Interfaces.View.iProfile" %>
+<%@ page import="Core.Controller.Account" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -51,13 +54,53 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
     <%
-      String nickname = "a";
-      if(session != null) {
-         nickname = (String) session.getAttribute("nickname");
-      }
+      String nickname = "";
+      if(session == null) {
 
+      }
+      nickname = (String)session.getAttribute("nickname");
+     iProfile profile = ViewManager.getProfile(nickname);
+      profile = new Account(nickname);
     %>
-    <h1>HELLO <%= nickname %>!</h1>
+
+
+    <div class="box box-primary" style="width: 90%; margin: 20px; min-width: 350px">
+      <form action="/ChangeAccount" method="post">
+      <div class="box-header">
+        <h3 class="box-title">პროფილი</h3>
+      </div>
+      <div class="box-body">
+        <div class="form-group">
+          <label>სახელი</label>
+          <input class="form-control" type="text" name="firstname" value="<%= profile.getFirstname() %>" placeholder="Default input">
+        </div>
+        <div class="form-group">
+          <label>გვარი</label>
+          <input class="form-control" type="text" name="lastname"  value="<%= profile.getLastname() %>" placeholder="Default input">
+        </div>
+
+        <div class="form-group">
+          <label>მეილი</label>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+            <input type="email" class="form-control" name="mail"  value="<%= profile.getMail() %>" placeholder="Email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Date masks:</label>
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="fa fa-calendar"></i>
+            </div>
+            <input type="date" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
+          </div><!-- /.input group -->
+        </div><!-- /.form group -->
+
+      </div><!-- /.box-body -->
+        <div align="center"  style=" padding-bottom: 20px;">   <button class="btn btn-block btn-primary" style="width: 250px;">შენახვა</button></div>
+      </form>
+    </div>
 
   </div><!-- /.content-wrapper -->
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>

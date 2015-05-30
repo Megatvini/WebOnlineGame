@@ -10,7 +10,7 @@ import java.util.HashSet;
  * Created by gukam on 5/29/2015.
  */
 public class Profile implements iAccount {
-    public Profile(int id){
+    public Profile(String nickname){
 
     }
 

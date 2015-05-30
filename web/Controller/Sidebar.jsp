@@ -13,7 +13,10 @@
     <title></title>
 </head>
 <body>
-<% iShorProfile prof = ViewManager.getProfile(1);//TODO:%>
+<%
+  String nick = (String)session.getAttribute("nickname");
+  iShorProfile prof = ViewManager.getProfile(nick);//TODO:
+%>
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
   <!-- sidebar: style can be found in sidebar.less -->

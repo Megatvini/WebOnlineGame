@@ -12,7 +12,15 @@ import java.util.HashSet;
  */
 public class Account implements iAccount {
     public Account(String nickname){
+       iProfile prof = UserControl.getUser(nickname);
 
+        _nickname = prof.getNickname();
+        _fisrtname = prof.getFirstname();
+        _lastname = prof.getLastname();
+        _gender = prof.getGender();
+        _mail = prof.getMail();
+        _picPath = prof.getPicturePath();
+        _rank = prof.getRank();
     }
 
     public Account(){
@@ -20,7 +28,7 @@ public class Account implements iAccount {
     }
 
 
-    private String _nickname;
+    private String _nickname = "";
     @Override
     public String getNickname() {
 
@@ -32,7 +40,7 @@ public class Account implements iAccount {
     }
 
 
-    private String _picPath;
+    private String _picPath= "";
     @Override
     public String getPicturePath() {
         return _picPath;
@@ -43,7 +51,7 @@ public class Account implements iAccount {
     }
 
 
-    private String _fisrtname;
+    private String _fisrtname= "";
     @Override
     public String getFirstname() {
         return _fisrtname;
@@ -54,18 +62,18 @@ public class Account implements iAccount {
     }
 
 
-    private String _lastname;
+    private String _lastname= "";
     @Override
     public String getLastname() {
 
-        return _lastname;
+        return _lastname= _lastname;
     }
     @Override
     public void setLastname(String lastname) {
         _lastname=lastname;
     }
 
-    private String _mail;
+    private String _mail= "";
     @Override
     public String getMail() {
 
@@ -76,7 +84,7 @@ public class Account implements iAccount {
         _mail=mail;
     }
 
-    private Gender _gender;
+    private Gender _gender = Gender.MALE;
     @Override
     public Gender getGender() {
 
@@ -87,7 +95,7 @@ public class Account implements iAccount {
         _gender=gender;
     }
 
-    private int _rank;
+    private int _rank= 0;
     @Override
     public int getRank() {
 
