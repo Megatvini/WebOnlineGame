@@ -24,6 +24,7 @@ public class Register extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("nickname", account.getNickname());
 
+
         response.sendRedirect("index.jsp");
     }
 
