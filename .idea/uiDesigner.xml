@@ -1,42 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ArtifactManager">
-    <artifact type="exploded-war" name="onlineGame:war exploded">
-      <output-path>$PROJECT_DIR$/out/artifacts/onlineGame_war_exploded</output-path>
-      <root id="root">
-        <element id="javaee-facet-resources" facet="onlineGame/web/Web" />
-        <element id="directory" name="WEB-INF">
-          <element id="directory" name="classes">
-            <element id="module-output" name="onlineGame" />
-          </element>
-        </element>
-      </root>
-    </artifact>
-  </component>
-  <component name="CompilerConfiguration">
-    <resourceExtensions />
-    <wildcardResourcePatterns>
-      <entry name="!?*.java" />
-      <entry name="!?*.form" />
-      <entry name="!?*.class" />
-      <entry name="!?*.groovy" />
-      <entry name="!?*.scala" />
-      <entry name="!?*.flex" />
-      <entry name="!?*.kt" />
-      <entry name="!?*.clj" />
-      <entry name="!?*.aj" />
-    </wildcardResourcePatterns>
-    <annotationProcessing>
-      <profile default="true" name="Default" enabled="false">
-        <processorPath useClasspath="true" />
-      </profile>
-    </annotationProcessing>
-  </component>
-  <component name="CopyrightManager" default="" />
-  <component name="EntryPointsManager">
-    <entry_points version="2.0" />
-  </component>
-  <component name="IdProvider" IDEtalkID="15BA6517AC4D15E0E4BF0A2199D952DE" />
   <component name="Palette2">
     <group name="Swing">
       <item class="com.intellij.uiDesigner.HSpacer" tooltip-text="Horizontal Spacer" icon="/com/intellij/uiDesigner/icons/hspacer.png" removable="false" auto-create-binding="false" can-attach-label="false">
@@ -157,45 +120,5 @@
         <default-constraints vsize-policy="6" hsize-policy="0" anchor="0" fill="2" />
       </item>
     </group>
-  </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
-    <OptionsSetting value="true" id="Add" />
-    <OptionsSetting value="true" id="Remove" />
-    <OptionsSetting value="true" id="Checkout" />
-    <OptionsSetting value="true" id="Update" />
-    <OptionsSetting value="true" id="Status" />
-    <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
-    <ConfirmationsSetting value="0" id="Remove" />
-  </component>
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/onlineGame.iml" filepath="$PROJECT_DIR$/onlineGame.iml" />
-    </modules>
-  </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
-  </component>
-  <component name="VcsDirectoryMappings">
-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
-  </component>
-  <component name="libraryTable">
-    <library name="WebSocket" type="WebSocket">
-      <CLASSES>
-        <root url="jar://$PROJECT_DIR$/lib/gson-1.1.jar!/" />
-        <root url="jar://$PROJECT_DIR$/lib/javax.json.jar!/" />
-        <root url="jar://$PROJECT_DIR$/lib/javax.websocket-api.jar!/" />
-        <root url="jar://$PROJECT_DIR$/lib/tyrus-client.jar!/" />
-        <root url="jar://$PROJECT_DIR$/lib/tyrus-container-glassfish-cdi.jar!/" />
-        <root url="jar://$PROJECT_DIR$/lib/tyrus-container-grizzly.jar!/" />
-        <root url="jar://$PROJECT_DIR$/lib/tyrus-container-servlet.jar!/" />
-        <root url="jar://$PROJECT_DIR$/lib/tyrus-core.jar!/" />
-        <root url="jar://$PROJECT_DIR$/lib/tyrus-server.jar!/" />
-        <root url="jar://$PROJECT_DIR$/lib/tyrus-spi.jar!/" />
-        <root url="jar://$PROJECT_DIR$/lib/tyrus-websocket-core.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
   </component>
 </project>

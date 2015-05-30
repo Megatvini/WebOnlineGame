@@ -19,7 +19,7 @@ public class MatchMaker extends HttpServlet {
         System.out.println("playerName was " + playerID);
         Cookie cookie = new Cookie("playerID", playerID);
         response.addCookie(cookie);
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fourColor.html");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/game.jsp");
         dispatcher.forward(request, response);
     }
 
