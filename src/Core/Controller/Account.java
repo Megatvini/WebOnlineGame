@@ -21,6 +21,7 @@ public class Account implements iAccount {
         _mail = prof.getMail();
         _picPath = prof.getPicturePath();
         _rank = prof.getRank();
+        _password = prof.getPassword();
     }
 
     public Account(){
@@ -37,6 +38,16 @@ public class Account implements iAccount {
     @Override
     public void setNickname(String nickname) {
         _nickname=nickname;
+    }
+
+    private String _password = "";
+    @Override
+    public void setPassword(String password) {
+        _password = password;
+    }
+    @Override
+    public String getPassword() {
+        return _password;
     }
 
 

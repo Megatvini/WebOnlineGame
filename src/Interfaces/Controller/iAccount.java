@@ -7,6 +7,8 @@ import Interfaces.View.iProfile;
 public interface iAccount extends iProfile {
     public void setNickname(String nickname);
 
+    public void setPassword(String password);
+
     public void setPicturePath(String PicPath);
 
     public void setFirstname(String fisrtname);

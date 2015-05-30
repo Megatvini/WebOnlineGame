@@ -1,6 +1,7 @@
 package Core.Servlets;
 
 import Core.Controller.Account;
+import Core.Controller.Hashing;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,11 +20,11 @@ public class Register extends HttpServlet {
         Account account = new Account();
         account.setNickname(request.getParameter("nickname"));
         account.setMail(request.getParameter("mail"));
+        account.setPassword(Hashing.getHash(request.getParameter("password")));
         account.save();
 
         HttpSession session = request.getSession();
         session.setAttribute("nickname", account.getNickname());
-
 
         response.sendRedirect("index.jsp");
     }

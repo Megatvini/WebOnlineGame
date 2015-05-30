@@ -20,6 +20,16 @@ public class Profile implements iAccount {
     }
 
     @Override
+    public void setPassword(String password) {
+
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
     public void setPicturePath(String PicPath) {
 
     }

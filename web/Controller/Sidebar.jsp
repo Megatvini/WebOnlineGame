@@ -82,7 +82,7 @@
       </a>
     </li>
       <li>
-      <a href="../widgets.jsp">
+      <a href="/Logout">
         <i class="fa fa-th"></i> <span>გამოსვლა</span>
       </a>
     </li>

@@ -59,7 +59,6 @@
     {
       profile = new Account(nickname);
     }
-
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
@@ -105,7 +104,6 @@
             <input type="date" class="form-control" value="<%= profile.getMail() %>" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
           </div><!-- /.input group -->
         </div><!-- /.form group -->
-
       </div><!-- /.box-body -->
         <div align="center"  style=" padding-bottom: 20px;">   <button class="btn btn-block btn-primary" style="width: 250px;">შენახვა</button></div>
       </form>

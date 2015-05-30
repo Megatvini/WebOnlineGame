@@ -18,6 +18,8 @@ public interface iProfile extends iShorProfile{
 
     public Gender getGender();
 
+    public String getPassword();
+
     public HashSet<iShorProfile> getFriends();
 
     public boolean isOnline();
