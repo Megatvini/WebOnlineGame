@@ -1,11 +1,14 @@
 package Game.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Nika on 00:49, 5/29/2015.
  */
-public class WorldMock implements iWorld {
+public class WorldMock implements World {
+    private int counter = 0;
+    private List<String> players = new ArrayList<>();
     /**
      * size is measured in pixels
      *
@@ -33,7 +36,7 @@ public class WorldMock implements iWorld {
      * @return string interpretation of a maze
      */
     @Override
-    public PlaneMaze getMaze() {
+    public String getMaze() {
         return null;
     }
 
@@ -60,8 +63,8 @@ public class WorldMock implements iWorld {
      * it returns coordinates of players and potions
      */
     @Override
-    public Object[] getState() {
-        return null;
+    public String getState() {
+        return "" + counter;
     }
 
     /**
@@ -74,12 +77,8 @@ public class WorldMock implements iWorld {
      */
     @Override
     public boolean addPlayer(String playerName) {
-        return false;
-    }
-
-    @Override
-    public void startGame() {
-
+        players.add(playerName);
+        return true;
     }
 
     /**
@@ -87,7 +86,7 @@ public class WorldMock implements iWorld {
      */
     @Override
     public int numberOfPlayers() {
-        return 0;
+        return players.size();
     }
 
     /**
@@ -100,7 +99,9 @@ public class WorldMock implements iWorld {
      * player can not move, if maze wall is blocking its path
      */
     @Override
-    public boolean playerMove(String PlayerName, double dx, double dy) {
+    public synchronized boolean playerMove(String PlayerName, double dx, double dy) {
+        counter++;
+        System.out.println("Counter is :" + counter);
         return false;
     }
 
@@ -115,7 +116,9 @@ public class WorldMock implements iWorld {
      * false, if maze wall blocked its;
      */
     @Override
-    public boolean setPlayerCoordinates(String playerName, double x, double y) {
+    public synchronized boolean setPlayerCoordinates(String playerName, double x, double y) {
+        counter++;
+        System.out.println("Counter is :" + counter);
         return false;
     }
 
@@ -124,12 +127,11 @@ public class WorldMock implements iWorld {
      */
     @Override
     public List<String> getPlayers() {
-        return null;
+        return players;
     }
 
     @Override
-    public boolean gameOn() {
-        return false;
+    public boolean gameIsOver() {
+        return counter > 10;
     }
-
 }
