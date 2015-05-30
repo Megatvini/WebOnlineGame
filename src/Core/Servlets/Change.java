@@ -26,7 +26,7 @@ public class Change extends HttpServlet {
         account.setLastname(request.getParameter("lastname"));
         account.setMail(request.getParameter("mail"));
         account.setPicturePath(request.getParameter("picture"));
-
+int x;
         account.save();
 
         response.sendRedirect("index.jsp");
