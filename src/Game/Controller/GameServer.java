@@ -1,7 +1,8 @@
 package Game.Controller;
 
-import Game.Model.World;
+import Game.Model.iWorld;
 import Game.Model.WorldMock;
+import Game.Model.iWorld;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;
@@ -13,7 +14,7 @@ import java.util.concurrent.*;
 @ServerEndpoint(value="/game", configurator=ServerConfig.class)
 public class GameServer {
     private Map<String, List<String>> roomMates;
-    private Map<String, World> rooms;
+    private Map<String, iWorld> rooms;
     private Map<String, Session> connections;
 
     public GameServer() {
@@ -41,7 +42,7 @@ public class GameServer {
         connections.put(playerName, session);
 
         if (rooms.get(playerName) == null) {
-            World world = new WorldMock();
+            iWorld world = new WorldMock();
             world.addPlayer(playerName);
             roomMates.get(playerName).forEach(x-> {
                 rooms.put(x, world);
@@ -65,7 +66,7 @@ public class GameServer {
     }
 
     private class Worker extends Thread {
-        public Worker(World world) {
+        public Worker(iWorld world) {
 
         }
 

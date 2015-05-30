@@ -1,92 +1,195 @@
 package Game.Model;
 
+import javafx.util.Pair;
+
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.util.*;
 import java.util.List;
 
 /**
- * Created by Nika on 16:28, 5/26/2015.
+ * Created by SHAKO on 30-May-15.
  */
-public interface World {
-    /**
-     * size is measured in pixels
-     * @return height of world
-     */
-    double getHeight();
+public class World implements iWorld {
 
-    /**
-     * size is measured in pixels
-     * @return width of a world
-     */
-    double getWidth();
+    public static int MAX_PLAYERS = 4;
 
-    /**
-     * when world class is created it should create
-     * random maze in itself
-     * @return string interpretation of a maze
-     *
-     */
-    String getMaze();
+    private double wallWidth;
+    private double corridorWidth;
+    private PlaneMaze pm;
+    private double pWidth;
+    private double pHeight;
+    private ArrayList<String> playerNames;
+    private double dist;
+    private double plusDist;
+    private double plusDistDelay;
+    private ArrayList<Point2D.Double> potions;
+    private double addPotDelay;
+    private boolean gameOn;
 
-    /**
-     * maze is a grid, in which each cell represents constant
-     * number of world pixels;
-     * @return width of the maze inside the world
-     */
-    int getMazeWidth();
+    private double width;
+    private double height;
+    private Map<String, Player> nameOnPlayer;
+    private Map<String, Point2D.Double> nameOnPosit;
 
 
-    /* maze is a grid, in which each cell represents constant
-     * number of world pixels;
-     * @return height of a maze inside the world
-     */
-    int getMazeHeight();
+    public World(double wallWidth, double corridorWidth, PlaneMaze pm, double pWidth, double pHeight, ArrayList<String> players, double dist, double plusDist, double plusDistDelay, ArrayList<Point2D.Double> potions, double addPotDelay, boolean gameOn) {
+            this.wallWidth = wallWidth;
+            this.corridorWidth = corridorWidth;
+            this.pm = pm;
 
-    /**
-     * this does not include maze
-     * @return state of the world
-     * it returns coordinates of players and potions
-     */
-    String getState();
+            this.width = pm.numCols() * corridorWidth + (pm.numCols() - 1) * wallWidth;
+            this.height = pm.numRows() * corridorWidth + (pm.numRows() - 1) * wallWidth;
 
-    /**
-     * adds new player named playerName to the world
-     * @param playerName name of a new player
-     * @return true if player was Successfully added
-     * returns false if there already is a player with playerName
-     * or if there already are maximum number of players
-     */
-    boolean addPlayer(String playerName);
+            this.pWidth = pWidth;
+            this.pHeight = pHeight;
+            playerNames = players;
 
-    /**
-     *
-     * @return how many players are currently in world
-     */
-    int numberOfPlayers();
+            nameOnPlayer = new HashMap<String, Player>();
+            nameOnPosit = new HashMap<String, Point2D.Double>();
+
+            for (int i = 0; i < playerNames.size(); i++) {
+                addPlayer(playerNames.get(i));
+            }
+
+            this.dist = dist;
+            this.plusDist = plusDist;
+            this.plusDistDelay = plusDistDelay;
+            this.potions = potions; // @@ potions da aseve yvela array saxelebi da ase shmdeg tu kide ramea copy clone shit...
+            this.addPotDelay = addPotDelay;
+            this.gameOn = gameOn;
+
+            if (gameOn) {
+                startGame();
+            }
+    }
+
+    @Override
+    public boolean addPlayer(String playerName) {
+        if (!gameOn || playerNames.size() > MAX_PLAYERS || playerNames.contains(playerName)) {
+            Player p = null;
+            switch (playerNames.size()) {
+                case 0:
+                    p = new Player((corridorWidth - pWidth) / 2, (corridorWidth - pHeight) / 2, pWidth, pHeight);
+                    break;
+                case 1:
+                    p = new Player((pm.numCols() - 1) * corridorWidth + (pm.numCols() - 1) * wallWidth + (corridorWidth - pWidth) / 2,
+                            (corridorWidth - pHeight) / 2,
+                            pWidth,
+                            pHeight);
+                    break;
+                case 2:
+                    p = new Player((pm.numCols() - 1) * corridorWidth + (pm.numCols() - 1) * wallWidth + (corridorWidth - pWidth) / 2,
+                            (pm.numRows() - 1) * corridorWidth + (pm.numRows() - 1) * wallWidth + (corridorWidth - pHeight) / 2,
+                            pWidth,
+                            pHeight);
+                    break;
+                case 3:
+                    p = new Player((corridorWidth - pWidth) / 2,
+                            (pm.numRows() - 1) * corridorWidth + (pm.numRows() - 1) * wallWidth + (corridorWidth - pHeight) / 2,
+                            pWidth,
+                            pHeight);
+                    break;
+                default:
+                    return false;
+            }
+            playerNames.add(playerName);
+            nameOnPlayer.put(playerName, p);
+            nameOnPosit.put(playerName, p.getPosition());
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void startGame() {
+
+    }
 
 
-    /**
-     * tries to move player in (dx, dy) direction
-     * @param PlayerName name of the player which tries to move
-     * @param dx x component of direction vector
-     * @param dy y component of direction vector
-     * @return true iff player moved
-     * player can not move, if maze wall is blocking its path
-     */
-    boolean playerMove(String PlayerName, double dx, double dy);
 
-    /**
-     * tries to put player on (x, y) coordinates
-     * @param playerName
-     * @param x cartesian coordinate
-     * @param y cartesian coordinate
-     * @return true iff player was able to move
-     * from its current position to (x,y) on linear path
-     * false, if maze wall blocked its;
-     */
-    boolean setPlayerCoordinates(String playerName, double x, double y);
+    @Override
+    public double getWidth() {
+        return width;
+    }
 
-    /**
-     *
-     * @return list of all player names currently in world
-     */
-    List<String> getPlayers();
+    @Override
+    public double getHeight() {
+        return height;
+    }
+
+
+    @Override
+    public PlaneMaze getMaze() {
+        return pm;
+    }
+
+    @Override
+    public int getMazeWidth() {
+        return pm.numCols();
+    }
+
+    @Override
+    public int getMazeHeight() {
+        return pm.numRows();
+    }
+
+    @Override //@@ xom ar joiba misaarts rom aigebs imis stringad gadaqcevisas lockaves rameebs(safiqria aq ras)
+    public Object[] getState() { //@@ misamartis copy ar unda davubruno savaraudod, elementis copy minda, mara elem-copy didi operaciaa duuh
+        return new Object[]{nameOnPosit, potions};
+    }
+
+
+
+    @Override
+    public int numberOfPlayers() {
+        return playerNames.size();
+    }
+
+    @Override
+    public boolean playerMove(String PlayerName, double dx, double dy) {
+        return false;
+    }
+
+    @Override
+    public boolean setPlayerCoordinates(String playerName, double x, double y) {
+
+        return false;
+    }
+
+    @Override
+    public List<String> getPlayers() {
+        return playerNames;
+    }
+
+    @Override
+    public boolean gameOn() {
+        //double[] h = new Player(1, 2).getPosition();
+        return false;
+    }
+
+
+
+    private class Player {
+
+        private  double x;
+        private double y;
+
+        private double width;
+        private double height;
+
+        private Player(double x, double y, double width, double height) {
+            this.x = x;
+            this.y = y;
+
+            this.width = width;
+            this.height = height;
+        }
+
+        private Point2D.Double getPosition() {
+            return new Point2D.Double(x, y);
+        }
+
+    }
+
 }

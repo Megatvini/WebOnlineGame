@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by Nika on 00:49, 5/29/2015.
  */
-public class WorldMock implements World {
+public class WorldMock implements iWorld {
     /**
      * size is measured in pixels
      *
@@ -33,7 +33,7 @@ public class WorldMock implements World {
      * @return string interpretation of a maze
      */
     @Override
-    public String getMaze() {
+    public PlaneMaze getMaze() {
         return null;
     }
 
@@ -60,7 +60,7 @@ public class WorldMock implements World {
      * it returns coordinates of players and potions
      */
     @Override
-    public String getState() {
+    public Object[] getState() {
         return null;
     }
 
@@ -75,6 +75,11 @@ public class WorldMock implements World {
     @Override
     public boolean addPlayer(String playerName) {
         return false;
+    }
+
+    @Override
+    public void startGame() {
+
     }
 
     /**
@@ -121,4 +126,10 @@ public class WorldMock implements World {
     public List<String> getPlayers() {
         return null;
     }
+
+    @Override
+    public boolean gameOn() {
+        return false;
+    }
+
 }
