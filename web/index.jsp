@@ -47,29 +47,38 @@
 </head>
 <body class="skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
+  <%
+    String nickname = (String)session.getAttribute("nickname");
+    iProfile profile;
+    if(nickname == null) {
+      String redirectURL = "Accont/Login.jsp";
+      response.sendRedirect(redirectURL);
+      profile = new Account();
+    }
+    else
+    {
+      profile = new Account(nickname);
+    }
 
+  %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
-    <%
-      String nickname = "";
-      if(session == null) {
-
-      }
-      nickname = (String)session.getAttribute("nickname");
-     iProfile profile = ViewManager.getProfile(nickname);
-      profile = new Account(nickname);
-    %>
-
-
-    <div class="box box-primary" style="width: 90%; margin: 20px; min-width: 350px">
+    <div class="box box-primary" style="width: 96%; margin: 20px; min-width: 350px">
       <form action="/ChangeAccount" method="post">
       <div class="box-header">
         <h3 class="box-title">პროფილი</h3>
       </div>
       <div class="box-body">
+        <div align="center">
+      <div class="form-group" style="width: 300px;">
+          <img src="<%= profile.getPicturePath() %>"  alt="Smiley face" style="border-radius: 50%" height="300" width="300">
+          <br/>
+          <input class="form-control" type="text" name="picture"  placeholder="Default input">
+        </div>
+        </div>
         <div class="form-group">
           <label>სახელი</label>
           <input class="form-control" type="text" name="firstname" value="<%= profile.getFirstname() %>" placeholder="Default input">
@@ -93,7 +102,7 @@
             <div class="input-group-addon">
               <i class="fa fa-calendar"></i>
             </div>
-            <input type="date" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
+            <input type="date" class="form-control" value="<%= profile.getMail() %>" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
           </div><!-- /.input group -->
         </div><!-- /.form group -->
 

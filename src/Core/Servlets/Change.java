@@ -25,6 +25,7 @@ public class Change extends HttpServlet {
         account.setFirstname(request.getParameter("firstname"));
         account.setLastname(request.getParameter("lastname"));
         account.setMail(request.getParameter("mail"));
+        account.setPicturePath(request.getParameter("picture"));
 
         account.save();
 

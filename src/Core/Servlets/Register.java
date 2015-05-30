@@ -18,9 +18,10 @@ public class Register extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Account account = new Account();
         account.setNickname(request.getParameter("nickname"));
+        account.setMail(request.getParameter("mail"));
         account.save();
 
-        HttpSession session=request.getSession();
+        HttpSession session = request.getSession();
         session.setAttribute("nickname", account.getNickname());
 
         response.sendRedirect("index.jsp");

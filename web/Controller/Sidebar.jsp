@@ -1,5 +1,6 @@
 <%@ page import="Interfaces.View.iShorProfile" %>
 <%@ page import="Core.ViewManager" %>
+<%@ page import="Core.Controller.Account" %>
 <%--
   Created by IntelliJ IDEA.
   User: Annie
@@ -15,7 +16,11 @@
 <body>
 <%
   String nick = (String)session.getAttribute("nickname");
-  iShorProfile prof = ViewManager.getProfile(nick);//TODO:
+  iShorProfile prof ;
+  if (nick != null)
+   prof = new Account(nick);//TODO:
+  else
+  prof = new Account();
 %>
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
@@ -28,7 +33,6 @@
       </div>
       <div class="pull-left info">
         <p><%= prof.getNickname() %></p>
-
         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
       </div>
     </div>
