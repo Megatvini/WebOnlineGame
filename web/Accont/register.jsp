@@ -32,12 +32,11 @@
   <div class="register-logo">
     <a href="../../index2.html"><b>Admin</b>LTE</a>
   </div>
-
   <div class="register-box-body">
     <p class="login-box-msg">Register a new membership</p>
     <form action="../Registration" method="post">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" id="nickname" placeholder="Full name"/>
+        <input type="text" class="form-control" name="nickname" placeholder="Full name"/>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">

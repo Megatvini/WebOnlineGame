@@ -50,7 +50,15 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
-    <h1>HELLO WORLD!</h1>
+    <%
+      String nickname = "a";
+      if(session != null) {
+         nickname = (String) session.getAttribute("nickname");
+      }
+
+    %>
+    <h1>HELLO <%= nickname %>!</h1>
+
   </div><!-- /.content-wrapper -->
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
