@@ -6,8 +6,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
+import java.util.Timer;
 
 public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
 
@@ -94,58 +94,32 @@ public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
     }
 
 
+
     public static void main(String s[]) {
 
-        try {
-            throw new Exception("olaa");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("awdawdawd");
-
-
-//        ArrayList<Point> arr = new ArrayList<Point>();
-//
-//        arr.add(new Point(1, 2));
-//
-//        ArrayList<Point> ar = (ArrayList<Point>) arr.clone();
-//
-//        ar.get(0).setLocation(3, 4);
-//
-//        System.out.println(arr.get(0));
-//        System.out.println(ar.get(0));
-
-
-        //public World(double wallWidth, double corridorWidth, int numRows, int numCols, ArrayList<String> players, double pWidth, double pHeight, double maxMove, double dist, double plusDist, double plusDistDelay, ArrayList<Point2D.Double> potions, double addPotDelay, boolean gameOn) {
-
-        //World w = new World(1, 1, 1, 1, new ArrayList<String>(), 1, 1, 1, 1, 1, 1, new ArrayList<Point2D.Double>(), 1, false);
-        //w.makePerfect();
 
 
         //Plane Maze Testing shit
-//        JFrame f = new JFrame("ShapesDemo2D");
-//        f.addWindowListener(new WindowAdapter() {
-//            public void windowClosing(WindowEvent e) {
-//                System.exit(0);
-//            }
-//        });
-//
-//        for (int i = 0; i < 5; i++) {
-//
-//            PlaneMaze pm = new PlaneMaze(35, 36);
-//            pm.makePerfect();
-//            //pm.makeThiner(0.4);
-//            pm.draw();
-//            JApplet applet = new PlaneMazeTesterClassNotPartOfProject(pm);
-//            f.getContentPane().add("Center", applet);
-//            applet.init();
-//
-//            f.pack();
-//            f.setSize(new Dimension(600, 800));
-//            f.show();
-//
-//        }
+        JFrame f = new JFrame("ShapesDemo2D");
+        f.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
+
+        PlaneMaze pm = new PlaneMaze(35, 36);
+        pm.makePerfect();
+        //pm.makeThiner(0.4);
+        //pm.draw();
+        JApplet applet = new PlaneMazeTesterClassNotPartOfProject(pm);
+        f.getContentPane().add("Center", applet);
+        applet.init();
+
+        f.pack();
+        f.setSize(new Dimension(600, 800));
+        f.show();
+
+        System.out.println(pm.toString());
 
     }
 

@@ -186,14 +186,14 @@ public class PlaneMaze {
         return isW(new Point(r1, c1), new Point(r2, c2));
     }
 
-    /*
-    * Member function: isWall
-    * Usage: if (maze.isWall(a, b))...
-    * ---------------------------------
-    * This member function returns true if there is a wall between
-    * the two cells at points p1 and p2. If the two points are
-    * not neighbors or if either is out of bounds, an error is raised.
-    */
+    /**
+     * checks weather there is wall between certain neighbour cells, if cells are not
+     * neighbours of either of them is out of bounds proper exceptions thrown
+     * @param p1 first cell represented as point, x - row, y - col
+     * @param p2 second cell represented as point, x - row, y - col
+     * @return true if there is wall between given cells, false otherwise
+     * @exception Exception if either of cells is out of bounds or if they are not adjacent
+     */
     private boolean isW(Point p1, Point p2) {
         if (!pointInBounds(p1) || !pointInBounds(p2))
             try {
@@ -295,15 +295,45 @@ public class PlaneMaze {
 
     }
 
+    // if walls is between(row,col): (3, 4) and (3, 5) cells and also between: (0, 1) and (1, 1) cells
+    // to string gives: 3:4#3:5#0:1#1:1 anu wyvili raodenoba cellia ra to stringshi da yoveli momdevno ors shoris kedelia,
+    // "#" amit gamoiyofa cellis coordinatebi cellis X da Y ":" amit. X yoveltvis Y mdea. yovel wyvilshi tu gansazgvraven
+    // vertikalur kedels cellebs shoris mashin marcxena cell ufro marcxniv ewereba, horizontaluris shemtxvevashi maglita cell ewereba
+    // toStringshi marcxniv. .
+    // es prosta davwere nika rogorc gadawyvets ise gaagzavnos sirze mkidia
+    public String toString() {
+        String res = "";
 
-    /*
-     * Member function: draw
-     * Usage: maze.draw();
-     * -------------------
-     * This member function draws the maze configuration to the graphics
-     * window, erasing any previous contents. The lower-left corner is
-     * the cell identified by 0-0. The maze itself is white and walls are
-     * drawn with black lines. All previous marks are cleared.
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                Point current = new Point(i, j);
+                if (i < numRows - 1) {
+                    Point down = new Point(i + 1, j);
+                    if (isW(current, down)) {
+                        if (res !="") {
+                            res += "#";
+                        }
+                        res += current.x + ":" + current.y + "#" + down.x + ":" + down.y;
+                    }
+                }
+
+                if (j < numCols - 1) {
+                    Point right = new Point(i, j + 1);
+                    if (isW(current, right)) {
+                        if (res !="") {
+                            res += "#";
+                        }
+                        res += current.x + ":" + current.y + "#" + right.x + ":" + right.y;
+                    }
+                }
+            }
+        }
+
+        return res;
+    }
+
+    /**
+     * daikidet es metodi albbat wavshli
      */
     public void draw() {
         System.out.println("---------------------------------------------------------");

@@ -45,16 +45,9 @@ public interface iWorld {
     int numRows();
 
     /**
-     * checks weather there is wall between certain neighbour cells, if cells are not
-     * neighbours of either of them is out of bounds proper exceptions thrown
-     * @param r1 row index of first cell
-     * @param c1 col index of first cell
-     * @param r2 row index of second cell
-     * @param c2 col index of second cell
-     * @return true if there is wall between given cells, false otherwise
-     * @exception Exception if either of cells is out of bounds or if they are not adjacent
+     * @return abstract representation of maze, represents some maze and we can check where are and where are not walls
      */
-    boolean isWall(int r1, int c1, int r2, int c2);
+    PlaneMaze getMaze();
 
     /**
      * this does not include maze
