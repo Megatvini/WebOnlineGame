@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -95,20 +96,31 @@ public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
 
     public static void main(String s[]) {
 
-        ArrayList<Point> arr = new ArrayList<Point>();
+        try {
+            throw new Exception("olaa");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        arr.add(new Point(1, 2));
-
-        ArrayList<Point> ar = (ArrayList<Point>) arr.clone();
-
-        ar.get(0).setLocation(3, 4);
-
-        System.out.println(arr.get(0));
-        System.out.println(ar.get(0));
+        System.out.println("awdawdawd");
 
 
+//        ArrayList<Point> arr = new ArrayList<Point>();
+//
+//        arr.add(new Point(1, 2));
+//
+//        ArrayList<Point> ar = (ArrayList<Point>) arr.clone();
+//
+//        ar.get(0).setLocation(3, 4);
+//
+//        System.out.println(arr.get(0));
+//        System.out.println(ar.get(0));
 
-        //World w = new World(1, 1, new PlaneMaze(1, 1), 1, 1, 1, new ArrayList<String>(), 1, 1, 1, false);
+
+        //public World(double wallWidth, double corridorWidth, int numRows, int numCols, ArrayList<String> players, double pWidth, double pHeight, double maxMove, double dist, double plusDist, double plusDistDelay, ArrayList<Point2D.Double> potions, double addPotDelay, boolean gameOn) {
+
+        //World w = new World(1, 1, 1, 1, new ArrayList<String>(), 1, 1, 1, 1, 1, 1, new ArrayList<Point2D.Double>(), 1, false);
+        //w.makePerfect();
 
 
         //Plane Maze Testing shit

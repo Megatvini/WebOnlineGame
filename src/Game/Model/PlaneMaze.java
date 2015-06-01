@@ -1,5 +1,6 @@
 package Game.Model;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
@@ -43,7 +44,7 @@ public class PlaneMaze {
 
             if (i > 0) {
                 for (int j = 0; j < numCols; j++) {
-                    if (isW(new Cell(i, j), new Cell(i - 1, j))) {
+                    if (isW(new Point(i, j), new Point(i - 1, j))) {
                         conn[j] = i * numCols + j;
                     }
                 }
@@ -51,12 +52,12 @@ public class PlaneMaze {
 
             for (int j = 0; j < numCols; j++) {
 
-                Cell curr = new Cell(i, j);
+                Point curr = new Point(i, j);
 
                 if (i != numRows - 1) {
                     if (j < numCols - 1) {
                         if (conn[j] == conn[j + 1] || rand.nextDouble() >= 0.5) {
-                            setWall(curr, new Cell(i, j + 1), true);
+                            setWall(curr, new Point(i, j + 1), true);
                         } else {
                             int next = conn[j + 1];
                             for (int k = 0; k < numCols; k++) {
@@ -68,7 +69,7 @@ public class PlaneMaze {
                     }
                 } else if (j < numCols - 1) {
                     if (conn[j] == conn[j + 1]) {
-                        setWall(curr, new Cell(i, j + 1), true);
+                        setWall(curr, new Point(i, j + 1), true);
                     } else {
                         int next = conn[j + 1];
                         for (int k = 0; k < numCols; k++) {
@@ -83,26 +84,26 @@ public class PlaneMaze {
 
             int bottom = 1;
             for (int j = 0; j < numCols; j++) {
-                Cell curr = new Cell(i, j);
+                Point curr = new Point(i, j);
 
                 if (i < numRows - 1) {
                     if (j < numCols - 1) {
                         if (conn[j] == conn[j + 1]) {
                             bottom++;
                             if (bottom > 1 && rand.nextDouble() >= 0.3) {
-                                setWall(curr, new Cell(i + 1, j), true);
+                                setWall(curr, new Point(i + 1, j), true);
                                 bottom--;
                             }
                         } else {
                             if (bottom > 1 && rand.nextDouble() >= 0.3) {
-                                setWall(curr, new Cell(i + 1, j), true);
+                                setWall(curr, new Point(i + 1, j), true);
                                 bottom--;
                             }
                             bottom = 1;
                         }
                     } else {
                         if (bottom > 1 && rand.nextDouble() >= 0.3) {
-                            setWall(curr, new Cell(i + 1, j), true);
+                            setWall(curr, new Point(i + 1, j), true);
                             bottom--;
                         }
                     }
@@ -132,21 +133,21 @@ public class PlaneMaze {
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
                 if (rand.nextDouble() < prob) {
-                    Cell curr = new Cell(i, j);
-                    Cell neighbour = null;
+                    Point curr = new Point(i, j);
+                    Point neighbour = null;
                     for (int k = 0; k < cellWallNum; k++) {
                         switch (k) {
                             case 0:
-                                neighbour = new Cell(i - 1, j);
+                                neighbour = new Point(i - 1, j);
                                 break;
                             case 1:
-                                neighbour = new Cell(i, j + 1);
+                                neighbour = new Point(i, j + 1);
                                 break;
                             case 2:
-                                neighbour = new Cell(i + 1, j);
+                                neighbour = new Point(i + 1, j);
                                 break;
                             case 3:
-                                neighbour = new Cell(i, j - 1);
+                                neighbour = new Point(i, j - 1);
                                 break;
                             default:
                                 break;
@@ -181,11 +182,10 @@ public class PlaneMaze {
     }
 
 
-
-
     public boolean isWall(int r1, int c1, int r2, int c2) {
-        return isW(new Cell(r1, c1), new Cell(r2, c2));
+        return isW(new Point(r1, c1), new Point(r2, c2));
     }
+
     /*
     * Member function: isWall
     * Usage: if (maze.isWall(a, b))...
@@ -194,8 +194,8 @@ public class PlaneMaze {
     * the two cells at points p1 and p2. If the two points are
     * not neighbors or if either is out of bounds, an error is raised.
     */
-    private boolean isW(Cell c1, Cell c2) {
-        if (!pointInBounds(c1) || !pointInBounds(c2))
+    private boolean isW(Point p1, Point p2) {
+        if (!pointInBounds(p1) || !pointInBounds(p2))
             try {
                 throw new Exception("Cell out of bounds!");
             } catch (Exception e) {
@@ -205,19 +205,19 @@ public class PlaneMaze {
         boolean res = false;
         boolean neighbours = true;
 
-        if (c1.row == c2.row) {
-            if (c1.col - c2.col == 1) {
-                res = vertWalls[c1.row][c2.col];
-            } else if (c2.col - c1.col == 1) {
-                res = vertWalls[c1.row][c1.col];
+        if (p1.x == p2.x) {
+            if (p1.y - p2.y == 1) {
+                res = vertWalls[p1.x][p2.y];
+            } else if (p2.y - p1.y == 1) {
+                res = vertWalls[p1.x][p1.y];
             } else {
                 neighbours = false;
             }
-        } else if (c1.col == c2.col) {
-            if (c1.row - c2.row == 1) {
-                res = horizWalls[c2.row][c1.col];
-            } else if (c2.row - c1.row == 1) {
-                res = horizWalls[c1.row][c1.col];
+        } else if (p1.y == p2.y) {
+            if (p1.x - p2.x == 1) {
+                res = horizWalls[p2.x][p1.y];
+            } else if (p2.x - p1.x == 1) {
+                res = horizWalls[p1.x][p1.y];
             } else {
                 neighbours = false;
             }
@@ -239,8 +239,8 @@ public class PlaneMaze {
      * This member function returns true if p is within bounds of this
      * maze, false otherwise.
      */
-    private boolean pointInBounds(Cell c) {
-        return (c.row >= 0 && c.row < numRows() && c.col >=0 && c.col < numCols());
+    public boolean pointInBounds(Point c) {
+        return (c.x >= 0 && c.x < numRows() && c.y >=0 && c.y < numCols());
     }
 
 
@@ -254,8 +254,8 @@ public class PlaneMaze {
     * points are not neighbors or either point is out of bounds,
     * an error is raised.
     */
-    private void setWall(Cell c1, Cell c2, boolean state) {
-        if (!pointInBounds(c1) || !pointInBounds(c2)) {
+    private void setWall(Point p1, Point p2, boolean state) {
+        if (!pointInBounds(p1) || !pointInBounds(p2)) {
             try {
                 throw new Exception("Cell out of bounds!");
             } catch (Exception e) {
@@ -265,19 +265,19 @@ public class PlaneMaze {
 
         boolean neighbours = true;
 
-        if (c1.row == c2.row) {
-            if (c1.col - c2.col == 1) {
-                vertWalls[c1.row][c2.col] = state;
-            } else if (c2.col - c1.col == 1) {
-                vertWalls[c1.row][c1.col] = state;
+        if (p1.x == p2.x) {
+            if (p1.y - p2.y == 1) {
+                vertWalls[p1.x][p2.y] = state;
+            } else if (p2.y - p1.y == 1) {
+                vertWalls[p1.x][p1.y] = state;
             } else {
                 neighbours = false;
             }
-        } else if (c1.col == c2.col) {
-            if (c1.row - c2.row == 1) {
-                horizWalls[c2.row][c1.col] = state;
-            } else if (c2.row - c1.row == 1) {
-                horizWalls[c1.row][c1.col] = state;
+        } else if (p1.y == p2.y) {
+            if (p1.x - p2.x == 1) {
+                horizWalls[p2.x][p1.y] = state;
+            } else if (p2.x - p1.x == 1) {
+                horizWalls[p1.x][p1.y] = state;
             } else {
                 neighbours = false;
             }
@@ -309,9 +309,9 @@ public class PlaneMaze {
         System.out.println("---------------------------------------------------------");
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
-                Cell current = new Cell(i, j);
+                Point current = new Point(i, j);
                 if (i < numRows-1) {
-                    Cell down = new Cell(i + 1, j);
+                    Point down = new Point(i + 1, j);
                     if (isW(current, down)) {
                         System.out.print("_");
                     } else {
@@ -320,7 +320,7 @@ public class PlaneMaze {
                 }
 
                 if (j < numCols-1) {
-                    Cell right = new Cell(i, j + 1);
+                    Point right = new Point(i, j + 1);
                     if (isW(current, right)) {
                         System.out.print("|");
                     } else {
@@ -331,25 +331,6 @@ public class PlaneMaze {
             System.out.print("\n");
         }
         System.out.println("---------------------------------------------------------");
-    }
-
-    public class Cell {
-        private int row;
-        private int col;
-
-        public Cell(int  row, int col) {
-            this.row = row;
-            this.col = col;
-        }
-
-        public int row() {
-            return row;
-        }
-
-        public int col() {
-            return col;
-        }
-
     }
 
 }
