@@ -18,7 +18,12 @@ public class Change extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session=request.getSession();
-        Account account = new Account((String)session.getAttribute("nickname"));
+        Account account = null;
+        try {
+            account = new Account((String)session.getAttribute("nickname"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         account.save();
         session.setAttribute("nickname", account.getNickname());
 

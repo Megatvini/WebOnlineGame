@@ -7,8 +7,8 @@ import Interfaces.Controller.iAccount;
 /**
  * Created by gukam on 5/29/2015.
  */
-public class ControlManager { //user unda erqvas
-    public static iAccount getAccount(String nickname){
+public class ControlManager {
+    public static iAccount getAccount(String nickname) throws Exception {
         return (new Account(nickname));
     }
 }

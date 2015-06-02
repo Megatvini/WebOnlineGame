@@ -19,7 +19,13 @@ public class SignIn extends HttpServlet {
         String nickname = request.getParameter("nickname");
         String password = request.getParameter("password");
 
-        boolean logined = AuthenticationManager.login(nickname, password);
+        boolean logined = false;
+        try {
+            logined = AuthenticationManager.login(nickname, password);
+        } catch (Exception e) {
+            response.sendRedirect("Accont/Login.jsp?error=1");
+            return;
+        }
 
         if (logined) {
             HttpSession session = request.getSession();
@@ -27,7 +33,7 @@ public class SignIn extends HttpServlet {
             response.sendRedirect("index.jsp");
         }
         else {
-            response.sendRedirect("Accont/Login.jsp");
+            response.sendRedirect("Accont/Login.jsp?error=2");
         }
 
     }

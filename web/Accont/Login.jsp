@@ -33,7 +33,10 @@
     <a href="../../index2.html"><b>Admin</b>LTE</a>
   </div><!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+    <% String error = request.getParameter("error");
+      String message = error == null ? "" : error.equals("1") ? "ასეთი მომხმარებელი არ არსებობს" : error.equals("2") ? "პარლი არასწორია" : "";
+    %>
+    <p class="login-box-msg"><%= message %></p>
     <form action="/Login" method="post">
       <div class="form-group has-feedback">
         <input type="text" class="form-control" name="nickname" placeholder="Email"/>

@@ -11,7 +11,7 @@ import java.util.HashSet;
  * Created by gukam on 5/29/2015.
  */
 public class Account implements iAccount {
-    public Account(String nickname){
+    public Account(String nickname) throws Exception {
        iProfile prof = UserControl.getUser(nickname);
 
         _nickname = prof.getNickname();
