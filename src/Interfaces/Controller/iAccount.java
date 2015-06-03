@@ -23,5 +23,7 @@ public interface iAccount extends iProfile {
 
     public void addFriend(String nickname) throws Exception;
 
+    public void confirmFriend(String nickname);
+
     public void save();
 }

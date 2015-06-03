@@ -6,12 +6,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Hashtable;
 
 import Core.Controller.Account;
-import Core.View.Profile;
 import Interfaces.Controller.iAccount;
-import Interfaces.View.iShorProfile;
 
 /**
  * Created by gukam on 6/3/2015.

@@ -1,3 +1,12 @@
+<%@ page import="Core.ViewManager" %>
+<%@ page import="Interfaces.View.iShorProfile" %>
+<%@ page import="Core.Controller.Account" %>
+<%@ page import="Interfaces.View.iProfile" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="Core.ControlManager" %>
+<%@ page import="java.util.Hashtable" %>
+<%@ page import="Interfaces.View.iMessageView" %>
+<%@ page import="Core.View.MessageList" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -44,13 +53,74 @@
 </head>
 <body class="skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
-
+  <%
+    String nickname = (String)session.getAttribute("nickname");
+    Hashtable<String, iShorProfile> profiles = new Hashtable<String, iShorProfile>();
+    iProfile profile;
+    if(nickname == null) {
+      String redirectURL = "Accont/Login.jsp";
+      response.sendRedirect(redirectURL);
+      profile = new Account();
+    }
+    else
+    {
+      profile = new Account(nickname);
+      profiles = profile.getFriends();
+    }
+    String friend = request.getParameter("friend");
+    if(friend == null) friend = "";
+  %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
-    <h1>HELLO WORLD!</h1>
+
+    <div style="width: 300px; float: left">
+      <div class="box box-solid">
+        <div class="box-header with-border">
+          <h3 class="box-title">მეგობრები</h3>
+          <div class="box-tools">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+          </div>
+        </div>
+        <div class="box-body no-padding">
+          <ul class="nav nav-pills nav-stacked">
+            <% for (iShorProfile shortProf : profiles.values()) {
+            %>
+            <li class="<%= friend.equals(shortProf.getNickname()) ? "active" : ""%>"><a href="Messages.jsp?friend=<%=shortProf.getNickname()%>">  <%=shortProf.getNickname()%></a></li>
+            <% } %>
+          </ul>
+        </div><!-- /.box-body -->
+      </div>
+    </div>
+
+    <div style=" padding-left: 310px">
+      <div class="box box-solid">
+        <div class="box-body no-padding">
+          <ul class="nav nav-pills nav-stacked">
+            <% if(!friend.equals("")) for (int i = 0; i<profile.getMessages(friend).size(); i++ ) {
+              String mess = profile.getMessages(friend).getMessage(i).getMessage();
+              String style = profile.getMessages(friend).getMessage(i).getType() == iMessageView.Message.Type.SENT ?
+                      "background-color: rgb(186, 223, 255);\n" +
+                      "    text-align: right;" :
+              "background-color: rgb(140, 179, 213)";
+            %>
+            <li style="<%= style %> ; font-size: 19px"> <%= mess %></li>
+            <% } %>
+          </ul>
+        </div><!-- /.box-body -->
+        <form action="/SendMessage" method="post">
+          <input type="hidden" name="profileFrom" value="<%= nickname %>">
+          <input type="hidden" name="profileTo" value="<%= friend %>">
+          <textarea  style="width: 100%; height:70px"  name="message"></textarea>
+          <button class="btn btn-block btn-primary">მიწერა</button>
+        </form>
+      </div>
+    </div>
+
+
+
   </div><!-- /.content-wrapper -->
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->

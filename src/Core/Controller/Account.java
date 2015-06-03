@@ -1,11 +1,12 @@
 package Core.Controller;
 
 import Core.Model.UserControl;
+import Core.View.MessageList;
 import Interfaces.Controller.iAccount;
+import Interfaces.View.iMessageView;
 import Interfaces.View.iProfile;
 import Interfaces.View.iShorProfile;
 
-import java.util.HashSet;
 import java.util.Hashtable;
 
 /**
@@ -13,12 +14,21 @@ import java.util.Hashtable;
  */
 public class Account implements iAccount {
     Hashtable<String, iShorProfile> _friends = new  Hashtable<String, iShorProfile>();
+    Hashtable<String, iShorProfile> _friendsWaiting = new  Hashtable<String, iShorProfile>();
 
     @Override
     public void addFriend(String nickname) throws Exception {
         if(nickname.equals(_nickname)) throw new Exception("shen tavs amateb");
         Account friend = new Account(nickname);
-        _friends.put(nickname, friend);
+        _friendsWaiting.put(nickname, friend);
+    }
+
+    @Override
+    public void confirmFriend(String nickname)  {
+       if ( !_friendsWaiting.containsKey(nickname)) return;
+         _friends.put(nickname, _friendsWaiting.get(nickname));
+        _friendsWaiting.remove(nickname);
+        _messages.put(nickname,new MessageList());
     }
 
     private void addFriend(Hashtable<String, iShorProfile> friends) {
@@ -37,6 +47,14 @@ public class Account implements iAccount {
         _rank = prof.getRank();
         _password = prof.getPassword();
         addFriend(prof.getFriends());
+
+        Hashtable<String, iShorProfile> friends = prof.getFriends();
+
+        for(iShorProfile pr : friends.values()){
+            _messages.put(pr.getNickname(),new MessageList());
+        }
+
+        setMessages(((Account)prof).getMessages());
     }
 
     public Account(){
@@ -141,6 +159,26 @@ public class Account implements iAccount {
     public Hashtable<String, iShorProfile> getFriends() {
 
         return _friends;
+    }
+
+    Hashtable<String, MessageList> _messages = new Hashtable<String, MessageList>();
+
+    @Override
+    public MessageList getMessages(String nickname) {
+        return _messages.get(nickname);
+    }
+
+    public Hashtable<String, MessageList> getMessages() {
+        return _messages;
+    }
+
+    private  void setMessages(Hashtable<String, MessageList> messages){
+        _messages = messages;
+    }
+
+    public void sentMessage(String nickname, iMessageView.Message message){
+        MessageList mess =  _messages.get(nickname);
+        mess.addMessage(message.getMessage(), message.getType());
     }
 
     @Override
