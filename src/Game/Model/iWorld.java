@@ -115,5 +115,4 @@ public interface iWorld {
      * without risk of kicking one of them, will stop increase
      */
     void finishGame(); //@@ aq safiqralia kide
-
 }

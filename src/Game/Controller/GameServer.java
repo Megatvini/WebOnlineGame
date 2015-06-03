@@ -1,7 +1,8 @@
 package Game.Controller;
 
-import Game.Model.World;
-import Game.Model.WorldMock;
+import Game.Model.GameWorld;
+import Game.Model.PlaneMaze;
+import Game.Model.iWorld;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;
@@ -13,7 +14,7 @@ import java.util.concurrent.*;
 @ServerEndpoint(value="/game", configurator=ServerConfig.class)
 public class GameServer {
     private Map<String, List<String>> roomMates;
-    private Map<String, World> rooms;
+    private Map<String, iWorld> rooms;
     private Map<String, Session> connections;
     private ScheduledThreadPoolExecutor executor;
 
@@ -67,11 +68,11 @@ public class GameServer {
         connections.put(playerName, session);
 
         if (rooms.get(playerName) == null) {
-            World world = new WorldMock();
+            iWorld world = new GameWorld(new PlaneMaze());
             world.addPlayer(playerName);
             roomMates.get(playerName).forEach(x-> rooms.put(x, world));
         } else {
-            World world = rooms.get(playerName);
+            iWorld world = rooms.get(playerName);
             world.addPlayer(playerName);
             if (world.getPlayers().size() == roomMates.get(playerName).size()) {
                 //add scheduled executor
@@ -81,9 +82,9 @@ public class GameServer {
         }
     }
 
-    private void addSchedule(World world) {
+    private void addSchedule(iWorld world) {
         executor.scheduleAtFixedRate(() -> {
-            if (world.gameIsOver()) {
+            if (!world.gameOn()) {
                 System.out.println("GAMEISOVER");
                 world.getPlayers().forEach(x->{
                     roomMates.remove(x);
@@ -94,7 +95,8 @@ public class GameServer {
 
             world.getPlayers().forEach(x -> {
                 try {
-                    connections.get(x).getBasicRemote().sendText(world.getState());
+                    //asd == world.getState();
+                    connections.get(x).getBasicRemote().sendText("asd");
                 } catch (IOException e) {
                     System.out.println("could not send gameState to " + x);
                     //e.printStackTrace();
