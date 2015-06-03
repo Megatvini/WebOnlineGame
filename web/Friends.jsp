@@ -1,3 +1,10 @@
+<%@ page import="Core.ViewManager" %>
+<%@ page import="Interfaces.View.iShorProfile" %>
+<%@ page import="Core.Controller.Account" %>
+<%@ page import="Interfaces.View.iProfile" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="Core.ControlManager" %>
+<%@ page import="java.util.Hashtable" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -44,13 +51,45 @@
 </head>
 <body class="skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
-
+  <%
+    String nickname = (String)session.getAttribute("nickname");
+    Hashtable<String, iShorProfile> profiles = new Hashtable<String, iShorProfile>();
+    iProfile profile;
+    if(nickname == null) {
+      String redirectURL = "Accont/Login.jsp";
+      response.sendRedirect(redirectURL);
+      profile = new Account();
+    }
+    else
+    {
+      profile = new Account(nickname);
+      profiles = profile.getFriends();
+    }
+  %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
-    <h1>HELLO WORLD!</h1>
+
+    <div style="background-color: #0063dc; margin: 30px" >
+      <% for (iShorProfile shortProf : profiles.values()) {
+
+      %>
+      <div style="background-color: #B0EDFF; width: 49%; float: left; padding: 5px 5px 5px 20px; border: groove #010046 thin">
+        <img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 100px; height: 100px; border-radius: 50%; float: left">
+        <div style="padding: 20px 5px 5px 5px; ">
+          <div style="font-size: 22px; text-align: left; padding-left: 110px">
+            <%=shortProf.getNickname()%>
+          </div>
+          <div style="width:  100px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">წაშლა</button></div>
+          <div style="width:  100px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">მიწერა</button></div>
+        </div>
+      </div>
+
+      <% } %>
+    </div>
+
   </div><!-- /.content-wrapper -->
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->

@@ -6,11 +6,25 @@ import Interfaces.View.iProfile;
 import Interfaces.View.iShorProfile;
 
 import java.util.HashSet;
+import java.util.Hashtable;
 
 /**
  * Created by gukam on 5/29/2015.
  */
 public class Account implements iAccount {
+    Hashtable<String, iShorProfile> _friends = new  Hashtable<String, iShorProfile>();
+
+    @Override
+    public void addFriend(String nickname) throws Exception {
+        if(nickname.equals(_nickname)) throw new Exception("shen tavs amateb");
+        Account friend = new Account(nickname);
+        _friends.put(nickname, friend);
+    }
+
+    private void addFriend(Hashtable<String, iShorProfile> friends) {
+        _friends = friends;
+    }
+
     public Account(String nickname) throws Exception {
        iProfile prof = UserControl.getUser(nickname);
 
@@ -22,6 +36,7 @@ public class Account implements iAccount {
         _picPath = prof.getPicturePath();
         _rank = prof.getRank();
         _password = prof.getPassword();
+        addFriend(prof.getFriends());
     }
 
     public Account(){
@@ -123,9 +138,9 @@ public class Account implements iAccount {
     }
 
     @Override
-    public HashSet<iShorProfile> getFriends() {
+    public Hashtable<String, iShorProfile> getFriends() {
 
-        return null;
+        return _friends;
     }
 
     @Override
@@ -137,7 +152,6 @@ public class Account implements iAccount {
 
     @Override
     public int getID() {
-
         return 1;
     }
 }

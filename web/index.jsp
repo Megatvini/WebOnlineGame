@@ -67,44 +67,44 @@
   <div class="content-wrapper" style="padding: 1px;">
     <div class="box box-primary" style="width: 96%; margin: 20px; min-width: 350px">
       <form action="/ChangeAccount" method="post">
-      <div class="box-header">
-        <h3 class="box-title">პროფილი</h3>
-      </div>
-      <div class="box-body">
-        <div align="center">
-      <div class="form-group" style="width: 300px;">
-          <img src="<%= profile.getPicturePath() %>"  alt="Smiley face" style="border-radius: 50%" height="300" width="300">
-          <br/>
-          <input class="form-control" type="text" name="picture"  placeholder="Default input">
+        <div class="box-header">
+          <h3 class="box-title">პროფილი</h3>
         </div>
-        </div>
-        <div class="form-group">
-          <label>სახელი</label>
-          <input class="form-control" type="text" name="firstname" value="<%= profile.getFirstname() %>" placeholder="Default input">
-        </div>
-        <div class="form-group">
-          <label>გვარი</label>
-          <input class="form-control" type="text" name="lastname"  value="<%= profile.getLastname() %>" placeholder="Default input">
-        </div>
-
-        <div class="form-group">
-          <label>მეილი</label>
-          <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-            <input type="email" class="form-control" name="mail"  value="<%= profile.getMail() %>" placeholder="Email">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Date masks:</label>
-          <div class="input-group">
-            <div class="input-group-addon">
-              <i class="fa fa-calendar"></i>
+        <div class="box-body">
+          <div align="center">
+            <div class="form-group" style="width: 300px;">
+              <img src="<%= profile.getPicturePath() %>"  alt="Smiley face" style="border-radius: 50%" height="300" width="300">
+              <br/>
+              <input class="form-control" type="text" name="picture"  placeholder="Default input">
             </div>
-            <input type="date" class="form-control" value="<%= profile.getMail() %>" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
-          </div><!-- /.input group -->
-        </div><!-- /.form group -->
-      </div><!-- /.box-body -->
+          </div>
+          <div class="form-group">
+            <label>სახელი</label>
+            <input class="form-control" type="text" name="firstname" value="<%= profile.getFirstname() %>" placeholder="Default input">
+          </div>
+          <div class="form-group">
+            <label>გვარი</label>
+            <input class="form-control" type="text" name="lastname"  value="<%= profile.getLastname() %>" placeholder="Default input">
+          </div>
+
+          <div class="form-group">
+            <label>მეილი</label>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+              <input type="email" class="form-control" name="mail"  value="<%= profile.getMail() %>" placeholder="Email">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Date masks:</label>
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+              </div>
+              <input type="date" class="form-control" value="<%= profile.getMail() %>" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
+            </div><!-- /.input group -->
+          </div><!-- /.form group -->
+        </div><!-- /.box-body -->
         <div align="center"  style=" padding-bottom: 20px;">   <button class="btn btn-block btn-primary" style="width: 250px;">შენახვა</button></div>
       </form>
     </div>

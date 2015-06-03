@@ -21,5 +21,7 @@ public interface iAccount extends iProfile {
 
     public void setRank(int rank);
 
+    public void addFriend(String nickname) throws Exception;
+
     public void save();
 }

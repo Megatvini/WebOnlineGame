@@ -5,12 +5,18 @@ import Interfaces.View.iProfile;
 import Interfaces.View.iShorProfile;
 
 import java.util.HashSet;
+import java.util.Hashtable;
 
 /**
  * Created by gukam on 5/29/2015.
  */
 public class Profile implements iAccount {
     public Profile(String nickname){
+
+    }
+
+    @Override
+    public void addFriend(String nickname) throws Exception {
 
     }
 
@@ -85,7 +91,7 @@ public class Profile implements iAccount {
     }
 
     @Override
-    public HashSet<iShorProfile> getFriends() {
+    public Hashtable<String, iShorProfile> getFriends() {
         return null;
     }
 

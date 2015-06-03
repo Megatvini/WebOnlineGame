@@ -1,6 +1,7 @@
 package Interfaces.View;
 
 import java.util.HashSet;
+import java.util.Hashtable;
 
 /**
  * Created by gukam on 5/28/2015.
@@ -20,7 +21,7 @@ public interface iProfile extends iShorProfile{
 
     public String getPassword();
 
-    public HashSet<iShorProfile> getFriends();
+    public Hashtable<String, iShorProfile> getFriends();
 
     public boolean isOnline();
 }

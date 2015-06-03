@@ -1,3 +1,8 @@
+<%@ page import="Core.ViewManager" %>
+<%@ page import="Interfaces.View.iShorProfile" %>
+<%@ page import="Core.Controller.Account" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="Core.ControlManager" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -44,13 +49,50 @@
 </head>
 <body class="skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
-
+  <%
+    String nickname = (String)session.getAttribute("nickname");
+    HashMap<String, iShorProfile> profiles = new HashMap<String, iShorProfile>();
+    if(nickname == null) {
+      String redirectURL = "Accont/Login.jsp";
+      response.sendRedirect(redirectURL);
+    }
+    else
+    {
+      profiles = ControlManager.getOnlineUsers();
+    }
+  %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
-    <h1>HELLO WORLD!</h1>
+    <div align="center">
+
+      <div style="background-color: #0063dc; margin: 30px" >
+        <% for (iShorProfile shortProf : profiles.values()) {
+
+        %>
+        <div style="background-color: #B0EDFF; width: 49%; float: left; padding: 5px 5px 5px 20px; border: groove #010046 thin">
+          <img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 100px; height: 100px; border-radius: 50%; float: left">
+          <div style="padding: 20px 5px 5px 5px; ">
+            <div style="font-size: 22px; text-align: left; padding-left: 110px">
+              <%=shortProf.getNickname()%>
+            </div>
+            <form action="/AddFriend" method="post">
+              <input type="hidden" name="nickname1" value="<%= nickname %>">
+              <input type="hidden" name="nickname2" value="<%= shortProf.getNickname() %>">
+            <div style="width:  100px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">დამატება</button></div>
+            <div style="width:  100px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">მიწერა</button></div>
+            </form>
+          </div>
+        </div>
+
+        <% } %>
+      </div>
+
+
+    </div>
+
   </div><!-- /.content-wrapper -->
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
