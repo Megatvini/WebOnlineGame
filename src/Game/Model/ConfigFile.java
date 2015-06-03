@@ -8,19 +8,16 @@ import java.util.Properties;
  */
 public class ConfigFile {
 
-    public static final String fileName = "ConfigFile.txt";
+    public static final String fileName = "C:\\Users\\Nika\\Desktop\\WebOnlineGame\\ConfigFile.txt";
 
     private static Properties prop = new Properties();
 
     public static void loadFromFile(Properties prop, String fileName) {
         InputStream input = null;
-
         try {
-
             input = new FileInputStream(fileName);
             // load a properties file
             prop.load(input);
-
         } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
@@ -87,7 +84,6 @@ public class ConfigFile {
     private static void storeInFile(String fileName) {
         OutputStream output = null;
         try {
-
             output = new FileOutputStream(fileName);
             // save properties to project root folder
             prop.store(output, null);

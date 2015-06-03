@@ -34,7 +34,7 @@ public class PlaneMaze {
      * sizes taken by default from configuration file
      */
     public PlaneMaze() {
-        new PlaneMaze(defNumRows, defNumCols);
+        this(defNumRows, defNumCols);
     }
 
     /**

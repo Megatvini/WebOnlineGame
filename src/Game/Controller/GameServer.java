@@ -67,6 +67,7 @@ public class GameServer {
     private void initialConnection(String playerName, Session session) {
         connections.put(playerName, session);
 
+
         if (rooms.get(playerName) == null) {
             iWorld world = new GameWorld(new PlaneMaze());
             world.addPlayer(playerName);
@@ -74,10 +75,11 @@ public class GameServer {
         } else {
             iWorld world = rooms.get(playerName);
             world.addPlayer(playerName);
+
             if (world.getPlayers().size() == roomMates.get(playerName).size()) {
-                //add scheduled executor
                 System.out.println("Room is Full");
                 addSchedule(world);
+                world.startGame();
             }
         }
     }
@@ -95,14 +97,14 @@ public class GameServer {
 
             world.getPlayers().forEach(x -> {
                 try {
-                    //asd == world.getState();
-                    connections.get(x).getBasicRemote().sendText("asd");
+                    connections.get(x).getBasicRemote().sendText(world.getState().toString());
                 } catch (IOException e) {
                     System.out.println("could not send gameState to " + x);
                     //e.printStackTrace();
                 }
             });
-        }, 100, 500, TimeUnit.MILLISECONDS);
+            System.out.println("sent " + world.getState().toString());
+        }, 100, 5000, TimeUnit.MILLISECONDS);
 
     }
 

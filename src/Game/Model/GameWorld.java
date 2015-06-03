@@ -54,20 +54,20 @@ public class GameWorld implements iWorld {
         addPotDelay = Long.parseLong(prop.getProperty("addPotDelay"));
         potForKick = Integer.parseInt(prop.getProperty("potForKick"));
 
-        // @@ just checking have to delete
-        System.out.println("maxPlayers: " + maxPlayers);
-        System.out.println("width: " + width);
-        System.out.println("height: " + height);
-        System.out.println("wallWidth: " + wallWidth);
-        System.out.println("pRadius: " + pRadius);
-        System.out.println("maxMove: " + maxMove);
-        System.out.println("startDist: " + startDist);
-        System.out.println("plusDist: " + plusDist);
-        System.out.println("plusDistDelay: " + plusDistDelay);
-        System.out.println("potRadius: " + potRadius);
-        System.out.println("startPotNum: " + startPotNum);
-        System.out.println("addPotDelay: " + addPotDelay);
-        System.out.println("potForKick: " + potForKick);
+//        // @@ just checking have to delete
+//        System.out.println("maxPlayers: " + maxPlayers);
+//        System.out.println("width: " + width);
+//        System.out.println("height: " + height);
+//        System.out.println("wallWidth: " + wallWidth);
+//        System.out.println("pRadius: " + pRadius);
+//        System.out.println("maxMove: " + maxMove);
+//        System.out.println("startDist: " + startDist);
+//        System.out.println("plusDist: " + plusDist);
+//        System.out.println("plusDistDelay: " + plusDistDelay);
+//        System.out.println("potRadius: " + potRadius);
+//        System.out.println("startPotNum: " + startPotNum);
+//        System.out.println("addPotDelay: " + addPotDelay);
+//        System.out.println("potForKick: " + potForKick);
 
     }
 
@@ -101,7 +101,7 @@ public class GameWorld implements iWorld {
      * will be just ignored, player will be on same place; cannot add new players; cannot start game(again).
      */
     public GameWorld(PlaneMaze pm) {
-        new GameWorld(new ArrayList<String>(), pm, false);
+        this(new ArrayList<String>(), pm, false);
     }
 
 
@@ -178,6 +178,7 @@ public class GameWorld implements iWorld {
                     return false;
             }
             nameOnPlayer.put(playerName, p);
+            playerNames.add(playerName);
             return true;
         }
         return false;

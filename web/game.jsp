@@ -21,7 +21,7 @@
       var WIDTH = 300;
       var HEIGHT = 200;
       var playerID = getCookie("playerID")
-      var socket = new WebSocket("ws://localhost:8080/game");
+      var socket = new WebSocket("ws://"+ window.location.host + "/game");
 
       socket.onopen = function() {
         console.log("connection is open!");
@@ -41,11 +41,11 @@
       };
 
       socket.onclose = function(arg) {
-        console.log(arg.data);
+        console.log("connection error");
       };
 
       socket.onerror = function (arg) {
-        console.log(arg.data);
+        console.log("connection error");
       };
 
       function circle(x,y,r) {
