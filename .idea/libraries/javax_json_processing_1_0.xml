@@ -3,6 +3,7 @@
     <properties version="1.0" />
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/javax.json.jar!/" />
+      <root url="file://$PROJECT_DIR$/../ne/phaser" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
