@@ -15,8 +15,9 @@ public class ControlManager {
         return (new Account(nickname));
     }
 
-    public static HashMap<String, iShorProfile> getOnlineUsers(){
+    public static HashMap<String, iShorProfile> getOnlineUsers(String except){
         HashMap<String, iShorProfile> users = UserControl.getOnlineUsers();
+        users.remove(except);
         return users;
     }
 }

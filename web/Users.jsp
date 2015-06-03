@@ -58,7 +58,7 @@
     }
     else
     {
-      profiles = ControlManager.getOnlineUsers();
+      profiles = ControlManager.getOnlineUsers(nickname);
     }
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>

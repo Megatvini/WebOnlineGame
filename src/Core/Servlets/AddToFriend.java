@@ -33,7 +33,7 @@ public class AddToFriend extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Hashtable<String, iShorProfile>  a = account.getFriends();
+        response.sendRedirect("Users.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
