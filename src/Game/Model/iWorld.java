@@ -1,5 +1,6 @@
 package Game.Model;
 
+import javax.json.JsonObject;
 import java.util.List;
 
 /**
@@ -8,8 +9,9 @@ import java.util.List;
 public interface iWorld {
 
     /**
-     * adds new player named playerName to the world, if game is on, otherwise
-     * does nothing
+     * adds new player named playerName to the world, depends on player index chooses
+     * position, distributes at corners, if game is not on and max players have not reached
+     * and there is no player in game with same name, otherwise does nothing
      * @param playerName name of a new player
      * @return true if player was Successfully added
      * returns false if game is not on or if there already is a player with playerName
@@ -47,14 +49,14 @@ public interface iWorld {
     /**
      * @return abstract representation of maze, represents some maze and we can check where are and where are not walls
      */
-    PlaneMaze getMaze();
+    JsonObject getMaze();
 
     /**
      * this does not include maze
      * @return state of the world
      * it returns coordinates of players and potions
      */
-    Object[] getState();
+    JsonObject getState();
 
     /**
      * @return how many players are currently in world

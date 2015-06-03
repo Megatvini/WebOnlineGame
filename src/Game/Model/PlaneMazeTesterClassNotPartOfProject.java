@@ -1,11 +1,15 @@
 package Game.Model;
 
+import javax.json.Json;
+import javax.json.JsonWriter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.Timer;
 
@@ -96,10 +100,56 @@ public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
 
 
     public static void main(String s[]) {
+//        GameWorld gw = new GameWorld(new ArrayList<String>(Arrays.asList("shako", "killera", "selapa")), new PlaneMaze(14, 24), true);
+//        gw.finishGame();
+
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
 
 
-        //Plane Maze Testing shit
+//        try(JsonWriter jsonWriter = Json.createWriter(System.out)) {
+//            jsonWriter.write(gw.getState());
+//        }
+        //System.out.println(System.out);
+
+
+        // properties testing >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+//        String value;
+//
+//        Properties prop = new Properties();
+//        InputStream input = null;
+//
+//        try {
+//
+//            input = new FileInputStream(ConfigFile.fileName);
+//
+//            // load a properties file
+//            prop.load(input);
+//
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        } finally {
+//            if (input != null) {
+//                try {
+//                    input.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//
+//        // get the property value and initialize public static final variables of this class
+//        value = prop.getProperty("key1");
+//
+//        System.out.println(value);
+
+        //Plane Maze Testing shit >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
         JFrame f = new JFrame("ShapesDemo2D");
         f.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -107,10 +157,18 @@ public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
             }
         });
 
-        PlaneMaze pm = new PlaneMaze(35, 36);
+        PlaneMaze pm = new PlaneMaze(14, 24);
         pm.makePerfect();
         //pm.makeThiner(0.4);
         //pm.draw();
+
+
+        GameWorld gw = new GameWorld(new ArrayList<String>(Arrays.asList("shako", "killera", "selapa")), pm, true);
+
+        System.out.println(gw.getMaze());
+
+
+
         JApplet applet = new PlaneMazeTesterClassNotPartOfProject(pm);
         f.getContentPane().add("Center", applet);
         applet.init();
@@ -119,7 +177,7 @@ public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
         f.setSize(new Dimension(600, 800));
         f.show();
 
-        System.out.println(pm.toString());
+        //System.out.println(pm.toString());
 
     }
 

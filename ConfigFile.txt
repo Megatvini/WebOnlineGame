@@ -1,0 +1,16 @@
+#Wed Jun 03 01:04:08 GET 2015
+potRadius=6
+maxMove=12
+maxPlayers=4
+width=1136
+startPotNum=6
+numCols=24
+potForKick=3
+plusDistDelay=1000
+addPotDelay=12000
+plusDist=4
+pRadius=12
+numRows=14
+startDist=100
+wallWidth=16
+height=656

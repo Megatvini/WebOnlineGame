@@ -299,8 +299,7 @@ public class PlaneMaze {
     // to string gives: 3:4#3:5#0:1#1:1 anu wyvili raodenoba cellia ra to stringshi da yoveli momdevno ors shoris kedelia,
     // "#" amit gamoiyofa cellis coordinatebi cellis X da Y ":" amit. X yoveltvis Y mdea. yovel wyvilshi tu gansazgvraven
     // vertikalur kedels cellebs shoris mashin marcxena cell ufro marcxniv ewereba, horizontaluris shemtxvevashi maglita cell ewereba
-    // toStringshi marcxniv. .
-    // es prosta davwere nika rogorc gadawyvets ise gaagzavnos sirze mkidia
+    // toStringshi marcxniv.
     public String toString() {
         String res = "";
 
