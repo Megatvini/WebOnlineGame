@@ -1,3 +1,4 @@
+/*
 package Game.Controller;
 
 import javax.servlet.http.HttpSession;
@@ -22,4 +23,4 @@ public class ServerConfig extends ServerEndpointConfig.Configurator {
         HttpSession httpSession = (HttpSession) request.getHttpSession();
         config.getUserProperties().put("httpSession", httpSession);
     }
-}
+}*/
