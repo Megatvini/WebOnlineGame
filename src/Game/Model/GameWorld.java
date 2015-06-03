@@ -37,7 +37,7 @@ public class GameWorld implements iWorld {
 
 
     static {
-        loadFromFile(ConfigFile.fileName);
+        ConfigFile.loadFromFile(prop, ConfigFile.fileName);
 
         // get the property value and initialize public static final variables of this class
         maxPlayers = Integer.parseInt(prop.getProperty("maxPlayers"));
@@ -69,28 +69,6 @@ public class GameWorld implements iWorld {
         System.out.println("addPotDelay: " + addPotDelay);
         System.out.println("potForKick: " + potForKick);
 
-    }
-
-    private static void loadFromFile(String fileName) {
-        InputStream input = null;
-
-        try {
-
-            input = new FileInputStream(fileName);
-            // load a properties file
-            prop.load(input);
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     // variables passed in constructor

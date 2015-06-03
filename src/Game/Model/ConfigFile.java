@@ -1,9 +1,6 @@
 package Game.Model;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Properties;
 
 /**
@@ -14,6 +11,28 @@ public class ConfigFile {
     public static final String fileName = "ConfigFile.txt";
 
     private static Properties prop = new Properties();
+
+    public static void loadFromFile(Properties prop, String fileName) {
+        InputStream input = null;
+
+        try {
+
+            input = new FileInputStream(fileName);
+            // load a properties file
+            prop.load(input);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     /**
      * method must be invoked once in our LIFETIME. it defines file for default key values.

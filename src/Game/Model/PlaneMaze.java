@@ -1,16 +1,25 @@
 package Game.Model;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 /**
  * class explanation @@
  */
 
 public class PlaneMaze {
+
+    private static Properties prop = new Properties();
+
+    private static final int defNumRows;
+    private static final int defNumCols;
+
+    static {
+        ConfigFile.loadFromFile(prop, ConfigFile.fileName);
+        defNumRows = Integer.parseInt(prop.getProperty("numRows"));
+        defNumCols = Integer.parseInt(prop.getProperty("numCols"));
+    }
+
     private static int cellWallNum = 4;
 
     private Random rand = new Random();
@@ -22,9 +31,14 @@ public class PlaneMaze {
     private int numCols;
 
     /**
-     * The constructor initializes a new maze of the specified dimensions.
-     * If the hasWalls argument is true, the maze is initially configured with
-     * all walls intact. If false, the maze starts with no walls at all.
+     * sizes taken by default from configuration file
+     */
+    public PlaneMaze() {
+        new PlaneMaze(defNumRows, defNumCols);
+    }
+
+    /**
+     *
      */
     public PlaneMaze(int numRows, int numCols) {
         this.numRows = numRows;
