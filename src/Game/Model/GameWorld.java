@@ -116,6 +116,17 @@ public class GameWorld implements iWorld {
     // when game starts starts two task in background thread: potion addition, player distance increment
     private Timer timer;
 
+
+    /**
+     * construct game object. It has two states on and off, represented with running
+     * variable, iff game is on: players cannot move from old distance on too far new distances, request
+     * will be just ignored, player will be on same place; cannot add new players; cannot start game(again).
+     */
+    public GameWorld(PlaneMaze pm) {
+        new GameWorld(new ArrayList<String>(), pm, false);
+    }
+
+
     /**
      * construct game object. It has two states on and off, represented with running
      * variable, iff game is on: players cannot move from old distance on too far new distances, request
