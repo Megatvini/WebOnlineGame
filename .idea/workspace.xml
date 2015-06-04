@@ -2,175 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="21c3ca8b-e382-4a7d-bc88-50afb6736b4d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/network/socket.io/client/WebSocketMain.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/network/socket.io/client/WebSocketMainInsecure.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/chars.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/three/BloomPass.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/gameClasses/Character.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ClientConfig.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/gameClasses/ClientNetworkEvents.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/CoreConfig.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/three/DotScreenPass.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/three/EffectComposer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/three/FilmPass.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/IgeAnimationComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeBase.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeBaseScene.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/physics/box2d/IgeBox2dComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/physics/box2d/IgeBox2dWorker.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeCamera.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/physics/cannon/IgeCannonComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeCellSheet.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/chat/IgeChatClient.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/chat/IgeChatComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/chat/IgeChatServer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeClass.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/cocoonjs/IgeCocoonJsComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeCollisionMap2d.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/primitives/IgeCuboid.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/assets/IgeCuboidSmartTexture.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeDummyCanvas.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeDummyContext.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/editor/IgeEditorComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/editor/panels/IgeEditorPanelsComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/editor/IgeEditorRotateComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/editor/IgeEditorTranslateComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeEngine.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeEntity.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/physics/box2d/IgeEntityBox2d.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/physics/cannon/IgeEntityCannon.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/entityManager/IgeEntityManager.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/IgeEntityManagerComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeEventingClass.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeFilters.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeFontEntity.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeFontSheet.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/assets/IgeFontSmartTexture.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/IgeInputComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeInterval.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeMap2d.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeMapStack2d.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeMatrix2d.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/database/mongodb/IgeMongoDb.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/database/mongodb/IgeMongoDbComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/IgeMousePanComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/IgeMouseZoomComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/database/mysql/IgeMySql.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/database/mysql/IgeMySqlComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/network/net.io/IgeNetIoClient.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/network/net.io/IgeNetIoComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/network/net.io/IgeNetIoServer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/network/IgeNetworkClient.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeObject.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeParticleEmitter.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/IgePathComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgePathFinder.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgePathNode.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/editor/panels/templates/IgePoint.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgePoint.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgePoly2d.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeQuest.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeRect.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeScene2d.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeSceneGraph.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/network/socket.io/IgeSocketIoClient.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/network/socket.io/IgeSocketIoComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/network/socket.io/IgeSocketIoServer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeSpriteSheet.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/network/stream/IgeStreamComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/editor/panels/templates/IgeTexture.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeTexture.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeTextureAtlas.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeTextureMap.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/three/IgeThree.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeTileMap2d.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeTileMapStack2d.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/IgeTiledComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/IgeTimeComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/network/IgeTimeSyncExtension.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeTimeout.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeTween.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/IgeTweenComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/ui/IgeUiAutoFlow.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/ui/IgeUiButton.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeUiElement.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeUiEntity.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/ui/IgeUiGridPanel.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/ui/IgeUiLabel.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/IgeUiManagerComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/ui/IgeUiMenu.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/extensions/IgeUiPositionExtension.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/ui/IgeUiProgressBar.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/ui/IgeUiRadioButton.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/ui/IgeUiSlider.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/extensions/IgeUiStyleExtension.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/ui/IgeUiTabPanel.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/ui/IgeUiTextBox.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/ui/IgeUiTimeStream.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/ui/IgeUiTogglePanel.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/ui/IgeUiTooltip.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/IgeVelocityComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/core/IgeViewport.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/three/MaskPass.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/editor/panels/templates/NumberFloat.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/editor/panels/templates/NumberFloatMinMax.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/editor/panels/templates/NumberFloatXYZ.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/editor/panels/templates/NumberInt.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/editor/panels/templates/NumberIntMinMax.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/gameClasses/PlayerComponent.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/three/RenderPass.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/gameClasses/ServerNetworkEvents.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/three/ShaderExtras.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/three/ShaderPass.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/three/Sparks.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/three/TexturePass.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/three/TrackballControls.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/three/Tween.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/gameClasses/Wall.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/filters/blur.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/filters/brighten.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/client.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/filters/colorOverlay.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/filters/convolute.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/css/default.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/filters/edgeDetect.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/filters/edgeEnhance.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/filters/emboss.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/game.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/filters/glowMask.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/filters/greyScale.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/editor/panels/templates/group.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/network/net.io/net.io-client/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/filters/invert.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/editor/vendor/jsRender.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/physics/box2d/lib_box2d.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/physics/box2d/lib_box2d.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/physics/cannon/lib_cannon.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/stackTrace/lib_stack.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/loader.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/filters/outlineDetect.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/readme.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/chat/readme.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/filters/sharpen.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/filters/sobel.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/network/socket.io/client/socket.io.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/network/socket.io/client/socket.io.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/three/three.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/three/three.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/components/three/three.rev49.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/ige/engine/filters/threshold.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/assets/fire.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/assets/ground.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/assets/potion.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/assets/sky.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/assets/wall.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/assets/water.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/assets/wing.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/js/phaser.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/test.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Servlets/MatchMaker.java" afterPath="$PROJECT_DIR$/src/Servlets/MatchMaker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/fourColors.html" afterPath="$PROJECT_DIR$/web/fourColors.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="WebOnlineGame.iws" />
@@ -254,7 +85,7 @@
       <file leaf-file-name="Character.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/gameClasses/Character.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.5581949">
+            <state vertical-scroll-proportion="-1.2674961">
               <caret line="25" column="41" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
               <folding />
             </state>
@@ -868,7 +699,7 @@
       <workItem from="1433364989955" duration="156000" />
       <workItem from="1433365441611" duration="9964000" />
       <workItem from="1433398971879" duration="3540000" />
-      <workItem from="1433405720513" duration="11932000" />
+      <workItem from="1433405720513" duration="12053000" />
     </task>
     <task id="LOCAL-00001" summary="Hello World">
       <created>1433346633944</created>
@@ -882,11 +713,17 @@
       <option name="project" value="LOCAL" />
       <updated>1433351350062</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="amushavebuli fizika da labirintis xatva">
+      <created>1433419400459</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1433419400459</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36802000" />
+    <option name="totallyTimeSpent" value="36923000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
@@ -902,14 +739,14 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986626" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986626" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32986626" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986626" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986626" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24701196" sideWeight="0.48885587" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16118936" sideWeight="0.5111441" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986626" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -966,7 +803,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Hello World" />
     <MESSAGE value="dzravis magvari" />
-    <option name="LAST_COMMIT_MESSAGE" value="dzravis magvari" />
+    <MESSAGE value="amushavebuli fizika da labirintis xatva" />
+    <option name="LAST_COMMIT_MESSAGE" value="amushavebuli fizika da labirintis xatva" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1183,13 +1021,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ConfigFile.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/GameStateTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1201,13 +1032,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game/Model/ConfigFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1259,6 +1083,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1381,9 +1206,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Model/ConfigFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="43" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ConfigFile.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3919129">
+          <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/gameClasses/Character.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.5581949">
+        <state vertical-scroll-proportion="-1.2674961">
           <caret line="25" column="41" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
           <folding />
         </state>
