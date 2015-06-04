@@ -88,7 +88,7 @@
           <ul class="nav nav-pills nav-stacked">
             <% for (iShorProfile shortProf : profiles.values()) {
             %>
-            <li class="<%= friend.equals(shortProf.getNickname()) ? "active" : ""%>"><a href="Messages.jsp?friend=<%=shortProf.getNickname()%>">  <%=shortProf.getNickname()%></a></li>
+            <li class="<%= friend.equals(shortProf.getNickname()) ? "active" : ""%>"><a href="Messages.jsp?friend=<%=shortProf.getNickname()%>"><img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 60px; border-radius: 50%; ">  <%=shortProf.getNickname()%></a></li>
             <% } %>
           </ul>
         </div><!-- /.box-body -->

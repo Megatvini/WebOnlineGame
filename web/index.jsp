@@ -75,7 +75,7 @@
             <div class="form-group" style="width: 300px;">
               <img src="<%= profile.getPicturePath() %>"  alt="Smiley face" style="border-radius: 50%" height="300" width="300">
               <br/>
-              <input class="form-control" type="text" name="picture"  placeholder="Default input">
+              <input class="form-control" type="text" name="picture" value="<%= profile.getPicturePath() %>"  placeholder="Default input">
             </div>
           </div>
           <div class="form-group">

@@ -35,6 +35,10 @@ public class Account implements iAccount {
         _friends = friends;
     }
 
+    private void addWaitingFriend(Hashtable<String, iShorProfile> friends) {
+        _friendsWaiting = friends;
+    }
+
     public Account(String nickname) throws Exception {
        iProfile prof = UserControl.getUser(nickname);
 
@@ -47,9 +51,9 @@ public class Account implements iAccount {
         _rank = prof.getRank();
         _password = prof.getPassword();
         addFriend(prof.getFriends());
+        addWaitingFriend(prof.getWaitingFriends());
 
         Hashtable<String, iShorProfile> friends = prof.getFriends();
-
         for(iShorProfile pr : friends.values()){
             _messages.put(pr.getNickname(),new MessageList());
         }
@@ -159,6 +163,12 @@ public class Account implements iAccount {
     public Hashtable<String, iShorProfile> getFriends() {
 
         return _friends;
+    }
+
+    @Override
+    public Hashtable<String, iShorProfile> getWaitingFriends() {
+
+        return _friendsWaiting;
     }
 
     Hashtable<String, MessageList> _messages = new Hashtable<String, MessageList>();

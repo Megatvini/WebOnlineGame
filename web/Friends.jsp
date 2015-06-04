@@ -54,6 +54,7 @@
   <%
     String nickname = (String)session.getAttribute("nickname");
     Hashtable<String, iShorProfile> profiles = new Hashtable<String, iShorProfile>();
+    Hashtable<String, iShorProfile> waitingProfiles = new Hashtable<String, iShorProfile>();
     iProfile profile;
     if(nickname == null) {
       String redirectURL = "Accont/Login.jsp";
@@ -64,6 +65,7 @@
     {
       profile = new Account(nickname);
       profiles = profile.getFriends();
+      waitingProfiles = profile.getWaitingFriends();
     }
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
@@ -71,6 +73,27 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
+    <div style="background-color: #0063dc; margin: 30px" >
+      <% for (iShorProfile shortProf : waitingProfiles.values()) {
+
+      %>
+      <div style="background-color: #B0EDFF; width: 49%; float: left; padding: 5px 5px 5px 20px; border: groove #010046 thin">
+        <img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 100px; height: 100px; border-radius: 50%; float: left">
+        <div style="padding: 20px 5px 5px 5px; ">
+          <div style="font-size: 22px; text-align: left; padding-left: 110px">
+            <%=shortProf.getNickname()%>
+          </div>
+          <form action="/AcceptFriend" method="post">
+            <input type="hidden" name="nickname1" value="<%= nickname %>">
+            <input type="hidden" name="nickname2" value="<%= shortProf.getNickname() %>">
+            <div style="width:  120px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">დათანხმება</button></div>
+            <div style="width:  120px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">უარყოფა</button></div>
+          </form>
+        </div>
+      </div>
+      <% } %>
+    </div>
+
 
     <div style="background-color: #0063dc; margin: 30px" >
       <% for (iShorProfile shortProf : profiles.values()) {

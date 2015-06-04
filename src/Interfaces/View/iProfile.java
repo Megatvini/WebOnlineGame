@@ -25,6 +25,8 @@ public interface iProfile extends iShorProfile{
 
     public Hashtable<String, iShorProfile> getFriends();
 
+    public Hashtable<String, iShorProfile> getWaitingFriends();
+
     public MessageList getMessages(String nickname);
 
     public boolean isOnline();
