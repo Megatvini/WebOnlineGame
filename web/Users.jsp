@@ -58,7 +58,11 @@
     }
     else
     {
-      profiles = ControlManager.getOnlineUsers(nickname);
+      String search = request.getParameter("search");
+      if(search == null)
+        profiles = ControlManager.getOnlineUsers(nickname);
+      else
+        profiles = ControlManager.getOnlineUsersLike(search);
     }
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>

@@ -105,8 +105,8 @@
           <div style="font-size: 22px; text-align: left; padding-left: 110px">
             <%=shortProf.getNickname()%>
           </div>
-          <div style="width:  100px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">წაშლა</button></div>
-          <div style="width:  100px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">მიწერა</button></div>
+          <div style="width:  100px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">წაშლა</button></div>          
+          <div style="width:  100px; float: left; padding: 5px"><a href="Messages.jsp?friend=<%=shortProf.getNickname()%>"><button class="btn btn-block btn-primary">მიწერა</button></a></div>
         </div>
       </div>
 

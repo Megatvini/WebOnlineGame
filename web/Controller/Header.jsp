@@ -1,5 +1,7 @@
 <%@ page import="Interfaces.View.iShorProfile" %>
 <%@ page import="Core.Controller.Account" %>
+<%@ page import="Interfaces.Controller.iAccount" %>
+<%@ page import="java.util.Hashtable" %>
 <%--
   Created by IntelliJ IDEA.
   User: Annie
@@ -24,46 +26,41 @@
   <!-- Header Navbar: style can be found in header.less -->
   <nav class="navbar navbar-static-top" role="navigation">
 
+    <%
+      String nick = (String)session.getAttribute("nickname");
+      iAccount prof ;
+      if (nick != null)
+        prof = new Account(nick);//TODO:
+      else
+        prof = new Account();
 
+      Hashtable<String, iShorProfile> waitingFriends = prof.getWaitingFriends();
+    %>
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
         <!-- Notifications: style can be found in dropdown.less -->
         <li class="dropdown notifications-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-bell-o"></i>
-            <span class="label label-warning">10</span>
+            <span class="label label-warning"><%=waitingFriends.size()%></span>
           </a>
           <ul class="dropdown-menu">
-            <li class="header">You have 10 notifications</li>
+            <li class="header">შენ გაქვს <%=waitingFriends.size()%> მეგობრობის თხოვნა. </li>
             <li>
               <!-- inner menu: contains the actual data -->
               <ul class="menu">
-                <li>
-                  <a href="#">
-                    <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the page and may cause design problems
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa fa-users text-red"></i> 5 new members joined
-                  </a>
-                </li>
+                <% for (iShorProfile shortProf : waitingFriends.values()) {
 
+                %>
                 <li>
-                  <a href="#">
-                    <i class="fa fa-shopping-cart text-green"></i> 25 sales made
+                  <a href="Friends.jsp">
+                    <i ></i>
+                    <img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 50px; height: 50px; border-radius: 50%;">
+                      <%=shortProf.getNickname()%>
+
                   </a>
                 </li>
-                <li>
-                  <a href="#">
-                    <i class="fa fa-user text-red"></i> You changed your username
-                  </a>
-                </li>
+                <% } %>
               </ul>
             </li>
             <li class="footer"><a href="#">View all</a></li>
@@ -221,11 +218,11 @@
       </ul>
     </div>
     <!-- search form -->
-    <form action="#" method="get" class="sidebar-form" style="height: 30px; max-width: 550px;">
+    <form action="Users.jsp" method="get" class="sidebar-form" style="height: 30px; max-width: 550px;">
       <div class="input-group">
-        <input style="height: 28px;" type="text" name="q" class="form-control" placeholder="Search..."/>
+        <input style="height: 28px;" type="text" class="form-control" name="search" placeholder="Search..."/>
               <span class="input-group-btn">
-                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+               <a></a> <button type='submit' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
               </span>
       </div>
     </form>
