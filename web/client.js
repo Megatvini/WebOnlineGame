@@ -45,13 +45,14 @@ var Client = IgeClass.extend({
 
 
 
-		ige.on('texturesLoaded', function (){
+
+        ige.on('texturesLoaded', function (){
 			// Create the HTML canvas
 			ige.createFrontBuffer(true);
 			ige.start(function (success) {
 				// Check if the engine started successfully
 				if (success) {
-					var myPlayerName = getCookie("playerID");
+					myId = getCookie("playerID");
 					function getCookie(cname) {
 						var name = cname + "=";
 						var ca = document.cookie.split(';');
@@ -129,97 +130,25 @@ var Client = IgeClass.extend({
 						}
 					}
 					createGameConfig(s);
-					 createMaze(s);
+					createMaze(s);
 
-					 self.player1 = new Character()
-					 .mount(self.scene1);
+					self.player1 = new Character()
+						.mount(self.scene1);
 
-					 self.vp1.camera.lookAt(self.player1);
+					self.vp1.camera.lookAt(self.player1);
 
-					 // Tell the camera to track our player character with some
-					 // tracking smoothing (set to 20)
-					 self.vp1.camera.trackTranslate(self.player1, 20);
+					// Tell the camera to track our player character with some
+					// tracking smoothing (set to 20)
+					self.vp1.camera.trackTranslate(self.player1, 20);
 					connection = initSocket();
 					connection.onmessage = function(e){
+
+
 						var snapShot = JSON.parse(e.data);
-						if(snapShot.type!="INIT"){
-							var players = snapShot.players,
-								potions = snapShot.potions,
-								onePotion,
-								x,
-								y,
-								id,
-								onePlayer ;
-							//{"players":{"0":{"x":100.0,"y":33.0,"id":0},"1":{"x":12.0,"y":33.0,"id":1}},"potions":{"0":{"x":-1000.0,"y":-1000.0,"id":-1},"1":{"x":12.0,"y":12.0,"id":1}}}
+						handler(snapShot);
 
-							for (var key in players) {
-								if(players.hasOwnProperty(key)) {
-									//console.log(key + ': ' + players[key]);
-									onePlayer = players[key];
-									x= Number(onePlayer.x);
-									y= Number(onePlayer.y);
-									id = Number(onePlayer.id);
-									if(typeof (characters[id])=='undefined'){
-										var newPlayer = new Character()
-											.translateTo(x,y,0)
-											.mount(self.scene1);
-										characters[id]=newPlayer;
-										if(typeof(myId)!='undefined'&& id==myId){
-											newPlayer.addComponent(PlayerComponent)
-												.drawBounds(false)
-												.mount(self.scene1);
-											player1=newPlayer;
-											self.vp1.camera.lookAt(player1);
-
-											// Tell the camera to track our player character with some
-											// tracking smoothing (set to 20)
-											self.vp1.camera.trackTranslate(player1, 20);
-											setInterval(sendUpdate,60);
-										}
-
-									}else{
-										if(id!=myId)
-											characters[id].translateTo(x,y,0);
-
-									}
-
-
-								}
-							}
-							////////////////////////////////////////////////////
-							////POTIONS/////////////////////////////////////////
-							for (var k in items) {
-								if (items.hasOwnProperty(k))
-									items[k].destroy();
-							}
-
-							for ( key in potions) {
-								if(potions.hasOwnProperty(key)) {
-									//console.log(key + ': ' + players[key]);
-									onePotion = potions[key];
-									x = Number(onePotion.x);
-									y = Number(onePotion.y);
-									id = Number(onePotion.id);
-									new IgeEntity()
-										.id("item" + (id))
-										.texture(self.gameTexture.potion)
-										.translateTo(x, y, 0)
-										.mount(self.scene1);
-
-								}
-							}
-
-						}else{
-							createGameConfig(snapShot);
-							createMaze(snapShot);
-						}
 
 					};
-
-
-
-
-
 				}
 			});
 		});
@@ -338,7 +267,7 @@ var Client = IgeClass.extend({
 		}
 
 		function initSocket() {
-			var connection = new WebSocket("ws://"+ window.location.host + "/app");
+			var connection = new WebSocket("ws://"+ window.location.host + "/game");
 			connection.onopen = function () {
 				console.log("connection opened");
 				connection.send(JSON.stringify({
@@ -370,6 +299,80 @@ var Client = IgeClass.extend({
 				.drawBounds(true)
 				.mount(ige);
 
+		}
+		function handler(snapShot){
+			if(snapShot.type&&snapShot.type!="INIT"){
+				var players = snapShot.players,
+					potions = snapShot.potions,
+					onePotion,
+					x,
+					y,
+					id,
+					onePlayer ;
+				//{"players":{"0":{"x":100.0,"y":33.0,"id":0},"1":{"x":12.0,"y":33.0,"id":1}},"potions":{"0":{"x":-1000.0,"y":-1000.0,"id":-1},"1":{"x":12.0,"y":12.0,"id":1}}}
+
+				for (var key in players) {
+					if(players.hasOwnProperty(key)) {
+						//console.log(key + ': ' + players[key]);
+						onePlayer = players[key];
+						x= Number(onePlayer.x);
+						y= Number(onePlayer.y);
+						id = Number(onePlayer.id);
+						if(typeof (characters[id])=='undefined'){
+							var newPlayer = new Character()
+								.translateTo(x,y,0)
+								.mount(self.scene1);
+							characters[id]=newPlayer;
+							if(typeof(myId)!='undefined'&& id==myId){
+								newPlayer.addComponent(PlayerComponent)
+									.drawBounds(false)
+									.mount(self.scene1);
+								player1=newPlayer;
+								self.vp1.camera.lookAt(player1);
+
+								// Tell the camera to track our player character with some
+								// tracking smoothing (set to 20)
+								self.vp1.camera.trackTranslate(player1, 20);
+								setInterval(sendUpdate,60);
+							}
+
+						}else{
+							if(id!=myId)
+								characters[id].translateTo(x,y,0);
+
+						}
+
+
+					}
+				}
+				////////////////////////////////////////////////////
+				////POTIONS/////////////////////////////////////////
+				for (var k in items) {
+					if (items.hasOwnProperty(k))
+						items[k].destroy();
+				}
+
+				for ( key in potions) {
+					if(potions.hasOwnProperty(key)) {
+						//console.log(key + ': ' + players[key]);
+						onePotion = potions[key];
+						x = Number(onePotion.x);
+						y = Number(onePotion.y);
+						id = Number(onePotion.id);
+						new IgeEntity()
+							.id("item" + (id))
+							.texture(self.gameTexture.potion)
+							.translateTo(x, y, 0)
+							.mount(self.scene1);
+
+					}
+				}
+
+			}
+			if(snapShot.type&&snapShot.type=="UPDATE") {
+				createGameConfig(snapShot);
+				createMaze(snapShot);
+			}
 		}
 	}
 
