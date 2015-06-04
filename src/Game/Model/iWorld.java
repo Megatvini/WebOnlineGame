@@ -1,6 +1,7 @@
 package Game.Model;
 
 import javax.json.JsonObject;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -20,43 +21,16 @@ public interface iWorld {
     boolean addPlayer(String playerName);
 
     /**
-     * size is measured in pixels
-     * @return width of a world
-     */
-    double getWidth();
-
-    /**
-     * size is measured in pixels
-     * @return height of world
-     */
-    double getHeight();
-
-    /**
-     * maze is a grid, in which each cell represents constant
-     * number of world pixels;
-     * @return width of the maze inside the world
-     */
-    int numCols();
-
-
-    /**
-     *  maze is a grid, in which each cell represents constant
-     * number of world pixels;
-     * @return height of a maze inside the world
-     */
-    int numRows();
-
-    /**
      * @return abstract representation of maze, represents some maze and we can check where are and where are not walls
      */
-    JsonObject getMaze();
+    JsonObject getInit();
 
     /**
      * this does not include maze
      * @return state of the world
      * it returns coordinates of players and potions
      */
-    JsonObject getState();
+    JsonObject getUpdate(String playerName);
 
     /**
      * @return how many players are currently in world
@@ -95,7 +69,7 @@ public interface iWorld {
     /**
      * @return list of all player names currently in world
      */
-    List<String> getPlayers();
+    Collection<String> getPlayers();
 
     /**
      * @return game state on or not.

@@ -9,17 +9,6 @@ import java.util.*;
 
 public class PlaneMaze {
 
-    private static Properties prop = new Properties();
-
-    private static final int defNumRows;
-    private static final int defNumCols;
-
-    static {
-        ConfigFile.loadFromFile(prop, ConfigFile.fileName);
-        defNumRows = Integer.parseInt(prop.getProperty("numRows"));
-        defNumCols = Integer.parseInt(prop.getProperty("numCols"));
-    }
-
     private static int cellWallNum = 4;
 
     private Random rand = new Random();
@@ -29,13 +18,6 @@ public class PlaneMaze {
 
     private int numRows;
     private int numCols;
-
-    /**
-     * sizes taken by default from configuration file
-     */
-    public PlaneMaze() {
-        this(defNumRows, defNumCols);
-    }
 
     /**
      *

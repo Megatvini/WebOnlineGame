@@ -8,16 +8,17 @@ import java.util.Properties;
  */
 public class ConfigFile {
 
-    public static final String fileName = "C:\\Users\\Nika\\Desktop\\WebOnlineGame\\ConfigFile.txt";
-
-    private static Properties prop = new Properties();
+    public static final String fileName = "ConfigFile.txt";
 
     public static void loadFromFile(Properties prop, String fileName) {
         InputStream input = null;
+
         try {
+
             input = new FileInputStream(fileName);
             // load a properties file
             prop.load(input);
+
         } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
@@ -41,6 +42,7 @@ public class ConfigFile {
      * setProperty methods, we can do anything to this method to get desirable configuration file.
      */
     public static void fill() {
+        Properties prop = new Properties();
 
         /** @@ es shesacvlelia es comentari
          * @param wallWidth width of maze wall, distance between, horizontal or vertical, adjacent corridors
@@ -77,17 +79,16 @@ public class ConfigFile {
 
         //@@ cinc ar unda iyo shen PlaneMazes shemqmnelo numRow=14, numCol=24 qeni da Cell dagijdeba 32 zomis sigrdzec da siganec. mainc lamazi/logikuri iqneba kvadratuli cell, tu ar ginda kiseri gitexia, an tu sxva monacemebs shecvli.
 
-        storeInFile(fileName);
+        storeInFile(prop, fileName);
 
     }
 
-    private static void storeInFile(String fileName) {
+    public static void storeInFile(Properties prop, String fileName) {
         OutputStream output = null;
         try {
             output = new FileOutputStream(fileName);
             // save properties to project root folder
             prop.store(output, null);
-
         } catch (IOException io) {
             io.printStackTrace();
         } finally {

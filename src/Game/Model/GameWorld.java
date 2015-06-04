@@ -17,9 +17,9 @@ import java.util.List;
  */
 public class GameWorld implements iWorld {
 
-    private static Properties prop = new Properties();
-
     private static final Random rand = new Random();
+
+    private static Properties prop = new Properties();
 
     public static final int maxPlayers;
     public static final double width;
@@ -53,30 +53,11 @@ public class GameWorld implements iWorld {
         startPotNum = Integer.parseInt(prop.getProperty("startPotNum"));
         addPotDelay = Long.parseLong(prop.getProperty("addPotDelay"));
         potForKick = Integer.parseInt(prop.getProperty("potForKick"));
-
-//        // @@ just checking have to delete
-//        System.out.println("maxPlayers: " + maxPlayers);
-//        System.out.println("width: " + width);
-//        System.out.println("height: " + height);
-//        System.out.println("wallWidth: " + wallWidth);
-//        System.out.println("pRadius: " + pRadius);
-//        System.out.println("maxMove: " + maxMove);
-//        System.out.println("startDist: " + startDist);
-//        System.out.println("plusDist: " + plusDist);
-//        System.out.println("plusDistDelay: " + plusDistDelay);
-//        System.out.println("potRadius: " + potRadius);
-//        System.out.println("startPotNum: " + startPotNum);
-//        System.out.println("addPotDelay: " + addPotDelay);
-//        System.out.println("potForKick: " + potForKick);
-
     }
 
-    // variables passed in constructor
-    private ArrayList<String> playerNames;
     private PlaneMaze pm;
     private boolean startGame;
 
-    // variables to define depended on info passed in constructor
     private double cellWidth;
     private double cellHeight;
     private int numRows;
@@ -85,7 +66,6 @@ public class GameWorld implements iWorld {
     private int activePlNum;
     private boolean running;
 
-    // mapping from player names in this game to their representing inner player object
     private Map<String, Player> nameOnPlayer;
 
     // coordinates of potions
@@ -95,11 +75,6 @@ public class GameWorld implements iWorld {
     private Timer timer;
 
 
-    /**
-     * construct game object. It has two states on and off, represented with running
-     * variable, iff game is on: players cannot move from old distance on too far new distances, request
-     * will be just ignored, player will be on same place; cannot add new players; cannot start game(again).
-     */
     public GameWorld(PlaneMaze pm) {
         this(new ArrayList<String>(), pm, false);
     }
@@ -113,10 +88,9 @@ public class GameWorld implements iWorld {
      * @param pm abstract representation of maze, represents some maze and we can check where are and where are not walls
      * @param startGame user tells to start game or not. if true passed game will start at the end of constructor.
      */
-    public GameWorld(ArrayList<String> players, PlaneMaze pm, boolean startGame) {
+    public GameWorld(Collection<String> players, PlaneMaze pm, boolean startGame) {
         running = false; // until world constructor finishes clearly game is not on
 
-        playerNames = players;
         this.pm = pm;
 
         numRows = pm.numRows();
@@ -124,14 +98,12 @@ public class GameWorld implements iWorld {
         cellWidth = (width - (numCols - 1) * wallWidth) / numCols;
         cellHeight = (height - (numRows - 1) * wallWidth) / numRows;
         dist = startDist;
-        activePlNum = 0;
+        activePlNum = players.size();
 
-        nameOnPlayer = new HashMap<String, Player>();
-        for (int i = 0; i < playerNames.size(); i++) {
-            addPlayer(playerNames.get(i));
-        }
+        nameOnPlayer = new HashMap<>();
+        players.forEach(p -> addPlayer(p));
 
-        potions = new ArrayList<Point2D.Double>();
+        potions = new ArrayList<>();
         for (int i = 0; i < startPotNum; i++) {
             addPotion();
         }
@@ -141,7 +113,7 @@ public class GameWorld implements iWorld {
         }
     }
 
-    @Override //@@ player coordinate is up-leftest point
+    @Override
     public boolean addPlayer(String playerName) {
         if (!running && nameOnPlayer.size() < maxPlayers && !nameOnPlayer.containsKey(playerName)) {
             Player p = null;
@@ -150,7 +122,7 @@ public class GameWorld implements iWorld {
                     p = new Player(playerName,
                             (cellWidth - 2 * pRadius) / 2,
                             (cellHeight - 2 * pRadius) / 2,
-                            2 * pRadius,
+                            pRadius,
                             true);
                     break;
                 case 1:
@@ -178,47 +150,24 @@ public class GameWorld implements iWorld {
                     return false;
             }
             nameOnPlayer.put(playerName, p);
-            playerNames.add(playerName);
             return true;
         }
         return false;
     }
 
+//@@if maxPlayer is more than 4  and adding 5th or higher players put randomly
     @Override
-    public double getWidth() {
-        return width;
-    }
-
-    @Override
-    public double getHeight() {
-        return height;
-    }
-
-    @Override
-    public int numRows() {
-        return numRows;
-    }
-
-    @Override
-    public int numCols() {
-        return numCols;
-    }
-
-    @Override
-    public JsonObject getMaze() {
-
+    public JsonObject getInit() { //@@ unda shevamciro positionis double mdzimis shemdeg 2 an 3 cifri mara mainc 3 iyos, damrgvalebit da ara chamojra prosta
         JsonBuilderFactory factory = Json.createBuilderFactory(null);
+
+        JsonObjectBuilder initJson = factory.createObjectBuilder();
+
+        initJson.add("type", "INIT");
+
         JsonObjectBuilder mazeJson = factory.createObjectBuilder();
-
-        mazeJson.add("width", width)
-                .add("height", height)
-                .add("wallWidth", wallWidth)
-                .add("numRows", numRows)
+        mazeJson.add("numRows", numRows)
                 .add("numCols", numCols);
-
-        // create/add walls json array
         JsonArrayBuilder wallsJson = factory.createArrayBuilder();
-
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
                 if (i < numRows - 1) {
@@ -249,22 +198,38 @@ public class GameWorld implements iWorld {
             }
         }
         mazeJson.add("walls", wallsJson);
-        return mazeJson.build();
+        initJson.add("planeMaze", mazeJson);
+
+        JsonObjectBuilder configJson = factory.createObjectBuilder();
+        configJson.add("width", width)
+                .add("height", height)
+                .add("wallWidth", wallWidth)
+                .add("pRadius", pRadius)
+                .add("potRadius", potRadius);
+        initJson.add("configuration", configJson);
+
+
+        return initJson.build();
     }
 
     @Override
-    public JsonObject getState() {
+    public JsonObject getUpdate(String playerName) {
         JsonBuilderFactory factory = Json.createBuilderFactory(null);
-        JsonObjectBuilder stateJson = factory.createObjectBuilder();
 
-        // add json gameOn boolean
-        stateJson.add("gameOn", running);
+        JsonObjectBuilder updateJson = factory.createObjectBuilder();
+
+        updateJson.add("type", "UPDATE");
+
+        updateJson.add("gameOn", gameOn());
+
+        updateJson.add("potNum", nameOnPlayer.get(playerName).getPotNum());
 
         // create/add json players' array
         JsonArrayBuilder playersJson = factory.createArrayBuilder();
+        Set<String> players = nameOnPlayer.keySet();
+        for (String name : players) {
+            Player p = nameOnPlayer.get(name);
 
-        for (int i = 0; i < playerNames.size(); i++) {
-            Player p = nameOnPlayer.get(playerNames.get(i));
             JsonObjectBuilder playerJson = factory.createObjectBuilder();
 
             playerJson.add("active", p.getActive());
@@ -276,14 +241,10 @@ public class GameWorld implements iWorld {
             plPosJson.add("x", plPos.getX()).add("y", plPos.getY());
             playerJson.add("position", plPosJson);
 
-            playerJson.add("radius", p.getRadius());
-
-            playerJson.add("potNum", p.getPotNum());
-
             playersJson.add(playerJson);
         }
 
-        stateJson.add("players", playersJson);
+        updateJson.add("players", playersJson);
 
         // create/add json potions' array
         JsonArrayBuilder potsJson = factory.createArrayBuilder();
@@ -292,30 +253,25 @@ public class GameWorld implements iWorld {
             Point2D.Double pot = potions.get(i);
             JsonObjectBuilder potJson = factory.createObjectBuilder();
 
-            JsonObjectBuilder locJson = factory.createObjectBuilder();
-            locJson.add("x", pot.getX()).add("y", pot.getY());
-            potJson.add("position", locJson);
-
-            potJson.add("radius", potRadius);
+            potJson.add("x", pot.getX())
+                    .add("y", pot.getY());
 
             potsJson.add(potJson);
         }
 
-        stateJson.add("potions", potsJson);
+        updateJson.add("potions", potsJson);
 
         // add json distance double
-        stateJson.add("distance", dist);
+        updateJson.add("distance", dist);
 
-
-
-        return stateJson.build();
+        return updateJson.build();
     }
 
 
 
     @Override
     public int numberOfPlayers() {
-        return playerNames.size();
+        return nameOnPlayer.size();
     }
 
     @Override //@@ codis gameoreba mivxedo setPlayerLocation-tan aris
@@ -364,17 +320,19 @@ public class GameWorld implements iWorld {
     //@@ amovigo nameOnPlayer Mapidan tu prosta active false ? ? nika rogorc gadawyvets
     private void playersCheck(Player p) {
         Point2D.Double plPos = p.getPosition();
-        Player otherPl;
         Point2D.Double otherPlPos ;
-        for (int i = 0; i < playerNames.size(); i++) {
-            otherPl = nameOnPlayer.get(playerNames.get(i));
-            otherPlPos = otherPl.getPosition();
-            if (otherPl.getActive() &&
+
+        Set<String> players = nameOnPlayer.keySet();
+
+        for (String name : players) {
+            Player otherP = nameOnPlayer.get(name);
+            otherPlPos = otherP.getPosition();
+            if (otherP.getActive() &&
                     distance(plPos.x + pRadius, plPos.y + pRadius, otherPlPos.x + pRadius, otherPlPos.y + pRadius) < pRadius + pRadius) {
-                if (p.getPotNum() > otherPl.getPotNum()) {
-                    kickPlayer(p, otherPl);
-                } else if (p.getPotNum() < otherPl.getPotNum()) {
-                    kickPlayer(otherPl, p);
+                if (p.getPotNum() > otherP.getPotNum()) {
+                    kickPlayer(p, otherP);
+                } else if (p.getPotNum() < otherP.getPotNum()) {
+                    kickPlayer(otherP, p);
                     break; // if player who made move kicked he cannot continue kicking anyone(or playing at all)
                 }
             }
@@ -468,8 +426,8 @@ public class GameWorld implements iWorld {
     }
 
     @Override
-    public List<String> getPlayers() {
-        return playerNames;
+    public Collection<String> getPlayers() {
+        return nameOnPlayer.keySet();
     }
 
     @Override

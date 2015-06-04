@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 /**
  * Created by SHAKO on 03-Jun-15.
  */
-public class Player {
+public class Player {//@@ aq radius statikurad wavikitxo configedan
 
     private String name;
     private  double x;
