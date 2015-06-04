@@ -9,8 +9,22 @@ var Client = IgeClass.extend({
 			characters = {}, // players in the world
 			gameConfig = {}, //sizes
 			items = {}, //potions
-			myIid, //
-			player1; // pointer to active player
+			myId, //
+			player1,
+			connection; // pointer to active player
+
+
+		myId = getCookie("playerID");
+		function getCookie(cname) {
+			var name = cname + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0; i<ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0)==' ') c = c.substring(1);
+				if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+			}
+			return "";
+		}
 
 
 
@@ -115,18 +129,17 @@ var Client = IgeClass.extend({
 						}
 					}
 					createGameConfig(s);
-					createMaze(s);
+					 createMaze(s);
 
-					self.player1 = new Character()
-						.mount(self.scene1);
+					 self.player1 = new Character()
+					 .mount(self.scene1);
 
-					self.vp1.camera.lookAt(self.player1);
+					 self.vp1.camera.lookAt(self.player1);
 
-					// Tell the camera to track our player character with some
-					// tracking smoothing (set to 20)
-					self.vp1.camera.trackTranslate(self.player1, 20);
-
-					var connection = initSocket();
+					 // Tell the camera to track our player character with some
+					 // tracking smoothing (set to 20)
+					 self.vp1.camera.trackTranslate(self.player1, 20);
+					connection = initSocket();
 					connection.onmessage = function(e){
 						var snapShot = JSON.parse(e.data);
 						if(snapShot.type!="INIT"){
@@ -147,11 +160,11 @@ var Client = IgeClass.extend({
 									y= Number(onePlayer.y);
 									id = Number(onePlayer.id);
 									if(typeof (characters[id])=='undefined'){
-										var newPidlayer = new Character()										.setType(id)
+										var newPlayer = new Character()
 											.translateTo(x,y,0)
 											.mount(self.scene1);
 										characters[id]=newPlayer;
-										if(typeof(myIid)!='undefined'&& id==myIid){
+										if(typeof(myId)!='undefined'&& id==myId){
 											newPlayer.addComponent(PlayerComponent)
 												.drawBounds(false)
 												.mount(self.scene1);
@@ -161,11 +174,11 @@ var Client = IgeClass.extend({
 											// Tell the camera to track our player character with some
 											// tracking smoothing (set to 20)
 											self.vp1.camera.trackTranslate(player1, 20);
-											setInterval(sendUpdate,16);
+											setInterval(sendUpdate,60);
 										}
 
 									}else{
-										if(id!=myIid)
+										if(id!=myId)
 											characters[id].translateTo(x,y,0);
 
 									}
@@ -176,7 +189,7 @@ var Client = IgeClass.extend({
 							////////////////////////////////////////////////////
 							////POTIONS/////////////////////////////////////////
 							for (var k in items) {
-								if (potions.hasOwnProperty(k))
+								if (items.hasOwnProperty(k))
 									items[k].destroy();
 							}
 
@@ -190,7 +203,6 @@ var Client = IgeClass.extend({
 									new IgeEntity()
 										.id("item" + (id))
 										.texture(self.gameTexture.potion)
-										.depth(1)
 										.translateTo(x, y, 0)
 										.mount(self.scene1);
 
@@ -316,8 +328,8 @@ var Client = IgeClass.extend({
 			var x = t.x;
 			var y = t.y;
 			connection.send(JSON.stringify({
-				"type": "INIT",
-				"name":myIid,
+				"type": "update",
+				"name":myId,
 				"coordinates":{
 					"x":x,
 					"y":y
@@ -326,12 +338,12 @@ var Client = IgeClass.extend({
 		}
 
 		function initSocket() {
-			var connection = new WebSocket('http://localhost:8080/app');
+			var connection = new WebSocket("ws://"+ window.location.host + "/app");
 			connection.onopen = function () {
 				console.log("connection opened");
 				connection.send(JSON.stringify({
 					"type": "init",
-					"name": myPlayerName
+					"name": myId
 				}));
 
 
