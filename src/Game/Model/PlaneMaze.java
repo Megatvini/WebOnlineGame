@@ -321,7 +321,7 @@ public class PlaneMaze {
         return res;
     }
 
-    public class bla {
+    private class bla {
         public void kla() {
 
         }
