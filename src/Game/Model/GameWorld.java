@@ -287,11 +287,11 @@ public class GameWorld implements iWorld {
         Point2D.Double pos = p.getPosition();
         if (running) {
             if (distance(x, y, pos.getX(), pos.getY()) > maxMove) {
-                return false;
+                //return false;
             }
         }
         if  (wrongPlace(x, y)) {
-            return false;
+            //return false;
         }
 
         p.setPosition(x, y);
