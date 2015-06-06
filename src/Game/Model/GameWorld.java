@@ -95,8 +95,8 @@ public class GameWorld implements iWorld {
 
         numRows = pm.numRows();
         numCols = pm.numCols();
-        cellWidth = (width - (numCols - 1) * wallWidth) / numCols;
-        cellHeight = (height - (numRows - 1) * wallWidth) / numRows;
+        cellWidth = ((width - (numCols - 1) * wallWidth)) / numCols;
+        cellHeight = ((height - (numRows - 1) * wallWidth)) / numRows;
         dist = startDist;
         activePlNum = players.size();
 
