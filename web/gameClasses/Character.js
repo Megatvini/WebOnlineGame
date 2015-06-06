@@ -2,15 +2,15 @@
 var Character = IgeEntityBox2d.extend({
 	classId: 'Character',
 
-	init: function () {
+	init: function (data,name,myId) {
 		var self = this;
 		IgeEntityBox2d.prototype.init.call(this);
 
 		// Setup the entity
 		self.addComponent(IgeAnimationComponent)
 			.addComponent(IgeVelocityComponent)
-			.addComponent(PlayerComponent)
-			.box2dBody({
+		if(name==myId)
+			self.box2dBody({
 				type: 'dynamic',
 				linearDamping: 0.0,
 				angularDamping: 0.1,
@@ -23,15 +23,16 @@ var Character = IgeEntityBox2d.extend({
 					friction: 0.5,
 					restitution: 0.2,
 					shape: {
-						type: 'rectangle'
-
+						type: 'circle',
+						dara:{
+							radius:data.pRadius
+						}
 					}
 				}]
 			})
-			.id('player1')
-			.setType(0)
-			.translateTo(480, 300, 0)
-			.drawBounds(false);
+
+				.setType(0)
+				.drawBounds(false);
 
 		// Load the character texture file
 		if (!ige.isServer) {
