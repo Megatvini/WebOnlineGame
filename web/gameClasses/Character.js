@@ -28,7 +28,7 @@ var Character = IgeEntityBox2d.extend({
 					}
 				}]
 			})
-			.id('player1')
+
 			.setType(0)
 			.translateTo(480, 300, 0)
 			.drawBounds(false);

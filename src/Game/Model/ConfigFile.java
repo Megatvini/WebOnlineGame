@@ -7,8 +7,7 @@ import java.util.Properties;
  * Created by SHAKO on 02-Jun-15.
  */
 public class ConfigFile {
-
-    public static final String fileName = "ConfigFile.txt";
+    public static final String fileName = "D:\\WebOnlineGame\\src\\ConfigFile.txt";
 
     public static void loadFromFile(Properties prop, String fileName) {
         InputStream input = null;

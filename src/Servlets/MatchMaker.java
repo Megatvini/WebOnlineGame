@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet("/MatchMaker")
 public class MatchMaker extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String playerID = (String) request.getParameter("playerName");
+        String playerID = request.getParameter("playerName");
         System.out.println("playerName was " + playerID);
         Cookie cookie = new Cookie("playerID", playerID);
         response.addCookie(cookie);

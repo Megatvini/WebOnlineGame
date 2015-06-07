@@ -84,8 +84,9 @@ public class GameWorld implements iWorld {
      * construct game object. It has two states on and off, represented with running
      * variable, iff game is on: players cannot move from old distance on too far new distances, request
      * will be just ignored, player will be on same place; cannot add new players; cannot start game(again).
-     * @param players names of players
-     * @param pm abstract representation of maze, represents some maze and we can check where are and where are not walls
+     *
+     * @param players   names of players
+     * @param pm        abstract representation of maze, represents some maze and we can check where are and where are not walls
      * @param startGame user tells to start game or not. if true passed game will start at the end of constructor.
      */
     public GameWorld(Collection<String> players, PlaneMaze pm, boolean startGame) {
@@ -155,7 +156,7 @@ public class GameWorld implements iWorld {
         return false;
     }
 
-//@@if maxPlayer is more than 4  and adding 5th or higher players put randomly
+    //@@if maxPlayer is more than 4  and adding 5th or higher players put randomly
     @Override
     public JsonObject getInit() { //@@ unda shevamciro positionis double mdzimis shemdeg 2 an 3 cifri mara mainc 3 iyos, damrgvalebit da ara chamojra prosta
         JsonBuilderFactory factory = Json.createBuilderFactory(null);
@@ -268,7 +269,6 @@ public class GameWorld implements iWorld {
     }
 
 
-
     @Override
     public int numberOfPlayers() {
         return nameOnPlayer.size();
@@ -290,7 +290,7 @@ public class GameWorld implements iWorld {
                 return false;
             }
         }
-        if  (wrongPlace(x, y)) {
+        if (wrongPlace(x, y)) {
             return false;
         }
 
@@ -320,7 +320,7 @@ public class GameWorld implements iWorld {
     //@@ amovigo nameOnPlayer Mapidan tu prosta active false ? ? nika rogorc gadawyvets
     private void playersCheck(Player p) {
         Point2D.Double plPos = p.getPosition();
-        Point2D.Double otherPlPos ;
+        Point2D.Double otherPlPos;
 
         Set<String> players = nameOnPlayer.keySet();
 
@@ -353,22 +353,20 @@ public class GameWorld implements iWorld {
     }
 
     /**
-     *
      * @param x
      * @param y
      * @return
      */
     private boolean wrongPlace(double x, double y) { // @@ aq armaq gatvaliswinebuli cellis shesadzlo ara-kvadratuloba
-        int rowIndx = (int)(y / (wallWidth + cellWidth));
+        int rowIndx = (int) (y / (wallWidth + cellWidth));
         if (rowIndx < 0 || y > rowIndx * (cellWidth + wallWidth) + cellWidth) {
             return true;
         }
 
-        int colIndx = (int)(x / (wallWidth + cellWidth));
+        int colIndx = (int) (x / (wallWidth + cellWidth));
         if (colIndx < 0 || x > colIndx * (cellWidth + wallWidth) + cellWidth) {
             return true;
         }
-
 
 
 //        if (pointInBounds(new Point(rowIndx - 1, colIndx))) {
@@ -385,7 +383,6 @@ public class GameWorld implements iWorld {
     }
 
     /**
-     *
      * @param cX
      * @param cY
      * @param rX
@@ -414,7 +411,6 @@ public class GameWorld implements iWorld {
     }
 
     /**
-     *
      * @param x1
      * @param y1
      * @param x2
@@ -478,8 +474,9 @@ public class GameWorld implements iWorld {
 
     /**
      * generates random value between two values [min, max), uniformly distributed.
+     *
      * @param min generated value will not be lower
-     * @param max  generated value will not be higher
+     * @param max generated value will not be higher
      * @return return double uniformly distributed in interval: [min, max)
      */
     private double randDouble(double min, double max) {
@@ -493,36 +490,4 @@ public class GameWorld implements iWorld {
             running = false;
         }
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

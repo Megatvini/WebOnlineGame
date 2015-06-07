@@ -142,12 +142,9 @@ var Client = IgeClass.extend({
 					self.vp1.camera.trackTranslate(self.player1, 20);
 					connection = initSocket();
 					connection.onmessage = function(e){
-
-
+						console.log("received " + e.data);
 						var snapShot = JSON.parse(e.data);
 						handler(snapShot);
-
-
 					};
 				}
 			});
@@ -315,6 +312,7 @@ var Client = IgeClass.extend({
 					if(players.hasOwnProperty(key)) {
 						//console.log(key + ': ' + players[key]);
 						onePlayer = players[key];
+						console.log("key>>---"+key);
 						x= Number(onePlayer.x);
 						y= Number(onePlayer.y);
 						id = Number(onePlayer.id);
@@ -326,6 +324,7 @@ var Client = IgeClass.extend({
 							if(typeof(myId)!='undefined'&& id==myId){
 								newPlayer.addComponent(PlayerComponent)
 									.drawBounds(false)
+									.id()
 									.mount(self.scene1);
 								player1=newPlayer;
 								self.vp1.camera.lookAt(player1);
