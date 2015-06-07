@@ -602,11 +602,11 @@ var IgeTexture = IgeEventingClass.extend({
 			// TODO: track of the value and evaluate first before changing?
 			if (!this._smoothing) {
 				ige._ctx.imageSmoothingEnabled = false;
-				ige._ctx.webkitImageSmoothingEnabled = false;
+				//ige._ctx.webkitImageSmoothingEnabled = false;
 				ige._ctx.mozImageSmoothingEnabled = false;
 			} else {
 				ige._ctx.imageSmoothingEnabled = true;
-				ige._ctx.webkitImageSmoothingEnabled = true;
+				//ige._ctx.webkitImageSmoothingEnabled = true;
 				ige._ctx.mozImageSmoothingEnabled = true;
 			}
 

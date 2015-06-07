@@ -13,6 +13,7 @@ public class PlaneMaze {
 
     private Random rand = new Random();
 
+    //
     private boolean[][] horizWalls;
     private  boolean[][] vertWalls;
 
@@ -259,29 +260,7 @@ public class PlaneMaze {
             }
         }
 
-        boolean neighbours = true;
-
-        if (p1.x == p2.x) {
-            if (p1.y - p2.y == 1) {
-                vertWalls[p1.x][p2.y] = state;
-            } else if (p2.y - p1.y == 1) {
-                vertWalls[p1.x][p1.y] = state;
-            } else {
-                neighbours = false;
-            }
-        } else if (p1.y == p2.y) {
-            if (p1.x - p2.x == 1) {
-                horizWalls[p2.x][p1.y] = state;
-            } else if (p2.x - p1.x == 1) {
-                horizWalls[p1.x][p1.y] = state;
-            } else {
-                neighbours = false;
-            }
-        } else {
-            neighbours = false;
-        }
-
-        if (!neighbours){
+        if (!neighbours(p1, p2)) {
             try {
                 throw new Exception("Cells are not neighbours!");
             } catch (Exception e) {
@@ -289,13 +268,28 @@ public class PlaneMaze {
             }
         }
 
+        if (p1.y == p1.y) {
+           // horizWalls
+        }
+
     }
 
-    // if walls is between(row,col): (3, 4) and (3, 5) cells and also between: (0, 1) and (1, 1) cells
-    // to string gives: 3:4#3:5#0:1#1:1 anu wyvili raodenoba cellia ra to stringshi da yoveli momdevno ors shoris kedelia,
-    // "#" amit gamoiyofa cellis coordinatebi cellis X da Y ":" amit. X yoveltvis Y mdea. yovel wyvilshi tu gansazgvraven
-    // vertikalur kedels cellebs shoris mashin marcxena cell ufro marcxniv ewereba, horizontaluris shemtxvevashi maglita cell ewereba
-    // toStringshi marcxniv.
+    private boolean neighbours(Point p1, Point p2){
+        if (p1.y == p2.y) {
+            if (Math.abs(p1.x - p2.x) == 1) {
+                return true;
+            } else {
+                return false; // avoid unnecessary checking
+            }
+        } else if (p1.x == p2.y) {
+            if (Math.abs(p1.x - p2.x) == 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // es ar gamoiyeno
     public String toString() {
         String res = "";
 
@@ -327,35 +321,10 @@ public class PlaneMaze {
         return res;
     }
 
-    /**
-     * daikidet es metodi albbat wavshli
-     */
-    public void draw() {
-        System.out.println("---------------------------------------------------------");
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
-                Point current = new Point(i, j);
-                if (i < numRows-1) {
-                    Point down = new Point(i + 1, j);
-                    if (isW(current, down)) {
-                        System.out.print("_");
-                    } else {
-                        System.out.print(" ");
-                    }
-                }
+    private class bla {
+        public void kla() {
 
-                if (j < numCols-1) {
-                    Point right = new Point(i, j + 1);
-                    if (isW(current, right)) {
-                        System.out.print("|");
-                    } else {
-                        System.out.print(" ");
-                    }
-                }
-            }
-            System.out.print("\n");
         }
-        System.out.println("---------------------------------------------------------");
     }
 
 }
