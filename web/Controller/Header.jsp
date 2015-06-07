@@ -28,7 +28,7 @@
 
     <%
       String nick = (String)session.getAttribute("nickname");
-      iAccount prof ;
+      iShorProfile prof ;
       if (nick != null)
         prof = new Account(nick);//TODO:
       else

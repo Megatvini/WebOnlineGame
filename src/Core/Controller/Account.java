@@ -171,6 +171,11 @@ public class Account implements iAccount {
         return _friendsWaiting;
     }
 
+    @Override
+    public Hashtable<String, MessageList> getUnreadMessages() {
+        return null;
+    }
+
     Hashtable<String, MessageList> _messages = new Hashtable<String, MessageList>();
 
     @Override
