@@ -8,7 +8,7 @@ import java.util.Properties;
  */
 public class ConfigFile {
 /////// I had to write my path :/
-    public static final String fileName = "/home/rezo/Desktop/WebOnlineGame/ConfigFile.txt";
+    public static final String fileName = "D:\\WebOnlineGame\\src\\ConfigFile.txt";
 
     public static void loadFromFile(Properties prop, String fileName) {
         InputStream input = null;
@@ -101,6 +101,4 @@ public class ConfigFile {
             }
         }
     }
-
-
 }
