@@ -31,7 +31,7 @@ public class Listener implements ServletContextListener,
         List<String> room1 = new ArrayList<>();
         room1.add("room1player1");
         room1.add("room1player2");
-        room1.add("room1player3");
+       // room1.add("room1player3");
 
         List<String> room2 = new ArrayList<>();
         room2.add("room2player1");

@@ -46,11 +46,11 @@ var Client = IgeClass.extend({
 
 function gameOn(){
 	initial();
-	/*
-	 var  s = {
+
+	 var  debugConfig = {
 	 "planeMaze": {
-	 "numRows":6,
-	 "numCols":8,
+	 "numRows":12,
+	 "numCols":12,
 	 "walls":[
 
 
@@ -58,13 +58,15 @@ function gameOn(){
 	 },
 
 	 "configuration":{
-	 "width":1136, "height":656, "wallWidth":6, "pRadius":12, "potRadius":6
+	 "width":1136, "height":600, "wallWidth":6, "pRadius":12, "potRadius":6
 	 }
 	 };
+	var con = debugConfig.configuration;
+	gameConfig = con;
 	 var c = 0 ;
 	 for(var t = 0 ; t < 12 ; t ++){
 	 for(var  p = 0 ; p < 12 ; p ++){
-	 s.planeMaze.walls[c]=
+	 debugConfig.planeMaze.walls[c]=
 	 {
 	 "cell1":{
 	 "row":t,
@@ -75,7 +77,7 @@ function gameOn(){
 	 "col":p+1
 	 }
 	 };
-	 s.planeMaze.walls[c+1]=
+	 debugConfig.planeMaze.walls[c+1]=
 	 {
 	 "cell1":{
 	 "row":t,
@@ -86,7 +88,7 @@ function gameOn(){
 	 "col":p-1
 	 }
 	 };
-	 s.planeMaze.walls[c+2]=
+	 debugConfig.planeMaze.walls[c+2]=
 	 {
 	 "cell1":{
 	 "row":t,
@@ -97,7 +99,7 @@ function gameOn(){
 	 "col":p
 	 }
 	 };
-	 s.planeMaze.walls[c+3]=
+	 debugConfig.planeMaze.walls[c+3]=
 	 {
 	 "cell1":{
 	 "row":t,
@@ -111,43 +113,34 @@ function gameOn(){
 	 c+=4;
 	 }
 	 }
-	 createGameConfig(s);
-	 createMaze(s);
 
-	 self.player1 = new Character()
-	 .mount(self.scene1);
+	var debugUpdate = {"type":"UPDATE","gameOn":true,"potNum":0,"players":[{"active":true,"name":"room1player1","position":{"x":8.8,"y":3.1999999999999993}}
+		,{"active":true,"name":"room1player2",
+			"position":{"x":1000.2,"y":3.1999999999999993}}],
+		"potions":[{"x":430.2331184493332,"y":5.684165279438203},
+			{"x":0,"y":0},
+			{"x":527.1172908746726,"y":577.0656553648109},
+			{"x":484.1870282715431,"y":207.55881712027767},
+			{"x":412.99717495965973,"y":39.34350517508462},
+			{"x":1056.6955940355167,"y":442.5149048044682},
+			{"x":832.2480951470386,"y":543.3563451799431},
+			{"x":944.9820093407832,"y":241.1811411431445},{"x":868.1042771720871,"y":476.1570608681552},{"x":769.6752484408707,"y":140.20459652018823}],"distance":120.0}
+	 //createGameConfig(debugConfig);
+	//createMaze(debugConfig);
 
-	 self.vp1.camera.lookAt(self.player1);
+
 
 	 // Tell the camera to track our player character with some
 	 // tracking smoothing (set to 20)
-	 self.vp1.camera.trackTranslate(self.player1, 20);*/
 	//connection = initSocket();
-	connection = new WebSocket("ws://"+ window.location.host + "/game");
-	connection.onopen = function () {
-		console.log("connection opened");
-		connection.send(JSON.stringify({
-			"type": "init",
-			"name": myId
-		}));
+	function debugGame(debugConfig, debugUpdate) {
+		gameConfig = createGameConfig(debugConfig);
+		createMaze(debugConfig);
+		handler(debugUpdate);
+	}
 
+	debugGame(debugConfig,debugUpdate);
 
-	};
-	connection.onclose = function () {
-		console.log('Connection closed');
-
-	};
-	connection.onerror = function (error) {
-		console.log('Error detected: ' + error);
-	};
-
-	connection.onmessage = function(e){
-		console.log(e.data);
-		var snapShot = JSON.parse(e.data);
-		handler(snapShot);
-
-
-	};
 }
 function getCookie(cname) {
 	var name = cname + "=";
@@ -177,6 +170,13 @@ function initSocket() {
 	connection.onerror = function (error) {
 		console.log('Error detected: ' + error);
 	};
+	connection.onmessage = function(e){
+		console.log(e.data);
+		var snapShot = JSON.parse(e.data);
+		handler(snapShot);
+
+
+	};
 	return connection;
 }
 function createGameConfig(snapShot) {
@@ -188,7 +188,7 @@ function handler(snapShot){
 	if(snapShot.type&&snapShot.type=="UPDATE"){
 		var players = snapShot.players,
 			potions = snapShot.potions;
-		var ss = {"type":"UPDATE","gameOn":true,"potNum":0,"players":[{"active":true,"name":"room1player1","position":{"x":8.8,"y":-3.1999999999999993}},{"active":true,"name":"room1player2","position":{"x":1103.2,"y":-3.1999999999999993}}],"potions":[{"x":430.2331184493332,"y":5.684165279438203},{"x":1045.6141967022984,"y":106.58223464093126},{"x":527.1172908746726,"y":577.0656553648109},{"x":484.1870282715431,"y":207.55881712027767},{"x":412.99717495965973,"y":39.34350517508462},{"x":1056.6955940355167,"y":442.5149048044682},{"x":832.2480951470386,"y":543.3563451799431},{"x":944.9820093407832,"y":241.1811411431445},{"x":868.1042771720871,"y":476.1570608681552},{"x":769.6752484408707,"y":140.20459652018823}],"distance":120.0}
+
 		parsePlayers(players);
 		parsePotions(potions);
 
@@ -207,23 +207,21 @@ function parsePlayers(players) {
 			/** @namespace gameConfig.pRadius */
 			var newPlayer = characters[name] = new Character(gameConfig,name,myId)
 				.id(name)
-				.translateTo(position.x - gameConfig.width/2+gameConfig.pRadius/2,
-				position.y-gameConfig.height/2+gameConfig.pRadius, 0)
+				.transTo(position.x, position.y,gameConfig)
 				.mount(self.scene1);
 			if (name == myId) {
-
 				self.player1 = newPlayer;
 				self.player1
 					.addComponent(PlayerComponent)
 					.mount(self.scene1);
-				setInterval(sendUpdate,60);
-				self.vp1.camera.lookAt(self.player1);
-				self.vp1.camera.trackTranslate(self.player1, 20);
+				//setInterval(sendUpdate,60);
+				self.vp1.camera.lookAt(self.scene1);
+				//self.vp1.camera.trackTranslate(self.player1, 20);*/
 
 			}
 		} else {
 			if (name != myId)
-				characters[name].translateTo(position.x, position.y,0);
+				characters[name].transTo(position.x, position.y,gameConfig);
 		}
 	}
 }
@@ -239,10 +237,12 @@ function parsePotions(potions) {
 		var onePotion = potions[j],
 			x = onePotion.x,
 			y = onePotion.y;
-		new IgeEntity()
+		new Potion()
 			//.id("item" + (j))
 			.texture(self.gameTexture.potion)
-			.translateTo(x, y, 0)
+			.width(gameConfig.potRadius*2)
+			.height(gameConfig.potRadius*2)
+			.transTo(x, y, gameConfig)
 			.mount(self.scene1);
 
 	}
@@ -312,10 +312,10 @@ function createMaze(snapShot) {
 			//x,y,width,height
 
 			new IgeEntityBox2d()
-				.translateTo(drawX-zeroX, drawY-zeroY, 0)
 				.width(wWidth)
 				.height(wHeight)
 				.texture(self.gameTexture.wall)
+				.translateTo(drawX-zeroX, drawY-zeroY, 0)
 				.drawBounds(false)
 				.mount(self.scene1)
 				.box2dBody({

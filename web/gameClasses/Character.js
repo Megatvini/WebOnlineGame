@@ -213,7 +213,13 @@ var Character = IgeEntityBox2d.extend({
 
 		// Call the super class
 		IgeEntityBox2d.prototype.destroy.call(this);
+	},
+	transTo: function (x,y,config){
+		this.translateTo(x-config.width/2+config.pRadius,y-config.height/2+config.pRadius,0);
+		return this ;
 	}
+
+
 });
 
 if (typeof(module) !== 'undefined' && typeof(module.exports) !== 'undefined') { module.exports = Character; }

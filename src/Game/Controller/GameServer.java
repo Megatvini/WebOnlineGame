@@ -30,12 +30,7 @@ public class GameServer {
     @OnOpen
     public void open(Session session, EndpointConfig config) {
         System.out.println("someone connected");
-        try {
-            session.getBasicRemote().sendText("hello");
-        } catch (IOException e) {
-            System.out.println("could not send hello onOpen");
-            e.printStackTrace();
-        }
+        // I deleted it
         if (roomMates == null) RoomMateMap(config);
     }
 
