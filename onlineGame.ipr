@@ -37,6 +37,9 @@
     <entry_points version="2.0" />
   </component>
   <component name="IdProvider" IDEtalkID="15BA6517AC4D15E0E4BF0A2199D952DE" />
+  <component name="JavaScriptLibraryMappings">
+    <file url="PROJECT" libraries="{ige}" />
+  </component>
   <component name="Palette2">
     <group name="Swing">
       <item class="com.intellij.uiDesigner.HSpacer" tooltip-text="Horizontal Spacer" icon="/com/intellij/uiDesigner/icons/hspacer.png" removable="false" auto-create-binding="false" can-attach-label="false">
@@ -180,6 +183,20 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
   <component name="libraryTable">
+    <library name="ige" type="javaScript">
+      <properties>
+        <sourceFilesUrls>
+          <item url="file://$PROJECT_DIR$/web/gameClasses" />
+          <item url="file://$PROJECT_DIR$/web/ige" />
+        </sourceFilesUrls>
+      </properties>
+      <CLASSES>
+        <root url="file://$PROJECT_DIR$/web/gameClasses" />
+        <root url="file://$PROJECT_DIR$/web/ige" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
     <library name="Java EE 6-Java EE 6">
       <CLASSES>
         <root url="jar://$PROJECT_DIR$/lib/javax.annotation.jar!/" />

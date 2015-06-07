@@ -1,8 +1,10 @@
 var self = this,
 	characters = {}, // players in the world
-	gameConfig = {}, //sizes
+	gameConfig = {},
+	circles = {}, //sizes
 	items = [], //potions
 	player1,
+	circle,
 	connection,
 	debugOn,
 	distanceR, // pointer to active player
@@ -24,6 +26,12 @@ var Client = IgeClass.extend({
 
 		self.gameTexture.potion = new IgeTexture('./assets/potion.png');
 		self.gameTexture.wall= new IgeTexture('./assets/wall.png');
+		self.gameTexture.circle = new IgeTexture('./assets/Circle.png');
+		self.gameTexture.water = new IgeTexture('./assets/water.png');
+		self.gameTexture.fire = new IgeTexture('./assets/fire.png');
+		self.gameTexture.ground = new IgeTexture('./assets/ground.png');
+		self.gameTexture.wind = new IgeTexture('./assets/wind.png');
+
 
 		ige.on('texturesLoaded', function (){
 			// Create the HTML canvas
@@ -171,10 +179,20 @@ function handler(snapShot){
 	if(snapShot.type&&snapShot.type=="UPDATE"){
 		var players = snapShot.players,
 			potions = snapShot.potions;
+		distanceR = snapShot.distance;
+		console.log(distanceR);
+		circle = new IgeEntity()
+			.width(distanceR)
+			.height(distanceR)
+			.texture(self.gameTexture.circle);
+	//	self.circle.texture.resize(distanceR*2,distanceR*2,false);
 
 		parsePlayers(players);
 		parsePotions(potions);
-		distanceR = snapShot.distance;
+		mountCircles();
+
+
+
 	}
 	if(snapShot.type&&snapShot.type=="INIT") {
 		gameConfig = createGameConfig(snapShot);
@@ -188,29 +206,33 @@ function parsePlayers(players) {
 			position = onePlayer.position;
 		if (typeof (characters[name]) == 'undefined') {
 			/** @namespace gameConfig.pRadius */
-			var newPlayer = characters[name] = new Character(gameConfig,name,myId)
+			var newPlayer = characters[name] = new Character(gameConfig,name,myId,self.gameTexture)
 				.id(name)
 				.transTo(position.x, position.y,gameConfig)
 				.mount(self.scene1);
+
 			if (name == myId) {
-				self.player1 = newPlayer;
-				self.player1
+
+				player1 = newPlayer;
+				player1
 					.addComponent(PlayerComponent)
 					.mount(self.scene1);
 
+
 				/** send update to server */
 				if(!debugOn)
-				setInterval(sendUpdate,66);
+					setInterval(sendUpdate,66);
 
 				self.vp1.camera.lookAt(self.scene1);
-				//self.vp1.camera.trackTranslate(self.player1, 20);*/
 
 			}else{
-
 				if(debugOn) {
+					newPlayer.setType(1);
 					var d = -1;
 					characters['room1player2'].translateTo(150, characters['room1player2'].worldPosition().y, 0);
 					setInterval(function () {
+						distanceR++;
+						mountCircles();
 						var pl = characters['room1player2'],
 							pos = pl.worldPosition();
 						var x = pos.x;
@@ -224,13 +246,30 @@ function parsePlayers(players) {
 						pl.translateTo(x + d, y, 0);
 
 
-					}, 15)
+					}, 200)
 				}
 			}
 		} else {
+
 			if (name != myId)
 				characters[name].transTo(position.x, position.y,gameConfig);
 		}
+	}
+}
+
+function mountCircles(){
+	for(var char in characters) {
+		if (characters.hasOwnProperty(char)){
+			if(circles[char])
+			circles[char].destroy();
+			var character   = characters[char];
+			circles[char]=new Circle()
+				.texture(self.gameTexture.circle)
+				.width(distanceR)
+				.height(distanceR)
+				.mount(character);
+		}
+
 	}
 }
 function parsePotions(potions) {

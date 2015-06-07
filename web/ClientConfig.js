@@ -6,6 +6,7 @@ var igeClientConfig = {
 		'./gameClasses/PlayerComponent.js',
 		'./gameClasses/Wall.js',
 		'./gameClasses/Potion.js',
+		'./gameClasses/Circle.js',
 		/* Standard game scripts */
 		'./client.js',
 		'./index.js'

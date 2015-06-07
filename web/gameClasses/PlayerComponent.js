@@ -33,7 +33,7 @@ var PlayerComponent = IgeClass.extend({
 			// Change the character
 			this._entity._characterType++;
 
-			if (this._entity._characterType > 7) {
+			if (this._entity._characterType > 3) {
 				this._entity._characterType = 0;
 			}
 
