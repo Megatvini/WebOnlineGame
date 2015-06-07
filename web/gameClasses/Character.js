@@ -218,6 +218,21 @@ var Character = IgeEntityBox2d.extend({
 		this.translateTo(x-config.width/2+config.pRadius,y-config.height/2+config.pRadius,0);
 		return this ;
 	}
+	,
+	modelPos: function(config){
+		var pos = this.worldPosition();
+		var x1 = pos.x,//coordinates in engine system
+			y1 = pos.y,//coordinates in engine system
+			x= x1+config.width/2-config.pRadius,//coordinates in model system
+			y= y1+config.height/2-config.pRadius; //coordinates in model system
+
+		return {
+			x: x,
+			y: y
+		}
+
+
+	}
 
 
 });
