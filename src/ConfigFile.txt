@@ -1,5 +1,5 @@
 #Wed Jun 03 01:04:08 GET 2015
-potRadius=6
+potRadius=2
 maxMove=12
 maxPlayers=4
 width=1136

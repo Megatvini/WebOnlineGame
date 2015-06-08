@@ -9,7 +9,7 @@ import java.util.concurrent.*;
 
 
 public class GameManager {
-    private static final int INITIAL_UPDATE_DELAY = 100;
+    private static final int INITIAL_UPDATE_DELAY = 10000;
     private static final int UPDATE_INTERVAL = 500;
     private static final int SERVICE_CANCEL_INTERVAL = 500;
 
@@ -76,13 +76,12 @@ public class GameManager {
             world.addPlayer(playerName, true);
             Collection<String> mates = roomMates.get(playerName);
             mates.forEach(player->rooms.put(player, world));
-
         } else {
             iWorld world = rooms.get(playerName);
             world.addPlayer(playerName, true);
         }
-        checkIfRoomIsFull(playerName);
         sendInit(playerName);
+        checkIfRoomIsFull(playerName);
     }
 
     private void sendInit(String playerName) {
