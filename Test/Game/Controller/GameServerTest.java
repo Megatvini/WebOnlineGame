@@ -68,7 +68,6 @@ public class GameServerTest {
 
     @Test
     public void testWithRoomMates() {
-        GameManager gameManagerMock = mock(GameManager.class);
         GameServer gameServer = new GameServer();
 
         HttpSession httpSessionMock = mock(HttpSession.class);

@@ -1,7 +1,10 @@
 package Game.Model;
 
-import java.awt.*;
-import java.util.*;
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObjectBuilder;
+import java.util.Random;
 
 /**
  * class explanation @@
@@ -9,29 +12,70 @@ import java.util.*;
 
 public class PlaneMaze {
 
-    private static int cellWallNum = 4;
+    public static final int cellWallNum = 4;
 
     private Random rand = new Random();
 
-    //
-    private boolean[][] horizWalls;
-    private  boolean[][] vertWalls;
+    private CellInner[][] cells;
 
     private int numRows;
     private int numCols;
 
     /**
-     *
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
      */
     public PlaneMaze(int numRows, int numCols) {
+        try {
+            if (numRows < 0 || numCols < 0) {
+                throw new Exception("Number of rows and number of columns must be equal or greater than zero!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         this.numRows = numRows;
         this.numCols = numCols;
 
-        horizWalls = new boolean[numRows - 1][numCols];
-        vertWalls = new boolean[numRows][numCols - 1];
+        cells = new CellInner[this.numRows][this.numCols];
+
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[i].length; j++) {
+                cells[i][j] = new CellInner(cellWallNum);
+            }
+        }
     }
 
-    public void  makePerfect() {
+    /**
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
+    public int numRows() {
+        return numRows;
+    }
+
+
+    /**
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
+    public int numCols() {
+        return numCols;
+    }
+
+    /**
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
+    public void  makePerfect() { //@@ maybe return this ? fuck me right ?
         int[] conn = new int[numCols];
         for (int i = 0; i < numCols; i++) {
             conn[i] = i;
@@ -41,7 +85,7 @@ public class PlaneMaze {
 
             if (i > 0) {
                 for (int j = 0; j < numCols; j++) {
-                    if (isW(new Point(i, j), new Point(i - 1, j))) {
+                    if (isWall(new Cell(i, j), new Cell(i - 1, j))) {
                         conn[j] = i * numCols + j;
                     }
                 }
@@ -49,12 +93,12 @@ public class PlaneMaze {
 
             for (int j = 0; j < numCols; j++) {
 
-                Point curr = new Point(i, j);
+                Cell curr = new Cell(i, j);
 
                 if (i != numRows - 1) {
                     if (j < numCols - 1) {
                         if (conn[j] == conn[j + 1] || rand.nextDouble() >= 0.5) {
-                            setWall(curr, new Point(i, j + 1), true);
+                            setWall(curr, new Cell(i, j + 1), true);
                         } else {
                             int next = conn[j + 1];
                             for (int k = 0; k < numCols; k++) {
@@ -66,7 +110,7 @@ public class PlaneMaze {
                     }
                 } else if (j < numCols - 1) {
                     if (conn[j] == conn[j + 1]) {
-                        setWall(curr, new Point(i, j + 1), true);
+                        setWall(curr, new Cell(i, j + 1), true);
                     } else {
                         int next = conn[j + 1];
                         for (int k = 0; k < numCols; k++) {
@@ -81,26 +125,26 @@ public class PlaneMaze {
 
             int bottom = 1;
             for (int j = 0; j < numCols; j++) {
-                Point curr = new Point(i, j);
+                Cell curr = new Cell(i, j);
 
                 if (i < numRows - 1) {
                     if (j < numCols - 1) {
                         if (conn[j] == conn[j + 1]) {
                             bottom++;
                             if (bottom > 1 && rand.nextDouble() >= 0.3) {
-                                setWall(curr, new Point(i + 1, j), true);
+                                setWall(curr, new Cell(i + 1, j), true);
                                 bottom--;
                             }
                         } else {
                             if (bottom > 1 && rand.nextDouble() >= 0.3) {
-                                setWall(curr, new Point(i + 1, j), true);
+                                setWall(curr, new Cell(i + 1, j), true);
                                 bottom--;
                             }
                             bottom = 1;
                         }
                     } else {
                         if (bottom > 1 && rand.nextDouble() >= 0.3) {
-                            setWall(curr, new Point(i + 1, j), true);
+                            setWall(curr, new Cell(i + 1, j), true);
                             bottom--;
                         }
                     }
@@ -114,9 +158,12 @@ public class PlaneMaze {
 
     }
 
+
     /**
-     *
-     * @param prob
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
      */
     public void makeThiner(double prob) {
         if (prob < 0 || prob > 1) {
@@ -130,26 +177,26 @@ public class PlaneMaze {
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
                 if (rand.nextDouble() < prob) {
-                    Point curr = new Point(i, j);
-                    Point neighbour = null;
+                    Cell curr = new Cell(i, j);
+                    Cell neighbour = null;
                     for (int k = 0; k < cellWallNum; k++) {
                         switch (k) {
                             case 0:
-                                neighbour = new Point(i - 1, j);
+                                neighbour = new Cell(i - 1, j);
                                 break;
                             case 1:
-                                neighbour = new Point(i, j + 1);
+                                neighbour = new Cell(i, j + 1);
                                 break;
                             case 2:
-                                neighbour = new Point(i + 1, j);
+                                neighbour = new Cell(i + 1, j);
                                 break;
                             case 3:
-                                neighbour = new Point(i, j - 1);
+                                neighbour = new Cell(i, j - 1);
                                 break;
                             default:
                                 break;
                         }
-                        if (pointInBounds(neighbour) && isW(curr, neighbour)) {
+                        if (cellInBounds(neighbour) && isWall(curr, neighbour)) {
                             setWall(curr, neighbour, false);
                             break;
                         }
@@ -161,169 +208,155 @@ public class PlaneMaze {
     }
 
     /**
-     * returns number of rows in maze
-     *
-     * @return number of rows
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
      */
-    public int numRows() {
-        return numRows;
-    }
+    public JsonObjectBuilder toJsonBuilder() {
+        JsonBuilderFactory factory = Json.createBuilderFactory(null);
 
-    /**
-     * returns number of columns in maze
-     *
-     * @return number of columns
-     */
-    public int numCols() {
-        return numCols;
-    }
+        JsonObjectBuilder mazeJson = factory.createObjectBuilder();
 
+        mazeJson.add("numRows", numRows)
+                .add("numCols", numCols);
 
-    public boolean isWall(int r1, int c1, int r2, int c2) {
-        return isW(new Point(r1, c1), new Point(r2, c2));
-    }
-
-    /**
-     * checks weather there is wall between certain neighbour cells, if cells are not
-     * neighbours of either of them is out of bounds proper exceptions thrown
-     * @param p1 first cell represented as point, x - row, y - col
-     * @param p2 second cell represented as point, x - row, y - col
-     * @return true if there is wall between given cells, false otherwise
-     * @exception Exception if either of cells is out of bounds or if they are not adjacent
-     */
-    private boolean isW(Point p1, Point p2) {
-        if (!pointInBounds(p1) || !pointInBounds(p2))
-            try {
-                throw new Exception("Cell out of bounds!");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        boolean res = false;
-        boolean neighbours = true;
-
-        if (p1.x == p2.x) {
-            if (p1.y - p2.y == 1) {
-                res = vertWalls[p1.x][p2.y];
-            } else if (p2.y - p1.y == 1) {
-                res = vertWalls[p1.x][p1.y];
-            } else {
-                neighbours = false;
-            }
-        } else if (p1.y == p2.y) {
-            if (p1.x - p2.x == 1) {
-                res = horizWalls[p2.x][p1.y];
-            } else if (p2.x - p1.x == 1) {
-                res = horizWalls[p1.x][p1.y];
-            } else {
-                neighbours = false;
-            }
-        } else {
-            neighbours = false;
-        }
-
-        if (!neighbours){
-            try {
-                throw new Exception("Cells are not neighbours!");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return res;
-    }
-
-    /**
-     * This member function returns true if p is within bounds of this
-     * maze, false otherwise.
-     */
-    public boolean pointInBounds(Point c) {
-        return (c.x >= 0 && c.x < numRows() && c.y >=0 && c.y < numCols());
-    }
-
-
-    /*
-    * Member function: setWall
-    * Usage: maze.setWall(a, b, true);
-    * --------------------------------
-    * This member function sets the wall between cells at points
-    * p1 and p2 to state. It can be used to either add or remove
-    * walls. The graphical display is updated to match. If the two
-    * points are not neighbors or either point is out of bounds,
-    * an error is raised.
-    */
-    private void setWall(Point p1, Point p2, boolean state) {
-        if (!pointInBounds(p1) || !pointInBounds(p2)) {
-            try {
-                throw new Exception("Cell out of bounds!");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (!neighbours(p1, p2)) {
-            try {
-                throw new Exception("Cells are not neighbours!");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (p1.y == p1.y) {
-           // horizWalls
-        }
-
-    }
-
-    private boolean neighbours(Point p1, Point p2){
-        if (p1.y == p2.y) {
-            if (Math.abs(p1.x - p2.x) == 1) {
-                return true;
-            } else {
-                return false; // avoid unnecessary checking
-            }
-        } else if (p1.x == p2.y) {
-            if (Math.abs(p1.x - p2.x) == 1) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // es ar gamoiyeno
-    public String toString() {
-        String res = "";
-
+        JsonArrayBuilder wallsJson = factory.createArrayBuilder();
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
-                Point current = new Point(i, j);
+                Cell curr = new Cell(i, j);
                 if (i < numRows - 1) {
-                    Point down = new Point(i + 1, j);
-                    if (isW(current, down)) {
-                        if (res !="") {
-                            res += "#";
-                        }
-                        res += current.x + ":" + current.y + "#" + down.x + ":" + down.y;
+                    Cell down = new Cell(i + 1, j);
+                    if (isWall(curr, down)) {
+                        JsonObjectBuilder wallJson = createWallJson(curr, down);
+                        wallsJson.add(wallJson);
                     }
                 }
-
                 if (j < numCols - 1) {
-                    Point right = new Point(i, j + 1);
-                    if (isW(current, right)) {
-                        if (res !="") {
-                            res += "#";
-                        }
-                        res += current.x + ":" + current.y + "#" + right.x + ":" + right.y;
+                    Cell right = new Cell(i, j + 1);
+                    if (isWall(curr, right)) {
+                        JsonObjectBuilder wallJson = createWallJson(curr, right);
+                        wallsJson.add(wallJson);
                     }
                 }
             }
         }
 
-        return res;
+        mazeJson.add("walls", wallsJson);
+        return mazeJson;
     }
 
-    private class bla {
-        public void kla() {
+    /**
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
+    private JsonObjectBuilder createWallJson(Cell p1, Cell p2) {
+        JsonObjectBuilder wallJson = Json.createObjectBuilder()
+                .add("cell1", Json.createObjectBuilder()
+                        .add("row", p1.row)
+                        .add("col", p1.col))
+                .add("cell2", Json.createObjectBuilder()
+                        .add("row", p2.row)
+                        .add("col", p2.col));
+        return wallJson;
+    }
 
+    /**
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
+    public boolean isWall(Cell p1, Cell p2) {
+        if (!cellInBounds(p1) || !cellInBounds(p2)) {
+            try {
+                throw new Exception("Cell out of bounds!");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return cells[p1.row][p1.col].getWall(neighborDir(p1, p2));
+    }
+
+    /**
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
+    public void setWall(Cell p1, Cell p2, boolean state) {
+        if (!cellInBounds(p1) || !cellInBounds(p2)) {
+            try {
+                throw new Exception("Cell out of bounds!");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        cells[p1.row][p1.col].setWall(neighborDir(p1, p2), state);
+        cells[p2.row][p2.col].setWall(neighborDir(p2, p1), state);
+    }
+
+    /**
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
+    public boolean cellInBounds(Cell p) {
+        return (p.row >= 0 && p.row < numRows && p.col >=0 && p.col < numCols);
+    }
+
+    /**
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
+    private dirEnum neighborDir(Cell c1, Cell c2) {
+        if (!Cell.neighbours(c1, c2)) {
+            try {
+                throw new Exception("Cells are not neighbors!");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (c1.row != c2.row) {
+            return (c1.row < c2.row ? dirEnum.North : dirEnum.South);
+        } else {
+            return (c1.col < c2.col ? dirEnum.East : dirEnum.West);
+        }
+    }
+
+
+    /**
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
+    private enum dirEnum{North, East, South, West}
+
+    /**
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
+    private class CellInner {
+        private boolean[] walls;
+
+        private CellInner(int cellWallNum) {
+            walls = new boolean[cellWallNum];
+        }
+
+        private void setWall(dirEnum d, boolean state) {
+            walls[d.ordinal()] = state;
+        }
+
+        private boolean getWall(dirEnum d) {
+            return walls[d.ordinal()];
         }
     }
 

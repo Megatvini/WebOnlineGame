@@ -73,13 +73,13 @@ public class GameManager {
         connector.addUser(playerName, playerConnection);
         if (rooms.get(playerName) == null) {
             iWorld world = gameFactory.getNewInstance();
-            world.addPlayer(playerName);
+            world.addPlayer(playerName, true);
             Collection<String> mates = roomMates.get(playerName);
             mates.forEach(player->rooms.put(player, world));
 
         } else {
             iWorld world = rooms.get(playerName);
-            world.addPlayer(playerName);
+            world.addPlayer(playerName, true);
         }
         checkIfRoomIsFull(playerName);
         sendInit(playerName);
@@ -93,7 +93,7 @@ public class GameManager {
 
     private void checkIfRoomIsFull(String playerName) {
         iWorld world = rooms.get(playerName);
-        Collection <String> players = world.getPlayers();
+        Collection <String> players = world.getPlayerNames();
         System.out.println("PLayers size " + players.size());
         if (players.size() == roomMates.get(playerName).size()) {
             System.out.println("Room is Full");
@@ -109,7 +109,7 @@ public class GameManager {
      */
     private void scheduleUpdate(iWorld world) {
         ScheduledFuture scheduledFuture = executor.scheduleAtFixedRate(() -> {
-            world.getPlayers().forEach(x -> connector.sendMessageTo(x, world.getUpdate(x).toString()));
+            world.getPlayerNames().forEach(x -> connector.sendMessageTo(x, world.getUpdate(x).toString()));
             System.out.println("sent update");
         }, INITIAL_UPDATE_DELAY, UPDATE_INTERVAL, TimeUnit.MILLISECONDS);
         runningServices.put(world, scheduledFuture);

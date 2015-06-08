@@ -1,18 +1,13 @@
 package Game.Model;
 
-import javax.json.Json;
-import javax.json.JsonWriter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.geom.Line2D;
-import java.awt.geom.Point2D;
-import java.io.*;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Timer;
 
 public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
 
@@ -44,7 +39,7 @@ public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
 
         double wallS = 15;
 
-        //////draw orders
+        //////draw borders
         g2.setPaint(Color.red);
         for (int i = 0; i < pm.numCols(); i++) {
             g2.draw(new Line2D.Double(startX + i * wallS,
@@ -75,7 +70,7 @@ public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
             for (int j = 0; j < pm.numCols(); j++) {
 
                 if (j < pm.numCols() - 1) {
-                    if (pm.isWall(i, j, i, j + 1)) {
+                    if (pm.isWall(new Cell(i, j), new Cell(i, j + 1))) {
                         g2.draw(new Line2D.Double(startX + (j + 1) * wallS,
                                 startY + i * wallS,
                                 startX + (j + 1) * wallS,
@@ -84,7 +79,7 @@ public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
                 }
 
                 if (i < pm.numRows() - 1) {
-                    if (pm.isWall(i, j, i + 1, j)) {
+                    if (pm.isWall(new Cell(i, j), new Cell(i + 1, j))) {
                         g2.draw(new Line2D.Double(startX + j * wallS,
                                 startY + (i + 1) * wallS,
                                 startX + (j + 1) * wallS,
@@ -104,6 +99,7 @@ public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
     }
 
     public static void main(String s[]) {
+
 
         //testMethod(new ArrayList<>(), new ArrayList<>());
 
@@ -166,28 +162,20 @@ public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
 
         PlaneMaze pm = new PlaneMaze(14, 24);
         pm.makePerfect();
-        //pm.makeThiner(0.4);
-        //pm.draw();
 
-//        GameWorld gw = new GameWorld(pm);
-//
-//        gw.addPlayer("shako");
-//        gw.addPlayer("nika");
-//        gw.addPlayer("killera");
-//
-//        gw.startGame();
-//
-//        Thread t = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                System.out.println(gw.getUpdate("shako"));
-//                System.out.println(gw.getInit());
-//
-//            }
-//        });
-//
-//        t.start();
 
+        GameWorld gw = new GameWorld(pm);
+
+        gw.addPlayer("shako", true);
+        gw.addPlayer("nika", true);
+        gw.addPlayer("killera", true);
+
+        gw.startGame();
+
+        System.out.println(gw.getInit());
+        System.out.println(gw.getUpdate("shako"));
+
+        gw.setPlayerCoordinates("shako", 4, 4);
 
         JApplet applet = new PlaneMazeTesterClassNotPartOfProject(pm);
         f.getContentPane().add("Center", applet);
@@ -197,9 +185,7 @@ public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
         f.setSize(new Dimension(600, 800));
         f.show();
 
-        //System.out.println(pm.toString());
 
-        //{"gameOn":false, "potNum":0, "players":[{"active":true, "name":"killera", "position":{"x":4.0, "y":4.0}}, {shemdegi motamashe}, ...], "potions":[{"x":922.7532565354794,"y":157.67468138268043},{"x":19.089561546649072,"y":156.78505392060384}, {shemdegi potion}, ...],"distance":100.0}
 
     }
 
