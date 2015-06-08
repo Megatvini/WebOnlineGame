@@ -14,7 +14,7 @@ import java.util.*;
 public class GameWorld implements iWorld {
 
     // file name to read configuration info from
-    private static final String fileName = "D:\\WebOnlineGame\\src\\ConfigFile.txt";
+    private static final String fileName = "/home/rezo/Desktop/WebOnlineGame/src/ConfigFile.txt";
 
     // static final variables whose values read from configuration file
     public static final int maxPlayers;
@@ -84,7 +84,9 @@ public class GameWorld implements iWorld {
 
     // random instance to generate pseudo random stuff
     private static final Random rand = new Random();
-
+    static {
+        rand.setSeed(3);
+    }
     // instance variables
     private PlaneMaze pm;
 
@@ -347,14 +349,14 @@ public class GameWorld implements iWorld {
     public boolean setPlayerCoordinates(String playerName, double x, double y) {
         Player p = nameOnPlayer.get(playerName);
         Point2D.Double pos = p.getPosition();
-//        if (running) {
-//            if (distance(x, y, pos.getX(), pos.getY()) > maxMove) {
-//                return false;
-//            }
-//        }
-//        if (wrongPlace(x, y)) {
-//            return false;
-//        }
+        if (running) {
+            if (distance(x, y, pos.getX(), pos.getY()) > maxMove) {
+                return false;
+            }
+        }
+        if (wrongPlace(x, y)) {
+            return false;
+        }
 
         p.setPosition(x, y);
 

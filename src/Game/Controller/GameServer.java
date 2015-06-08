@@ -26,7 +26,7 @@ public class GameServer {
     @OnOpen
     public void open(Session session, EndpointConfig config) {
         if (gameManager == null) RoomMateMap(config);
-        System.out.println("someone connected " + session);
+       // System.out.println("someone connected " + session);
     }
 
     private synchronized void RoomMateMap(EndpointConfig config) {
@@ -40,7 +40,7 @@ public class GameServer {
 
     @OnMessage
     public void onMessage(String msg, Session session) {
-        System.out.println("message received: " + msg + this);
+        //System.out.println("message received: " + msg + this);
         PlayerJsonParser parser = new PlayerJsonParser(msg);
         String cmd = parser.getCommand();
         String playerName = parser.getPlayerName();
@@ -50,8 +50,8 @@ public class GameServer {
     }
 
     private void doCommand(String playerName, String cmd, Session session, int x, int y) {
-        System.out.println("CMD is : " + cmd+".");
-        System.out.println("PLAYER : " + playerName+".");
+       // System.out.println("CMD is : " + cmd+".");
+        //System.out.println("PLAYER : " + playerName+".");
         userConnectionMap.put(session, playerName);
         switch (cmd) {
             case "init":
@@ -59,7 +59,7 @@ public class GameServer {
                 break;
             case "update":
                 gameManager.setUpdateFromPlayer(playerName, x, y);
-                System.out.println("player sent update");
+               // System.out.println("player sent update");
                 break;
         }
     }
@@ -67,7 +67,7 @@ public class GameServer {
 
     @OnClose
     public void onClose(Session session) {
-        System.out.println("connection closed");
+       System.out.println("connection closed");
         gameManager.removePlayer(userConnectionMap.get(session));
     }
 
