@@ -1,6 +1,7 @@
 package Core.Servlets;
 
 import Core.AuthenticationManager;
+import Core.DBInfo;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,7 @@ import java.io.IOException;
 @WebServlet("/Login")
 public class SignIn extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        DBInfo.testDataSource();
         String nickname = request.getParameter("nickname");
         String password = request.getParameter("password");
 
