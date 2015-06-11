@@ -2,7 +2,8 @@ package Servlets;
 /**
  * Created by Nika on 17:26, 5/26/2015.
  */
-import MatchMaking.MatchMakerMock;
+import MatchMaking.FixedRoomSizeMatcherFactory;
+import MatchMaking.MatchingManager;
 import MatchMaking.StartingGroup;
 
 import javax.servlet.ServletContextEvent;
@@ -48,7 +49,8 @@ public class Listener implements ServletContextListener,
 
 
         sce.getServletContext().setAttribute("roomMates", roomMates);
-        sce.getServletContext().setAttribute(MatchMaker.class.getName(), new MatchMakerMock(roomMates));
+        sce.getServletContext().setAttribute(MatchMaker.class.getName(),
+                new MatchingManager(roomMates, new FixedRoomSizeMatcherFactory()));
         sce.getServletContext().setAttribute(StartingGroup.class.getName(), new ConcurrentHashMap<>());
     }
 
