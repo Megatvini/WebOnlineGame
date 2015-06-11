@@ -300,6 +300,7 @@ public class GameWorld implements iWorld {
             public void run() {
                 dist += plusDist;
                 playersPlayers();
+                gameOnCheck();
                 System.out.println("dist increased: " + dist);
             }
         }, 0, plusDistDelay);
@@ -332,6 +333,7 @@ public class GameWorld implements iWorld {
             public void run() {
                 Point2D.Double pot = addPotAtRand();
                 playersPot(pot);
+                gameOnCheck();
                 System.out.println("Potion added");
             }
         }, 0, addPotDelay);
@@ -451,6 +453,7 @@ public class GameWorld implements iWorld {
         if (p.getActive()) {
             potionsPlayer(p);
             playersPlayer(p);
+            gameOnCheck();
         }
         return true;
     }
