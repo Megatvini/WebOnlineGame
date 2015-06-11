@@ -28,6 +28,7 @@ public class QuickPlay extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    //processes requests from users who choose QuickPlay and submitted roomSize options
     private void process(HttpServletRequest request, HttpServletResponse response) {
         String userName = (String) request.getSession().getAttribute("userName");
         List<Integer> list = new ArrayList<>();

@@ -26,6 +26,8 @@ public class StartingGroupService extends HttpServlet {
         process(request, response);
     }
 
+    //tells user the array of userNames who are in the same creating room
+    //it is called when user gets to the Create New Room Page
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, StartingGroup> groupMap = (Map<String, StartingGroup>)
                 getServletContext().getAttribute(StartingGroup.class.getName());

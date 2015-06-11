@@ -21,6 +21,7 @@ public class StartGame extends HttpServlet {
         process(request, response);
     }
 
+    //process request from new room creator to start the game
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         MatchMaking.MatchMaker matchMaker = (MatchMaking.MatchMaker) getServletContext().getAttribute(MatchMaker.class.getName());
 
@@ -36,6 +37,8 @@ public class StartGame extends HttpServlet {
         }
     }
 
+    //reads path parameters and fills arbitraryRoomMates and roomSizes with
+    //corresponding information
     private void readParameters(HttpServletRequest request, Set<String> arbitraryRoomMates, Set<Integer> roomSizes) {
         for (int i=2; i<=4; i++) {
             String s = request.getParameter("roomsize" + i);
@@ -49,6 +52,7 @@ public class StartGame extends HttpServlet {
         }
     }
 
+    //validates the input from path parameters
     private boolean validate(Set<Integer> roomSizes, Set<String> arbitraryRoomMates) {
         switch (arbitraryRoomMates.size()) {
             case 0: return false;

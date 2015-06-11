@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f9e55fc6-ff33-4d8b-89ab-aab5f918ccf4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MatchMaking/FixedRoomSizeMatcher.java" afterPath="$PROJECT_DIR$/src/MatchMaking/FixedRoomSizeMatcher.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MatchMaking/FixedRoomSizeMatcherFactory.java" afterPath="$PROJECT_DIR$/src/MatchMaking/FixedRoomSizeMatcherFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MatchMaking/MatchMaker.java" afterPath="$PROJECT_DIR$/src/MatchMaking/MatchMaker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MatchMaking/MatchingManager.java" afterPath="$PROJECT_DIR$/src/MatchMaking/MatchingManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MatchMaking/StartingGroup.java" afterPath="$PROJECT_DIR$/src/MatchMaking/StartingGroup.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Servlets/CreateRoom.java" afterPath="$PROJECT_DIR$/src/Servlets/CreateRoom.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Servlets/Loader.java" afterPath="$PROJECT_DIR$/src/Servlets/Loader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Servlets/QuickPlay.java" afterPath="$PROJECT_DIR$/src/Servlets/QuickPlay.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Servlets/StartGame.java" afterPath="$PROJECT_DIR$/src/Servlets/StartGame.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Servlets/StartingGroupService.java" afterPath="$PROJECT_DIR$/src/Servlets/StartingGroupService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="f913827a-d372-4ed7-8e9e-5ca904130370" name="Failed commit: Default" comment="sinqronizaciis mcdeloba" />
@@ -40,11 +40,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="StartingGroup.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="StartingGroup.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MatchMaking/StartingGroup.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.916914">
+            <state vertical-scroll-proportion="0.0">
               <caret line="43" column="37" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QuickPlay.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Servlets/QuickPlay.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="30" column="48" selection-start-line="30" selection-start-column="48" selection-end-line="30" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StartGame.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Servlets/StartGame.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="1.4366198">
+              <caret line="54" column="46" selection-start-line="54" selection-start-column="46" selection-end-line="54" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -105,23 +125,18 @@
         <option value="$PROJECT_DIR$/src/Servlets/InviteFriend.java" />
         <option value="$PROJECT_DIR$/web/matchMaking/loading.jsp" />
         <option value="$PROJECT_DIR$/src/MatchMaking/MatchMakerMock.java" />
-        <option value="$PROJECT_DIR$/src/Servlets/StartGame.java" />
         <option value="$PROJECT_DIR$/web/matchMaking/quickplay.html" />
         <option value="$PROJECT_DIR$/web/client.js" />
         <option value="$PROJECT_DIR$/src/Game/Model/GameWorld.java" />
         <option value="$PROJECT_DIR$/Test/MatchMaking/MatchMakerTest.java" />
         <option value="$PROJECT_DIR$/Test/MatchMaking/StartingGroupTest.java" />
         <option value="$PROJECT_DIR$/web/matchMaking/loading.html" />
-        <option value="$PROJECT_DIR$/src/Servlets/Loader.java" />
-        <option value="$PROJECT_DIR$/src/Servlets/QuickPlay.java" />
-        <option value="$PROJECT_DIR$/src/Servlets/StartingGroupService.java" />
         <option value="$PROJECT_DIR$/web/matchMaking/play.html" />
         <option value="$PROJECT_DIR$/src/Servlets/Listener.java" />
         <option value="$PROJECT_DIR$/web/matchMaking/newroom.jsp" />
         <option value="$PROJECT_DIR$/src/Servlets/MatchMaker.java" />
         <option value="$PROJECT_DIR$/Test/Game/Controller/GameServerTest.java" />
         <option value="$PROJECT_DIR$/Test/Game/Controller/GameManagerTest.java" />
-        <option value="$PROJECT_DIR$/src/Servlets/CreateRoom.java" />
         <option value="$PROJECT_DIR$/src/Game/Controller/GameFactory.java" />
         <option value="$PROJECT_DIR$/src/Game/Controller/GameManager.java" />
         <option value="$PROJECT_DIR$/src/Game/Controller/GameServer.java" />
@@ -133,6 +148,11 @@
         <option value="$PROJECT_DIR$/src/MatchMaking/MatchMaker.java" />
         <option value="$PROJECT_DIR$/src/MatchMaking/MatchingManager.java" />
         <option value="$PROJECT_DIR$/src/MatchMaking/StartingGroup.java" />
+        <option value="$PROJECT_DIR$/src/Servlets/CreateRoom.java" />
+        <option value="$PROJECT_DIR$/src/Servlets/Loader.java" />
+        <option value="$PROJECT_DIR$/src/Servlets/QuickPlay.java" />
+        <option value="$PROJECT_DIR$/src/Servlets/StartingGroupService.java" />
+        <option value="$PROJECT_DIR$/src/Servlets/StartGame.java" />
       </list>
     </option>
   </component>
@@ -196,6 +216,38 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="WebOnlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebOnlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebOnlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebOnlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebOnlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="matchMaking" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -843,7 +895,7 @@
       <workItem from="1433767922994" duration="4829000" />
       <workItem from="1433875766090" duration="45101000" />
       <workItem from="1434035500087" duration="7667000" />
-      <workItem from="1434043788234" duration="15048000" />
+      <workItem from="1434043788234" duration="15814000" />
     </task>
     <task id="LOCAL-00001" summary="Added DDL statements">
       <created>1433434253476</created>
@@ -917,11 +969,17 @@
       <option name="project" value="LOCAL" />
       <updated>1434064020131</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="დაემატა MatchMaker მოდულის კომენტარები">
+      <created>1434065165686</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1434065165686</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="145452000" />
+    <option name="totallyTimeSpent" value="146218000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -947,7 +1005,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962178" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24583964" sideWeight="0.50886077" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38758388" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38758388" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -984,7 +1042,8 @@
     <MESSAGE value="გააქტიურდა MatchMaking სისტემა." />
     <MESSAGE value="გასწორდა შეცდომა ტესტებში" />
     <MESSAGE value="გამარტივდა Controller-ში რამდენიმე ფუნქცია და დაემატა კომენტარები" />
-    <option name="LAST_COMMIT_MESSAGE" value="გამარტივდა Controller-ში რამდენიმე ფუნქცია და დაემატა კომენტარები" />
+    <MESSAGE value="დაემატა MatchMaker მოდულის კომენტარები" />
+    <option name="LAST_COMMIT_MESSAGE" value="დაემატა MatchMaker მოდულის კომენტარები" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1137,14 +1196,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Servlets/StartingGroupService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9100529">
-          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
@@ -1176,22 +1227,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.08308605">
           <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Servlets/QuickPlay.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/matchMaking/newroom.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.5384617">
-          <caret line="57" column="18" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -1320,24 +1355,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Servlets/StartGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50445104">
-          <caret line="16" column="33" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Servlets/MatchMaker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49554896">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Game/Controller/GameFactory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.39465874">
@@ -1434,10 +1451,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/matchMaking/newroom.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.042435423">
+          <caret line="57" column="18" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Servlets/CreateRoom.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.044510387">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.5510563">
+          <caret line="27" column="65" selection-start-line="27" selection-start-column="65" selection-end-line="27" selection-end-column="65" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1446,7 +1471,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Servlets/InviteFriend.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34421366">
+        <state vertical-scroll-proportion="0.29929578">
           <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding />
         </state>
@@ -1454,7 +1479,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Servlets/Listener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.050445102">
+        <state vertical-scroll-proportion="0.07746479">
           <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
         </state>
@@ -1462,16 +1487,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Servlets/Loader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.64094955">
-          <caret line="27" column="79" selection-start-line="27" selection-start-column="79" selection-end-line="27" selection-end-column="79" />
+        <state vertical-scroll-proportion="0.50880283">
+          <caret line="26" column="61" selection-start-line="26" selection-start-column="61" selection-end-line="26" selection-end-column="61" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Servlets/MatchMaker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35915494">
+          <caret line="12" column="3" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MatchMaking/StartingGroup.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.916914">
+        <state vertical-scroll-proportion="0.0">
           <caret line="43" column="37" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Servlets/QuickPlay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="48" selection-start-line="30" selection-start-column="48" selection-end-line="30" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Servlets/StartingGroupService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5387324">
+          <caret line="29" column="61" selection-start-line="29" selection-start-column="61" selection-end-line="29" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Servlets/StartGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.4366198">
+          <caret line="54" column="46" selection-start-line="54" selection-start-column="46" selection-end-line="54" selection-end-column="46" />
           <folding />
         </state>
       </provider>
