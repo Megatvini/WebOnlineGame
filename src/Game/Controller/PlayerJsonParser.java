@@ -21,6 +21,10 @@ public class PlayerJsonParser {
         init();
     }
 
+    /**
+     * parse string passed in constructor and save
+     * information in private variables
+     */
     private void init() {
         JsonParser parser = Json.createParser(new StringReader(textToParse));
 

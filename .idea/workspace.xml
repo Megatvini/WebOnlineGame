@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f9e55fc6-ff33-4d8b-89ab-aab5f918ccf4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/Game/Controller/GameServerTest.java" afterPath="$PROJECT_DIR$/Test/Game/Controller/GameServerTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Servlets/CreateRoom.java" afterPath="$PROJECT_DIR$/src/Servlets/CreateRoom.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game/Controller/GameFactory.java" afterPath="$PROJECT_DIR$/src/Game/Controller/GameFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game/Controller/GameManager.java" afterPath="$PROJECT_DIR$/src/Game/Controller/GameManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game/Controller/GameServer.java" afterPath="$PROJECT_DIR$/src/Game/Controller/GameServer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game/Controller/PlayerJsonParser.java" afterPath="$PROJECT_DIR$/src/Game/Controller/PlayerJsonParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game/Controller/ServerConfig.java" afterPath="$PROJECT_DIR$/src/Game/Controller/ServerConfig.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="f913827a-d372-4ed7-8e9e-5ca904130370" name="Failed commit: Default" comment="sinqronizaciis mcdeloba" />
@@ -19,7 +24,7 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/WebOnlineGame$allTests.coverage" NAME="allTests Coverage Results" MODIFIED="1434057473626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/WebOnlineGame$allTests.coverage" NAME="allTests Coverage Results" MODIFIED="1434059220342" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -36,22 +41,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="GameServerTest.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Test/Game/Controller/GameServerTest.java">
+      <file leaf-file-name="CreateRoom.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Servlets/CreateRoom.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.28697184">
-              <caret line="78" column="57" selection-start-line="78" selection-start-column="57" selection-end-line="78" selection-end-column="57" />
-              <folding />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="33" column="92" selection-start-line="33" selection-start-column="92" selection-end-line="33" selection-end-column="92" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameServer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Game/Controller/GameServer.java">
+      <file leaf-file-name="CreateRoomTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Test/Servlets/CreateRoomTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="0.44510385">
+              <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -88,7 +97,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/web/game.jsp" />
         <option value="$PROJECT_DIR$/web/fourColors.html" />
         <option value="$PROJECT_DIR$/src/Game/Controller/Main.java" />
         <option value="$PROJECT_DIR$/src/Game/Controller/UserConnector.java" />
@@ -96,9 +104,7 @@
         <option value="$PROJECT_DIR$/Test/Game/Controller/UserConnectorTest.java" />
         <option value="$PROJECT_DIR$/src/Game/Model/ConfigFile.java" />
         <option value="$PROJECT_DIR$/src/Game/Model/PlaneMaze.java" />
-        <option value="$PROJECT_DIR$/src/Game/Controller/GameFactory.java" />
         <option value="$PROJECT_DIR$/Test/Game/Model/ConfigFileTest.java" />
-        <option value="$PROJECT_DIR$/Test/Game/Controller/GameManagerTest.java" />
         <option value="$PROJECT_DIR$/Test/Game/Model/GameWorldTest.java" />
         <option value="$PROJECT_DIR$/src/ConfigFile.txt" />
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -110,7 +116,6 @@
         <option value="$PROJECT_DIR$/src/MatchMaking/ServerConfig.java" />
         <option value="$PROJECT_DIR$/web/matchMaking/css/buttons.css" />
         <option value="$PROJECT_DIR$/web/matchMaking/newroom.html" />
-        <option value="$PROJECT_DIR$/src/Game/Controller/ServerConfig.java" />
         <option value="$PROJECT_DIR$/src/MatchMaking/MatchMakerServerConfig.java" />
         <option value="$PROJECT_DIR$/src/MatchMaking/Participant.java" />
         <option value="$PROJECT_DIR$/src/MatchMaking/MatchingManager.java" />
@@ -123,22 +128,26 @@
         <option value="$PROJECT_DIR$/src/Servlets/StartGame.java" />
         <option value="$PROJECT_DIR$/web/matchMaking/quickplay.html" />
         <option value="$PROJECT_DIR$/web/client.js" />
-        <option value="$PROJECT_DIR$/src/Game/Controller/GameManager.java" />
         <option value="$PROJECT_DIR$/src/Game/Model/GameWorld.java" />
         <option value="$PROJECT_DIR$/Test/MatchMaking/MatchMakerTest.java" />
         <option value="$PROJECT_DIR$/Test/MatchMaking/StartingGroupTest.java" />
         <option value="$PROJECT_DIR$/web/matchMaking/loading.html" />
-        <option value="$PROJECT_DIR$/src/Servlets/CreateRoom.java" />
         <option value="$PROJECT_DIR$/src/Servlets/Loader.java" />
         <option value="$PROJECT_DIR$/src/Servlets/QuickPlay.java" />
         <option value="$PROJECT_DIR$/src/Servlets/StartingGroupService.java" />
         <option value="$PROJECT_DIR$/web/matchMaking/play.html" />
         <option value="$PROJECT_DIR$/src/Servlets/Listener.java" />
-        <option value="$PROJECT_DIR$/src/Game/Controller/GameServer.java" />
         <option value="$PROJECT_DIR$/web/matchMaking/newroom.jsp" />
         <option value="$PROJECT_DIR$/src/Servlets/MatchMaker.java" />
-        <option value="$PROJECT_DIR$/Test/Servlets/CreateRoomTest.java" />
         <option value="$PROJECT_DIR$/Test/Game/Controller/GameServerTest.java" />
+        <option value="$PROJECT_DIR$/Test/Game/Controller/GameManagerTest.java" />
+        <option value="$PROJECT_DIR$/src/Servlets/CreateRoom.java" />
+        <option value="$PROJECT_DIR$/src/Game/Controller/GameFactory.java" />
+        <option value="$PROJECT_DIR$/src/Game/Controller/GameManager.java" />
+        <option value="$PROJECT_DIR$/src/Game/Controller/GameServer.java" />
+        <option value="$PROJECT_DIR$/src/Game/Controller/PlayerJsonParser.java" />
+        <option value="$PROJECT_DIR$/src/Game/Controller/ServerConfig.java" />
+        <option value="$PROJECT_DIR$/Test/Servlets/CreateRoomTest.java" />
       </list>
     </option>
   </component>
@@ -247,7 +256,29 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Servlets" />
+              <option name="myItemId" value="Game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebOnlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebOnlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -791,7 +822,7 @@
       <workItem from="1433767922994" duration="4829000" />
       <workItem from="1433875766090" duration="45101000" />
       <workItem from="1434035500087" duration="7667000" />
-      <workItem from="1434043788234" duration="9010000" />
+      <workItem from="1434043788234" duration="13894000" />
     </task>
     <task id="LOCAL-00001" summary="Added DDL statements">
       <created>1433434253476</created>
@@ -853,11 +884,17 @@
       <option name="project" value="LOCAL" />
       <updated>1434053716664</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="გასწორდა შეცდომა ტესტებში">
+      <created>1434059112491</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1434059112491</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="139414000" />
+    <option name="totallyTimeSpent" value="144298000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -883,7 +920,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962178" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24583964" sideWeight="0.50886077" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38758388" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38758388" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -918,11 +955,12 @@
     <MESSAGE value="sinqronizaciis mcdeloba" />
     <MESSAGE value="იმპლემენტირებული MatchMaker ინტერფეისი და MatchMaker-ის ტესტები" />
     <MESSAGE value="გააქტიურდა MatchMaking სისტემა." />
-    <option name="LAST_COMMIT_MESSAGE" value="გააქტიურდა MatchMaking სისტემა." />
+    <MESSAGE value="გასწორდა შეცდომა ტესტებში" />
+    <option name="LAST_COMMIT_MESSAGE" value="გასწორდა შეცდომა ტესტებში" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="31" />
+      <option name="time" value="32" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -931,13 +969,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/matchMaking/css/buttons.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2825485">
-          <caret line="441" column="0" selection-start-line="441" selection-start-column="0" selection-end-line="441" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/fourColors.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5295203">
@@ -1166,14 +1197,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Servlets/StartGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Game/Model/iWorld.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.08308605">
@@ -1198,14 +1221,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game/Controller/GameManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/matchMaking/newroom.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.5384617">
@@ -1214,68 +1229,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Servlets/MatchMaker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="59" selection-start-line="21" selection-start-column="59" selection-end-line="21" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game/Controller/PlayerJsonParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.77248675">
-          <caret line="40" column="22" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game/Controller/GameFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.58465606">
-          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/matchMaking/play.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.153846">
           <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game/Controller/ServerConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.58465606">
-          <caret line="16" column="9" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game/Controller/UserConnector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53968257">
-          <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Servlets/CreateRoom.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Test/Servlets/CreateRoomTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1292,14 +1249,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Test/Game/Controller/GameManagerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3323442">
-          <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1362,14 +1311,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.11.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42903227">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_40/src.zip!/java/lang/reflect/InvocationTargetException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3323442">
@@ -1378,19 +1319,126 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game/Controller/GameServer.java">
+    <entry file="file://$PROJECT_DIR$/Test/Game/Controller/GameServerTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.38624337">
+          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Test/Game/Controller/GameServerTest.java">
+    <entry file="file://$PROJECT_DIR$/Test/MatchMaking/FixedRoomSizeMatcherTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28697184">
-          <caret line="78" column="57" selection-start-line="78" selection-start-column="57" selection-end-line="78" selection-end-column="57" />
+        <state vertical-scroll-proportion="0.3148148">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.11.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42903227">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/Game/Controller/GameManagerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.1038575">
+          <caret line="36" column="34" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Servlets/StartGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.50445104">
+          <caret line="16" column="33" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Servlets/MatchMaker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49554896">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Controller/GameFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.39465874">
+          <caret line="11" column="41" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Controller/GameManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="5.097923">
+          <caret line="107" column="41" selection-start-line="107" selection-start-column="41" selection-end-line="107" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Controller/GameServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8991098">
+          <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+          <folding>
+            <element signature="e#687#688#0" expanded="true" />
+            <element signature="e#748#749#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Controller/PlayerJsonParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.39465874">
+          <caret line="25" column="39" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Controller/ServerConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24332345">
+          <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Servlets/CreateRoom.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="92" selection-start-line="33" selection-start-column="92" selection-end-line="33" selection-end-column="92" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Controller/UserConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/Servlets/CreateRoomTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.44510385">
+          <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

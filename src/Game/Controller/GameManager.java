@@ -32,7 +32,13 @@ public class GameManager {
     //running services of scheduletThreadPoolExecutor
     private Map<iWorld, ScheduledFuture> runningServices;
 
-
+    /**
+     *
+     * @param roomMates used to distribute connected players in rooms
+     * @param factory used to create new GameWorld objects
+     * @param connector object for communicating with users
+     * @param executor Thread Pool for completing scheduled tasks
+     */
     public GameManager(Map<String, Collection<String>> roomMates, GameFactory factory,
                        UserConnector connector, ScheduledThreadPoolExecutor executor) {
         this.roomMates = roomMates;
@@ -84,12 +90,23 @@ public class GameManager {
         checkIfRoomIsFull(playerName);
     }
 
+
+    /**
+     * send initial information to player
+     * it is called only once for each connected players
+     * @param playerName name of a player
+     */
     private void sendInit(String playerName) {
         String toSend = rooms.get(playerName).getInit().toString();
         System.out.println("SENDING " + toSend);
         connector.sendMessageTo(playerName, toSend);
     }
 
+    /**
+     * checks if room of playerName is full
+     * and if so starts the game
+     * @param playerName name of a player
+     */
     private void checkIfRoomIsFull(String playerName) {
         iWorld world = rooms.get(playerName);
         Collection <String> players = world.getPlayerNames();

@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
@@ -25,9 +27,12 @@ public class CreateRoom extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession userSession = request.getSession();
+
+        //take ServletContext from userSession for testability only
         Map<String, StartingGroup> groupMap = (Map<String, StartingGroup>)
-                getServletContext().getAttribute(StartingGroup.class.getName());
-        String userName = (String) request.getSession().getAttribute("userName");
+                userSession.getServletContext().getAttribute(StartingGroup.class.getName());
+        String userName = (String) userSession.getAttribute("userName");
         groupMap.put(userName, new StartingGroup(userName));
         request.getRequestDispatcher("matchMaking/newroom.jsp").forward(request, response);
     }
