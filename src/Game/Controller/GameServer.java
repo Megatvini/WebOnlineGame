@@ -50,7 +50,7 @@ public class GameServer {
     }
 
     private void doCommand(String playerName, String cmd, Session session, int x, int y) {
-       // System.out.println("CMD is : " + cmd+".");
+        //System.out.println("CMD is : " + cmd+".");
         //System.out.println("PLAYER : " + playerName+".");
         userConnectionMap.put(session, playerName);
         switch (cmd) {
@@ -67,8 +67,11 @@ public class GameServer {
 
     @OnClose
     public void onClose(Session session) {
-       System.out.println("connection closed");
-        gameManager.removePlayer(userConnectionMap.get(session));
+        String playerName = userConnectionMap.get(session);
+        if (playerName != null)
+            gameManager.removePlayer(userConnectionMap.get(session));
+        userConnectionMap.remove(session);
+        System.out.println("connection closed with " + playerName);
     }
 
     @OnError

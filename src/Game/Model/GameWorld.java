@@ -14,7 +14,7 @@ import java.util.*;
 public class GameWorld implements iWorld {
 
     // file name to read configuration info from
-    private static final String fileName = "/home/rezo/Desktop/WebOnlineGame/src/ConfigFile.txt";
+    private static final String fileName = "D:\\WebOnlineGame\\src\\ConfigFile.txt";
 
     // static final variables whose values read from configuration file
     public static final int maxPlayers;
