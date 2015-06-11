@@ -347,19 +347,21 @@ public class GameWorld implements iWorld {
     public boolean setPlayerCoordinates(String playerName, double x, double y) {
         Player p = nameOnPlayer.get(playerName);
         Point2D.Double pos = p.getPosition();
-        if (running) {
+       /* if (running) {
             if (distance(x, y, pos.getX(), pos.getY()) > maxMove) {
                 return false;
             }
-        }
-        if (wrongPlace(x, y)) {
+        }*/
+
+
+        /*if (wrongPlace(x, y)) {
             return false;
-        }
+        }*/
 
         p.setPosition(x, y);
 
-        potionCheck(p);
-        playersCheck(p);
+       // potionCheck(p);
+       // playersCheck(p);
         gameOnCheck();
 
         return true;

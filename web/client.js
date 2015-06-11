@@ -180,7 +180,7 @@ function handler(snapShot){
 		var players = snapShot.players,
 			potions = snapShot.potions;
 		distanceR = snapShot.distance;
-		console.log(distanceR);
+		//console.log(distanceR);
 		circle = new IgeEntity()
 			.width(distanceR)
 			.height(distanceR)
@@ -188,7 +188,7 @@ function handler(snapShot){
 	//	self.circle.texture.resize(distanceR*2,distanceR*2,false);
 
 		parsePlayers(players);
-		parsePotions(potions);
+		//parsePotions(potions);
 		mountCircles();
 
 
@@ -222,7 +222,7 @@ function parsePlayers(players) {
 
 				/** send update to server */
 				if(!debugOn)
-					setInterval(sendUpdate,66);
+					setInterval(sendUpdate,40);
 
 				self.vp1.camera.lookAt(self.scene1);
 

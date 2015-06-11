@@ -10,7 +10,7 @@ import java.util.concurrent.*;
 
 public class GameManager {
     private static final int INITIAL_UPDATE_DELAY = 10000;
-    private static final int UPDATE_INTERVAL = 500;
+    private static final int UPDATE_INTERVAL = 50;
     private static final int SERVICE_CANCEL_INTERVAL = 500;
 
     // roomMates map stores information about players who are in the same room
@@ -109,7 +109,7 @@ public class GameManager {
     private void scheduleUpdate(iWorld world) {
         ScheduledFuture scheduledFuture = executor.scheduleAtFixedRate(() -> {
             world.getPlayerNames().forEach(x -> connector.sendMessageTo(x, world.getUpdate(x).toString()));
-            System.out.println("sent update");
+           // System.out.println("sent update");
         }, INITIAL_UPDATE_DELAY, UPDATE_INTERVAL, TimeUnit.MILLISECONDS);
         runningServices.put(world, scheduledFuture);
     }
