@@ -32,62 +32,78 @@ public class GameServerTest {
                     "        }\n" +
                     "}";
 
+    private HttpSession httpSessionMock;
+    private Map roomMates;
+    private ServletContext servletContextMock;
+    private EndpointConfig configMock;
+    private Map userPropertiesMock;
+    private Session sessionMock;
+
+    private void initMocks() {
+        httpSessionMock = mock(HttpSession.class);
+        roomMates = mock(Map.class);
+        servletContextMock = mock(ServletContext.class);
+        configMock = mock(EndpointConfig.class);
+        userPropertiesMock = mock(Map.class);
+        sessionMock = mock(Session.class);
+
+        when(configMock.getUserProperties()).thenReturn(userPropertiesMock);
+        when(userPropertiesMock.get("httpSession")).thenReturn(httpSessionMock);
+        when(httpSessionMock.getAttribute("userName")).thenReturn("rezo");
+        when(httpSessionMock.getServletContext()).thenReturn(servletContextMock);
+        when(servletContextMock.getAttribute("roomMates")).thenReturn(roomMates);
+    }
+
     @Test
     public void testOnMessage() throws Exception {
         GameManager gameManager = mock(GameManager.class);
         GameServer gameServer = new GameServer(gameManager);
-        Session player1Session = mock(Session.class);
-        gameServer.onMessage(initMessage, player1Session);
+        initMocks();
+
+        gameServer.open(sessionMock, configMock);
+        gameServer.onMessage(initMessage, sessionMock);
         verify(gameManager).addPlayer(eq("rezo"), any());
-        verify(player1Session).getBasicRemote();
+        verify(sessionMock).getBasicRemote();
     }
 
     @Test
     public void testOnMessage1() throws Exception {
         GameManager gameManager = mock(GameManager.class);
         GameServer gameServer = new GameServer(gameManager);
-        Session player1Session = mock(Session.class);
-        gameServer.onMessage(initMessage, player1Session);
-        gameServer.onMessage(updateMessage, player1Session);
+        initMocks();
+
+        gameServer.open(sessionMock, configMock);
+        gameServer.onMessage(initMessage, sessionMock);
+        gameServer.onMessage(updateMessage, sessionMock);
 
         verify(gameManager).addPlayer(eq("rezo"), any());
-        verify(player1Session).getBasicRemote();
+        verify(sessionMock).getBasicRemote();
     }
 
     @Test
     public void testOnClose() throws Exception {
-        GameManager gameManager = mock(GameManager.class);
-        GameServer gameServer = new GameServer(gameManager);
-        Session player1Session = mock(Session.class);
-        gameServer.onMessage(initMessage, player1Session);
-        gameServer.onMessage(updateMessage, player1Session);
-        gameServer.onClose(player1Session);
-        verify(gameManager).removePlayer("rezo");
-        gameServer.onError(player1Session, new Throwable());
+        GameManager gameManagerMock = mock(GameManager.class);
+        GameServer gameServer = new GameServer(gameManagerMock);
+        initMocks();
+
+        gameServer.open(sessionMock, configMock);
+        gameServer.onMessage(initMessage, sessionMock);
+        gameServer.onMessage(updateMessage, sessionMock);
+        gameServer.onClose(sessionMock);
+        verify(gameManagerMock).removePlayer("rezo");
+        gameServer.onError(sessionMock, new Throwable());
     }
 
     @Test
     public void testWithRoomMates() {
         GameServer gameServer = new GameServer();
-
-        HttpSession httpSessionMock = mock(HttpSession.class);
-        Map roomMates = mock(Map.class);
-        ServletContext servletContextMock = mock(ServletContext.class);
-        EndpointConfig configMock = mock(EndpointConfig.class);
-        Map userPropertiesMock = mock(Map.class);
-
-        when(configMock.getUserProperties()).thenReturn(userPropertiesMock);
-        when(userPropertiesMock.get("httpSession")).thenReturn(httpSessionMock);
-        when(httpSessionMock.getServletContext()).thenReturn(servletContextMock);
-        when(servletContextMock.getAttribute("roomMates")).thenReturn(roomMates);
-
-        Session sessionMock = mock(Session.class);
+        initMocks();
 
         gameServer.open(sessionMock, configMock);
         gameServer.open(sessionMock, configMock);
 
-        verify(configMock).getUserProperties();
-        verify(userPropertiesMock).get("httpSession");
+        verify(configMock, times(2)).getUserProperties();
+        verify(userPropertiesMock, times(2)).get("httpSession");
         verify(httpSessionMock).getServletContext();
         verify(servletContextMock).getAttribute("roomMates");
     }
