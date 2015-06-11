@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class PlaneMaze {
 
-    public static final int cellWallNum = 4;
+    private static final int cellWallNum = 4;
 
     private  Random rand = new Random();
 
@@ -73,11 +73,12 @@ public class PlaneMaze {
 
     /**
      * @@ have to rewrite all comments including this ofc
+     * @@ maze must be empty, with no walls.
      * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
      * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
      * awd
      */
-    public void  makePerfect() { //@@ maybe return this ? fuck me right ?
+    public PlaneMaze  makePerfect() { //@@ maybe return this ? fuck me right ?
         int[] conn = new int[numCols];
         for (int i = 0; i < numCols; i++) {
             conn[i] = i;
@@ -157,7 +158,7 @@ public class PlaneMaze {
 
         }
 
-
+        return this;
     }
 
 

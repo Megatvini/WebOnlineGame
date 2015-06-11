@@ -1,5 +1,6 @@
 package Game.Model;
 
+import javafx.util.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,6 +11,10 @@ import Game.Model.PlaneMaze;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Queue;
 
 import static org.junit.Assert.*;
 
@@ -39,12 +44,59 @@ public class PlaneMazeTest {
 
     @Test
     public void testMakePerfect() throws Exception {
-        pm.makePerfect();
-        boolean[][] visiteds = new boolean[numRows][numCols];
-        Cell start = new Cell(0, 0);
-        // bla bla
+        int testCount = 10;
 
+        for (int i = 0; i < testCount; i++) {
+            pm = new PlaneMaze(numRows, numCols);
+            pm.makePerfect();
 
+            boolean isCycle = false;
+            int visitedsNum = 0;
+            boolean[][] visiteds = new boolean[numRows][numCols];
+
+            Cell start = new Cell(0, 0);
+            visiteds[start.row][start.col] = true;
+            visitedsNum++;
+
+            Queue<Pair<Cell, Cell>> lasts = new ArrayDeque<>();
+            lasts.add(new Pair<>(start, null));
+            while (true) {
+                if (!lasts.isEmpty()) {
+                    Pair<Cell, Cell> lastAndPrev = lasts.remove();
+                    Cell last = lastAndPrev.getKey();
+                    ArrayList<Cell> adjacents = adjacents(last);
+                    for (int j = 0; j < adjacents.size(); j++) {
+                        Cell cIth = adjacents.get(j);
+                        if (pm.cellInBounds(cIth) && !cIth.equals(lastAndPrev.getValue()) && !pm.isWall(cIth, last)) {
+                            if (visiteds[cIth.row][cIth.col]) {
+                                isCycle = true;
+                                break;
+                            }
+                            lasts.add(new Pair<>(cIth, last));
+                            visiteds[cIth.row][cIth.col] = true;
+                            visitedsNum++;
+                        }
+                    }
+                    if (isCycle) {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+
+            assert !isCycle && numRows * numCols == visitedsNum;
+
+        }
+    }
+
+    private ArrayList<Cell> adjacents(Cell c) {
+        ArrayList<Cell> res = new ArrayList<>();
+        res.add(new Cell(c.row - 1, c.col));
+        res.add(new Cell(c.row, c.col + 1));
+        res.add(new Cell(c.row + 1, c.col));
+        res.add(new Cell(c.row, c.col - 1));
+        return res;
     }
 
     @Test
