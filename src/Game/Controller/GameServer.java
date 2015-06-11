@@ -25,12 +25,15 @@ public class GameServer {
 
     @OnOpen
     public void open(Session session, EndpointConfig config) {
-        if (gameManager == null) RoomMateMap(config);
+        HttpSession httpSession = (HttpSession) config.getUserProperties().get("httpSession");
+        String userName = (String) httpSession.getAttribute("userName");
+        userConnectionMap.put(session, userName);
+
+        if (gameManager == null) RoomMateMap(httpSession, config);
        // System.out.println("someone connected " + session);
     }
 
-    private synchronized void RoomMateMap(EndpointConfig config) {
-        HttpSession httpSession = (HttpSession) config.getUserProperties().get("httpSession");
+    private synchronized void RoomMateMap(HttpSession httpSession, EndpointConfig config) {
         Map<String, Collection<String>> roomMates = (Map<String, Collection<String>>)
                 httpSession.getServletContext().getAttribute("roomMates");
         gameManager = new GameManager(roomMates, new GameFactory(), new UserConnector(),
@@ -40,10 +43,11 @@ public class GameServer {
 
     @OnMessage
     public void onMessage(String msg, Session session) {
-        //System.out.println("message received: " + msg + this);
+        System.out.println("message received: " + msg + this);
         PlayerJsonParser parser = new PlayerJsonParser(msg);
         String cmd = parser.getCommand();
-        String playerName = parser.getPlayerName();
+        String playerName = userConnectionMap.get(session);
+        parser.getPlayerName();
         int x = parser.getXCoord();
         int y = parser.getYCoord();
         doCommand(playerName, cmd, session, x, y);
@@ -52,7 +56,6 @@ public class GameServer {
     private void doCommand(String playerName, String cmd, Session session, int x, int y) {
         //System.out.println("CMD is : " + cmd+".");
         //System.out.println("PLAYER : " + playerName+".");
-        userConnectionMap.put(session, playerName);
         switch (cmd) {
             case "init":
                 gameManager.addPlayer(playerName, session.getBasicRemote());

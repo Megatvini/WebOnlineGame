@@ -33,21 +33,6 @@ public class Listener implements ServletContextListener,
          You can initialize servlet context related data here.
       */
         Map<String, Collection<String>> roomMates = new ConcurrentHashMap<>();
-        List<String> room1 = new ArrayList<>();
-        room1.add("room1player1");
-        room1.add("room1player2");
-       // room1.add("room1player3");
-
-        List<String> room2 = new ArrayList<>();
-        room2.add("room2player1");
-        room2.add("room2player2");
-        room2.add("room2player3");
-        room2.add("room2player4");
-
-        room1.forEach(x->roomMates.put(x, room1));
-        room2.forEach(x->roomMates.put(x, room2));
-
-
         sce.getServletContext().setAttribute("roomMates", roomMates);
         sce.getServletContext().setAttribute(MatchMaker.class.getName(),
                 new MatchingManager(roomMates, new FixedRoomSizeMatcherFactory()));

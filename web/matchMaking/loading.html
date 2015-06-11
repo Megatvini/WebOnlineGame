@@ -33,7 +33,7 @@
     function check() {
         $.get('Loader', function(resp) {
             console.log(resp);
-            if (resp.localeCompare("true") == 0) window.location.replace("/game.jsp");
+            if (resp.localeCompare("true") == 0) window.location.replace("/fourColors.html");
         });
     }
     setInterval(check, 1000);

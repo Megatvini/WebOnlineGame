@@ -25,7 +25,7 @@ public class Loader extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String userName = request.getSession().getId();
+        String userName = (String) request.getSession().getAttribute("userName");
         Map<String, Collection<String>> roomMates = (Map<String, Collection<String>>) getServletContext().getAttribute("roomMates");
         boolean resp = roomMates.containsKey(userName);
         response.getWriter().print(resp);

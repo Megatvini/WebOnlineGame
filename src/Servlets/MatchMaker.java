@@ -1,6 +1,5 @@
 package Servlets;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -19,7 +18,8 @@ public class MatchMaker extends HttpServlet {
         System.out.println("playerName was " + playerID);
         Cookie cookie = new Cookie("playerID", playerID);
         response.addCookie(cookie);
-        request.getRequestDispatcher("/fourColors.html").forward(request, response);
+        request.getSession().setAttribute("userName", playerID);
+        request.getRequestDispatcher("matchMaking/play.html").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

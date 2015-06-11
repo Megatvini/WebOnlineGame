@@ -29,7 +29,7 @@ public class QuickPlay extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) {
-        String userName = request.getSession().getId();
+        String userName = (String) request.getSession().getAttribute("userName");
         List<Integer> list = new ArrayList<>();
         for (int i=2; i<=4; i++) {
             String s = request.getParameter("roomsize"+i);

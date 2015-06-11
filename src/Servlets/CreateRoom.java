@@ -27,7 +27,7 @@ public class CreateRoom extends HttpServlet {
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, StartingGroup> groupMap = (Map<String, StartingGroup>)
                 getServletContext().getAttribute(StartingGroup.class.getName());
-        String userName = request.getSession().getId();
+        String userName = (String) request.getSession().getAttribute("userName");
         groupMap.put(userName, new StartingGroup(userName));
         request.getRequestDispatcher("matchMaking/newroom.jsp").forward(request, response);
     }
