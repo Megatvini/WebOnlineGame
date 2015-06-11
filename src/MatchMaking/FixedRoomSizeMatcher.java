@@ -7,6 +7,9 @@ import java.util.*;
  */
 public class FixedRoomSizeMatcher {
     private final int roomSize;
+
+    //list of players who are waiting to be matched
+    //each entry on this list is map playerName -> playerRating
     private List<Map<String, Integer>> waitingList;
 
     public FixedRoomSizeMatcher(int roomSize) {
@@ -31,6 +34,14 @@ public class FixedRoomSizeMatcher {
         return findMatch(players);
     }
 
+    /**
+     * tries to find match for players
+     * @param players group that needs to be matched
+     * @return Set of groups of players who are matched
+     * or null if match was impossible
+     * always matches groups with closest possible
+     * average rating
+     */
     private Set<Set<String>> findMatch(Map<String, Integer> players) {
         Set<Set<String>> res = new HashSet<>();
         res.add(players.keySet());
@@ -41,6 +52,16 @@ public class FixedRoomSizeMatcher {
         return res;
     }
 
+    /**
+     * recursive function for finding match
+     * @param res current state of matched groups
+     * @param index this is index of a first player
+     * who has not been considered in matching yet
+     * @param cursize current size of a matched group
+     * @return true if match was found and in this case
+     * res contains the match
+     * if match was not found, res is left unchanged
+     */
     private boolean findRecursiveMatch(Set<Set<String>> res, int index, int cursize) {
         if (cursize == roomSize) return true;
         if (index >= waitingList.size()) return false;
@@ -55,6 +76,12 @@ public class FixedRoomSizeMatcher {
     }
 
 
+    /**
+     * sort WaitingList increasingly
+     * groups who have average rating
+     * closer to rating are smaller
+     * @param rating
+     */
     private void sortWaitingList(int rating) {
         Collections.sort(waitingList, (o1, o2) -> {
             int firstDiff = Math.abs(getRatingAverage(o1) - rating);
@@ -63,6 +90,11 @@ public class FixedRoomSizeMatcher {
         });
     }
 
+    /**
+     *
+     * @param players mapping playerName -> playerRating
+     * @return average rating of players
+     */
     private int getRatingAverage(Map<String, Integer> players) {
         int sum = 0;
         for (int n:players.values()) sum+=n;
@@ -83,6 +115,11 @@ public class FixedRoomSizeMatcher {
         }
     }
 
+    /**
+     * @param set1 firstSet
+     * @param set2 secondSet
+     * @return true iff two sets contain same elements
+     */
     private boolean setEquals(Set<String> set1, Set<String> set2) {
         if (set1.size() != set2.size()) return false;
         Set<String> union = new HashSet<>();
