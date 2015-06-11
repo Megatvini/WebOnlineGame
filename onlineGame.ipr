@@ -9,6 +9,10 @@
           <element id="directory" name="classes">
             <element id="module-output" name="onlineGame" />
           </element>
+          <element id="directory" name="lib">
+            <element id="library" level="project" name="WebSocket" />
+            <element id="library" level="module" name="JUnit4" module-name="onlineGame" />
+          </element>
         </element>
       </root>
     </artifact>
@@ -37,9 +41,6 @@
     <entry_points version="2.0" />
   </component>
   <component name="IdProvider" IDEtalkID="15BA6517AC4D15E0E4BF0A2199D952DE" />
-  <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{ige}" />
-  </component>
   <component name="Palette2">
     <group name="Swing">
       <item class="com.intellij.uiDesigner.HSpacer" tooltip-text="Horizontal Spacer" icon="/com/intellij/uiDesigner/icons/hspacer.png" removable="false" auto-create-binding="false" can-attach-label="false">
@@ -214,7 +215,6 @@
     </library>
     <library name="WebSocket" type="WebSocket">
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/lib/gson-1.1.jar!/" />
         <root url="jar://$PROJECT_DIR$/lib/javax.json.jar!/" />
         <root url="jar://$PROJECT_DIR$/lib/javax.websocket-api.jar!/" />
         <root url="jar://$PROJECT_DIR$/lib/tyrus-client.jar!/" />
@@ -225,9 +225,14 @@
         <root url="jar://$PROJECT_DIR$/lib/tyrus-server.jar!/" />
         <root url="jar://$PROJECT_DIR$/lib/tyrus-spi.jar!/" />
         <root url="jar://$PROJECT_DIR$/lib/tyrus-websocket-core.jar!/" />
+        <root url="file://$PROJECT_DIR$/lib" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="file://$PROJECT_DIR$/lib" />
+      </SOURCES>
+      <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
+      <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" type="SOURCES" />
     </library>
   </component>
 </project>

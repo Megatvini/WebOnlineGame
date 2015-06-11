@@ -32,6 +32,10 @@ public class Cell {
      * @return true iff given and this object have same row and col
      */
     public boolean equals(Cell c) {
+        if (c == null)
+            return false;
+        if (this == c)
+            return true;
         return row == c.row && col == c.col;
     }
 }

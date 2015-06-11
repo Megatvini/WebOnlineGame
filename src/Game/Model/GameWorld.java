@@ -14,7 +14,7 @@ import java.util.*;
 public class GameWorld implements iWorld {
 
     // file name to read configuration info from
-    private static final String fileName = "D:\\WebOnlineGame\\src\\ConfigFile.txt";
+    private static final String fileName = "C:\\Users\\SHAKO\\Desktop\\WebOnlineGame\\src\\ConfigFile.txt";
 
     // static final variables whose values read from configuration file
     public static final int maxPlayers;
@@ -85,14 +85,16 @@ public class GameWorld implements iWorld {
     // random instance to generate pseudo random stuff
     private static final Random rand = new Random();
 
-    // instance variables
+    /* instance variables */
+
+    // maze object which has raw info about maze for this game world
     private PlaneMaze pm;
 
     // have to calculate depended on configuration info
     public final double cellWidth;
     public final double cellHeight;
 
-    // getting value from configuration info
+    // getting starting value from configuration info for dist
     private double dist;
 
     // fill depended on info passed in constructor
@@ -101,13 +103,13 @@ public class GameWorld implements iWorld {
     // getting value according to number of active players
     private int activePlNum;
 
-    // coordinates of potions
+    // coordinates of potions, up-left point of rect surrounding circle
     private ArrayList<Point2D.Double> potions;
 
-    // if game running or not (if running some things happening periodically)
+    // if game running or not (for example, if running some things happening periodically)
     private boolean running;
 
-    // when game starts starts two task in background thread: potion addition, player distance increment
+    // when game starts, starts two task in background thread: potion addition, player distance increment
     private Timer timer;
 
 
@@ -117,7 +119,7 @@ public class GameWorld implements iWorld {
      * @param pm
      */
     public GameWorld(PlaneMaze pm) {
-        this(new HashMap<>(), pm, false);
+        this(new ArrayList<>(), pm, false);
     }
 
 
@@ -125,11 +127,11 @@ public class GameWorld implements iWorld {
      * construct game object. It has two states on and off, represented with running
      * variable, iff game is on: players cannot move from old distance on too far new distances, request
      * will be just ignored, player will be on same place; cannot add new players; cannot start game(again).
-     * @param playersOnPos names of players ki bijos
+     * @param players names of players ki bijos
      * @param pm abstract representation of maze, represents some maze and we can check where are and where are not walls
      * @param startGame user tells to start game or not. if true passed game will start at the end of constructor.
      */
-    public GameWorld(Map<Player, Boolean> playersOnPos, PlaneMaze pm, boolean startGame) {
+    public GameWorld(Collection<Player> players, PlaneMaze pm, boolean startGame) {
         running = false; // until world constructor finishes clearly game is not on
 
         this.pm = pm;
@@ -140,12 +142,12 @@ public class GameWorld implements iWorld {
         dist = startDist;
 
         nameOnPlayer = new HashMap<>();
-        playersOnPos.keySet().forEach(p -> addPlayer(p, playersOnPos.get(p)));
-        activePlNum = nameOnPlayer.size();
-
         potions = new ArrayList<>();
+
+        players.forEach(p -> addPlayer(p));
+
         for (int i = 0; i < startPotNum; i++) {
-            potions.add(randOval(potRadius));
+            addPotAtRand();
         }
 
         try {
@@ -166,16 +168,17 @@ public class GameWorld implements iWorld {
      * awd
      */
     @Override
-    public boolean addPlayer(String playerName, boolean atCorner) {
+    public boolean addPlayer(String playerName) {
         if (!running && nameOnPlayer.size() < maxPlayers && !nameOnPlayer.containsKey(playerName)) {
-            Player p = new Player(playerName, true, 0);
-            addPlayer(p, atCorner);
+            Player p = new Player(playerName);
+            return addPlayer(p);
         }
         return false;
     }
 
 
     /**
+     * @@ must have start pos if start cell type is "given"
      * if player added it has positiion
      * @@ have to rewrite all comments including this ofc
      * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
@@ -183,41 +186,26 @@ public class GameWorld implements iWorld {
      * awd
      */
     @Override
-    public boolean addPlayer(Player player, boolean atCorner) {
+    public boolean addPlayer(Player player) {
         if (!running && nameOnPlayer.size() < maxPlayers && !nameOnPlayer.containsKey(player.getName())) {
-            if (!player.hasStartCell()) {
-                if (atCorner) {
-                    switch (nameOnPlayer.size()) {
-                        case 0:
-                            player.setPosition((cellWidth - 2 * pRadius) / 2,
-                                    (cellHeight - 2 * pRadius) / 2);
-                            break;
-                        case 1:
-                            player.setPosition((numCols - 1) * cellWidth + (numCols - 1) * wallWidth + (cellWidth - 2 * pRadius) / 2,
-                                    (cellHeight - 2 * pRadius) / 2);
-                            break;
-                        case 2:
-                            player.setPosition((numCols - 1) * cellWidth + (numCols - 1) * wallWidth + (cellWidth - 2 * pRadius) / 2,
-                                    (numRows - 1) * cellHeight + (numRows - 1) * wallWidth + (cellHeight - 2 * pRadius) / 2);
-                            break;
-                        case 3:
-                            player.setPosition((cellWidth - 2 * pRadius) / 2,
-                                    (numRows - 1) * cellHeight + (numRows - 1) * wallWidth + (cellHeight - 2 * pRadius) / 2);
-                            break;
-                        default:
-                            return false;
+            Player.StartCellT sct = player.getStartCellT();
+            switch (sct) {
+                case atCorner:
+                    player.setPosition(getCornerPos(nameOnPlayer.size()));
+                    break;
+                case given:
+                    Cell startCell = player.getStartCell();
+                    if (startCell.row < 0 || startCell.row > numRows - 1 ||
+                            startCell.col < 0 || startCell.col > numCols - 1) {
+                        return false;
                     }
-                } else {
+                    player.setPosition(randOvalInCell(startCell, pRadius));
+                    break;
+                case random:
                     player.setPosition(randOval(pRadius));
-                }
-            } else {
-                Cell startCell = player.getStartCell();
-                if (startCell.row < 0 || startCell.row > numRows - 1 ||
-                        startCell.col < 0 || startCell.col > numCols - 1) {
-                    return false;
-                }
-                player.setPosition((cellWidth + wallWidth) * startCell.col + (cellWidth - 2 * pRadius) / 2,
-                        (cellHeight + wallWidth) * startCell.row + (cellHeight - 2 * pRadius) / 2);
+                    break;
+                default:
+                    break;
             }
 
             nameOnPlayer.put(player.getName(), player);
@@ -227,6 +215,35 @@ public class GameWorld implements iWorld {
         return false;
     }
 
+    /**
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
+    private Point2D.Double getCornerPos(int size) {
+        Point2D.Double pos;
+        switch (size) {
+            case 0:
+                pos = new Point2D.Double((cellWidth - 2 * pRadius) / 2,
+                        (cellHeight - 2 * pRadius) / 2);
+                break;
+            case 1:
+                pos = new Point2D.Double((numCols - 1) * cellWidth + (numCols - 1) * wallWidth + (cellWidth - 2 * pRadius) / 2,
+                        (cellHeight - 2 * pRadius) / 2);
+                break;
+            case 2:
+                pos = new Point2D.Double((numCols - 1) * cellWidth + (numCols - 1) * wallWidth + (cellWidth - 2 * pRadius) / 2,
+                        (numRows - 1) * cellHeight + (numRows - 1) * wallWidth + (cellHeight - 2 * pRadius) / 2);
+                break;
+            case 3:
+                pos = new Point2D.Double((cellWidth - 2 * pRadius) / 2,
+                        (numRows - 1) * cellHeight + (numRows - 1) * wallWidth + (cellHeight - 2 * pRadius) / 2);
+                break;
+            default:
+                return null;
+        }
+        return pos;
+    }
 
     /**
      * generates random value between two values [min, max), uniformly distributed.
@@ -264,13 +281,13 @@ public class GameWorld implements iWorld {
     @Override
     public void startGame() {
         if (!running) {
-            timer = new Timer();
+            running = true;
+            timer = new Timer(true);
             incDistPeriodically();
             addPotPeriodically();
-            running = true;
         }
     }
-
+    // @@game on checkebi
     /**
      * @@ have to rewrite all comments including this ofc
      * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
@@ -282,11 +299,25 @@ public class GameWorld implements iWorld {
             @Override
             public void run() {
                 dist += plusDist;
-                nameOnPlayer.values().forEach(p -> playersCheck(p));
-                gameOnCheck();
+                playersPlayers();
                 System.out.println("dist increased: " + dist);
             }
         }, 0, plusDistDelay);
+    }
+
+    /**
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
+    private void playersPlayers() {
+        Collection<Player> players = nameOnPlayer.values();
+        players.forEach(p -> {
+            if (p.getActive()) {
+                playersPlayer(p);
+            }
+        });
     }
 
     /**
@@ -299,12 +330,22 @@ public class GameWorld implements iWorld {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                potions.add(randOval(potRadius));
-                //potionCheck(p);
-                gameOnCheck();
+                Point2D.Double pot = addPotAtRand();
+                playersPot(pot);
                 System.out.println("Potion added");
             }
         }, 0, addPotDelay);
+    }
+
+    /**
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
+    public Point2D.Double addPotAtRand() {
+        Point2D.Double pot = randOval(potRadius);
+        potions.add(pot);
+        return pot;
     }
 
     /**
@@ -316,13 +357,62 @@ public class GameWorld implements iWorld {
     private Point2D.Double randOval(double radius) {
         int randRow = rand.nextInt(numRows);
         int randCol = rand.nextInt(numCols);
+        return randOvalInCell(new Cell(randRow, randCol), radius);
+    }
 
+    public Point2D.Double addPotInCell(Cell c) {
+        Point2D.Double pot = randOvalInCell(c, potRadius);
+        potions.add(pot);
+        return pot;
+    }
+
+    /**
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
+    private Point2D.Double randOvalInCell(Cell c, double radius) {
         double rXInCell = randDouble(0, cellWidth - 2 * radius);
         double rYInCell = randDouble(0, cellHeight - 2 * radius);
 
-        return new Point2D.Double((cellWidth + wallWidth) * randCol + rXInCell,
-                (cellHeight + wallWidth) * randRow + rYInCell);
+        return new Point2D.Double((cellWidth + wallWidth) * c.col + rXInCell,
+                (cellHeight + wallWidth) * c.row + rYInCell);
     }
+
+    /**
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
+    private void playersPot(Point2D.Double pot) {
+        Collection<Player> players = nameOnPlayer.values();
+        players.stream().anyMatch(p -> {
+            if (p.getActive()) {
+                Point2D.Double plPos = p.getPosition();
+                if (distance(plPos.x + pRadius, plPos.y + pRadius, pot.x + potRadius, pot.y + potRadius) < pRadius + potRadius) {
+                    p.potionPlus();
+                    potions.remove(pot);
+                    playersPlayer(p);
+                    return true;
+                }
+            }
+            return false;
+        });
+    }
+
+    /**
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
+    private double distance(double x1, double y1, double x2, double y2) {
+        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+    }
+
+
 
     /**
      * @@ have to rewrite all comments including this ofc
@@ -358,14 +448,41 @@ public class GameWorld implements iWorld {
 
         p.setPosition(x, y);
 
-        potionCheck(p);
-        playersCheck(p);
-        gameOnCheck();
-
+        if (p.getActive()) {
+            potionsPlayer(p);
+            playersPlayer(p);
+        }
         return true;
     }
 
-//@@ dro rom izrdeba state icvleba ? ifiqre kargad
+    /**
+     * @@ must be active player
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
+    private boolean potionsPlayer(Player player) {
+        boolean somePotTaken = false;
+        Point2D.Double pos = player.getPosition();
+        List<Point2D.Double> potions = Collections.synchronizedList(this.potions);
+        synchronized (potions) {
+            Iterator<Point2D.Double> potIt = potions.iterator();
+            while (potIt.hasNext()) {
+                Point2D.Double nextPot = potIt.next();
+                if (distance(pos.x + pRadius, pos.y + pRadius, nextPot.x + potRadius, nextPot.y + potRadius) < pRadius + potRadius) {
+                    player.potionPlus();
+                    potIt.remove();
+                    if (!somePotTaken) {
+                        somePotTaken = true;
+                    }
+                    playersPlayer(player);
+                }
+            }
+        }
+        return somePotTaken;
+    }
+
     /**
      * @@ have to rewrite all comments including this ofc
      * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
@@ -525,65 +642,35 @@ public class GameWorld implements iWorld {
         return r;
     }
 
-    //@@ amis optimizaciaze vifiqro, tu 1 cellshi evri shedzleba mashin ar vici optimizacia rogor unda vqna Oo, axla ise wria ro sheidzleba, anu potionis randomsac yleze kidia, daje poionze gadaaebs.
     /**
+     * @@ passed player must be active
      * @@ have to rewrite all comments including this ofc
      * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
      * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
      * awd
      */
-    private void potionCheck(Player p) {
+    private boolean playersPlayer(Player p) {
         Point2D.Double plPos = p.getPosition();
-        Point2D.Double pot;
-        for (int i = 0; i < potions.size(); i++) {
-            pot = potions.get(i);
-            if (distance(plPos.x + pRadius, plPos.y + pRadius, pot.x + potRadius, pot.y + potRadius) < pRadius + potRadius) {
-                p.potionPlus();
-                potions.remove(i);
-                i--;
-            }
-        }
-    }
 
-    //@@ amovigo nameOnPlayer Mapidan tu prosta active false ? ? nika rogorc gadawyvets
-    /**
-     * @@ have to rewrite all comments including this ofc
-     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
-     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
-     * awd
-     */
-    private void playersCheck(Player p) {
-        Point2D.Double plPos = p.getPosition();
-        Point2D.Double otherPlPos ;
+        Collection<Player> players = nameOnPlayer.values();
 
-        Set<String> players = nameOnPlayer.keySet();
-
-        for (String name : players) {
-            Player otherP = nameOnPlayer.get(name);
-            otherPlPos = otherP.getPosition();
-            if (!p.equals(otherP) &&
-                    otherP.getActive() &&
-                    distance(plPos.x + pRadius, plPos.y + pRadius, otherPlPos.x + pRadius, otherPlPos.y + pRadius) < pRadius + pRadius) {
-                if (p.getPotNum() > otherP.getPotNum()) {
-                    kickPlayer(p, otherP);
-                } else if (p.getPotNum() < otherP.getPotNum()) {
-                    kickPlayer(otherP, p);
-                    break; // if player who made move kicked he cannot continue kicking anyone(or playing at all)
+        for (Player player : players) {
+            Point2D.Double otherPlPos = player.getPosition();
+            if (!p.equals(player) &&
+                    player.getActive() &&
+                    distance(plPos.x + pRadius, plPos.y + pRadius, otherPlPos.x + pRadius, otherPlPos.y + pRadius) < dist) {
+                if (p.getPotNum() > player.getPotNum()) {
+                    kickPlayer(p, player);
+                    playersPlayer(p);
+                    return true;
+                } else if (p.getPotNum() < player.getPotNum()) {
+                    kickPlayer(player, p);
+                    playersPlayer(player);
+                    return true;
                 }
             }
         }
-    }
-
-    //@@ nameOnPlayer.values().iterator().forEachRemaining
-
-    /**
-     * @@ have to rewrite all comments including this ofc
-     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
-     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
-     * awd
-     */
-    private double distance(double x1, double y1, double x2, double y2) {
-        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+        return false;
     }
 
     /**
@@ -594,7 +681,9 @@ public class GameWorld implements iWorld {
      */
     private void kickPlayer(Player kicker, Player toKick) {
         toKick.setActive(false);
-        kicker.setPotNum(kicker.getPotNum() + potForKick);
+        if (running) {
+            kicker.setPotNum(kicker.getPotNum() + potForKick);
+        }
         activePlNum--;
     }
 
@@ -630,7 +719,7 @@ public class GameWorld implements iWorld {
      */
     @Override
     public Collection<String> getPlayerNames() {
-        return nameOnPlayer.keySet();
+        return Collections.unmodifiableCollection(nameOnPlayer.keySet());
     }
 
     /**
@@ -641,7 +730,7 @@ public class GameWorld implements iWorld {
      */
     @Override
     public Collection<Player> getPlayers() {
-        return nameOnPlayer.values();
+        return Collections.unmodifiableCollection(nameOnPlayer.values());
     }
 
 
@@ -663,7 +752,7 @@ public class GameWorld implements iWorld {
      * awd
      */
     @Override
-    public JsonObject getInit() { //@@ unda shevamciro positionis double mdzimis shemdeg 2 an 3 cifri mara mainc 3 iyos, damrgvalebit da ara chamojra prosta
+    public JsonObject getInit() {
         JsonBuilderFactory factory = Json.createBuilderFactory(null);
 
         JsonObjectBuilder initJson = factory.createObjectBuilder();

@@ -5,8 +5,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.geom.Line2D;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 import java.util.List;
 
 public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
@@ -98,8 +97,8 @@ public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
         return new ArrayList<String>();
     }
 
-    public static void main(String s[]) {
 
+    public static void main(String s[]) {
 
         //testMethod(new ArrayList<>(), new ArrayList<>());
 
@@ -153,37 +152,37 @@ public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
 
         //Plane Maze Testing shit >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-        JFrame f = new JFrame("ShapesDemo2D");
-        f.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
-        });
-
-        PlaneMaze pm = new PlaneMaze(14, 24);
-        pm.makePerfect();
-
-
-        GameWorld gw = new GameWorld(pm);
-
-        gw.addPlayer("shako", true);
-        gw.addPlayer("nika", true);
-        gw.addPlayer("killera", true);
-
-        gw.startGame();
-
-        System.out.println(gw.getInit());
-        System.out.println(gw.getUpdate("shako"));
-
-        gw.setPlayerCoordinates("shako", 4, 4);
-
-        JApplet applet = new PlaneMazeTesterClassNotPartOfProject(pm);
-        f.getContentPane().add("Center", applet);
-        applet.init();
-
-        f.pack();
-        f.setSize(new Dimension(600, 800));
-        f.show();
+//        JFrame f = new JFrame("ShapesDemo2D");
+//        f.addWindowListener(new WindowAdapter() {
+//            public void windowClosing(WindowEvent e) {
+//                System.exit(0);
+//            }
+//        });
+//
+//        PlaneMaze pm = new PlaneMaze(14, 24);
+//        pm.makePerfect();
+//
+//
+//        GameWorld gw = new GameWorld(pm);
+//
+//        gw.addPlayer("shako");
+//        gw.addPlayer("nika");
+//        gw.addPlayer("killera");
+//
+//        gw.startGame();
+//
+//        System.out.println(gw.getInit());
+//        System.out.println(gw.getUpdate("shako"));
+//
+//        gw.setPlayerCoordinates("shako", 4, 4);
+//
+//        JApplet applet = new PlaneMazeTesterClassNotPartOfProject(pm);
+//        f.getContentPane().add("Center", applet);
+//        applet.init();
+//
+//        f.pack();
+//        f.setSize(new Dimension(600, 800));
+//        f.show();
 
 
 

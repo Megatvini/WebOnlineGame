@@ -18,12 +18,12 @@ public interface iWorld {
      * returns false if game is not on or if there already is a player with playerName
      * or if there already are maximum number of players
      */
-    boolean addPlayer(String playerName, boolean atCorner);
+    boolean addPlayer(String playerName);
 
     /**
      *  @@ have to rewrite all comments including this ofcourse
      */
-    boolean addPlayer(Player player, boolean atCorner);
+    boolean addPlayer(Player player);
 
     /**
      * @return abstract representation of maze, represents some maze and we can check where are and where are not walls

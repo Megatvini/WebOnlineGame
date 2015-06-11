@@ -25,22 +25,53 @@ public class PlayerTest {
     String name;
     boolean active;
     int potNum;
-
+    Player.StartCellT sct;
     Cell startCell;
-
     Player p;
-    Player p1;
 
     @Before
     public void setUp() throws Exception {
         name = "killera";
         active = true;
         potNum = 4;
-
+        sct = Player.StartCellT.given;
         startCell = new Cell(3, 16);
 
-        p = new Player(name, active, potNum);
-        p1 = new Player(name, active, potNum, startCell);
+        p = new Player(name, active, potNum, startCell);
+    }
+
+    @Test
+    public void testMultipeConstructors() {
+        Player p1 = new Player(name);
+
+        Player p2 = new Player(name, active, potNum, Player.StartCellT.atCorner);
+        Player p3 = new Player(name, active, potNum, Player.StartCellT.given);
+        Player p4 = new Player(name, active, potNum, Player.StartCellT.random);
+
+        // p1: checking defaults
+        assert p1.getName() == name;
+        assert p1.getActive() == true;
+        assert p1.getPotNum() == 0;
+        assert p1.getStartCellT() == Player.StartCellT.atCorner;
+
+        // p2: checking pllayer with start place type "atCorner"
+        assert p2.getName() == name;
+        assert p2.getActive() == active;
+        assert p2.getPotNum() == potNum;
+        assert p2.getStartCellT() == Player.StartCellT.atCorner;
+
+        // p3: checking pllayer with start place type "given"
+        assert p3.getName() == name;
+        assert p3.getActive() == active;
+        assert p3.getPotNum() == potNum;
+        assert p3.getStartCellT() == Player.StartCellT.given;
+        assert p3.getStartCell().equals(Player.defStartCell); // compare if its default
+
+        // p4: checking pllayer with start place type "random"
+        assert p4.getName() == name;
+        assert p4.getActive() == active;
+        assert p4.getPotNum() == potNum;
+        assert p4.getStartCellT() == Player.StartCellT.random;
     }
 
     @Test
@@ -50,7 +81,7 @@ public class PlayerTest {
 
     @Test
     public void testGetActive() throws Exception {
-        assert(active == p.getActive());
+        assert(true == p.getActive());
     }
 
     @Test
@@ -76,7 +107,7 @@ public class PlayerTest {
 
     @Test
     public void testGetPotNum() throws Exception {
-        assert(potNum == p.getPotNum());
+        assert(p.getPotNum() == potNum);
     }
 
     @Test
@@ -88,7 +119,7 @@ public class PlayerTest {
             p.potionPlus();
         }
 
-        assert(potNum + addPotNum == p.getPotNum());
+        assert(p.getPotNum() == potNum + addPotNum);
     }
 
     @Test
@@ -112,24 +143,44 @@ public class PlayerTest {
     }
 
     @Test
-    public void testHasStartCell() throws Exception {
-        assert p1.hasStartCell();
+    public void testGetStartCellT() throws Exception {
+        assert p.getStartCellT() == sct;
+    }
 
-        // start cell is null
-        p1 = new Player(name, active, potNum, null);
-        assertFalse(p.hasStartCell());
+    @Test
+    public void testSetStartCellT() throws Exception {
+        Player.StartCellT sct;
+
+        sct = Player.StartCellT.atCorner;
+        p.setStartCellT(sct);
+        assert p.getStartCellT() == sct;
+
+        sct = Player.StartCellT.given;
+        p.setStartCellT(Player.StartCellT.given);
+        assert p.getStartCellT() == sct;
+
+
+        sct = Player.StartCellT.random;
+        p.setStartCellT(Player.StartCellT.random);
+        assert p.getStartCellT() == sct;
     }
 
     @Test
     public void testGetStartCell() throws Exception {
-        assert startCell.equals(p1.getStartCell());
+        assert p.getStartCell().equals(startCell);
+
+        p = new Player(name, active, potNum, Player.StartCellT.given);
+        assert p.getStartCell().equals(Player.defStartCell);
+        p.setStartCell(startCell);
+        assert p.getStartCell().equals(startCell);
+
     }
 
     @Test
     public void testSetStartCell() throws  Exception {
-        p.setStartCell(startCell);
-
-        assert p.getStartCell().equals(startCell);
+        Cell c = new Cell(1, 12);
+        p.setStartCell(c);
+        assert p.getStartCell().equals(c);
     }
 
     @Test
@@ -154,6 +205,11 @@ public class PlayerTest {
         p.setPosition(x, y);
         Point2D.Double posit = p.getPosition();
         assert(x == posit.x && y == posit.y);
+    }
+
+    @Test
+    public void testEquals() throws Exception {
+        assert p.equals(new Player(name));
     }
 
     @Test //@@ ifiqre(kitxe jgups) jsonis ageba rogor shamowmo an vafshe ageba metodi ro gaq playershi eg kaia ? google-s library-c ganixile gjuftan

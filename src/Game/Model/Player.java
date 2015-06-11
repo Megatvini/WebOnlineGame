@@ -10,35 +10,37 @@ import java.awt.geom.Point2D;
 public class Player {
 
     private String name;
+
     private boolean active;
+
     private int potNum;
 
-    private boolean hasStartCell;
+    public enum StartCellT {atCorner, given, random}
+    private StartCellT sct;
     private Cell startCell;
-    private Cell defStartCell;
+    public static final Cell defStartCell = new Cell(0, 0);
 
     private  double x;
     private double y;
 
-    public Player(String name, boolean active, int potNum){
-        this(name, active, potNum, null);
+    public Player(String name){
+        this(name, true, 0, StartCellT.atCorner);
     }
 
     public Player(String name, boolean active, int potNum, Cell startCell) {
+        this(name, active, potNum, StartCellT.given);
+        setStartCell(startCell);
+    }
+
+    public Player(String name, boolean active, int potNum, StartCellT sct) {
         this.name = name;
         this.active = active;
         this.potNum = potNum;
-
-        defStartCell = new Cell(0, 0);
-        if (startCell != null) {
-                this.startCell = startCell;
-                hasStartCell = true;
-        }  else {
-            this.startCell = defStartCell;
-            hasStartCell = false;
-        }
-
+        this.sct = sct;
+        if (this.sct == StartCellT.given)
+            startCell = defStartCell;
     }
+
 
     public String getName() {
         return name;
@@ -73,8 +75,15 @@ public class Player {
         this.potNum = potNum;
     }
 
-    public boolean hasStartCell() {
-        return hasStartCell;
+    public StartCellT getStartCellT() {
+        return sct;
+    }
+
+    public void setStartCellT(StartCellT sct) {
+        this.sct = sct;
+        if (this.sct == StartCellT.given && startCell == null) {
+            startCell = defStartCell;
+        }
     }
 
     public Cell getStartCell() {
@@ -82,12 +91,13 @@ public class Player {
     }
 
     /**
-     * @@ if start cell is out of bounds according configuration has start set to false and
-     * start cell becomes default start cell which has row col (0, 0)
+     * @@ take effect if only start cell type if given
      * @param startCell
      */
     public void setStartCell(Cell startCell) {
-        this.startCell = startCell;
+        if (sct == StartCellT.given) {
+            this.startCell = startCell;
+        }
     }
 
     public Point2D.Double getPosition() {
