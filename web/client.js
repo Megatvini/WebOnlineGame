@@ -185,7 +185,7 @@ function handler(snapShot){
 			.width(distanceR)
 			.height(distanceR)
 			.texture(self.gameTexture.circle);
-	//	self.circle.texture.resize(distanceR*2,distanceR*2,false);
+		//	self.circle.texture.resize(distanceR*2,distanceR*2,false);
 
 		parsePlayers(players);
 		//parsePotions(potions);
@@ -208,9 +208,9 @@ function parsePlayers(players) {
 		if (typeof (characters[name]) == 'undefined') {
 			/** @namespace gameConfig.pRadius */
 			var newPlayer = characters[name] = new Character(gameConfig,name,myId,self.gameTexture)
-				.id(name)
-				.transTo(position.x, position.y,gameConfig)
-				.mount(self.scene1)
+					.id(name)
+					.transTo(position.x, position.y,gameConfig)
+					.mount(self.scene1)
 				;
 
 			if (name == myId) {
@@ -221,9 +221,11 @@ function parsePlayers(players) {
 
 
 				/** send update to server */
-				if(!debugOn)
-					setInterval(sendUpdate,40);
-
+				if(!debugOn) {
+					setInterval(sendUpdate, 40);
+					player1.pp.x=position.x;
+					player1.pp.y= position.y;
+				}
 				self.vp1.camera.lookAt(self.scene1);
 
 			}else{
@@ -251,9 +253,11 @@ function parsePlayers(players) {
 				}
 			}
 		} else {
-
-			if (name != myId)
-				characters[name].transTo(position.x, position.y,gameConfig);
+			if (name != myId) {
+				characters[name]._box2dBody.SetLinearVelocity(position.x - characters[name].pp.x,
+					position.y - characters[name].pp.y, 0);
+				characters[name]._box2dBody.SetAwake(true);
+			}
 		}
 	}
 }
@@ -261,7 +265,7 @@ function mountCircles(){
 	for(var char in characters) {
 		if (characters.hasOwnProperty(char)){
 			if(circles[char])
-			circles[char].destroy();
+				circles[char].destroy();
 			var character   = characters[char];
 			circles[char]=new Circle()
 				.texture(self.gameTexture.circle)

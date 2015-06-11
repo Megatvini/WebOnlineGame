@@ -1,12 +1,14 @@
 // Define our player character classes
 var Character = IgeEntityBox2d.extend({
 	classId: 'Character',
+		pp :{
+			x: 0,
+			y:0
+		},
 	textures: {} ,
-
-
 	init: function (data,name,myId,gametexture) {
 		var self = this;
-		textures = gametexture;
+		this.textures = gametexture;
 		IgeEntityBox2d.prototype.init.call(this);
 
 		// Setup the entity
@@ -60,7 +62,7 @@ var Character = IgeEntityBox2d.extend({
 		switch (type) {
 			case 0:
 				self = this ;
-				this._characterTexture = textures.fire;
+				this._characterTexture = this.textures.fire;
 
 				self.texture(self._characterTexture);
 
@@ -75,7 +77,7 @@ var Character = IgeEntityBox2d.extend({
 
 			case 1:
 				self = this ;
-				this._characterTexture = textures.water;
+				this._characterTexture = this.textures.water;
 
 
 				self.texture(self._characterTexture);
@@ -91,7 +93,7 @@ var Character = IgeEntityBox2d.extend({
 
 			case 2:
 				self = this ;
-				this._characterTexture = textures.wind;
+				this._characterTexture = this.textures.wind;
 
 				// Wait for the texture to load
 				self.texture(self._characterTexture);
@@ -106,7 +108,7 @@ var Character = IgeEntityBox2d.extend({
 
 			case 3:
 				self = this ;
-				this._characterTexture = textures.ground;
+				this._characterTexture = this.textures.ground;
 
 				// Wait for the texture to load
 
@@ -221,6 +223,7 @@ var Character = IgeEntityBox2d.extend({
 
 
 	}
+
 
 
 });

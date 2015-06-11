@@ -73,12 +73,12 @@ public class GameManager {
         connector.addUser(playerName, playerConnection);
         if (rooms.get(playerName) == null) {
             iWorld world = gameFactory.getNewInstance();
-            world.addPlayer(playerName, true);
+            world.addPlayer(playerName);
             Collection<String> mates = roomMates.get(playerName);
             mates.forEach(player->rooms.put(player, world));
         } else {
             iWorld world = rooms.get(playerName);
-            world.addPlayer(playerName, true);
+            world.addPlayer(playerName);
         }
         sendInit(playerName);
         checkIfRoomIsFull(playerName);
