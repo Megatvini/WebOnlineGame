@@ -257,7 +257,6 @@ function parsePlayers(players) {
 		}
 	}
 }
-
 function mountCircles(){
 	for(var char in characters) {
 		if (characters.hasOwnProperty(char)){

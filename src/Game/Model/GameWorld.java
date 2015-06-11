@@ -14,7 +14,7 @@ import java.util.*;
 public class GameWorld implements iWorld {
 
     // file name to read configuration info from
-    private static final String fileName = "D:\\WebOnlineGame\\src\\ConfigFile.txt";
+    private static final String fileName = "ConfigFile.txt";
 
     // static final variables whose values read from configuration file
     public static final int maxPlayers;
@@ -65,7 +65,7 @@ public class GameWorld implements iWorld {
     private static void loadFromFile(Properties prop, String fileName) {
         InputStream input = null;
         try {
-            input = new FileInputStream(fileName);
+            input = GameWorld.class.getClassLoader().getResourceAsStream(fileName);
             // load a properties file
             prop.load(input);
 
@@ -84,9 +84,7 @@ public class GameWorld implements iWorld {
 
     // random instance to generate pseudo random stuff
     private static final Random rand = new Random();
-    static {
-        rand.setSeed(3);
-    }
+
     // instance variables
     private PlaneMaze pm;
 

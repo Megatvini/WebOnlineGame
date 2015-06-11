@@ -77,6 +77,6 @@ public class GameServer {
     @OnError
     public void onError(Session session, Throwable t) {
         System.out.println("OnError");
-        //t.printStackTrace();
+        t.printStackTrace();
     }
 }
