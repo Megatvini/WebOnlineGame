@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f9e55fc6-ff33-4d8b-89ab-aab5f918ccf4" name="Default" comment="sinqronizaciis mcdeloba">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/gameClasses/Character.js" afterPath="$PROJECT_DIR$/web/gameClasses/Character.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game/Controller/GameManager.java" afterPath="$PROJECT_DIR$/src/Game/Controller/GameManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game/Model/GameWorld.java" afterPath="$PROJECT_DIR$/src/Game/Model/GameWorld.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/client.js" afterPath="$PROJECT_DIR$/web/client.js" />
+    <list default="true" id="f9e55fc6-ff33-4d8b-89ab-aab5f918ccf4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="f913827a-d372-4ed7-8e9e-5ca904130370" name="Failed commit: Default" comment="sinqronizaciis mcdeloba" />
@@ -955,7 +951,7 @@
       <workItem from="1433762515665" duration="3941000" />
       <workItem from="1433767922994" duration="4829000" />
       <workItem from="1433875766090" duration="45101000" />
-      <workItem from="1434035500087" duration="9373000" />
+      <workItem from="1434035500087" duration="9406000" />
     </task>
     <task id="LOCAL-00001" summary="Added DDL statements">
       <created>1433434253476</created>
@@ -1011,11 +1007,17 @@
       <option name="project" value="LOCAL" />
       <updated>1434043422686</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="sinqronizaciis mcdeloba">
+      <created>1434045202570</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1434045202571</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="132110000" />
+    <option name="totallyTimeSpent" value="132143000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
