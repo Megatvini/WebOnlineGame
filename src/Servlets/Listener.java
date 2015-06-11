@@ -2,6 +2,9 @@ package Servlets;
 /**
  * Created by Nika on 17:26, 5/26/2015.
  */
+import MatchMaking.MatchMakerMock;
+import MatchMaking.StartingGroup;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -10,6 +13,7 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @WebListener()
 public class Listener implements ServletContextListener,
@@ -27,7 +31,7 @@ public class Listener implements ServletContextListener,
          initialized(when the Web application is deployed). 
          You can initialize servlet context related data here.
       */
-        Map<String, List<String>> roomMates = Collections.synchronizedMap(new HashMap<>());
+        Map<String, Collection<String>> roomMates = new ConcurrentHashMap<>();
         List<String> room1 = new ArrayList<>();
         room1.add("room1player1");
         room1.add("room1player2");
@@ -44,6 +48,8 @@ public class Listener implements ServletContextListener,
 
 
         sce.getServletContext().setAttribute("roomMates", roomMates);
+        sce.getServletContext().setAttribute(MatchMaker.class.getName(), new MatchMakerMock(roomMates));
+        sce.getServletContext().setAttribute(StartingGroup.class.getName(), new ConcurrentHashMap<>());
     }
 
     public void contextDestroyed(ServletContextEvent sce) {

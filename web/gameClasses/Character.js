@@ -14,29 +14,33 @@ var Character = IgeEntityBox2d.extend({
 			.addComponent(IgeVelocityComponent);
 
 		if(name==myId)
-			self.box2dBody({
-				type: 'dynamic',
-				linearDamping: 0.0,
-				angularDamping: 0.1,
-				allowSleep: true,
-				bullet: true,
-				gravitic: true,
-				fixedRotation: true,
-				fixtures: [{
-					density: 1.0,
-					friction: 0.5,
-					restitution: 0.2,
-					shape: {
-						type: 'circle',
-						dara:{
-							radius:data.pRadius
-						}
-					}
-				}]
-			})
+			self.width(data.pRadius*2)
+				.height(data.pRadius*2)
+				.box2dBody({
+					type: 'dynamic',
+					linearDamping: 0.0,
 
-				.setType(0)
-				.drawBounds(false);
+					angularDamping: 0.1,
+					allowSleep: true,
+					bullet: false,
+					gravitic: false,
+					fixedRotation: true,
+					fixtures: [{
+						density: 1.0,
+						friction: 0.5,
+						restitution: 0.2,
+						shape: {
+							type: 'circle',
+							data: {
+								// The position of the fixture relative to the body
+								x: 0,
+								y: 0
+							}
+						}
+					}]
+				})
+
+				.setType(0);
 
 		// Load the character texture file
 		if (!ige.isServer) {

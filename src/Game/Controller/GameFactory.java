@@ -9,7 +9,7 @@ import Game.Model.iWorld;
  */
 public class GameFactory {
     public iWorld getNewInstance() {
-        PlaneMaze maze = new PlaneMaze(20, 20);
+        PlaneMaze maze = new PlaneMaze(GameWorld.numRows, GameWorld.numCols);
         maze.makePerfect();
         return new GameWorld(maze);
     }

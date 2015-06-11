@@ -54,7 +54,7 @@ public class GameManager {
             if (!world.gameOn()) {
                 System.out.println("GAME IS OVER");
                 runningServices.remove(world).cancel(true);
-                world.getPlayers().forEach(x->{
+                world.getPlayerNames().forEach(x->{
                     roomMates.remove(x);
                     rooms.remove(x);
                 });

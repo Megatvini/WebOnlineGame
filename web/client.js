@@ -20,7 +20,6 @@ var Client = IgeClass.extend({
 		// Wait for our textures to load before continuing
 		ige.addComponent(IgeBox2dComponent)
 			.box2d.sleep(true)
-			.box2d.gravity(0, 0)
 			.box2d.createWorld()
 			.box2d.start();
 
@@ -36,6 +35,7 @@ var Client = IgeClass.extend({
 		ige.on('texturesLoaded', function (){
 			// Create the HTML canvas
 			ige.createFrontBuffer(true);
+
 			ige.start(function (success) {
 				// Check if the engine started successfully
 				if (success) {
@@ -162,7 +162,7 @@ function initSocket() {
 		console.log('Error detected: ' + error);
 	};
 	connection.onmessage = function(e){
-		console.log(e.data);
+		//console.log(e.data);
 		var snapShot = JSON.parse(e.data);
 		handler(snapShot);
 
@@ -195,6 +195,7 @@ function handler(snapShot){
 
 	}
 	if(snapShot.type&&snapShot.type=="INIT") {
+		console.log(JSON.stringify(snapShot));
 		gameConfig = createGameConfig(snapShot);
 		createMaze(snapShot);
 	}
@@ -209,14 +210,14 @@ function parsePlayers(players) {
 			var newPlayer = characters[name] = new Character(gameConfig,name,myId,self.gameTexture)
 				.id(name)
 				.transTo(position.x, position.y,gameConfig)
-				.mount(self.scene1);
+				.mount(self.scene1)
+				;
 
 			if (name == myId) {
 
 				player1 = newPlayer;
 				player1
-					.addComponent(PlayerComponent)
-					.mount(self.scene1);
+					.addComponent(PlayerComponent);
 
 
 				/** send update to server */
@@ -246,7 +247,7 @@ function parsePlayers(players) {
 						pl.translateTo(x + d, y, 0);
 
 
-					}, 200)
+					}, 66)
 				}
 			}
 		} else {
@@ -256,7 +257,6 @@ function parsePlayers(players) {
 		}
 	}
 }
-
 function mountCircles(){
 	for(var char in characters) {
 		if (characters.hasOwnProperty(char)){
@@ -363,7 +363,7 @@ function createMaze(snapShot) {
 				.height(wHeight)
 				.texture(self.gameTexture.wall)
 				.translateTo(drawX-zeroX, drawY-zeroY, 0)
-				.drawBounds(false)
+				.drawBounds(true)
 				.mount(self.scene1)
 				.box2dBody({
 					type: 'static',
