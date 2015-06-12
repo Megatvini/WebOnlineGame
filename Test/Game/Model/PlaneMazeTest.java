@@ -107,7 +107,7 @@ public class PlaneMazeTest {
     @Test //@@ aqac iseve rogorc playeris jsonis testshi
     public void testToJsonBuilder() throws Exception {
         pm.makePerfect();
-        System.out.println("Look at Json object and check if has structure u wanted: \n" + pm.toJsonBuilder().build());
+        System.out.println("PlaneMaze: testToJsonBuilder: " + pm.toJsonBuilder().build());
     }
 
     @Test

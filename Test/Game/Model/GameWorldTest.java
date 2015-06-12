@@ -3,8 +3,10 @@ package Game.Model;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -111,11 +113,32 @@ public class GameWorldTest {
 
     @Test
     public void testSetPlayerCoordinates() throws Exception {
+        gw1.startGame();
+        assert gw1.gameOn();
 
+        Player player = gw1.getPlayer(pName);
+        Point2D.Double pos = player.getPosition();
+
+        Player player1 = gw1.getPlayer(p1Name);
+        Point2D.Double pos1 = player1.getPosition();
+        assert !gw1.setPlayerCoordinates(pName, pos.x + GameWorld.maxMove, pos.y + GameWorld.maxMove);
+        assert gw1.numberOfPlayers() == 4;
+
+        player.setPotNum(1);
+        player.setPosition(pos1.x, pos1.y);
+        pos = player.getPosition();
+
+        assert gw1.setPlayerCoordinates(pName, pos.x, pos.y);
+        assert !player1.getActive();
     }
 
     @Test
     public void testNumberOfPlayers() throws Exception {
+
+    }
+
+    @Test
+    public void testGetPlayer() throws Exception {
 
     }
 
@@ -131,17 +154,21 @@ public class GameWorldTest {
 
     @Test
     public void testGameOn() throws Exception {
+        gw1.startGame();
+        assert gw1.gameOn();
 
+        gw1.finishGame();
+        assert !gw1.gameOn();
     }
 
     @Test
     public void testGetInit() throws Exception {
-
+        System.out.println("GameWorld: testGetInit: " + gw1.getInit());
     }
 
     @Test
     public void testGetUpdate() throws Exception {
-
+        System.out.println("GameWorld: testGetUpdate: " + gw1.getUpdate(pName));
     }
 
     @Test
