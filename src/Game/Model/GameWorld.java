@@ -104,7 +104,7 @@ public class GameWorld implements iWorld {
     private int activePlNum;
 
     // coordinates of potions, up-left point of rect surrounding circle
-    private ArrayList<Point2D.Double> potions;
+    private List<Point2D.Double> potions;
 
     // if game running or not (for example, if running some things happening periodically)
     private boolean running;
@@ -142,7 +142,7 @@ public class GameWorld implements iWorld {
         dist = startDist;
 
         nameOnPlayer = new HashMap<>();
-        potions = new ArrayList<>();
+        potions = Collections.synchronizedList(new ArrayList<>());
 
         players.forEach(p -> addPlayer(p));
 
@@ -404,16 +404,6 @@ public class GameWorld implements iWorld {
         });
     }
 
-    /**
-     * @@ have to rewrite all comments including this ofc
-     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
-     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
-     * awd
-     */
-    private double distance(double x1, double y1, double x2, double y2) {
-        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
-    }
-
 
 
     /**
@@ -439,11 +429,11 @@ public class GameWorld implements iWorld {
     public boolean setPlayerCoordinates(String playerName, double x, double y) {
         Player p = nameOnPlayer.get(playerName);
         Point2D.Double pos = p.getPosition();
-//        if (running) {
-//            if (distance(x, y, pos.getX(), pos.getY()) > maxMove) {
-//                return false;
-//            }
-//        }
+        if (running) {
+            if (distance(x, y, pos.getX(), pos.getY()) > maxMove) {
+                return false;
+            }
+        }
 //        if (wrongPlace(x, y)) {
 //            return false;
 //        }
@@ -468,7 +458,6 @@ public class GameWorld implements iWorld {
     private boolean potionsPlayer(Player player) {
         boolean somePotTaken = false;
         Point2D.Double pos = player.getPosition();
-        List<Point2D.Double> potions = Collections.synchronizedList(this.potions);
         synchronized (potions) {
             Iterator<Point2D.Double> potIt = potions.iterator();
             while (potIt.hasNext()) {
@@ -682,6 +671,16 @@ public class GameWorld implements iWorld {
      * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
      * awd
      */
+    private double distance(double x1, double y1, double x2, double y2) {
+        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+    }
+
+    /**
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
     private void kickPlayer(Player kicker, Player toKick) {
         toKick.setActive(false);
         if (running) {
@@ -712,6 +711,17 @@ public class GameWorld implements iWorld {
     @Override
     public int numberOfPlayers() {
         return nameOnPlayer.size();
+    }
+
+    /**
+     * @@ if no player with this name null will be returned bitch!
+     * @@ have to rewrite all comments including this ofc
+     * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+     * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+     * awd
+     */
+    public Player getPlayer(String playerName) {
+        return nameOnPlayer.get(playerName);
     }
 
     /**
@@ -807,12 +817,15 @@ public class GameWorld implements iWorld {
 
         // create/add json potions' array
         JsonArrayBuilder potsJson = factory.createArrayBuilder();
-        for (int i = 0; i < potions.size(); i++) {
-            Point2D.Double pot = potions.get(i);
-            JsonObjectBuilder potJson = factory.createObjectBuilder();
-            potJson.add("x", pot.getX())
-                    .add("y", pot.getY());
-            potsJson.add(potJson);
+        synchronized (potions) {
+            Iterator<Point2D.Double> potIt = potions.iterator();
+            while (potIt.hasNext()) {
+                Point2D.Double nextPot = potIt.next();
+                JsonObjectBuilder potJson = factory.createObjectBuilder();
+                potJson.add("x", nextPot.getX())
+                        .add("y", nextPot.getY());
+                potsJson.add(potJson);
+            }
         }
         updateJson.add("potions", potsJson);
 

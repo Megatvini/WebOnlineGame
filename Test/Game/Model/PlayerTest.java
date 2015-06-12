@@ -215,7 +215,7 @@ public class PlayerTest {
     @Test //@@ ifiqre(kitxe jgups) jsonis ageba rogor shamowmo an vafshe ageba metodi ro gaq playershi eg kaia ? google-s library-c ganixile gjuftan
     public void testToJsonBuilder() throws Exception {
         //String pJson = "{\"active\":true,\"name\":\"killera\",\"position\":{\"x\":0.0,\"y\":0.0}}";
-        System.out.println("Look at Json object and check if has structure u wanted: \n" + p.toJsonBuilder().build());
+        System.out.println("Player: testToJsonBuilder: " + p.toJsonBuilder().build());
         //System.out.println(pJson);
         //assert pJson.equals(p.toJsonBuilder().build().toString());
     }
