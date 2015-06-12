@@ -87,7 +87,7 @@ public class GameServer {
         //System.out.println("PLAYER : " + playerName+".");
         switch (cmd) {
             case "init":
-                gameManager.addPlayer(playerName, session.getBasicRemote());
+                gameManager.addPlayer(playerName, session);
                 break;
             case "update":
                 gameManager.setUpdateFromPlayer(playerName, x, y);

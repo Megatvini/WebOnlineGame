@@ -3,6 +3,7 @@ package Game.Controller;
 import Game.Model.iWorld;
 
 import javax.websocket.RemoteEndpoint;
+import javax.websocket.Session;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.*;
@@ -75,7 +76,7 @@ public class GameManager {
      * @param playerName name of a player
      * @param playerConnection connection used to communicate with player
      */
-    public void addPlayer(String playerName, RemoteEndpoint.Basic playerConnection) {
+    public void addPlayer(String playerName, Session playerConnection) {
         connector.addUser(playerName, playerConnection);
         if (rooms.get(playerName) == null) {
             iWorld world = gameFactory.getNewInstance();

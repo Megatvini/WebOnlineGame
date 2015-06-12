@@ -63,7 +63,6 @@ public class GameServerTest {
         gameServer.open(sessionMock, configMock);
         gameServer.onMessage(initMessage, sessionMock);
         verify(gameManager).addPlayer(eq("rezo"), any());
-        verify(sessionMock).getBasicRemote();
     }
 
     @Test
@@ -77,7 +76,6 @@ public class GameServerTest {
         gameServer.onMessage(updateMessage, sessionMock);
 
         verify(gameManager).addPlayer(eq("rezo"), any());
-        verify(sessionMock).getBasicRemote();
     }
 
     @Test

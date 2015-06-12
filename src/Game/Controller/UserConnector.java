@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 
 public class UserConnector {
-    private Map<String, RemoteEndpoint.Basic> users;
+    private Map<String, Session> users;
 
     public UserConnector() {
         users = new ConcurrentHashMap<>();
@@ -21,7 +21,7 @@ public class UserConnector {
      * if user was already added to the connector in the past
      * just updates its session
      */
-    public boolean addUser(String userName, RemoteEndpoint.Basic connection) {
+    public boolean addUser(String userName, Session connection) {
         boolean result = !users.containsKey(userName);
         users.put(userName, connection);
         return result;
@@ -46,10 +46,10 @@ public class UserConnector {
      * @return true iff message was successfully sent
      */
     public boolean sendMessageTo(String userName, String message) {
-        RemoteEndpoint.Basic conn = users.get(userName);
-        if (conn == null) return false;
+        Session conn = users.get(userName);
+        if (conn == null || !conn.isOpen()) return false;
         try {
-            conn.sendText(message);
+            conn.getBasicRemote().sendText(message);
         } catch (IOException e) {
             return false;
         }

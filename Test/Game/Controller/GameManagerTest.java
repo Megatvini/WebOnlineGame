@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import javax.json.JsonObject;
 import javax.websocket.RemoteEndpoint;
+import javax.websocket.Session;
 import java.util.*;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -55,31 +56,32 @@ public class GameManagerTest {
     public void testAddPlayer() throws Exception {
         initMocks();
         GameManager gameManager = new GameManager(roomMates, factoryMock, connectorMock, executorMock);
-        RemoteEndpoint.Basic basicMock = mock(RemoteEndpoint.Basic.class);
-        gameManager.addPlayer("room1player1", basicMock);
+
+        Session sessionMock = mock(Session.class);
+        gameManager.addPlayer("room1player1", sessionMock);
         verify(connectorMock).sendMessageTo(eq("room1player1"), anyString());
-        verify(connectorMock).addUser("room1player1", basicMock);
+        verify(connectorMock).addUser("room1player1", sessionMock);
 
-        gameManager.addPlayer("room1player2", basicMock);
+        gameManager.addPlayer("room1player2", sessionMock);
         verify(connectorMock, times(1)).sendMessageTo(eq("room1player2"), anyString());
-        verify(connectorMock, times(1)).addUser("room1player2", basicMock);
+        verify(connectorMock, times(1)).addUser("room1player2", sessionMock);
 
-        gameManager.addPlayer("room1player2", basicMock);
+        gameManager.addPlayer("room1player2", sessionMock);
         verify(connectorMock, times(2)).sendMessageTo(eq("room1player2"), anyString());
-        verify(connectorMock, times(2)).addUser("room1player2", basicMock);
+        verify(connectorMock, times(2)).addUser("room1player2", sessionMock);
     }
 
     @Test
     public void testRemovePlayer() throws Exception {
         initMocks();
         GameManager gameManager = new GameManager(roomMates, factoryMock, connectorMock, executorMock);
-        RemoteEndpoint.Basic basicMock1 = mock(RemoteEndpoint.Basic.class);
-        RemoteEndpoint.Basic basicMock2 = mock(RemoteEndpoint.Basic.class);
-        RemoteEndpoint.Basic basicMock3 = mock(RemoteEndpoint.Basic.class);
+        Session sessionMock1 = mock(Session.class);
+        Session sessionMock2 = mock(Session.class);
+        Session sessionMock3 = mock(Session.class);
 
-        gameManager.addPlayer("room1player1", basicMock1);
-        gameManager.addPlayer("room1player2", basicMock2);
-        gameManager.addPlayer("room1player3", basicMock3);
+        gameManager.addPlayer("room1player1", sessionMock1);
+        gameManager.addPlayer("room1player2", sessionMock2);
+        gameManager.addPlayer("room1player3", sessionMock3);
 
         verify(connectorMock).sendMessageTo(eq("room1player1"), anyString());
         verify(connectorMock).sendMessageTo(eq("room1player2"), anyString());
@@ -98,13 +100,14 @@ public class GameManagerTest {
     public void testSetUpdateFromPlayer() throws Exception {
         initMocks();
         GameManager gameManager = new GameManager(roomMates, factoryMock, connectorMock, executorMock);
-        RemoteEndpoint.Basic basicMock1 = mock(RemoteEndpoint.Basic.class);
-        RemoteEndpoint.Basic basicMock2 = mock(RemoteEndpoint.Basic.class);
-        RemoteEndpoint.Basic basicMock3 = mock(RemoteEndpoint.Basic.class);
 
-        gameManager.addPlayer("room1player1", basicMock1);
-        gameManager.addPlayer("room1player2", basicMock2);
-        gameManager.addPlayer("room1player3", basicMock3);
+        Session sessionMock1 = mock(Session.class);
+        Session sessionMock2 = mock(Session.class);
+        Session sessionMock3 = mock(Session.class);
+
+        gameManager.addPlayer("room1player1", sessionMock1);
+        gameManager.addPlayer("room1player2", sessionMock2);
+        gameManager.addPlayer("room1player3", sessionMock3);
 
         assertTrue(gameManager.setUpdateFromPlayer("room1player1", 2, 2));
         assertTrue(gameManager.setUpdateFromPlayer("room1player2", 3, 4));
@@ -122,13 +125,13 @@ public class GameManagerTest {
     public void combinedTest() {
         initMocks();
         GameManager gameManager = new GameManager(roomMates, factoryMock, connectorMock, executorMock);
-        RemoteEndpoint.Basic basicMock1 = mock(RemoteEndpoint.Basic.class);
-        RemoteEndpoint.Basic basicMock2 = mock(RemoteEndpoint.Basic.class);
-        RemoteEndpoint.Basic basicMock3 = mock(RemoteEndpoint.Basic.class);
+        Session sessionMock1 = mock(Session.class);
+        Session sessionMock2 = mock(Session.class);
+        Session sessionMock3 = mock(Session.class);
 
-        gameManager.addPlayer("room1player1", basicMock1);
-        gameManager.addPlayer("room1player2", basicMock2);
-        gameManager.addPlayer("room1player3", basicMock3);
+        gameManager.addPlayer("room1player1", sessionMock1);
+        gameManager.addPlayer("room1player2", sessionMock2);
+        gameManager.addPlayer("room1player3", sessionMock3);
 
         verify(connectorMock).sendMessageTo(eq("room1player1"), anyString());
         verify(connectorMock).sendMessageTo(eq("room1player2"), anyString());
@@ -144,9 +147,9 @@ public class GameManagerTest {
         when(executorMock.scheduleAtFixedRate(any(), anyInt(), anyInt(), any())).thenReturn(mock(ScheduledFuture.class));
 
         GameManager gameManager = new GameManager(roomMates, factoryMock, connectorMock, executorMock);
-        gameManager.addPlayer("room1player1", mock(RemoteEndpoint.Basic.class));
-        gameManager.addPlayer("room1player2", mock(RemoteEndpoint.Basic.class));
-        gameManager.addPlayer("room1player3", mock(RemoteEndpoint.Basic.class));
+        gameManager.addPlayer("room1player1", mock(Session.class));
+        gameManager.addPlayer("room1player2", mock(Session.class));
+        gameManager.addPlayer("room1player3", mock(Session.class));
         verify(executorMock, times(4)).scheduleAtFixedRate(any(), anyInt(), anyInt(), any());
     }
 }
