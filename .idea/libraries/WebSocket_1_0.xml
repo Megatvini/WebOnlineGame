@@ -11,6 +11,7 @@
       <root url="jar://$PROJECT_DIR$/lib/tyrus-spi.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/tyrus-server.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/tyrus-websocket-core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-5.1.35-bin.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

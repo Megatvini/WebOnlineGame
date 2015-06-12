@@ -1,8 +1,11 @@
 package Core.Model;
 
+import Core.Controller.Account;
 import Interfaces.Controller.iAccount;
+import Interfaces.View.iProfile;
 import Interfaces.View.iShorProfile;
 
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -16,8 +19,17 @@ public class UserControl {
         _accounts.put(account.getNickname(), account);
     }
     public static iAccount getUser(String nickname) throws Exception {
-        if(!_accounts.containsKey(nickname)) throw new Exception("notRegistered");
-        return _accounts.get(nickname);
+        iAccount account = new Account();
+        ResultSet result = DBWorker.getResult("SELECT * FROM accounts where Nickname = '" + nickname + "'");
+        if (!result.next()) throw new Exception("notRegistered");
+        account.setNickname(nickname);
+        account.setFirstname(result.getString("FirstName"));
+        account.setLastname(result.getString("LastName"));
+        account.setPassword(result.getString("Password"));
+        account.setGender(result.getString("Gender").equals("Male") ? Account.Gender.MALE : Account.Gender.FEMALE);
+        // TODO: wamosagebia about, surati, rating, birthdate, mail
+
+        return account;
     }
 
     public static HashMap<String, iShorProfile> getOnlineUsers(){

@@ -8,12 +8,8 @@ import javax.sql.DataSource;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 /**
  * Created by gukam on 5/28/2015.
@@ -26,22 +22,14 @@ public class DBInfo {
     static final String USER = "username";
     static final String PASS = "password";
 
-    public static DataSource getMySQLDataSource() {
-
-        MysqlDataSource mysqlDS = null;
+    public static void getMySQLDataSource() {
 
 
-            mysqlDS = new MysqlDataSource();
-            mysqlDS.setURL("jdbc:mysql://localhost:3306/mydb");
-        mysqlDS.setUser("root");
-            mysqlDS.setPassword("gukaguk1");
-
-        return mysqlDS;
     }
 
     public static void testDataSource() {
         DataSource ds = null;
-        ds = getMySQLDataSource();
+        getMySQLDataSource();
 
         Connection con = null;
         Statement stmt = null;
@@ -49,11 +37,12 @@ public class DBInfo {
         try {
             con = ds.getConnection();
             stmt = con.createStatement();
-            rs = stmt.executeQuery("select empid, name from Employee");
+            rs = stmt.executeQuery("select * from accounts");
             while(rs.next()){
-                System.out.println("Employee ID="+rs.getInt("empid")+", Name="+rs.getString("name"));
+                System.out.println("Employee ID="+rs.getInt("Nickname"));
             }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         } finally{
             try {
