@@ -10,8 +10,8 @@ import java.util.concurrent.*;
 
 
 public class GameManager {
-    private static final int INITIAL_UPDATE_DELAY = 10000;
-    private static final int UPDATE_INTERVAL = 50;
+    private static final int INITIAL_UPDATE_DELAY = 5000;
+    private static final int UPDATE_INTERVAL = 40;
     private static final int SERVICE_CANCEL_INTERVAL = 500;
 
     // roomMates map stores information about players who are in the same room

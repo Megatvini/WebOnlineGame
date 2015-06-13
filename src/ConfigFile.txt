@@ -1,6 +1,6 @@
 #Wed Jun 03 01:04:08 GET 2015
 potRadius=2
-maxMove=12
+maxMove=100
 maxPlayers=4
 width=600
 startPotNum=6

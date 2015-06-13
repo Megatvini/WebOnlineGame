@@ -42,7 +42,7 @@ var PlayerComponent = IgeClass.extend({
 	},
 
 	_behaviour: function (ctx) {
-		var vel = 6,
+		var vel = 3.5,
 			direction = '';
 
 		if (ige.input.actionState('walkUp')) {
@@ -61,6 +61,7 @@ var PlayerComponent = IgeClass.extend({
 			direction += 'E';
 		}
 
+		this.sendUpdate();
 		switch (direction) {
 			case 'N':
 				this._box2dBody.SetLinearVelocity(new IgePoint(0, -vel, 0));
