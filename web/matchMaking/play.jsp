@@ -8,7 +8,7 @@
     <legend>PLAY!</legend>
     <div align="middle">
         <form action="/CreateRoom" method="post">
-            <a class="xlarge blue button" href="/matchMaking/quickplay.html">Quick Play </a>
+            <a class="xlarge blue button" href="/matchMaking/quickplay.jsp">Quick Play </a>
             <button type="submit" class="xlarge blue button">New Room</button>
         </form>
     </div>

@@ -31,7 +31,7 @@
 </ul>
 <script>
     function check() {
-        $.get('Loader', function(resp) {
+        $.get("Loader", function(resp) {
             console.log(resp);
             if (resp.localeCompare("true") == 0) window.location.replace("/fourColors.html");
         });

@@ -11,7 +11,7 @@ import java.util.*;
 /**
  * Created by Nika on 06:13, 6/11/2015.
  */
-@WebServlet("/StartGame")
+@WebServlet(name = "StartGame", urlPatterns = {"/StartGame"})
 public class StartGame extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
@@ -30,10 +30,10 @@ public class StartGame extends HttpServlet {
         readParameters(request, arbitraryRoomMates, roomSizes);
 
         if (!validate(roomSizes, arbitraryRoomMates)) {
-            request.getRequestDispatcher("play.html").forward(request, response);
+            request.getRequestDispatcher("play.jsp").forward(request, response);
         } else {
             matchMaker.addParticipants(arbitraryRoomMates, roomSizes);
-            request.getRequestDispatcher("matchMaking/loading.html").forward(request, response);
+            request.getRequestDispatcher("matchMaking/loading.jsp").forward(request, response);
         }
     }
 

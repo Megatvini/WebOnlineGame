@@ -7,7 +7,7 @@
 <body>
 <form action="/MatchMaker" method="get">
   <input type="text" name="playerName">
-  <input type="submit"> EnterGame
+  <input type="submit"> EnterName
 </form>
 </body>
 </html>

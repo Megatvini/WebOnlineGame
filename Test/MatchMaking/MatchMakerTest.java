@@ -25,6 +25,19 @@ public class MatchMakerTest {
         assertEquals(2, roomMates.size());
     }
 
+    @Test
+    public void testAddParticipant3() throws Exception {
+        Map<String, Collection<String>> roomMates = new HashMap<>();
+        MatchMaker matchMaker = new MatchingManager(roomMates, new FixedRoomSizeMatcherFactory());
+
+        Set<Integer> set = new HashSet<>();
+        set.add(3);
+        matchMaker.addParticipant("player1", set);
+        matchMaker.addParticipant("player2", set);
+
+        assertEquals(0, roomMates.size());
+    }
+
 
     @Test
     public void testAddParticipant1() throws Exception {

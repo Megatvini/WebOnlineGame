@@ -54,7 +54,7 @@
             Map<String, StartingGroup> groupMap = (Map<String, StartingGroup>)
                     session.getServletContext().getAttribute(StartingGroup.class.getName());
             StartingGroup group = groupMap.get(userName);
-            if (group == null) request.getRequestDispatcher("matchMaking/play.html").forward(request, response);
+            if (group == null) request.getRequestDispatcher("matchMaking/play.jsp").forward(request, response);
             else {
                 if (group.getCreator().equals(userName))
                     out.print("        <button style=\"margin-left:20%; margin-right:20%; width:60%;\" " +
