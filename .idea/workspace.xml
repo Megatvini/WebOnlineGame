@@ -2,14 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f9e55fc6-ff33-4d8b-89ab-aab5f918ccf4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/gameClasses/Character.js" afterPath="$PROJECT_DIR$/web/gameClasses/Character.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/gameClasses/Circle.js" afterPath="$PROJECT_DIR$/web/gameClasses/Circle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ConfigFile.txt" afterPath="$PROJECT_DIR$/src/ConfigFile.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game/Controller/GameManager.java" afterPath="$PROJECT_DIR$/src/Game/Controller/GameManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game/Model/GameWorld.java" afterPath="$PROJECT_DIR$/src/Game/Model/GameWorld.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/gameClasses/PlayerComponent.js" afterPath="$PROJECT_DIR$/web/gameClasses/PlayerComponent.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebOnlineGame.iml" afterPath="$PROJECT_DIR$/WebOnlineGame.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/client.js" afterPath="$PROJECT_DIR$/web/client.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="f913827a-d372-4ed7-8e9e-5ca904130370" name="Failed commit: Default" comment="sinqronizaciis mcdeloba" />
@@ -66,7 +58,7 @@
         <entry file="file://$PROJECT_DIR$/src/Game/Controller/GameManager.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.22395024">
-              <caret line="14" column="56" selection-start-line="14" selection-start-column="56" selection-end-line="14" selection-end-column="56" />
+              <caret line="14" column="44" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -913,7 +905,7 @@
       <workItem from="1434096533744" duration="5123000" />
       <workItem from="1434120912674" duration="245000" />
       <workItem from="1434121417350" duration="11733000" />
-      <workItem from="1434200830052" duration="12910000" />
+      <workItem from="1434200830052" duration="13003000" />
     </task>
     <task id="LOCAL-00001" summary="Added DDL statements">
       <created>1433434253476</created>
@@ -999,15 +991,21 @@
       <option name="project" value="LOCAL" />
       <updated>1434065935489</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Added interpolation. Yes!  I mean this!">
+      <created>1434217873731</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1434217873731</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177799000" />
+    <option name="totallyTimeSpent" value="177892000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1068,7 +1066,8 @@
     <MESSAGE value="გამარტივდა Controller-ში რამდენიმე ფუნქცია და დაემატა კომენტარები" />
     <MESSAGE value="დაემატა MatchMaker მოდულის კომენტარები" />
     <MESSAGE value="დაემატა კომენტარები სერვლეტებზე" />
-    <option name="LAST_COMMIT_MESSAGE" value="დაემატა კომენტარები სერვლეტებზე" />
+    <MESSAGE value="Added interpolation. Yes!  I mean this!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added interpolation. Yes!  I mean this!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1533,7 +1532,7 @@
     <entry file="file://$PROJECT_DIR$/src/Game/Controller/GameManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.22395024">
-          <caret line="14" column="56" selection-start-line="14" selection-start-column="56" selection-end-line="14" selection-end-column="56" />
+          <caret line="14" column="44" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
           <folding />
         </state>
       </provider>
