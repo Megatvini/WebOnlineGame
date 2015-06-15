@@ -20,4 +20,11 @@ public interface MatchMaker {
      * @param roomSizes acceptable room sizes for participants
      */
     public void addParticipants(Collection<String> arbitraryRoomMates, Collection<Integer> roomSizes);
+
+    /**
+     *
+     * @param name of a participant
+     * @return true if participant is already in matchmaking queue
+     */
+    public boolean containsParticipant(String name);
 }
