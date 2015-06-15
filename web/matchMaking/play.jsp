@@ -2,6 +2,7 @@
 <html>
 <head>
     <link href="/matchMaking/css/buttons.css" rel="stylesheet">
+    <%@include file="userInGame.jsp" %>
 </head>
 <body>
 <fieldset>
