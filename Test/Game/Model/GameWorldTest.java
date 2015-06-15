@@ -4,105 +4,141 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import static org.junit.Assert.*;
+
 /**
- * Created by SHAKO on 11-Jun-15.
+ * Created by SHAKO on 15-Jun-15.
+ * Fully test game world class.
  */
 public class GameWorldTest {
 
     PlaneMaze pm;
-    ArrayList<Player> players;
-    String pName = "Killera";
-    String p1Name  = "Selapa";
-    String p2Name = "tekla";
-    String p3Name = "69slayer69";
-    boolean startGame;
 
     GameWorld gw;
-    GameWorld gw1;
 
     @Before
     public void setUp() throws Exception {
         pm = new PlaneMaze(GameWorld.numRows, GameWorld.numCols);
-        pm.makePerfect();
-
         gw = new GameWorld(pm);
-
-        players = new ArrayList<>();
-        Player p = new Player(pName);
-        Player p1 = new Player(p1Name);
-        Player p2 = new Player(p2Name);
-        Player p3 = new Player(p3Name);
-        players.add(p);
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-
-        startGame = false;
-
-        gw1 = new GameWorld(players, pm, startGame);
     }
 
     @Test
-    public void testConstructors() throws Exception {
-        assertFalse(gw.gameOn());
-        assert gw.getPlayers().size() == 0;
+    public void testAddPlayerAtCornerBasics() throws Exception {
+        int testCount = 100;
+        for (int i = 0; i < testCount; i++) {
+            for (int j = 0; j < GameWorld.maxPlayers; j++) {
+                gw.addPlayerAtCorner(Integer.toString(j));
+            }
 
-        Collection<String> playerNames = gw1.getPlayerNames();
-        assert playerNames.size() == 4;
-        assert playerNames.contains(pName);
-        assert playerNames.contains(p1Name);
-        assert playerNames.contains(p2Name);
-        assert playerNames.contains(p3Name);
-    }
+            Collection<String> playerNames = gw.getPlayers();
 
-    @Test
-    public void testAddPlayerWithStringName() throws Exception {
-        for (int i = 0; i < GameWorld.maxPlayers; i++) {
-            assert gw.addPlayer(Integer.toString(i));
-        }
-        assert !gw.addPlayer("Exstra");
+            for (int j = 0; j < GameWorld.maxPlayers; j++) {
+                assert playerNames.contains(Integer.toString(j));
+            }
 
-        for (int i = 0; i < GameWorld.maxPlayers; i++) {
-            assert gw.getPlayerNames().contains(Integer.toString(i));
+            for (int j = 0; j < GameWorld.maxPlayers; j++) {
+                Player player = gw.getPlayer(Integer.toString(j));
+                Cell cell = getCell(player.getPosition(), GameWorld.pRadius);
+                assert cell.equals(getCornerCell(j));
+                assert circleIsInCell(player.getPosition(), GameWorld.pRadius, cell);
+            }
         }
     }
 
     @Test
-    public void testAddPlayerWithObjectPlayer() throws Exception {
-        for (int i = 0; i < GameWorld.maxPlayers; i++) {
-            Player p = new Player(Integer.toString(i));
-            assert gw.addPlayer(p);
+    public void testAddPlayerAtCornerEdgeCases() throws Exception {
+        for (int j = 0; j < GameWorld.maxPlayers; j++) {
+            gw.addPlayerAtCorner(Integer.toString(j));
         }
 
-        assert !gw.addPlayer(new Player("exstra"));
-
-        for (int i = 0; i < GameWorld.maxPlayers; i++) {
-            assert gw.getPlayerNames().contains(Integer.toString(i));
+        for (int j = 0; j < GameWorld.maxPlayers; j++) {
+            assert !gw.addPlayerAtCorner(Integer.toString(j));
         }
-    }
 
-    @Test
-    public void testStartGame() throws Exception {
-        GameWorld gwMock = mock(GameWorld.class);
-        when(gwMock.gameOn()).thenReturn(false);
-
+        for (int j = 0; j < GameWorld.maxPlayers; j++) {
+            assert !gw.addPlayerAtCorner(Integer.toString(j + GameWorld.maxPlayers));
+        }
 
     }
 
     @Test
-    public void testAddPotAtRand() throws Exception {
+    public void testAddPlayerAtRandom() throws Exception {
+        // todo kind of extension, can be tested later
+    }
 
+    @Test
+    public void testAddPlayerInCell() throws Exception {
+        // todo kind of extension, can be tested later
+    }
+
+    @Test
+    public void testRemovePlayer() throws Exception {
+        // todo kind of extension, can be tested later
+    }
+
+    @Test
+    public void testAddPotAtRandomWithOutPlayersCornersAllowed() throws Exception {
+        int potCount = 1000;
+
+        for (int i = 0; i < potCount; i++) {
+            gw.addPotAtRandom(true);
+        }
+
+        List<Point2D.Double> potions = gw.getPotions();
+
+        assert potions.size() - GameWorld.startPotNum == potCount;
+
+        for (int i = 0; i < potions.size(); i++) {
+            Point2D.Double pot = potions.get(i);
+            assert circleIsInCell(pot, GameWorld.potRadius, getCell(pot, GameWorld.potRadius));
+        }
+
+    }
+
+    @Test
+    public void testAddPotAtRandomWithOutPlayersCornersNotAllowed() throws Exception {
+        int potsAtCorner = 0;
+        List<Point2D.Double> potions = gw.getPotions();
+        for (int i = 0; i < potions.size(); i++) {
+            Point2D.Double pot = potions.get(i);
+            if (isCorner(getCell(pot, GameWorld.potRadius))) {
+                potsAtCorner++;
+            }
+        }
+
+        int potCount = 10000;
+        for (int i = 0; i < potCount; i++) {
+            gw.addPotAtRandom(false);
+        }
+        int potsAtCornerAfter = 0;
+        potions = gw.getPotions();
+        for (int i = 0; i < potions.size(); i++) {
+            Point2D.Double pot = potions.get(i);
+            if (isCorner(getCell(pot, GameWorld.potRadius))) {
+                potsAtCornerAfter++;
+            }
+        }
+
+        assert potsAtCorner == potsAtCornerAfter;
     }
 
     @Test
     public void testAddPotInCell() throws Exception {
+        // todo kind of extension, can be tested later
+    }
+
+    @Test
+    public void testRemoveLastPot() throws Exception {
+        // todo kind of extension, can be tested later
+    }
+
+    @Test
+    public void testStartGame() throws Exception {
 
     }
 
@@ -113,32 +149,11 @@ public class GameWorldTest {
 
     @Test
     public void testSetPlayerCoordinates() throws Exception {
-        gw1.startGame();
-        assert gw1.gameOn();
 
-        Player player = gw1.getPlayer(pName);
-        Point2D.Double pos = player.getPosition();
-
-        Player player1 = gw1.getPlayer(p1Name);
-        Point2D.Double pos1 = player1.getPosition();
-        assert !gw1.setPlayerCoordinates(pName, pos.x + GameWorld.maxMove, pos.y + GameWorld.maxMove);
-        assert gw1.numberOfPlayers() == 4;
-
-        player.setPotNum(1);
-        player.setPosition(pos1.x, pos1.y);
-        pos = player.getPosition();
-
-        assert gw1.setPlayerCoordinates(pName, pos.x, pos.y);
-        assert !player1.getActive();
     }
 
     @Test
     public void testNumberOfPlayers() throws Exception {
-
-    }
-
-    @Test
-    public void testGetPlayer() throws Exception {
 
     }
 
@@ -148,31 +163,88 @@ public class GameWorldTest {
     }
 
     @Test
-    public void testGetPlayers() throws Exception {
+    public void testIsFinished() throws Exception {
 
-    }
-
-    @Test
-    public void testGameOn() throws Exception {
-        gw1.startGame();
-        assert gw1.gameOn();
-
-        gw1.finishGame();
-        assert !gw1.gameOn();
     }
 
     @Test
     public void testGetInit() throws Exception {
-        System.out.println("GameWorld: testGetInit: " + gw1.getInit());
+
     }
 
     @Test
     public void testGetUpdate() throws Exception {
-        System.out.println("GameWorld: testGetUpdate: " + gw1.getUpdate(pName));
+
     }
 
     @Test
     public void testFinishGame() throws Exception {
 
     }
+
+    /* helper methods for testing */
+
+    private Cell getCell(Point2D.Double pos, double radius) {
+        double middleX = pos.x + radius;
+        double middleY = pos.y + radius;
+        int row = (int)(middleY / (GameWorld.cellHeight + GameWorld.wallWidth));
+        int col = (int)(middleX / (GameWorld.cellWidth + GameWorld.wallWidth));
+        if (middleX > (col + 1) * GameWorld.cellWidth + col * GameWorld.wallWidth ||
+                middleY > (row + 1) * GameWorld.cellHeight + row * GameWorld.wallWidth) {
+            throw new RuntimeException("circle is on wall!");
+        }
+        Cell c = new Cell(row, col);
+        return c;
+    }
+
+    private boolean circleIsInCell(Point2D.Double pos, double radius, Cell c) {
+        return pointInRect(pos, c.col * (GameWorld.cellWidth + GameWorld.wallWidth),
+                c.row * (GameWorld.cellHeight + GameWorld.wallWidth),
+                GameWorld.cellWidth - radius,
+                GameWorld.cellHeight - radius);
+    }
+
+    private boolean pointInRect(Point2D.Double point, double rX, double rY, double rW, double rH) {
+        return point.x > rX && point.x < rX + rW &&
+                point.y > rY && point.y < rY + rH;
+    }
+
+    /**
+     * Gets cell for index-th corner of maze, 0th is up-left,
+     * indexing is clockwise, index must be in [0, 3] interval,
+     * if not runtime exeption will be thrown.
+     * @param index index of corner cell to be returned
+     * @return cell for index-th corner of maze
+     */
+    private Cell getCornerCell(int index) {
+        Cell c;
+        switch (index) {
+            case 0:
+                c = new Cell(0, 0);
+                break;
+            case 1:
+                c = new Cell(0, GameWorld.numCols - 1);
+                break;
+            case 2:
+                c = new Cell(GameWorld.numRows - 1, GameWorld.numCols - 1);
+                break;
+            case 3:
+                c = new Cell(GameWorld.numRows - 1, 0);
+                break;
+            default:
+                throw new RuntimeException("Index must be in [0, 3] interval!");
+        }
+        return c;
+    }
+
+    /**
+     * checks if given cell is one of corners of game map
+     * @param c cell to check if it is corner cell
+     * @return true iff given cell is one of corner cells of game map
+     */
+    private boolean isCorner(Cell c) {
+        return (c.row == 0 || c.row == GameWorld.numRows - 1) &&
+                (c.col == 0 || c.col == GameWorld.numCols - 1);
+    }
+
 }

@@ -96,9 +96,27 @@ public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
     private static Collection<String> testMethod(ArrayList<String> arr, List<String> l) {
         return new ArrayList<String>();
     }
-
-
+    static Random rand = new Random();
+    private static <T> void shuffleArray(T[] arr) {
+        for (int i = arr.length - 1; i > 0; i--) {
+            int index = rand.nextInt(i + 1);
+            // Simple swap
+            T temp = arr[index];
+            arr[index] = arr[i];
+            arr[i] = temp;
+        }
+    }
     public static void main(String s[]) {
+        int numRows = 5;
+        int numCols = 12;
+        Integer[] cells = new Integer[numRows * numCols];
+        for (int i = 0; i < numRows * numCols; i++) {
+            cells[i] = i;
+        }
+        shuffleArray(cells);
+        for (int i = 0; i < cells.length; i++) {
+            System.out.println(cells[i]);
+        }
 
         //testMethod(new ArrayList<>(), new ArrayList<>());
 

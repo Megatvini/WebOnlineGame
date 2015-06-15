@@ -15,32 +15,18 @@ public class Player {
 
     private int potNum;
 
-    public enum StartCellT {atCorner, given, random}
-    private StartCellT sct;
-    private Cell startCell;
-    public static final Cell defStartCell = new Cell(0, 0);
-
     private  double x;
     private double y;
 
     public Player(String name){
-        this(name, true, 0, StartCellT.atCorner);
+        this(name, true, 0);
     }
 
-    public Player(String name, boolean active, int potNum, Cell startCell) {
-        this(name, active, potNum, StartCellT.given);
-        setStartCell(startCell);
-    }
-
-    public Player(String name, boolean active, int potNum, StartCellT sct) {
+    public Player(String name, boolean active, int potNum) {
         this.name = name;
         this.active = active;
         this.potNum = potNum;
-        this.sct = sct;
-        if (this.sct == StartCellT.given)
-            startCell = defStartCell;
     }
-
 
     public String getName() {
         return name;
@@ -64,40 +50,10 @@ public class Player {
 
     //@@ exception aris aq setPotNum-shi
     public void setPotNum(int potNum) {
-        try {
-            if (potNum < 0) {
-                throw new Exception("Potion number must be greater or equal to zero!");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (potNum < 0) {
+            throw new RuntimeException("Potion number must be greater or equal to zero!");
         }
-
         this.potNum = potNum;
-    }
-
-    public StartCellT getStartCellT() {
-        return sct;
-    }
-
-    public void setStartCellT(StartCellT sct) {
-        this.sct = sct;
-        if (this.sct == StartCellT.given && startCell == null) {
-            startCell = defStartCell;
-        }
-    }
-
-    public Cell getStartCell() {
-        return startCell;
-    }
-
-    /**
-     * @@ take effect if only start cell type if given
-     * @param startCell
-     */
-    public void setStartCell(Cell startCell) {
-        if (sct == StartCellT.given) {
-            this.startCell = startCell;
-        }
     }
 
     public Point2D.Double getPosition() {
@@ -114,7 +70,17 @@ public class Player {
         y = loc.y;
     }
 
-    public boolean equals(Player p) {
+    @Override
+    public boolean equals(Object player) {
+        Player p;
+        if (player != null && player instanceof Player) {
+            p = (Player)player;
+        } else {
+            return false;
+        }
+        if (this == p) {
+            return false;
+        }
         return name.equals(p.getName());
     }
 

@@ -10,20 +10,17 @@ import java.util.List;
 public interface iWorld {
 
     /**
-     * adds new player named playerName to the world, depends on player index chooses
-     * position, distributes at corners, if game is not on and max players have not reached
-     * and there is no player in game with same name, otherwise does nothing
-     * @param playerName name of a new player
-     * @return true if player was Successfully added
-     * returns false if game is not on or if there already is a player with playerName
-     * or if there already are maximum number of players
+     * Tries to add new player with given name at one of corner, on some random part of cell.
+     * First tries up-left corner, then tries next clockwise. If player conflicts with
+     * one of players(i.e. it is near to one of player then determined distance and those two
+     * have different count of potions) or potion(i.e. it overlaps one of potions), tries
+     * next corner, if does not finds proper corner does not adds new player. If already
+     * added max count of players, or if already have player with that name, false returned.
+     * By default: new players active state is true, potion number is zero.
+     * @param playerName name of new player to add
+     * @return true iff player added
      */
-    boolean addPlayer(String playerName);
-
-    /**
-     *  @@ have to rewrite all comments including this ofcourse
-     */
-    boolean addPlayer(Player player);
+    boolean addPlayerAtCorner(String playerName);
 
     /**
      * @return abstract representation of maze, represents some maze and we can check where are and where are not walls
@@ -70,21 +67,15 @@ public interface iWorld {
      */
     boolean setPlayerCoordinates(String playerName, double x, double y);
 
-
     /**
      * @return list of all player names currently in world
      */
-    Collection<String> getPlayerNames();
-
-    /**
-     * @return list of all player names currently in world
-     */
-    Collection<Player> getPlayers();
+    Collection<String> getPlayers();
 
     /**
      * @return game state on or not.
      */
-    boolean gameOn();
+    boolean isFinished();
 
     /**
      * game is on after calling this function, if already is on nothing happens,
