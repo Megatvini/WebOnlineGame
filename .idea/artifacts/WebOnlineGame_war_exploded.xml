@@ -7,6 +7,10 @@
         <element id="directory" name="classes">
           <element id="module-output" name="WebOnlineGame" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="javax.json.processing-1.0" />
+          <element id="library" level="project" name="WebSocket-1.0" />
+        </element>
       </element>
     </root>
   </artifact>

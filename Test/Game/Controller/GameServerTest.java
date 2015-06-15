@@ -6,13 +6,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
 import javax.websocket.Session;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 /**
  * Created by Nika on 01:35, 6/8/2015.
