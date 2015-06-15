@@ -1,5 +1,6 @@
 package Servlets;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,6 +29,12 @@ public class StartGame extends HttpServlet {
         Set<Integer> roomSizes = new HashSet<>();
         Set<String> arbitraryRoomMates = new HashSet<>();
         readParameters(request, arbitraryRoomMates, roomSizes);
+
+        if (roomSizes.size() == 0) {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/matchMaking/play.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
 
         if (!validate(roomSizes, arbitraryRoomMates)) {
             request.getRequestDispatcher("play.jsp").forward(request, response);
