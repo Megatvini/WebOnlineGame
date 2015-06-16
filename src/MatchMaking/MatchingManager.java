@@ -9,6 +9,7 @@ public class MatchingManager implements MatchMaker {
     private static final int MAX_GROUP_SIZE = 4;
     private Map<String, Collection<String>> roomMates;
     private FixedRoomSizeMatcher[] fixedSizeRooms;
+    private Set<String> waitingList;
     FixedRoomSizeMatcherFactory factory;
 
     /**
@@ -21,6 +22,7 @@ public class MatchingManager implements MatchMaker {
         this.roomMates = roomMates;
         this.factory = factory;
         fixedSizeRooms = new FixedRoomSizeMatcher[MAX_GROUP_SIZE];
+        waitingList = new HashSet<>();
         initFixedSizeRooms();
     }
 
@@ -39,6 +41,7 @@ public class MatchingManager implements MatchMaker {
      */
     @Override
     public synchronized void addParticipant(String participant, Collection<Integer> roomSizes) {
+        waitingList.add(participant);
         Map<String, Integer> players = new HashMap<>();
         Integer playerRating = 0;
         players.put(participant, playerRating);
@@ -70,6 +73,9 @@ public class MatchingManager implements MatchMaker {
         //add each player from match to new room
         match.forEach(x->x.forEach(newRoom::add));
 
+        //remove each player from waiting list
+        match.forEach(x->x.forEach(waitingList::remove));
+
         //put data to roomMates
         newRoom.forEach(x->roomMates.put(x, newRoom));
 
@@ -90,7 +96,18 @@ public class MatchingManager implements MatchMaker {
         arbitraryRoomMates.forEach(participant->{
             Integer playerRating = 0;
             players.put(participant, playerRating);
+            waitingList.add(participant);
         });
         tryToMatch(players, roomSizes);
+    }
+
+    /**
+     * @param name of a participant
+     * @return true if participant is already in matchmaking queue
+     */
+    @Override
+    public synchronized boolean containsParticipant(String name) {
+        if (roomMates.containsKey(name)) return true;
+        return waitingList.contains(name);
     }
 }

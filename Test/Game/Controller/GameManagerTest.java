@@ -143,7 +143,7 @@ public class GameManagerTest {
         initMocks();
         List<String> list = mock(ArrayList.class);
         when(list.size()).thenReturn(3);
-        when(gameWorldMock.getPlayerNames()).thenReturn(list);
+        when(gameWorldMock.getPlayers()).thenReturn(list);
         when(executorMock.scheduleAtFixedRate(any(), anyInt(), anyInt(), any())).thenReturn(mock(ScheduledFuture.class));
 
         GameManager gameManager = new GameManager(roomMates, factoryMock, connectorMock, executorMock);

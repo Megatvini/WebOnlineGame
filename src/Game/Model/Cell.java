@@ -3,7 +3,7 @@ package Game.Model;
 /**
  * Created by SHAKO on 07-Jun-15.
  */
-public class Cell {
+public class Cell extends Object {
 
     public int row;
     public int col;
@@ -25,14 +25,24 @@ public class Cell {
         return (Math.abs(c1.row - c2.row) + Math.abs(c1.col - c2.col)) == 1;
     }
 
+    public boolean neighbours1(Cell c1, Cell c2) {
+        return false;
+    }
+
+
+
     /**
      * compares passed Cell object with this object, checks if they have same
      * row and col
-     * @param c will be compared to this
+     * @param cell will be compared to this
      * @return true iff given and this object have same row and col
      */
-    public boolean equals(Cell c) {
-        if (c == null)
+    @Override
+    public boolean equals(Object cell) {
+        Cell c;
+        if(cell != null && cell instanceof Cell)
+            c = (Cell)cell;
+        else
             return false;
         if (this == c)
             return true;

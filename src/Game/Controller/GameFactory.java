@@ -1,5 +1,6 @@
 package Game.Controller;
 
+import Game.Model.Configuration;
 import Game.Model.GameWorld;
 import Game.Model.PlaneMaze;
 import Game.Model.iWorld;
@@ -13,8 +14,9 @@ import Game.Model.iWorld;
  */
 public class GameFactory {
     public iWorld getNewInstance() {
-        PlaneMaze maze = new PlaneMaze(GameWorld.numRows, GameWorld.numCols);
+        Configuration config = Configuration.getInstance();
+        PlaneMaze maze = new PlaneMaze(config.getNumRows(), config.getNumCols());
         maze.makePerfect();
-        return new GameWorld(maze);
+        return new GameWorld(maze, config);
     }
 }

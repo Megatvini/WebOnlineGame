@@ -58,10 +58,10 @@ public class GameManager {
      */
     private void scheduleCleaningService() {
         executor.scheduleAtFixedRate(() -> runningServices.keySet().forEach(world -> {
-            if (!world.gameOn()) {
+            if (world.isFinished()) {
                 System.out.println("GAME IS OVER");
                 runningServices.remove(world).cancel(true);
-                world.getPlayerNames().forEach(x->{
+                world.getPlayers().forEach(x->{
                     roomMates.remove(x);
                     rooms.remove(x);
                 });
@@ -80,12 +80,12 @@ public class GameManager {
         connector.addUser(playerName, playerConnection);
         if (rooms.get(playerName) == null) {
             iWorld world = gameFactory.getNewInstance();
-            world.addPlayer(playerName);
+            world.addPlayerAtCorner(playerName);
             Collection<String> mates = roomMates.get(playerName);
             mates.forEach(player->rooms.put(player, world));
         } else {
             iWorld world = rooms.get(playerName);
-            world.addPlayer(playerName);
+            world.addPlayerAtCorner(playerName);
         }
         sendInit(playerName);
         checkIfRoomIsFull(playerName);
@@ -110,7 +110,7 @@ public class GameManager {
      */
     private void checkIfRoomIsFull(String playerName) {
         iWorld world = rooms.get(playerName);
-        Collection <String> players = world.getPlayerNames();
+        Collection <String> players = world.getPlayers();
         System.out.println("PLayers size " + players.size());
         if (players.size() == roomMates.get(playerName).size()) {
             System.out.println("Room is Full");
@@ -126,7 +126,7 @@ public class GameManager {
      */
     private void scheduleUpdate(iWorld world) {
         ScheduledFuture scheduledFuture = executor.scheduleAtFixedRate(() -> {
-            world.getPlayerNames().forEach(x -> connector.sendMessageTo(x, world.getUpdate(x).toString()));
+            world.getPlayers().forEach(x -> connector.sendMessageTo(x, world.getUpdate(x).toString()));
            // System.out.println("sent update");
         }, INITIAL_UPDATE_DELAY, UPDATE_INTERVAL, TimeUnit.MILLISECONDS);
         runningServices.put(world, scheduledFuture);
