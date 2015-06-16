@@ -107,16 +107,13 @@ public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
         }
     }
     public static void main(String s[]) {
-        int numRows = 5;
-        int numCols = 12;
-        Integer[] cells = new Integer[numRows * numCols];
-        for (int i = 0; i < numRows * numCols; i++) {
-            cells[i] = i;
-        }
-        shuffleArray(cells);
-        for (int i = 0; i < cells.length; i++) {
-            System.out.println(cells[i]);
-        }
+        Configuration config = Configuration.getInstance();
+        PlaneMaze pm = new PlaneMaze(config.getNumRows(), config.getNumCols());
+        GameWorld gw = new GameWorld(pm, config);
+        gw.addPlayerAtCorner("nika");
+        gw.addPlayerAtCorner("rezo");
+
+
 
         //testMethod(new ArrayList<>(), new ArrayList<>());
 

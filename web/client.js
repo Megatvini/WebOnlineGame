@@ -194,13 +194,13 @@ function handler(snapShot){
 		var addPots = snapShot.addPots,
 			removePots= snapShot.removePots;
 		//console.log(distanceR);
-		if(!snapShot.gameOn){
+		if(snapShot.finish){
 			ige.stop();
 		}else {
 
 			potNum.text(snapShot.potNum+"potnum");
 			parsePlayers(snapShot.players);
-			//parsePotions(addPots,removePots);
+			parsePotions(addPots,removePots);
 			if (snapShot.distance != distanceR) {
 				distanceR = snapShot.distance;
 				mountCircles();

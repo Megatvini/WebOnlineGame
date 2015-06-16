@@ -539,7 +539,7 @@ public class GameWorld implements iWorld {
 
         p.setPosition(x, y);
 
-        potionsPlayer(p);
+        //potionsPlayer(p);
         playersPlayer(p);
         gameOnCheck();
         return true;
@@ -624,7 +624,7 @@ public class GameWorld implements iWorld {
 
     private void gameOnCheck() {
         if (activePlNum < 2) {
-            System.out.println();
+            System.out.println("game overed");
             finishGame();
         }
     }
