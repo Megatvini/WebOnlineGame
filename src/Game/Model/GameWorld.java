@@ -1,11 +1,8 @@
 package Game.Model;
 
 import javax.json.*;
-import javax.servlet.jsp.jstl.core.Config;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
