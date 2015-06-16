@@ -32,7 +32,7 @@ public class Listener implements ServletContextListener,
          initialized(when the Web application is deployed). 
          You can initialize servlet context related data here.
       */
-        Map<String, Collection<String>> roomMates = new ConcurrentHashMap<>();
+        Map<String, Collection<String>> roomMates = Collections.synchronizedMap(new HashMap<>());
         sce.getServletContext().setAttribute("roomMates", roomMates);
         sce.getServletContext().setAttribute(MatchMaker.class.getName(),
                 new MatchingManager(roomMates, new FixedRoomSizeMatcherFactory()));

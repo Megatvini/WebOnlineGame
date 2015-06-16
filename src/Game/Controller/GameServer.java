@@ -12,8 +12,8 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 @ServerEndpoint(value="/game", configurator=ServerConfig.class)
 public class GameServer {
-    private GameManager gameManager;
-    private ConcurrentMap<Session, String> userConnectionMap;
+    private static GameManager gameManager;
+    private static ConcurrentMap<Session, String> userConnectionMap = new ConcurrentHashMap<>();
     private static final int WORKING_THREAD_NUMBER = 10;
 
     /**
@@ -22,24 +22,23 @@ public class GameServer {
      */
     public GameServer(GameManager manager) {
         gameManager = manager;
-        userConnectionMap = new ConcurrentHashMap<>();
     }
+
 
     public GameServer() {
-        userConnectionMap = new ConcurrentHashMap<>();
-    }
 
+    }
 
     @OnOpen
     public void open(Session session, EndpointConfig config) {
         //read name of a user from its httpSession
-        HttpSession httpSession = (HttpSession) config.getUserProperties().get("httpSession");
+        HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
         String userName = (String) httpSession.getAttribute("userName");
         userConnectionMap.put(session, userName);
 
         //initialize gameManager only once
         if (gameManager == null) RoomMateMap(httpSession);
-       // System.out.println("someone connected " + session);
+        System.out.println("someone connected " + session + " http: " + httpSession);
     }
 
     /**

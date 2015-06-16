@@ -10,7 +10,7 @@ public class MatchingManager implements MatchMaker {
     private Map<String, Collection<String>> roomMates;
     private FixedRoomSizeMatcher[] fixedSizeRooms;
     private Set<String> waitingList;
-    FixedRoomSizeMatcherFactory factory;
+    private FixedRoomSizeMatcherFactory factory;
 
     /**
      * adds new entries to roomMates whenever
