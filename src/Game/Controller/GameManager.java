@@ -3,14 +3,15 @@ package Game.Controller;
 import Game.Model.iWorld;
 
 import javax.websocket.RemoteEndpoint;
+import javax.websocket.Session;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.*;
 
 
 public class GameManager {
-    private static final int INITIAL_UPDATE_DELAY = 10000;
-    private static final int UPDATE_INTERVAL = 50;
+    private static final int INITIAL_UPDATE_DELAY = 5000;
+    private static final int UPDATE_INTERVAL = 40;
     private static final int SERVICE_CANCEL_INTERVAL = 500;
 
     // roomMates map stores information about players who are in the same room
@@ -75,7 +76,7 @@ public class GameManager {
      * @param playerName name of a player
      * @param playerConnection connection used to communicate with player
      */
-    public void addPlayer(String playerName, RemoteEndpoint.Basic playerConnection) {
+    public void addPlayer(String playerName, Session playerConnection) {
         connector.addUser(playerName, playerConnection);
         if (rooms.get(playerName) == null) {
             iWorld world = gameFactory.getNewInstance();

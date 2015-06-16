@@ -207,27 +207,15 @@ function parsePlayers(players) {
 			position = onePlayer.position;
 		if (typeof (characters[name]) == 'undefined') {
 			/** @namespace gameConfig.pRadius */
-			var newPlayer = characters[name] = new Character(gameConfig,name,myId,self.gameTexture)
+			var newPlayer = characters[name] = new Character(gameConfig,name,myId,self.gameTexture,connection)
 					.id(name)
 					.transTo(position.x, position.y,gameConfig)
 					.mount(self.scene1)
 				;
-
 			if (name == myId) {
-
 				player1 = newPlayer;
-				player1
-					.addComponent(PlayerComponent);
-
-
-				/** send update to server */
-				if(!debugOn) {
-					setInterval(sendUpdate, 40);
-					player1.pp.x=position.x;
-					player1.pp.y= position.y;
-				}
+				player1.addComponent(PlayerComponent);
 				self.vp1.camera.lookAt(self.scene1);
-
 			}else{
 				if(debugOn) {
 					newPlayer.setType(1);
@@ -254,9 +242,7 @@ function parsePlayers(players) {
 			}
 		} else {
 			if (name != myId) {
-				characters[name]._box2dBody.SetLinearVelocity(position.x - characters[name].pp.x,
-					position.y - characters[name].pp.y, 0);
-				characters[name]._box2dBody.SetAwake(true);
+				characters[name].addUpdate(position);
 			}
 		}
 	}
@@ -389,20 +375,7 @@ function createMaze(snapShot) {
 }
 
 
-/**
- *Sends update to server. coordinates are in MODEL system
- */
-function sendUpdate(){
-	var pos = player1.modelPos(gameConfig);
-	connection.send(JSON.stringify({
-		"type": "update",
-		"name":myId,
-		"coordinates":{
-			"x":pos.x,
-			"y":pos.y
-		}
-	}));
-}
+
 
 
 /**

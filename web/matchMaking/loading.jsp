@@ -3,7 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Plese wait...</title>
-    <link href="matchMaking/css/loading.css" rel="stylesheet">
+    <link href="/matchMaking/css/loading.css" rel="stylesheet">
     <script src="jquery-1.9.1.js"></script>
 </head>
 <body>
@@ -31,7 +31,7 @@
 </ul>
 <script>
     function check() {
-        $.get('Loader', function(resp) {
+        $.get("Loader", function(resp) {
             console.log(resp);
             if (resp.localeCompare("true") == 0) window.location.replace("/fourColors.html");
         });

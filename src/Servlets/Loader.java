@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Created by Nika on 03:44, 6/11/2015.
  */
-@WebServlet("/Loader")
+@WebServlet(name = "Loader", urlPatterns = {"/Loader"})
 public class Loader extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
@@ -27,7 +27,10 @@ public class Loader extends HttpServlet {
     //users call loader to know if their match has been found
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String userName = (String) request.getSession().getAttribute("userName");
+        if (userName == null) throw new RuntimeException("userName was null");
+
         Map<String, Collection<String>> roomMates = (Map<String, Collection<String>>) getServletContext().getAttribute("roomMates");
+        if (roomMates == null) throw new RuntimeException("roomMates is null");
         boolean resp = roomMates.containsKey(userName);
         response.getWriter().print(resp);
     }

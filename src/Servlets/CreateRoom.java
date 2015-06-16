@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Created by Nika on 03:57, 6/11/2015.
  */
-@WebServlet("/CreateRoom")
+@WebServlet(name = "CreateRoom", urlPatterns = {"/CreateRoom"})
 public class CreateRoom extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
@@ -30,7 +30,10 @@ public class CreateRoom extends HttpServlet {
         HttpSession userSession = request.getSession();
         Map<String, StartingGroup> groupMap = (Map<String, StartingGroup>)
                 getServletContext().getAttribute(StartingGroup.class.getName());
+        if (groupMap == null) throw new RuntimeException("GroupMap is null");
         String userName = (String) userSession.getAttribute("userName");
+
+        if (userName == null) throw new RuntimeException("userName is null");
         groupMap.put(userName, new StartingGroup(userName));
         request.getRequestDispatcher("matchMaking/newroom.jsp").forward(request, response);
     }

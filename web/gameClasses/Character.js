@@ -1,52 +1,51 @@
 // Define our player character classes
 var Character = IgeEntityBox2d.extend({
 	classId: 'Character',
-		pp :{
-			x: 0,
-			y:0
-		},
 	textures: {} ,
-	init: function (data,name,myId,gametexture) {
+	config : {},
+	myId: '',
+	connection : {},
+	isMainCharacter : false ,
+	updateBuffer : [],
+	lastUpdate:  null,
+	interpolation : 80 ,
+	init: function (data,name,myId,gametexture,connection) {
+		this.isMainCharacter = name==myId;
+		this.connection=connection;
+		this.config = data;
+		this.myId=myId;
 		var self = this;
 		this.textures = gametexture;
 		IgeEntityBox2d.prototype.init.call(this);
-
 		// Setup the entity
 		self.addComponent(IgeAnimationComponent)
 			.addComponent(IgeVelocityComponent);
-
-		if(name==myId)
-			self.width(data.pRadius*2)
-				.height(data.pRadius*2)
-				.box2dBody({
-					type: 'dynamic',
-					linearDamping: 0.0,
-
-					angularDamping: 0.1,
-					allowSleep: true,
-					bullet: false,
-					gravitic: false,
-					fixedRotation: true,
-					fixtures: [{
-						density: 1.0,
-						friction: 0.5,
-						restitution: 0.2,
-						shape: {
-							type: 'circle',
-							data: {
-								// The position of the fixture relative to the body
-								x: 0,
-								y: 0
-							}
+		self.width(data.pRadius * 2)
+			.height(data.pRadius * 2)
+			.setType(1);
+		if(this.isMainCharacter) {
+			self.box2dBody({
+				type: 'dynamic',
+				linearDamping: 0.0,
+				angularDamping: 0.1,
+				allowSleep: true,
+				bullet: false,
+				gravitic: false,
+				fixedRotation: true,
+				fixtures: [{
+					density: 1.0,
+					friction: 0.5,
+					restitution: 0.2,
+					shape: {
+						type: 'circle',
+						data: {
+							// The position of the fixture relative to the body
+							x: 0,
+							y: 0
 						}
-					}]
-				})
-
-				.setType(0);
-
-		// Load the character texture file
-		if (!ige.isServer) {
-
+					}
+				}]
+			})
 		}
 	},
 
@@ -58,7 +57,7 @@ var Character = IgeEntityBox2d.extend({
 	 * @return {*}
 	 */
 	setType: function (type) {
-		var self
+		var self ;
 		switch (type) {
 			case 0:
 				self = this ;
@@ -187,12 +186,21 @@ var Character = IgeEntityBox2d.extend({
 		return this;
 	},
 
-	tick: function (ctx) {
+	update: function (){
+
+	},
+
+	update: function (ctx) {
 		// Set the depth to the y co-ordinate which basically
 		// makes the entity appear further in the foreground
 		// the closer they become to the bottom of the screen
 		//this.depth(this._translate.y);
-		IgeEntityBox2d.prototype.tick.call(this, ctx);
+		if(!this.isMainCharacter){
+			var update = this.getNextUpdate();
+			if(update!=null)
+				this.transTo(update.x,update.y);
+		}
+		IgeEntityBox2d.prototype.update.call(this, ctx);
 	},
 
 	destroy: function () {
@@ -204,12 +212,23 @@ var Character = IgeEntityBox2d.extend({
 		// Call the super class
 		IgeEntityBox2d.prototype.destroy.call(this);
 	},
-	transTo: function (x,y,config){
-		this.translateTo(x-config.width/2+config.pRadius,y-config.height/2+config.pRadius,0);
+	transTo: function (x,y){
+		var config = this.config;
+		var x1 = x - config.width / 2 + config.pRadius;
+		var y1 = y - config.height / 2 + config.pRadius;
+		if(!this.isMainCharacter) {
+			console.log(this._translate.x);
+			this._translate.x = x1;
+			this._translate.y = y1;
+		}
+		else{
+			this.translateTo(x1,y1,0);
+		}
 		return this ;
 	}
 	,
-	modelPos: function(config){
+	modelPos: function(){
+		var config = this.config;
 		var pos = this.worldPosition();
 		var x1 = pos.x,//coordinates in engine system
 			y1 = pos.y,//coordinates in engine system
@@ -221,6 +240,52 @@ var Character = IgeEntityBox2d.extend({
 			y: y
 		}
 
+
+	},
+
+	/**
+	 *Sends update to server. coordinates are in MODEL system
+	 */
+	sendUpdate: function(){
+		var pos = this.modelPos();
+		this.connection.send(JSON.stringify({
+			"type": "update",
+			"name":this.myId,
+			"coordinates":{
+				"x":pos.x,
+				"y":pos.y
+			}
+		}));
+	},
+	getNextUpdate: function(){
+		var currentTime = new Date().getTime();
+		if (this.updateBuffer.length != 0) {
+			var update = this.updateBuffer[0];
+			var differense = currentTime - update.date;
+			update=update.snapShot;
+			if (differense >= this.interpolation) {
+				this.lastUpdate=update;
+				this.updateBuffer.shift();
+				return update
+			} else {
+				var lastUpdate = this.lastUpdate;
+				if(lastUpdate!=null) {
+					var x = (lastUpdate.x + (update.x - lastUpdate.x) / 2);
+					var y = (lastUpdate.y + (update.y - lastUpdate.y) / 2);
+					return {x: x, y: y};
+				}
+			}
+		}
+		return null ;
+
+	},
+	addUpdate: function(data){
+		var d = new Date().getTime();
+		var update = {
+			date:d,
+			snapShot:data
+		};
+		this.updateBuffer.push(update);
 
 	}
 

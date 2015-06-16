@@ -184,6 +184,28 @@ public class FixedRoomSizeMatcherTest {
         matcher.removePlayerGroup(map2.keySet());
     }
 
+    @Test
+    public void testRemoveGroup1() {
+        FixedRoomSizeMatcher matcher = new FixedRoomSizeMatcher(3);
+        Map<String, Integer> map1 = new HashMap<>();
+        Map<String, Integer> map2 = new HashMap<>();
+        Map<String, Integer> map3 = new HashMap<>();
+
+        map1.put("p1", 200);
+        map1.put("p2", 300);
+        map2.put("p3", 20);
+        map2.put("p4", 30);
+        map3.put("p5", 100);
+
+        assertEquals(null, matcher.addNewPlayerGroup(map1));
+        assertEquals(null, matcher.addNewPlayerGroup(map2));
+        matcher.removePlayerGroup(map2.keySet());
+        matcher.removePlayerGroup(map1.keySet());
+
+        Set<Set<String>> res = matcher.addNewPlayerGroup(map3);
+        assertTrue(res == null);
+    }
+
 
     private Set<String> flatten(Set<Set<String>> set) {
         Set<String> res = new HashSet<>();

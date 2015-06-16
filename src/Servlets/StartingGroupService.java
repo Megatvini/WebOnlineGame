@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Created by Nika on 05:28, 6/11/2015.
  */
-@WebServlet("/StartingGroupService")
+@WebServlet(name = "StartingGroupService", urlPatterns = {"/StartingGroupService"})
 public class StartingGroupService extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
@@ -29,11 +29,17 @@ public class StartingGroupService extends HttpServlet {
     //tells user the array of userNames who are in the same creating room
     //it is called when user gets to the Create New Room Page
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("StartingGroupService:" + request.getSession().getId());
+
         Map<String, StartingGroup> groupMap = (Map<String, StartingGroup>)
                 getServletContext().getAttribute(StartingGroup.class.getName());
+        if (groupMap == null) throw new RuntimeException("groupMap is null");
+
         String userName = (String) request.getSession().getAttribute("userName");
+        if (userName == null) throw new RuntimeException("userName was null");
+
         StartingGroup group = groupMap.get(userName);
-        if (group == null) request.getRequestDispatcher("matchMaking/play.html").forward(request, response); //
+        if (group == null) request.getRequestDispatcher("matchMaking/play.jsp").forward(request, response); //
         PrintWriter writer = response.getWriter();
         ArrayList<String> arr = new ArrayList<>();
         group.getGroup().forEach(arr::add);

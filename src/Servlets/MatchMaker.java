@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * Created by Nika on 01:13, 5/29/2015.
  */
-@WebServlet("/MatchMaker")
+@WebServlet(name = "MatchMaker", urlPatterns = {"/MatchMaker"})
 public class MatchMaker extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String playerID = request.getParameter("playerName");
@@ -19,7 +19,8 @@ public class MatchMaker extends HttpServlet {
         Cookie cookie = new Cookie("playerID", playerID);
         response.addCookie(cookie);
         request.getSession().setAttribute("userName", playerID);
-        request.getRequestDispatcher("matchMaking/play.html").forward(request, response);
+        //getServletContext().getRequestDispatcher("/matchMaking/play.jsp").forward(request, response);
+        response.sendRedirect("/matchMaking/play.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

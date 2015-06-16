@@ -25,6 +25,19 @@ public class MatchMakerTest {
         assertEquals(2, roomMates.size());
     }
 
+    @Test
+    public void testAddParticipant3() throws Exception {
+        Map<String, Collection<String>> roomMates = new HashMap<>();
+        MatchMaker matchMaker = new MatchingManager(roomMates, new FixedRoomSizeMatcherFactory());
+
+        Set<Integer> set = new HashSet<>();
+        set.add(3);
+        matchMaker.addParticipant("player1", set);
+        matchMaker.addParticipant("player2", set);
+
+        assertEquals(0, roomMates.size());
+    }
+
 
     @Test
     public void testAddParticipant1() throws Exception {
@@ -130,5 +143,115 @@ public class MatchMakerTest {
         assertEquals(0, roomMates.size());
         matchMaker.addParticipants(players2, sizes2);
         assertEquals(0, roomMates.size());
+    }
+
+    @Test
+    public void containsParticipantTest() {
+        Map<String, Collection<String>> roomMates = new HashMap<>();
+        MatchMaker matchMaker = new MatchingManager(roomMates, new FixedRoomSizeMatcherFactory());
+
+        Set<Integer> sizes1 = new HashSet<>();
+        Set<String> players1 = new HashSet<>();
+        Set<Integer> sizes2 = new HashSet<>();
+        Set<String> players2 = new HashSet<>();
+
+        sizes1.add(3);
+        players1.add("p1");
+        players1.add("p2");
+
+        matchMaker.addParticipants(players1, sizes1);
+        assertEquals(0, roomMates.size());
+
+        assertTrue(matchMaker.containsParticipant("p1"));
+        assertTrue(matchMaker.containsParticipant("p2"));
+        assertFalse(matchMaker.containsParticipant("p3"));
+        assertFalse(matchMaker.containsParticipant("asd"));
+
+        sizes2.add(3);
+        players2.add("p3");
+        players2.add("p4");
+
+        matchMaker.addParticipants(players2, sizes2);
+        assertEquals(0, roomMates.size());
+
+        assertTrue(matchMaker.containsParticipant("p1"));
+        assertTrue(matchMaker.containsParticipant("p2"));
+        assertTrue(matchMaker.containsParticipant("p3"));
+        assertTrue(matchMaker.containsParticipant("p4"));
+    }
+
+
+    @Test
+    public void containsParticipantTest2() {
+        Map<String, Collection<String>> roomMates = new HashMap<>();
+        MatchMaker matchMaker = new MatchingManager(roomMates, new FixedRoomSizeMatcherFactory());
+
+        Set<Integer> sizes1 = new HashSet<>();
+        Set<String> players1 = new HashSet<>();
+        Set<Integer> sizes2 = new HashSet<>();
+        Set<String> players2 = new HashSet<>();
+
+        sizes1.add(4);
+        players1.add("p1");
+        players1.add("p2");
+
+        matchMaker.addParticipants(players1, sizes1);
+        assertEquals(0, roomMates.size());
+
+        assertTrue(matchMaker.containsParticipant("p1"));
+        assertTrue(matchMaker.containsParticipant("p2"));
+        assertFalse(matchMaker.containsParticipant("p3"));
+        assertFalse(matchMaker.containsParticipant("asd"));
+
+        sizes2.add(4);
+        players2.add("p3");
+        players2.add("p4");
+
+        matchMaker.addParticipants(players2, sizes2);
+        assertEquals(4, roomMates.size());
+
+        assertTrue(matchMaker.containsParticipant("p1"));
+        assertTrue(matchMaker.containsParticipant("p2"));
+        assertTrue(matchMaker.containsParticipant("p3"));
+        assertTrue(matchMaker.containsParticipant("p4"));
+    }
+
+    @Test
+    public void containsParticipantTest3() {
+        Map<String, Collection<String>> roomMates = new HashMap<>();
+        MatchMaker matchMaker = new MatchingManager(roomMates, new FixedRoomSizeMatcherFactory());
+
+        Set<Integer> sizes1 = new HashSet<>();
+        Set<String> players1 = new HashSet<>();
+        Set<Integer> sizes2 = new HashSet<>();
+        Set<String> players2 = new HashSet<>();
+
+        sizes1.add(4);
+        players1.add("p1");
+        players1.add("p2");
+
+        matchMaker.addParticipants(players1, sizes1);
+        assertEquals(0, roomMates.size());
+
+        assertTrue(matchMaker.containsParticipant("p1"));
+        assertTrue(matchMaker.containsParticipant("p2"));
+        assertFalse(matchMaker.containsParticipant("p3"));
+        assertFalse(matchMaker.containsParticipant("asd"));
+
+        sizes2.add(4);
+        players2.add("p3");
+        players2.add("p4");
+
+        matchMaker.addParticipants(players2, sizes2);
+        assertEquals(4, roomMates.size());
+
+        roomMates.remove("p1");
+        roomMates.remove("p2");
+        roomMates.remove("p3");
+
+        assertFalse(matchMaker.containsParticipant("p1"));
+        assertFalse(matchMaker.containsParticipant("p2"));
+        assertFalse(matchMaker.containsParticipant("p3"));
+        assertTrue(matchMaker.containsParticipant("p4"));
     }
 }

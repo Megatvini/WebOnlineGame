@@ -1,5 +1,6 @@
 package Servlets;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +12,7 @@ import java.util.*;
 /**
  * Created by Nika on 06:13, 6/11/2015.
  */
-@WebServlet("/StartGame")
+@WebServlet(name = "StartGame", urlPatterns = {"/StartGame"})
 public class StartGame extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
@@ -29,11 +30,17 @@ public class StartGame extends HttpServlet {
         Set<String> arbitraryRoomMates = new HashSet<>();
         readParameters(request, arbitraryRoomMates, roomSizes);
 
+        if (roomSizes.size() == 0) {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/matchMaking/play.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+
         if (!validate(roomSizes, arbitraryRoomMates)) {
-            request.getRequestDispatcher("play.html").forward(request, response);
+            request.getRequestDispatcher("play.jsp").forward(request, response);
         } else {
             matchMaker.addParticipants(arbitraryRoomMates, roomSizes);
-            request.getRequestDispatcher("matchMaking/loading.html").forward(request, response);
+            request.getRequestDispatcher("matchMaking/loading.jsp").forward(request, response);
         }
     }
 

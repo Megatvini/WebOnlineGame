@@ -8,8 +8,6 @@ var Circle = IgeEntity.extend({
         var self = this;
         IgeEntity.prototype.init.call(this);
         // Load the character texture file
-
-
         //.mount(self.scene1)
     },
     /**
