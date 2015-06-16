@@ -6,7 +6,9 @@ import java.sql.*;
  * Created by Annie on 12-Jun-15.
  */
 public class DBWorker {
-    public static ResultSet getResult(String query) {
+
+
+    private static Connection getConnection(){
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (InstantiationException e) {
@@ -16,7 +18,6 @@ public class DBWorker {
         } catch (ClassNotFoundException e) {
             System.out.println("VendorError: " + e.getMessage());
         }
-
 
         Connection conn = null;
         try {
@@ -28,8 +29,12 @@ public class DBWorker {
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
         }
+        return conn;
+    }
 
 
+    public static ResultSet getResult(String query) {
+      Connection conn = getConnection();
         Statement stmt = null;
         ResultSet rs = null;
         try {
@@ -42,7 +47,27 @@ public class DBWorker {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return rs;
+    }
+
+    public static Integer execute(String query){
+        Connection conn = getConnection();
+        Statement stmt = null;
+        Integer num=0;
+        Integer result=-1;
+        try {
+            stmt = conn.createStatement();
+            num = stmt.executeUpdate(query , Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()){
+                result=rs.getInt(1);
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            result=-1;
+        }
+        return result;
     }
 }
