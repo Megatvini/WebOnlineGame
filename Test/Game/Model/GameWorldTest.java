@@ -2,10 +2,16 @@ package Game.Model;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 
 import java.awt.geom.Point2D;
-import java.util.Collection;
-import java.util.List;
+import java.lang.reflect.Method;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import static org.mockito.Mockito.*;
 
@@ -17,51 +23,60 @@ import static org.junit.Assert.*;
  */
 public class GameWorldTest {
 
-    PlaneMaze pm;
+    String fileName = "ConfigFile.properties";
 
+    @Spy Configuration config = new Configuration(fileName);
+    @Spy PlaneMaze pm = new PlaneMaze(config.getNumRows(), config.getNumCols());
+    ConcurrentMap<String, Player> nameOnPlayer;
+    List<Point2D.Double> potions;
     GameWorld gw;
 
     @Before
     public void setUp() throws Exception {
-        pm = new PlaneMaze(GameWorld.numRows, GameWorld.numCols);
-        gw = new GameWorld(pm);
+        MockitoAnnotations.initMocks(this);
+        nameOnPlayer = new ConcurrentHashMap<>();
+        potions = new ArrayList<>();
+        gw = new GameWorld(pm, config, nameOnPlayer, potions, GameWorld.State.NEW);
     }
 
     @Test
     public void testAddPlayerAtCornerBasics() throws Exception {
-        int testCount = 100;
+        reset(config);
+        reset(pm);
+
+        int testCount = 1;
         for (int i = 0; i < testCount; i++) {
-            for (int j = 0; j < GameWorld.maxPlayers; j++) {
+            for (int j = 0; j < config.getMaxPlayers(); j++) {
                 gw.addPlayerAtCorner(Integer.toString(j));
             }
 
-            Collection<String> playerNames = gw.getPlayers();
-
-            for (int j = 0; j < GameWorld.maxPlayers; j++) {
-                assert playerNames.contains(Integer.toString(j));
+            for (int j = 0; j < config.getMaxPlayers(); j++) {
+                assert nameOnPlayer.keySet().contains(Integer.toString(j));
             }
 
-            for (int j = 0; j < GameWorld.maxPlayers; j++) {
-                Player player = gw.getPlayer(Integer.toString(j));
-                Cell cell = getCell(player.getPosition(), GameWorld.pRadius);
-                assert cell.equals(getCornerCell(j));
-                assert circleIsInCell(player.getPosition(), GameWorld.pRadius, cell);
+            for (Player p : nameOnPlayer.values()) {
+                Cell cell = getCell(p.getPosition(), config.getPRadius());
+                assert cell.equals(getCornerCell(Integer.parseInt(p.getName())));
+                assert circleIsInCell(p.getPosition(), config.getPRadius(), cell);
             }
         }
     }
 
     @Test
     public void testAddPlayerAtCornerEdgeCases() throws Exception {
-        for (int j = 0; j < GameWorld.maxPlayers; j++) {
+        reset(config);
+        reset(pm);
+
+        for (int j = 0; j < config.getMaxPlayers(); j++) {
             gw.addPlayerAtCorner(Integer.toString(j));
         }
 
-        for (int j = 0; j < GameWorld.maxPlayers; j++) {
+        for (int j = 0; j < config.getMaxPlayers(); j++) {
             assert !gw.addPlayerAtCorner(Integer.toString(j));
         }
 
-        for (int j = 0; j < GameWorld.maxPlayers; j++) {
-            assert !gw.addPlayerAtCorner(Integer.toString(j + GameWorld.maxPlayers));
+        for (int j = 0; j < config.getMaxPlayers(); j++) {
+            assert !gw.addPlayerAtCorner(Integer.toString(j + config.getMaxPlayers()));
         }
 
     }
@@ -83,48 +98,48 @@ public class GameWorldTest {
 
     @Test
     public void testAddPotAtRandomWithOutPlayersCornersAllowed() throws Exception {
-        int potCount = 1000;
+        reset(config);
+        reset(pm);
+
+        doReturn(0).when(config).getStartPotNum();
+
+        int potCount = 1;
 
         for (int i = 0; i < potCount; i++) {
             gw.addPotAtRandom(true);
         }
 
-        List<Point2D.Double> potions = gw.getPotions();
-
-        assert potions.size() - GameWorld.startPotNum == potCount;
+        assert potions.size() == potCount;
 
         for (int i = 0; i < potions.size(); i++) {
             Point2D.Double pot = potions.get(i);
-            assert circleIsInCell(pot, GameWorld.potRadius, getCell(pot, GameWorld.potRadius));
+            assert circleIsInCell(pot, config.getPotRadius(), getCell(pot, config.getPotRadius()));
         }
 
     }
 
     @Test
     public void testAddPotAtRandomWithOutPlayersCornersNotAllowed() throws Exception {
+        reset(config);
+        reset(pm);
+
+        when(config.getStartPotNum()).thenReturn(0);
+
+        int potCount = 1;
+        for (int i = 0; i < potCount; i++) {
+            gw.addPotAtRandom(false);
+        }
         int potsAtCorner = 0;
-        List<Point2D.Double> potions = gw.getPotions();
         for (int i = 0; i < potions.size(); i++) {
             Point2D.Double pot = potions.get(i);
-            if (isCorner(getCell(pot, GameWorld.potRadius))) {
+            if (isCorner(getCell(pot, config.getPotRadius()))) {
                 potsAtCorner++;
             }
         }
 
-        int potCount = 10000;
-        for (int i = 0; i < potCount; i++) {
-            gw.addPotAtRandom(false);
-        }
-        int potsAtCornerAfter = 0;
-        potions = gw.getPotions();
-        for (int i = 0; i < potions.size(); i++) {
-            Point2D.Double pot = potions.get(i);
-            if (isCorner(getCell(pot, GameWorld.potRadius))) {
-                potsAtCornerAfter++;
-            }
-        }
+        assert potions.size() == potCount;
+        assert potsAtCorner == 0;
 
-        assert potsAtCorner == potsAtCornerAfter;
     }
 
     @Test
@@ -149,6 +164,71 @@ public class GameWorldTest {
 
     @Test
     public void testSetPlayerCoordinates() throws Exception {
+        reset(config);
+        reset(pm);
+
+        // so putting player, during game running, on any position wont be a problem
+        double w = config.getWidth();
+        double h = config.getHeight();
+        when(config.getMaxMove()).thenReturn(w + h);
+        gw = new GameWorld(pm, config, nameOnPlayer, potions, GameWorld.State.RUNNING);
+
+
+        String[] playerNames = new String[config.getMaxPlayers()];
+        for (int i = 0; i < playerNames.length; i++) {
+            playerNames[i] = Integer.toString(i);
+        }
+
+        /*
+        There are players in game and we have access on all of them and there are
+        potions in game and we also have access on all of them so lets simulate player movements
+        and test game behaviour. Also there is no collision to walls.
+         */
+
+        // test if player taking potion on its move
+        nameOnPlayer.clear();
+        potions.clear();
+        nameOnPlayer.put(playerNames[0], new Player(playerNames[0]));
+        potions.add(randOval(config.getPotRadius()));
+        gw.setPlayerCoordinates(playerNames[0], potions.get(0).x + config.getPotRadius() - config.getPRadius(),
+                potions.get(0).y + config.getPotRadius() - config.getPRadius());
+        assert potions.isEmpty();
+
+        // test if player taking all potions on its move
+        nameOnPlayer.clear();
+        potions.clear();
+        nameOnPlayer.put(playerNames[0], new Player(playerNames[0]));
+        potions.add(randOval(config.getPotRadius()));
+        potions.add(randOval(config.getPotRadius()));
+        potions.add(randOval(config.getPotRadius()));
+        potions.get(1).setLocation(potions.get(0));
+        potions.get(2).setLocation(potions.get(0));
+        gw.setPlayerCoordinates(playerNames[0], potions.get(0).x + config.getPotRadius() - config.getPRadius(),
+                potions.get(0).y + config.getPotRadius() - config.getPRadius());
+        assert potions.isEmpty();
+
+        // test if one with more potions killing player, (makes its active false)
+        // if it gets closer then dist variable, to be sure in this test players will
+        // not intersect each other only their dist will be smaller then determined.
+        // check if winners pot num increased
+        nameOnPlayer.clear();
+        potions.clear();
+        int winnersPotNum = 1;
+        int losersPotNum = winnersPotNum - 1;
+        Player winner = new Player(playerNames[0]);
+        Player loser = new Player(playerNames[1]);
+        winner.setPotNum(winnersPotNum);
+        loser.setPotNum(losersPotNum);
+        nameOnPlayer.put(winner.getName(), winner);
+        nameOnPlayer.put(loser.getName(), loser);
+        Point2D.Double posToPut = getCircleAtDistance(loser.getPosition(),
+                config.getPRadius(),
+                config.getPRadius(),
+                config.getPRadius() + gw.getMinDist() / 2);
+        gw.setPlayerCoordinates(winner.getName(), posToPut.x, posToPut.y);
+        assert !loser.getActive();
+        System.out.println(winner.getPotNum());
+        assert winner.getPotNum() == winnersPotNum + config.getPotForKick();
 
     }
 
@@ -169,7 +249,7 @@ public class GameWorldTest {
 
     @Test
     public void testGetInit() throws Exception {
-
+        System.out.println(gw.getInit());
     }
 
     @Test
@@ -184,13 +264,15 @@ public class GameWorldTest {
 
     /* helper methods for testing */
 
+    Random rand = new Random();
+
     private Cell getCell(Point2D.Double pos, double radius) {
         double middleX = pos.x + radius;
         double middleY = pos.y + radius;
-        int row = (int)(middleY / (GameWorld.cellHeight + GameWorld.wallWidth));
-        int col = (int)(middleX / (GameWorld.cellWidth + GameWorld.wallWidth));
-        if (middleX > (col + 1) * GameWorld.cellWidth + col * GameWorld.wallWidth ||
-                middleY > (row + 1) * GameWorld.cellHeight + row * GameWorld.wallWidth) {
+        int row = (int)(middleY / (config.getCellHeight() + config.getWallWidth()));
+        int col = (int)(middleX / (config.getCellWidth() + config.getWallWidth()));
+        if (middleX > (col + 1) * config.getCellWidth() + col * config.getWallWidth() ||
+                middleY > (row + 1) * config.getCellHeight() + row * config.getWallWidth()) {
             throw new RuntimeException("circle is on wall!");
         }
         Cell c = new Cell(row, col);
@@ -198,10 +280,10 @@ public class GameWorldTest {
     }
 
     private boolean circleIsInCell(Point2D.Double pos, double radius, Cell c) {
-        return pointInRect(pos, c.col * (GameWorld.cellWidth + GameWorld.wallWidth),
-                c.row * (GameWorld.cellHeight + GameWorld.wallWidth),
-                GameWorld.cellWidth - radius,
-                GameWorld.cellHeight - radius);
+        return pointInRect(pos, c.col * (config.getCellWidth() + config.getWallWidth()),
+                c.row * (config.getCellHeight() + config.getWallWidth()),
+                config.getCellWidth() - radius,
+                config.getCellHeight() - radius);
     }
 
     private boolean pointInRect(Point2D.Double point, double rX, double rY, double rW, double rH) {
@@ -223,13 +305,13 @@ public class GameWorldTest {
                 c = new Cell(0, 0);
                 break;
             case 1:
-                c = new Cell(0, GameWorld.numCols - 1);
+                c = new Cell(0, config.getNumCols() - 1);
                 break;
             case 2:
-                c = new Cell(GameWorld.numRows - 1, GameWorld.numCols - 1);
+                c = new Cell(config.getNumRows() - 1, config.getNumCols() - 1);
                 break;
             case 3:
-                c = new Cell(GameWorld.numRows - 1, 0);
+                c = new Cell(config.getNumRows() - 1, 0);
                 break;
             default:
                 throw new RuntimeException("Index must be in [0, 3] interval!");
@@ -243,8 +325,51 @@ public class GameWorldTest {
      * @return true iff given cell is one of corner cells of game map
      */
     private boolean isCorner(Cell c) {
-        return (c.row == 0 || c.row == GameWorld.numRows - 1) &&
-                (c.col == 0 || c.col == GameWorld.numCols - 1);
+        return (c.row == 0 || c.row == config.getNumRows() - 1) &&
+                (c.col == 0 || c.col == config.getNumCols() - 1);
     }
 
+    private Point2D.Double randOval(double radius) {
+        int randRow = rand.nextInt(config.getNumRows());
+        int randCol = rand.nextInt(config.getNumCols());
+        return randOvalInCell(new Cell(randRow, randCol), radius);
+    }
+
+    /**
+     * Generates random circle position in given cell, with given radius, so that it does not
+     * leave cell bounds. Position is up-left point of square, with perpendicular edges
+     * to Ox Oy, surrounding circle.
+     * @param c cell in which to generate circle position
+     * @param radius radius of circle to generate position of
+     * @return position of circle in given cell with given carius
+     */
+    private Point2D.Double randOvalInCell(Cell c, double radius) {
+        double rXInCell = randDouble(0, config.getCellWidth() - 2 * radius);
+        double rYInCell = randDouble(0, config.getCellHeight() - 2 * radius);
+
+        return new Point2D.Double((config.getCellWidth() + config.getWallWidth()) * c.col + rXInCell,
+                (config.getCellHeight() + config.getWallWidth()) * c.row + rYInCell);
+    }
+
+    /**
+     * generates random value between two values [min, max), uniformly distributed.
+     * @param min generated value will not be lower
+     * @param max  generated value will not be higher
+     * @return return double uniformly distributed in interval: [min, max)
+     */
+    private double randDouble(double min, double max) {
+        return min + (max - min) * rand.nextDouble();
+    }
+
+    /*
+     * gets point representing rect's up-left point surrounding circle with given radius,
+     * returns circle with given radius(actually up-left point of rect surrounding it) distanced
+     * by given double
+     */
+    private Point2D.Double getCircleAtDistance(Point2D.Double c, double cRadius, double retCircleRad, double dist) {
+        Point2D.Double retCircle = new Point2D.Double();
+        retCircle.x = c.x + cRadius + dist - retCircleRad;
+        retCircle.y = c.y + cRadius - retCircleRad;
+        return retCircle;
+    }
 }

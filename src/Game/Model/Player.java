@@ -79,7 +79,7 @@ public class Player {
             return false;
         }
         if (this == p) {
-            return false;
+            return true;
         }
         return name.equals(p.getName());
     }

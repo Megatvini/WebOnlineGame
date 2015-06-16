@@ -1,6 +1,7 @@
 package Game.Model;
 
 import javax.json.*;
+import javax.servlet.jsp.jstl.core.Config;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
@@ -17,102 +18,10 @@ import java.util.concurrent.ConcurrentMap;
 public class GameWorld implements iWorld {
 
     // file name to read configuration info from
-    private static final String fileName = "ConfigFile.txt";
+    private static final String fileName = "ConfigFile.properties";
 
     // number of corners of game map
     private static final int CORNER_NUM = 4;
-
-    // static final variables whose values read from configuration file
-    public static final int maxPlayers;
-    public static final int numRows;
-    public static final int numCols;
-    public static final double width;
-    public static final double height;
-    public static final double wallWidth;
-    public static final double pRadius;
-    public static final double maxMove;
-    public static final double startDist;
-    public static final double plusDist;
-    public static final long plusDistDelay;
-    public static final double potRadius;
-    public static final int startPotNum;
-    public static final long addPotDelay;
-    public static final int potForKick;
-
-    // have to calculate depended on configuration info
-    public static final double cellWidth;
-    public static final double cellHeight;
-
-    // static block
-    static {
-        // object to write info from file into, and read from it then
-        Properties prop = new Properties();
-        loadFromFile(prop, fileName);
-
-        // reading info into public static final variables from properties object
-        maxPlayers = Integer.parseInt(prop.getProperty("maxPlayers"));
-        numRows = Integer.parseInt(prop.getProperty("numRows"));
-        numCols = Integer.parseInt(prop.getProperty("numCols"));
-        width = Double.parseDouble(prop.getProperty("width"));
-        height = Double.parseDouble(prop.getProperty("height"));
-        wallWidth = Double.parseDouble(prop.getProperty("wallWidth"));
-        pRadius = Double.parseDouble(prop.getProperty("pRadius"));
-        maxMove = Double.parseDouble(prop.getProperty("maxMove"));
-        startDist = Double.parseDouble(prop.getProperty("startDist"));
-        plusDist = Double.parseDouble(prop.getProperty("plusDist"));
-        plusDistDelay = Long.parseLong(prop.getProperty("plusDistDelay"));
-        potRadius = Double.parseDouble(prop.getProperty("potRadius"));
-        startPotNum = Integer.parseInt(prop.getProperty("startPotNum"));
-        addPotDelay = Long.parseLong(prop.getProperty("addPotDelay"));
-        potForKick = Integer.parseInt(prop.getProperty("potForKick"));
-
-        // calculate some values depended on value read from file
-        cellWidth = ((width - (numCols - 1) * wallWidth)) / numCols;
-        cellHeight = ((height - (numRows - 1) * wallWidth)) / numRows;
-        try {
-            checkConfig();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * writes info from file, with given name, into given properties object
-     * @param prop write info from specified file into this
-     * @param fileName searches file with this name to load info from into given properties object
-     */
-    private static void loadFromFile(Properties prop, String fileName) {
-        InputStream input = null;
-        try {
-            input = GameWorld.class.getClassLoader().getResourceAsStream(fileName);
-            prop.load(input);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    /**
-     * checks if configuration file is well write, for example
-     * that double player darius is not more than corridor width
-     * or height. If finds some mistate throws proper runtime exception.
-     */
-    private static void checkConfig() {
-        if (2 * pRadius > cellWidth || 2 * pRadius > cellHeight) {
-            throw new RuntimeException("Player radius is too large for corridor");
-        }
-
-        if (2 * potRadius > cellWidth || 2 * potRadius > cellHeight) {
-            throw new RuntimeException("Potion radius is too large for corridor");
-        }
-    }
 
     // random instance to generate pseudo random stuff
     private static final Random rand = new Random();
@@ -120,7 +29,25 @@ public class GameWorld implements iWorld {
     // enum of states of this class instance
     enum State {NEW, RUNNING, FINISHED}
 
-    /* instance variables */
+
+    // variables to read from configuration object
+    private int maxPlayers;
+    private int numRows;
+    private int numCols;
+    private double width;
+    private double height;
+    private double wallWidth;
+    private double pRadius;
+    private double maxMove;
+    private double startDist;
+    private double plusDist;
+    private long plusDistDelay;
+    private double potRadius;
+    private int startPotNum;
+    private long addPotDelay;
+    private int potForKick;
+    private double cellWidth;
+    private double cellHeight;
 
     // state of this class
     private State state;
@@ -135,7 +62,16 @@ public class GameWorld implements iWorld {
     private ConcurrentMap<String, Player> nameOnPlayer;
 
     // coordinates of potions, up-left point of rect surrounding circle
-    private final List<Point2D.Double> potions;
+    private List<Point2D.Double> potions;
+
+    // new potions to send by json
+    private ConcurrentMap<Point2D.Double, Integer> potsToAdd;
+
+    // potions to remove from display, send as json
+    private List<Integer> potsToRemove;
+
+    // key to use for new pot
+    private int potKey;
 
     // number of player added at one corners of game world
     private int playersAtCorner;
@@ -146,18 +82,27 @@ public class GameWorld implements iWorld {
     // when game starts, starts two task in background thread: potion addition, player distance increment
     private Timer timer;
 
-    // iff potions added or removed after last getUpdate method call this is true
-    private boolean potsUpdated;
+    /**
+     * constructor for testing purposes only
+     */
+    public GameWorld(PlaneMaze pm, Configuration config, ConcurrentMap<String, Player> nameOnPlayer, List<Point2D.Double> potions, State state) {
+        this(new ArrayList<>(), pm, config, false);
+        this.nameOnPlayer = nameOnPlayer;
+        this.potions = potions;
+        this.state = state;
+    }
 
-    // lastly generated potions json, if update did not happen will not generate again
-    JsonArrayBuilder potsJson;
+    public State getState() {
+        return state;
+    }
+
 
     /**
      * @@ have to rewrite all comments including this ofc
      * @@ plane maze sizes have to match this' static sizes(numRows, numCols)
      */
-    public GameWorld(PlaneMaze pm) {
-        this(new ArrayList<>(), pm, false);
+    public GameWorld(PlaneMaze pm, Configuration config) {
+        this(new ArrayList<>(), pm, config, false);
     }
 
 
@@ -169,18 +114,44 @@ public class GameWorld implements iWorld {
      * @param pm abstract representation of maze, represents some maze and we can check where are and where are not walls
      * @param startGame user tells to start game or not. if true passed game will start at the end of constructor.
      */
-    public GameWorld(Collection<String> players, PlaneMaze pm, boolean startGame) {
+    public GameWorld(Collection<String> players, PlaneMaze pm, Configuration config, boolean startGame) {
         state = State.NEW;
         this.pm = pm;
+        readConfig(config);
         dist = startDist;
         nameOnPlayer = new ConcurrentHashMap<>();
+        activePlNum = 0;
         potions = Collections.synchronizedList(new ArrayList<>());
-        potsUpdated = false;
+        potsToAdd = new ConcurrentHashMap<>();
+        potsToRemove = Collections.synchronizedList(new ArrayList<>());
+        potKey = 0;
         players.forEach(p -> addPlayerAtCorner(p));
         for (int i = 0; i < startPotNum; i++) { addPotAtRandom(false); }
-        if (startPotNum != 0) { potsUpdated = true; }
-        potsJson = Json.createArrayBuilder();
         if (startGame) { startGame(); }
+    }
+
+    /**
+     * read variables from configuration object
+     * @param config configuration object to read info from
+     */
+    private void readConfig(Configuration config) {
+        maxPlayers = config.getMaxPlayers();
+        numRows = config.getNumRows();
+        numCols = config.getNumCols();
+        width = config.getWidth();
+        height = config.getHeight();
+        wallWidth = config.getWallWidth();
+        pRadius = config.getPRadius();
+        maxMove = config.getMaxMove();
+        startDist = config.getStartDist();
+        plusDist = config.getPlusDist();
+        plusDistDelay = config.getPlusDistDelay();
+        potRadius = config.getPotRadius();
+        startPotNum = config.getStartPotNum();
+        addPotDelay = config.getAddPotDelay();
+        potForKick = config.getPotForKick();
+        cellWidth = config.getCellWidth();
+        cellHeight = config.getCellHeight();
     }
 
     /* game creation methods, before start */
@@ -275,7 +246,7 @@ public class GameWorld implements iWorld {
      * @return true iff potion added
      */
     public synchronized boolean addPotAtRandom(boolean cornerAllowed) {
-        Integer[] cells = new Integer[numRows * numCols ];
+        Integer[] cells = new Integer[numRows * numCols];
         for (int i = 0; i < numRows * numCols; i++) {
             cells[i] = i;
         }
@@ -309,6 +280,7 @@ public class GameWorld implements iWorld {
             pot = randOvalInCell(c, potRadius);
             if (!potionConflicts(pot)) {
                 potions.add(pot);
+                potsToAdd.put(pot, potKey++);
                 break;
             }
         }
@@ -342,13 +314,13 @@ public class GameWorld implements iWorld {
                 c = new Cell(0, 0);
                 break;
             case 1:
-                c = new Cell(0, GameWorld.numCols - 1);
+                c = new Cell(0, numCols - 1);
                 break;
             case 2:
-                c = new Cell(GameWorld.numRows - 1, GameWorld.numCols - 1);
+                c = new Cell(numRows - 1, numCols - 1);
                 break;
             case 3:
-                c = new Cell(GameWorld.numRows - 1, 0);
+                c = new Cell(numRows - 1, 0);
                 break;
             default:
                 throw new RuntimeException("Index must be in [0, 3] interval!");
@@ -381,6 +353,7 @@ public class GameWorld implements iWorld {
             if (!playerConflicts(p)) {
                 placeFound = true;
                 nameOnPlayer.put(p.getName(), p);
+                activePlNum++;
                 break;
             }
         }
@@ -504,7 +477,7 @@ public class GameWorld implements iWorld {
     public void startGame() {
         if (state == State.NEW) {
             state = State.RUNNING;
-            timer = new Timer(true);
+            timer = new Timer();
             incDistPeriodically();
             addPotPeriodically();
         }
@@ -542,7 +515,7 @@ public class GameWorld implements iWorld {
     private synchronized boolean addPotAtRand() {
         Point2D.Double pot = randOval(potRadius);
         potions.add(pot);
-        potsUpdated = true;
+        potsToAdd.put(pot, potKey++);
         playersPot(pot);
         gameOnCheck();
         return true;
@@ -565,7 +538,7 @@ public class GameWorld implements iWorld {
         if (state == State.RUNNING &&
                 distance(x, y, pos.x, pos.y) > maxMove) { return false; }
 
-        if (wrongPlace(x, y)) { return false; }
+        //if (wrongPlace(x, y)) { return false; }
 
         p.setPosition(x, y);
 
@@ -619,7 +592,7 @@ public class GameWorld implements iWorld {
                 if (distance(plPos.x + pRadius, plPos.y + pRadius, pot.x + potRadius, pot.y + potRadius) < pRadius + potRadius) {
                     p.potionPlus();
                     potions.remove(pot);
-                    potsUpdated = true;
+                    potsToRemove.add(potsToAdd.get(pot));
                     playersPlayer(p);
                     return true;
                 }
@@ -640,8 +613,8 @@ public class GameWorld implements iWorld {
                 Point2D.Double nextPot = potIt.next();
                 if (distance(pos.x + pRadius, pos.y + pRadius, nextPot.x + potRadius, nextPot.y + potRadius) < pRadius + potRadius) {
                     player.potionPlus();
+                    potsToRemove.add(potsToAdd.get(nextPot));
                     potIt.remove();
-                    potsUpdated = true;
                     if (!somePotTaken) {
                         somePotTaken = true;
                     }
@@ -654,6 +627,7 @@ public class GameWorld implements iWorld {
 
     private void gameOnCheck() {
         if (activePlNum < 2) {
+            System.out.println();
             finishGame();
         }
     }
@@ -689,7 +663,7 @@ public class GameWorld implements iWorld {
 
     /* collision methods */
 
-    private boolean wrongPlace(double x, double y) {
+    private boolean wrongPlace(Double x, Double y) {
         int rowIndx = (int)((y + pRadius) / (cellHeight + wallWidth));
         if (rowIndx < 0 || y + pRadius > rowIndx * (cellHeight + wallWidth) + cellHeight) {
             return true;
@@ -875,7 +849,7 @@ public class GameWorld implements iWorld {
 
         updateJson.add("potNum", nameOnPlayer.get(playerName).getPotNum());
 
-        // create/add json players' array
+        // create and add json players' array
         JsonArrayBuilder playersJson = factory.createArrayBuilder();
         Iterator<String> plIt = nameOnPlayer.keySet().iterator();
         while (plIt.hasNext()) {
@@ -885,28 +859,41 @@ public class GameWorld implements iWorld {
         }
         updateJson.add("players", playersJson);
 
-        updateJson.add("potsUpdated", potsUpdated);
-
-        if (potsUpdated) {
-            // create/add json potions' array
-            synchronized (potions) {
-                Iterator<Point2D.Double> potIt = potions.iterator();
-                while (potIt.hasNext()) {
-                    Point2D.Double nextPot = potIt.next();
-                    JsonObjectBuilder potJson = factory.createObjectBuilder();
-                    potJson.add("x", nextPot.getX())
-                            .add("y", nextPot.getY());
-                    potsJson.add(potJson);
-                }
-            }
-            potsUpdated = false;
+        // create and add json addPots' array
+        JsonArrayBuilder addPotsJson = factory.createArrayBuilder();
+        synchronized (potsToAdd) {
+            potsToAdd.keySet().forEach(key -> {
+                JsonObjectBuilder potJson = factory.createObjectBuilder();
+                potJson.add("id", potsToAdd.get(key))
+                        .add("x", key.getX())
+                        .add("y", key.getY());
+                addPotsJson.add(potJson);
+            });
+            potsToAdd.clear();
+            updateJson.add("addPots", addPotsJson);
         }
-        updateJson.add("potions", potsJson);
+
+
+        // create and add json removePots' array
+        JsonArrayBuilder removePotsJson = factory.createArrayBuilder();
+        synchronized (potsToRemove) {
+            Iterator<Integer> idIt = potsToRemove.iterator();
+            while (idIt.hasNext()) {
+                removePotsJson.add(idIt.next());
+                idIt.remove();
+            }
+            updateJson.add("removePots", removePotsJson);
+        }
+
 
         // add json distance double
         updateJson.add("distance", dist);
 
         return updateJson.build();
+    }
+
+    public double getMinDist() {
+        return dist;
     }
 
     @Override
@@ -915,16 +902,6 @@ public class GameWorld implements iWorld {
             timer.cancel();
             state = State.FINISHED;
         }
-    }
-
-    /* methods for testing */
-
-    public Player getPlayer(String name) {
-        return nameOnPlayer.get(name);
-    }
-
-    public List<Point2D.Double> getPotions() {
-        return potions;
     }
 
 }
