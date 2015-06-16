@@ -1,13 +1,12 @@
 /**
- * Created by rezo on 6/6/15.
- * this is potion class. creates new potion element . texture should be specified outside the class
+ * Created by rezo on 6/16/15.
  */
-var Potion = IgeEntity.extend({
-    classId: 'Potion',
+var Handler = IgeClass.extend({
+    classId: 'Handler',
     init: function () {
         var self = this;
         IgeEntity.prototype.init.call(this);
-
+        // Load the character texture file
         //.mount(self.scene1)
     },
     /**
@@ -19,10 +18,10 @@ var Potion = IgeEntity.extend({
      */
     transTo : function(x,y,config){
         this.translateTo(x-config.width/2+config.potRadius,
-        y-config.height/2+config.potRadius,0);
+            y-config.height/2+config.potRadius,0);
         return this;
 
     }
 });
 
-if (typeof(module) !== 'undefined' && typeof(module.exports) !== 'undefined') { module.exports = Potion; }
+if (typeof(module) !== 'undefined' && typeof(module.exports) !== 'undefined') { module.exports = Handler; }

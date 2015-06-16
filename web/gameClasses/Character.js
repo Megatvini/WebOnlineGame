@@ -8,7 +8,10 @@ var Character = IgeEntityBox2d.extend({
 	isMainCharacter : false ,
 	updateBuffer : [],
 	lastUpdate:  null,
+	lastUpdate2:  null,
 	interpolation : 80 ,
+	extrapolation: 100,
+
 	init: function (data,name,myId,gametexture,connection) {
 		this.isMainCharacter = name==myId;
 		this.connection=connection;
@@ -186,10 +189,6 @@ var Character = IgeEntityBox2d.extend({
 		return this;
 	},
 
-	update: function (){
-
-	},
-
 	update: function (ctx) {
 		// Set the depth to the y co-ordinate which basically
 		// makes the entity appear further in the foreground
@@ -217,7 +216,7 @@ var Character = IgeEntityBox2d.extend({
 		var x1 = x - config.width / 2 + config.pRadius;
 		var y1 = y - config.height / 2 + config.pRadius;
 		if(!this.isMainCharacter) {
-			console.log(this._translate.x);
+			//console.log(this._translate.x);
 			this._translate.x = x1;
 			this._translate.y = y1;
 		}
@@ -264,6 +263,7 @@ var Character = IgeEntityBox2d.extend({
 			var differense = currentTime - update.date;
 			update=update.snapShot;
 			if (differense >= this.interpolation) {
+				this.lastUpdate2=lastUpdate;
 				this.lastUpdate=update;
 				this.updateBuffer.shift();
 				return update
@@ -274,6 +274,14 @@ var Character = IgeEntityBox2d.extend({
 					var y = (lastUpdate.y + (update.y - lastUpdate.y) / 2);
 					return {x: x, y: y};
 				}
+			}
+		}else{
+			var lastUpdate = this.lastUpdate;
+			var lastUpdate2 = this.lastUpdate2;
+			if(lastUpdate2!=null&&lastUpdate!=null) {
+				var x = (lastUpdate.x + (lastUpdate.x - lastUpdate2.x));
+				var y = (lastUpdate.y + (lastUpdate.y - lastUpdate2.y));
+				return {x: x, y: y};
 			}
 		}
 		return null ;

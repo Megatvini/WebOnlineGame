@@ -2,12 +2,12 @@ var self = this,
 	characters = {}, // players in the world
 	gameConfig = {},
 	circles = {}, //sizes
-	items = [], //potions
+	potions = {}, //potions
 	player1,
-	circle,
 	connection,
 	debugOn,
-	distanceR, // pointer to active player
+	distanceR,
+	potNum,// pointer to active player
 	myId = getCookie("playerID");
 var Client = IgeClass.extend({
 	classId: 'Client',
@@ -35,7 +35,6 @@ var Client = IgeClass.extend({
 		ige.on('texturesLoaded', function (){
 			// Create the HTML canvas
 			ige.createFrontBuffer(true);
-
 			ige.start(function (success) {
 				// Check if the engine started successfully
 				if (success) {
@@ -126,8 +125,21 @@ function gameOn() {
 		createMaze(debugConfig);
 		handler(debugUpdate);
 	}
-
+	potNum = new IgeFontEntity()
+		.id('font1')
+		.width(213)
+		.height(110)
+		.depth(1)
+		.textAlignX(0)
+		.colorOverlay('#ffffff')
+		.nativeFont('26pt Arial')
+		.textLineSpacing(0)
+		.text('Align Left\nAnother Line\nAnd one more')
+		.center(100)
+		.middle(-100)
+		.mount(self.scene1);
 	function realGame() {
+
 		connection = initSocket();
 	}
 
@@ -177,22 +189,23 @@ function createGameConfig(snapShot) {
 
 function handler(snapShot){
 	if(snapShot.type&&snapShot.type=="UPDATE"){
-		var players = snapShot.players,
-			potions = snapShot.potions;
-		distanceR = snapShot.distance;
+		/** @namespace snapShot.removePots */
+		/** @namespace snapShot.addPots */
+		var addPots = snapShot.addPots,
+			removePots= snapShot.removePots;
 		//console.log(distanceR);
-		circle = new IgeEntity()
-			.width(distanceR)
-			.height(distanceR)
-			.texture(self.gameTexture.circle);
-		//	self.circle.texture.resize(distanceR*2,distanceR*2,false);
+		if(!snapShot.gameOn){
+			ige.stop();
+		}else {
 
-		parsePlayers(players);
-		//parsePotions(potions);
-		mountCircles();
-
-
-
+			potNum.text(snapShot.potNum+"potnum");
+			parsePlayers(snapShot.players);
+			//parsePotions(addPots,removePots);
+			if (snapShot.distance != distanceR) {
+				distanceR = snapShot.distance;
+				mountCircles();
+			}
+		}
 	}
 	if(snapShot.type&&snapShot.type=="INIT") {
 		console.log(JSON.stringify(snapShot));
@@ -208,10 +221,9 @@ function parsePlayers(players) {
 		if (typeof (characters[name]) == 'undefined') {
 			/** @namespace gameConfig.pRadius */
 			var newPlayer = characters[name] = new Character(gameConfig,name,myId,self.gameTexture,connection)
-					.id(name)
-					.transTo(position.x, position.y,gameConfig)
-					.mount(self.scene1)
-				;
+				.id(name)
+				.transTo(position.x, position.y,gameConfig)
+				.mount(self.scene1);
 			if (name == myId) {
 				player1 = newPlayer;
 				player1.addComponent(PlayerComponent);
@@ -241,8 +253,12 @@ function parsePlayers(players) {
 				}
 			}
 		} else {
-			if (name != myId) {
-				characters[name].addUpdate(position);
+			if(!onePlayer.active){
+				characters[name].destroy();
+			}else {
+				if (name != myId) {
+					characters[name].addUpdate(position);
+				}
 			}
 		}
 	}
@@ -257,31 +273,140 @@ function mountCircles(){
 				.texture(self.gameTexture.circle)
 				.width(distanceR)
 				.height(distanceR)
+				.depth(1)
 				.mount(character);
 		}
 
 	}
 }
-function parsePotions(potions) {
-	for (var k  = 0 ; k < items.length ; k ++ ) {
-		if(items[k]!=null) {
-			items[k].destroy();
-			items[k] = null;
-		}
-	}
-	for (var j = 0 ; j < potions.length ; j ++) {
-		//console.log(key + ': ' + players[key]);
-		var onePotion = potions[j],
-			x = onePotion.x,
-			y = onePotion.y;
-		new Potion()
-			//.id("item" + (j))
+function parsePotions(addPots,removePots) {
+	for(var i = 0 ; i < addPots.length; i ++){
+		var onePotion = addPots[i];
+		var x = onePotion.x,
+			y = onePotion.y,
+			id= onePotion.id;
+		potions[id]=new Potion()
 			.texture(self.gameTexture.potion)
-			.width(gameConfig.potRadius*2)
-			.height(gameConfig.potRadius*2)
+			.width(gameConfig.potRadius * 2)
+			.height(gameConfig.potRadius * 2)
 			.transTo(x, y, gameConfig)
 			.mount(self.scene1);
+	}
+	for(i = 0 ; i < removePots.length; i ++){
+		id = removePots[i].id;
+		potions[id].destroy();
+	}
 
+
+
+}
+function createWall(wWidth, wHeight) {
+	return new IgeEntityBox2d()
+		.width(wWidth)
+		.height(wHeight)
+		.texture(self.gameTexture.wall)
+		.drawBounds(true)
+		.mount(self.scene1)
+		.box2dBody({
+			type: 'static',
+			allowSleep: true,
+			fixtures: [{
+				shape: {
+					type: 'rectangle'
+				}
+			}]
+		});
+}
+function createFrame() {
+
+	///marcxena
+	var startCx = -gameConfig.width / 2 - gameConfig.wallWidth / 2;
+	var startCy = 0;
+	createWall(gameConfig.wallWidth, gameConfig.height)
+		.translateTo(startCx, startCy, 0);
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+	startCx = 0;
+	startCy = -gameConfig.height / 2 - gameConfig.wallWidth / 2;
+
+	createWall(gameConfig.width + 2 * gameConfig.wallWidth, gameConfig.wallWidth)
+		.translateTo(startCx, startCy, 0);
+
+///////////////////////////////////////////////////////////////////////////////////////
+	startCx = gameConfig.width / 2 + gameConfig.wallWidth / 2;
+	startCy = 0;
+	createWall(gameConfig.wallWidth, gameConfig.height)
+		.translateTo(startCx, startCy, 0);
+
+//////////////////////////////////////////////////////////////////////////////////////////
+	startCx = 0;
+	startCy = gameConfig.height / 2 + gameConfig.wallWidth / 2;
+	createWall(gameConfig.width + 2 * gameConfig.wallWidth, gameConfig.wallWidth)
+		.translateTo(startCx, startCy, 0);
+}
+function createInnerMaze(walls, startX, cellHoryzSize, startY, cellVertSize, zeroX, zeroY) {
+	for (var wall1 in walls) {
+		if (walls.hasOwnProperty(wall1)) {
+			var wall = walls[wall1];
+			var col1 = wall.cell1.col;
+			var row1 = wall.cell1.row;
+			var col2 = wall.cell2.col;
+			var row2 = wall.cell2.row;
+			var drawX;
+			var drawY;
+			var wWidth;
+			var wHeight;
+			var H = true;
+			startX = (col1) * cellHoryzSize + col1 * gameConfig.wallWidth;
+			startY = row1 * cellVertSize + row1 * gameConfig.wallWidth;
+
+			//ixateba zemot an qvemot
+			if (col1 == col2) {
+				if (row1 < row2) {
+
+					// ixateba qvemot
+
+					wHeight = gameConfig.wallWidth;
+					wWidth = cellHoryzSize + gameConfig.wallWidth;
+					drawY = startY + cellVertSize + gameConfig.wallWidth / 2;
+					drawX = startX + wWidth / 2;
+
+				} else {
+
+					//ixateba zemot
+
+					wHeight = gameConfig.wallWidth;
+					wWidth = cellHoryzSize + gameConfig.wallWidth;
+					;
+					drawY = startY - wHeight / 2;
+					drawX = startX + wWidth / 2;
+				}
+
+			} else {///ixateba marjvniv an marcxniv
+				if (col1 < col2) { //marjvniv
+					wHeight = cellVertSize + gameConfig.wallWidth;
+					;
+					wWidth = gameConfig.wallWidth;
+					drawY = startY + wHeight / 2;
+					drawX = startX + cellHoryzSize + wWidth / 2;
+				}
+				else { // marcxniv
+					wHeight = cellVertSize + gameConfig.wallWidth;
+					;
+					wWidth = gameConfig.wallWidth;
+					drawY = startY + wHeight / 2;
+					drawX = startX - wWidth / 2;
+				}
+			}
+			//x,y,width,height
+
+			createWall(wWidth, wHeight)
+				.translateTo(drawX - zeroX, drawY - zeroY, gameConfig);
+
+
+		}
+//				drawOneWall(wall,cellHoryzSize,cellVertSize,)
 	}
 }
 function createMaze(snapShot) {
@@ -293,83 +418,8 @@ function createMaze(snapShot) {
 		zeroY = gameConfig.height/ 2,
 		startX = 0,
 		startY = 0;
-
-	for(var wall1 in walls){
-		if(walls.hasOwnProperty(wall1)) {
-			var wall = walls[wall1];
-			var col1 = wall.cell1.col;
-			var row1 = wall.cell1.row;
-			var col2 = wall.cell2.col;
-			var row2 = wall.cell2.row;
-			var drawX   ;
-			var drawY  ;
-			var wWidth;
-			var wHeight;
-			var H  = true;
-			startX = (col1)*cellHoryzSize + col1*gameConfig.wallWidth;
-			startY = row1*cellVertSize + row1*gameConfig.wallWidth;
-
-
-
-			//ixateba zemot an qvemot
-			if(col1==col2){
-				if(row1<row2){
-
-					// ixateba qvemot
-
-					wHeight = gameConfig.wallWidth;
-					wWidth = cellHoryzSize+gameConfig.wallWidth;
-					drawY  = startY+cellVertSize+gameConfig.wallWidth/2;
-					drawX = startX+wWidth/2 ;
-
-				}else{
-
-					//ixateba zemot
-
-					wHeight = gameConfig.wallWidth;
-					wWidth = cellHoryzSize +  gameConfig.wallWidth;;
-					drawY  = startY-wHeight/2;
-					drawX = startX+wWidth/2 ;
-				}
-
-			}else{///ixateba marjvniv an marcxniv
-				if(col1<col2){ //marjvniv
-					wHeight = cellVertSize +  gameConfig.wallWidth; ;
-					wWidth = gameConfig.wallWidth;
-					drawY  = startY+wHeight/2;
-					drawX = startX+cellHoryzSize+wWidth/2 ;
-				}
-				else{ // marcxniv
-					wHeight = cellVertSize + gameConfig.wallWidth;;
-					wWidth = gameConfig.wallWidth;
-					drawY  = startY+wHeight/2;
-					drawX = startX-wWidth/2;
-				}
-			}
-			//x,y,width,height
-
-			new IgeEntityBox2d()
-				.width(wWidth)
-				.height(wHeight)
-				.texture(self.gameTexture.wall)
-				.translateTo(drawX-zeroX, drawY-zeroY, 0)
-				.drawBounds(true)
-				.mount(self.scene1)
-				.box2dBody({
-					type: 'static',
-					allowSleep: true,
-					fixtures: [{
-						shape: {
-							type: 'rectangle'
-						}
-					}]
-				});
-
-
-
-		}
-//				drawOneWall(wall,cellHoryzSize,cellVertSize,)
-	}
+	createFrame();
+	createInnerMaze(walls, startX, cellHoryzSize, startY, cellVertSize, zeroX, zeroY);
 
 
 }
