@@ -57,19 +57,19 @@ public class FixedRoomSizeMatcher {
      * @param res current state of matched groups
      * @param index this is index of a first player
      * who has not been considered in matching yet
-     * @param cursize current size of a matched group
+     * @param curSize current size of a matched group
      * @return true if match was found and in this case
      * res contains the match
      * if match was not found, res is left unchanged
      */
-    private boolean findRecursiveMatch(Set<Set<String>> res, int index, int cursize) {
-        if (cursize == roomSize) return true;
+    private boolean findRecursiveMatch(Set<Set<String>> res, int index, int curSize) {
+        if (curSize == roomSize) return true;
         if (index >= waitingList.size()) return false;
 
         for (int i=index; i<waitingList.size(); i++) {
             Set<String> set = waitingList.get(i).keySet();
             res.add(set);
-            if (findRecursiveMatch(res, index+1, cursize+set.size())) return true;
+            if (findRecursiveMatch(res, index+1, curSize+set.size())) return true;
             res.remove(set);
         }
         return false;
@@ -80,7 +80,7 @@ public class FixedRoomSizeMatcher {
      * sort WaitingList increasingly
      * groups who have average rating
      * closer to rating are smaller
-     * @param rating
+     * @param rating player rating
      */
     private void sortWaitingList(int rating) {
         Collections.sort(waitingList, (o1, o2) -> {

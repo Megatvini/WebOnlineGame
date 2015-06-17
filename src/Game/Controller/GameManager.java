@@ -5,6 +5,8 @@ import Game.Model.iWorld;
 import javax.websocket.RemoteEndpoint;
 import javax.websocket.Session;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.*;
 
@@ -30,7 +32,7 @@ public class GameManager {
     //executes scheduled tasks concurrently
     private ScheduledThreadPoolExecutor executor;
 
-    //running services of scheduletThreadPoolExecutor
+    //running services of scheduledThreadPoolExecutor
     private Map<iWorld, ScheduledFuture> runningServices;
 
     /**
@@ -46,7 +48,7 @@ public class GameManager {
         this.gameFactory = factory;
         this.connector = connector;
         this.executor = executor;
-        this.rooms = new ConcurrentHashMap<>();
+        this.rooms = Collections.synchronizedMap(new HashMap<>());
         this.runningServices = new ConcurrentHashMap<>();
 
         scheduleCleaningService();
@@ -77,19 +79,18 @@ public class GameManager {
      * @param playerName name of a player
      * @param playerConnection connection used to communicate with player
      */
-    public void addPlayer(String playerName, Session playerConnection) {
+    public synchronized void addPlayer(String playerName, Session playerConnection) {
         connector.addUser(playerName, playerConnection);
-        synchronized (roomMates) {
-            if (rooms.get(playerName) == null) {
-                iWorld world = gameFactory.getNewInstance();
-                world.addPlayerAtCorner(playerName);
-                Collection<String> mates = roomMates.get(playerName);
-                mates.forEach(player->rooms.put(player, world));
-            } else {
-                iWorld world = rooms.get(playerName);
-                world.addPlayerAtCorner(playerName);
-            }
+        if (rooms.get(playerName) == null) {
+            iWorld world = gameFactory.getNewInstance();
+            world.addPlayerAtCorner(playerName);
+            Collection<String> mates = roomMates.get(playerName);
+            mates.forEach(player->rooms.put(player, world));
+        } else {
+            iWorld world = rooms.get(playerName);
+            world.addPlayerAtCorner(playerName);
         }
+        System.out.println(roomMates);
         sendInit(playerName);
         checkIfRoomIsFull(playerName);
     }

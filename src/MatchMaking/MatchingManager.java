@@ -21,7 +21,7 @@ public class MatchingManager implements MatchMaker {
     public MatchingManager(Map<String, Collection<String>> roomMates, FixedRoomSizeMatcherFactory factory) {
         this.roomMates = roomMates;
         this.factory = factory;
-        fixedSizeRooms = new FixedRoomSizeMatcher[MAX_GROUP_SIZE];
+        fixedSizeRooms = new FixedRoomSizeMatcher[MAX_GROUP_SIZE-1];
         waitingList = new HashSet<>();
         initFixedSizeRooms();
     }
@@ -30,7 +30,7 @@ public class MatchingManager implements MatchMaker {
      * initialize room matchMakers with fixed sizes
      */
     private void initFixedSizeRooms() {
-        for (int i=2; i<=fixedSizeRooms.length; i++)
+        for (int i=2; i<=MAX_GROUP_SIZE; i++)
             fixedSizeRooms[i-2] = factory.getInstance(i);
     }
 
@@ -55,7 +55,8 @@ public class MatchingManager implements MatchMaker {
      */
     private void tryToMatch(Map<String, Integer> players, Collection<Integer> roomSizes) {
         for (Integer roomSize : roomSizes) {
-            Set<Set<String>> match = fixedSizeRooms[roomSize-2].addNewPlayerGroup(players);
+            FixedRoomSizeMatcher fixedMatcher = fixedSizeRooms[roomSize-2];
+            Set<Set<String>> match = fixedMatcher.addNewPlayerGroup(players);
             if (match != null) {
                 matchFound(match, roomSize);
                 return;
@@ -80,7 +81,9 @@ public class MatchingManager implements MatchMaker {
         newRoom.forEach(x->roomMates.put(x, newRoom));
 
         //remove players from all fixed size matchmakers system
-        match.forEach(fixedSizeRooms[roomSize - 2]::removePlayerGroup);
+        for (FixedRoomSizeMatcher matcher : fixedSizeRooms) {
+            match.forEach(matcher::removePlayerGroup);
+        }
     }
 
 
@@ -107,7 +110,6 @@ public class MatchingManager implements MatchMaker {
      */
     @Override
     public synchronized boolean containsParticipant(String name) {
-        if (roomMates.containsKey(name)) return true;
-        return waitingList.contains(name);
+        return roomMates.containsKey(name) || waitingList.contains(name);
     }
 }

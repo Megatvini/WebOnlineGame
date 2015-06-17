@@ -36,7 +36,7 @@ public class GameServer {
 
         //initialize gameManager
         initGameManager(httpSession);
-        System.out.println("someone connected " + session + " http: " + httpSession);
+        System.out.println("connected: " + playerName + " Session:" + session + " http: " + httpSession);
     }
 
     /**

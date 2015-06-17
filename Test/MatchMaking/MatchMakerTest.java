@@ -1,12 +1,12 @@
 package MatchMaking;
 
-import org.junit.After;
-import org.junit.Before;
+
 import org.junit.Test;
 
 import java.util.*;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by Nika on 13:10, 6/11/2015.
@@ -253,5 +253,129 @@ public class MatchMakerTest {
         assertFalse(matchMaker.containsParticipant("p2"));
         assertFalse(matchMaker.containsParticipant("p3"));
         assertTrue(matchMaker.containsParticipant("p4"));
+    }
+
+    @Test
+    public void combinedTest() {
+        Map<String, Collection<String>> roomMates = new HashMap<>();
+        MatchMaker matchMaker = new MatchingManager(roomMates, new FixedRoomSizeMatcherFactory());
+
+        Set<Integer> sizes1 = new HashSet<>();
+        Set<Integer> sizes2 = new HashSet<>();
+
+        sizes1.add(2);
+        sizes1.add(3);
+        sizes1.add(4);
+
+        sizes2.add(2);
+        sizes2.add(3);
+
+        matchMaker.addParticipant("p1", sizes1);
+        matchMaker.addParticipant("p2", sizes2);
+
+        assertEquals(2, roomMates.size());
+
+
+        Set<Integer> sizes3 = new HashSet<>();
+        Set<Integer> sizes4 = new HashSet<>();
+
+        sizes3.add(3);
+        sizes3.add(4);
+
+
+        sizes4.add(3);
+        sizes4.add(4);
+
+        matchMaker.addParticipant("p3", sizes3);
+        matchMaker.addParticipant("p4", sizes4);
+
+        System.out.println(roomMates);
+        assertEquals(2, roomMates.size());
+    }
+
+    @Test
+    public void behaviorTest() {
+        Map<String, Collection<String>> roomMates = new HashMap<>();
+
+        FixedRoomSizeMatcherFactory factoryMock = mock(FixedRoomSizeMatcherFactory.class);
+        FixedRoomSizeMatcher matcherMockSize2 = mock(FixedRoomSizeMatcher.class);
+        FixedRoomSizeMatcher matcherMockSize3 = mock(FixedRoomSizeMatcher.class);
+        FixedRoomSizeMatcher matcherMockSize4 = mock(FixedRoomSizeMatcher.class);
+
+        when(factoryMock.getInstance(2)).thenReturn(matcherMockSize2);
+        when(factoryMock.getInstance(3)).thenReturn(matcherMockSize3);
+        when(factoryMock.getInstance(4)).thenReturn(matcherMockSize4);
+
+        MatchMaker matchMaker = new MatchingManager(roomMates, factoryMock);
+
+        verify(factoryMock).getInstance(2);
+        verify(factoryMock).getInstance(3);
+        verify(factoryMock).getInstance(4);
+
+
+        when(matcherMockSize2.addNewPlayerGroup(any())).thenReturn(null);
+        when(matcherMockSize3.addNewPlayerGroup(any())).thenReturn(null);
+        when(matcherMockSize4.addNewPlayerGroup(any())).thenReturn(null);
+
+        Set<Integer> sizes1 = new HashSet<>();
+        Set<Integer> sizes2 = new HashSet<>();
+
+        sizes1.add(2);
+        sizes1.add(3);
+        sizes1.add(4);
+
+        sizes2.add(2);
+        sizes2.add(3);
+
+        matchMaker.addParticipant("p1", sizes1);
+        matchMaker.addParticipant("p2", sizes2);
+
+        verify(matcherMockSize2, times(2)).addNewPlayerGroup(any());
+        verify(matcherMockSize3, times(2)).addNewPlayerGroup(any());
+        verify(matcherMockSize4).addNewPlayerGroup(any());
+    }
+
+    @Test
+    public void behaviorTestRemove() {
+        Map<String, Collection<String>> roomMates = new HashMap<>();
+
+        FixedRoomSizeMatcherFactory factoryMock = mock(FixedRoomSizeMatcherFactory.class);
+        FixedRoomSizeMatcher matcherMockSize2 = mock(FixedRoomSizeMatcher.class);
+        FixedRoomSizeMatcher matcherMockSize3 = mock(FixedRoomSizeMatcher.class);
+        FixedRoomSizeMatcher matcherMockSize4 = mock(FixedRoomSizeMatcher.class);
+
+        when(factoryMock.getInstance(2)).thenReturn(matcherMockSize2);
+        when(factoryMock.getInstance(3)).thenReturn(matcherMockSize3);
+        when(factoryMock.getInstance(4)).thenReturn(matcherMockSize4);
+
+        MatchMaker matchMaker = new MatchingManager(roomMates, factoryMock);
+
+
+        Set<Set<String>> res = new HashSet<>();
+        Set<String> group1 = new HashSet<>();
+        group1.add("g1p1");
+        group1.add("g1p2");
+
+        Set<String> group2 = new HashSet<>();
+        group2.add("g2p1");
+        group2.add("g2p2");
+
+        res.add(group1);
+        res.add(group2);
+
+        when(matcherMockSize4.addNewPlayerGroup(any())).thenReturn(null).thenReturn(res);
+
+        Set<Integer> sizes1 = new HashSet<>();
+        Set<Integer> sizes2 = new HashSet<>();
+
+        sizes1.add(4);
+        sizes2.add(4);
+
+        matchMaker.addParticipants(group1, sizes1);
+        matchMaker.addParticipants(group2, sizes2);
+
+        verify(matcherMockSize4, times(2)).addNewPlayerGroup(any());
+        verify(matcherMockSize4).removePlayerGroup(group1);
+        verify(matcherMockSize4).removePlayerGroup(group2);
     }
 }
