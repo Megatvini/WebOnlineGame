@@ -14,7 +14,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 public class GameServer {
     public static final int WORKING_THREAD_NUMBER = 10;
     private GameManager gameManager;
-    private static ConcurrentMap<Session, String> userConnectionMap = new ConcurrentHashMap<>();
+    private String playerName;
     /**
      * constructor only used for testing purposes
      * @param manager
@@ -32,10 +32,10 @@ public class GameServer {
         //read name of a user from its httpSession
         HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
         String userName = (String) httpSession.getAttribute("userName");
-        userConnectionMap.put(session, userName);
+        playerName = userName;
 
-        //initialize gameManager only once
-        if (gameManager == null) initGameManager(httpSession);
+        //initialize gameManager
+        initGameManager(httpSession);
         System.out.println("someone connected " + session + " http: " + httpSession);
     }
 
@@ -47,7 +47,7 @@ public class GameServer {
      */
     private synchronized void initGameManager(HttpSession httpSession) {
         gameManager = (GameManager) httpSession.getServletContext().getAttribute(GameManager.class.getName());
-        if (gameManager == null) throw new RuntimeException("COULD NOT GET ROOMMATES");
+        if (gameManager == null) throw new RuntimeException("COULD NOT GET GAME MANAGER");
     }
 
     /**
@@ -60,10 +60,9 @@ public class GameServer {
         //System.out.println("message received: " + msg + this);
         PlayerJsonParser parser = new PlayerJsonParser(msg);
         String cmd = parser.getCommand();
-        String playerName = userConnectionMap.get(session);
 
         //reading playerName from msg is not arbitrary
-        //but is still neccessary from parser
+        //but is still necessary from parser
         parser.getPlayerName();
         int x = parser.getXCoord();
         int y = parser.getYCoord();
@@ -100,10 +99,6 @@ public class GameServer {
      */
     @OnClose
     public void onClose(Session session) {
-        String playerName = userConnectionMap.get(session);
-        if (playerName != null)
-            gameManager.removePlayer(userConnectionMap.get(session));
-        userConnectionMap.remove(session);
         System.out.println("connection closed with " + playerName);
     }
 

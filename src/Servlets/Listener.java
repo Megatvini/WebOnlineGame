@@ -45,6 +45,7 @@ public class Listener implements ServletContextListener,
         sce.getServletContext().setAttribute(MatchMaker.class.getName(),
                 new MatchingManager(roomMates, new FixedRoomSizeMatcherFactory()));
         sce.getServletContext().setAttribute(StartingGroup.class.getName(), new ConcurrentHashMap<>());
+        sce.getServletContext().setAttribute(GameManager.class.getName(), gameManager);
     }
 
     public void contextDestroyed(ServletContextEvent sce) {

@@ -69,21 +69,10 @@ public class GameServerTest {
         gameServer.open(sessionMock, configMock);
         gameServer.onMessage(initMessage, sessionMock);
         gameServer.onMessage(updateMessage, sessionMock);
+        gameServer.onClose(sessionMock);
+        gameServer.onError(sessionMock, new Throwable());
 
         verify(gameManagerMock).addPlayer(eq("rezo"), any());
-    }
-
-    @Test
-    public void testOnClose() throws Exception {
-        GameServer gameServer = new GameServer();
-        initMocks();
-
-        gameServer.open(sessionMock, configMock);
-        gameServer.onMessage(initMessage, sessionMock);
-        gameServer.onMessage(updateMessage, sessionMock);
-        gameServer.onClose(sessionMock);
-        verify(gameManagerMock).removePlayer("rezo");
-        gameServer.onError(sessionMock, new Throwable());
     }
 
     @Test
@@ -96,7 +85,7 @@ public class GameServerTest {
 
         verify(configMock, times(2)).getUserProperties();
         verify(userPropertiesMock, times(2)).get(HttpSession.class.getName());
-        verify(httpSessionMock).getServletContext();
-        verify(servletContextMock).getAttribute(GameManager.class.getName());
+        verify(httpSessionMock, times(2)).getServletContext();
+        verify(servletContextMock, times(2)).getAttribute(GameManager.class.getName());
     }
 }

@@ -64,6 +64,7 @@ public class GameManager {
                 world.getPlayers().forEach(x->{
                     roomMates.remove(x);
                     rooms.remove(x);
+                    connector.removeUser(x);
                 });
             }
         }), SERVICE_CANCEL_INTERVAL, SERVICE_CANCEL_INTERVAL, TimeUnit.MILLISECONDS);
