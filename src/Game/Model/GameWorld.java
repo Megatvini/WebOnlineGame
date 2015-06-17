@@ -62,13 +62,10 @@ public class GameWorld implements iWorld {
     private List<Point2D.Double> potions;
 
     // new potions to send by json
-    private ConcurrentMap<Point2D.Double, Integer> potsToAdd;
+    private Map<String, Set<Point2D.Double>> potsToAdd;
 
     // potions to remove from display, send as json
-    private List<Integer> potsToRemove;
-
-    // key to use for new pot
-    private int potKey;
+    private Map<String, List<Integer>> potsToRemove;
 
     // number of player added at one corners of game world
     private int playersAtCorner;
@@ -119,9 +116,8 @@ public class GameWorld implements iWorld {
         nameOnPlayer = new ConcurrentHashMap<>();
         activePlNum = 0;
         potions = Collections.synchronizedList(new ArrayList<>());
-        potsToAdd = new ConcurrentHashMap<>();
-        potsToRemove = Collections.synchronizedList(new ArrayList<>());
-        potKey = 0;
+        potsToAdd = new HashMap<>();
+        potsToRemove = new HashMap<>();
         players.forEach(p -> addPlayerAtCorner(p));
         for (int i = 0; i < startPotNum; i++) { addPotAtRandom(false); }
         if (startGame) { startGame(); }
@@ -250,7 +246,7 @@ public class GameWorld implements iWorld {
         shuffleArray(cells);
         boolean added = false;
         for (int i = 0; i < cells.length; i++) {
-            Cell nextRandCell = new Cell(i / numCols, i % numCols);
+            Cell nextRandCell = new Cell(cells[i] / numCols, cells[i] % numCols);
             if ((cornerAllowed || !isCorner(nextRandCell)) && addPotInCell(nextRandCell)) {
                 added = true;
                 break;
@@ -272,16 +268,17 @@ public class GameWorld implements iWorld {
                 c.col < 0 || c.col > numCols - 1) {
             throw new RuntimeException("Cell is out of bounds!");
         }
-        Point2D.Double pot = null;
+        boolean added = false;
         for (int i = 0; i < Integer.MAX_VALUE; i++) {
-            pot = randOvalInCell(c, potRadius);
+            final Point2D.Double pot = randOvalInCell(c, potRadius);
             if (!potionConflicts(pot)) {
                 potions.add(pot);
-                potsToAdd.put(pot, potKey++);
+                potsToAdd.forEach((name, set) -> set.add(pot));
+                added = true;
                 break;
             }
         }
-        return pot != null;
+        return added;
     }
 
     /**
@@ -350,6 +347,7 @@ public class GameWorld implements iWorld {
             if (!playerConflicts(p)) {
                 placeFound = true;
                 nameOnPlayer.put(p.getName(), p);
+                initUpdateVars(p.getName());
                 activePlNum++;
                 break;
             }
@@ -409,6 +407,11 @@ public class GameWorld implements iWorld {
             }
             return false;
         });
+    }
+
+    private void initUpdateVars(String name) {
+        potsToAdd.put(name, Collections.synchronizedSet(new HashSet<>()));
+        potsToRemove.put(name, Collections.synchronizedList(new ArrayList<>()));
     }
 
     /**
@@ -512,7 +515,7 @@ public class GameWorld implements iWorld {
     private synchronized boolean addPotAtRand() {
         Point2D.Double pot = randOval(potRadius);
         potions.add(pot);
-        potsToAdd.put(pot, potKey++);
+        potsToAdd.forEach((name, set) -> set.add(pot));
         playersPot(pot);
         gameOnCheck();
         return true;
@@ -539,7 +542,7 @@ public class GameWorld implements iWorld {
 
         p.setPosition(x, y);
 
-        //potionsPlayer(p);
+        potionsPlayer(p);
         playersPlayer(p);
         gameOnCheck();
         return true;
@@ -567,6 +570,7 @@ public class GameWorld implements iWorld {
             if (!p.equals(player) &&
                     player.getActive() &&
                     distance(plPos.x + pRadius, plPos.y + pRadius, otherPlPos.x + pRadius, otherPlPos.y + pRadius) < dist) {
+                System.out.println("mover name: " + p.getName() + ":" + p.getPotNum() + ", ith's name: " + player.getName()  + ":" + player.getPotNum());
                 if (p.getPotNum() > player.getPotNum()) {
                     kickPlayer(p, player);
                     playersPlayer(p);
@@ -589,7 +593,7 @@ public class GameWorld implements iWorld {
                 if (distance(plPos.x + pRadius, plPos.y + pRadius, pot.x + potRadius, pot.y + potRadius) < pRadius + potRadius) {
                     p.potionPlus();
                     potions.remove(pot);
-                    potsToRemove.add(potsToAdd.get(pot));
+                    potsToRemove.forEach((name, list) -> list.add(pot.hashCode()));
                     playersPlayer(p);
                     return true;
                 }
@@ -610,8 +614,8 @@ public class GameWorld implements iWorld {
                 Point2D.Double nextPot = potIt.next();
                 if (distance(pos.x + pRadius, pos.y + pRadius, nextPot.x + potRadius, nextPot.y + potRadius) < pRadius + potRadius) {
                     player.potionPlus();
-                    potsToRemove.add(potsToAdd.get(nextPot));
                     potIt.remove();
+                    potsToRemove.forEach((name, list) -> list.add(nextPot.hashCode()));
                     if (!somePotTaken) {
                         somePotTaken = true;
                     }
@@ -858,23 +862,23 @@ public class GameWorld implements iWorld {
 
         // create and add json addPots' array
         JsonArrayBuilder addPotsJson = factory.createArrayBuilder();
-        synchronized (potsToAdd) {
-            potsToAdd.keySet().forEach(key -> {
+        synchronized (potsToAdd.get(playerName)) {
+            potsToAdd.get(playerName).forEach(pot -> {
                 JsonObjectBuilder potJson = factory.createObjectBuilder();
-                potJson.add("id", potsToAdd.get(key))
-                        .add("x", key.getX())
-                        .add("y", key.getY());
+                potJson.add("id", pot.hashCode())
+                        .add("x", pot.getX())
+                        .add("y", pot.getY());
                 addPotsJson.add(potJson);
             });
-            potsToAdd.clear();
+            potsToAdd.get(playerName).clear();
             updateJson.add("addPots", addPotsJson);
         }
 
 
         // create and add json removePots' array
         JsonArrayBuilder removePotsJson = factory.createArrayBuilder();
-        synchronized (potsToRemove) {
-            Iterator<Integer> idIt = potsToRemove.iterator();
+        synchronized (potsToRemove.get(playerName)) {
+            Iterator<Integer> idIt = potsToRemove.get(playerName).iterator();
             while (idIt.hasNext()) {
                 removePotsJson.add(idIt.next());
                 idIt.remove();
