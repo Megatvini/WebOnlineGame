@@ -2,6 +2,10 @@ package Servlets;
 /**
  * Created by Nika on 17:26, 5/26/2015.
  */
+import Game.Controller.GameFactory;
+import Game.Controller.GameManager;
+import Game.Controller.GameServer;
+import Game.Controller.UserConnector;
 import MatchMaking.FixedRoomSizeMatcherFactory;
 import MatchMaking.MatchingManager;
 import MatchMaking.StartingGroup;
@@ -15,6 +19,7 @@ import javax.servlet.http.HttpSessionListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 @WebListener()
 public class Listener implements ServletContextListener,
@@ -33,6 +38,9 @@ public class Listener implements ServletContextListener,
          You can initialize servlet context related data here.
       */
         Map<String, Collection<String>> roomMates = Collections.synchronizedMap(new HashMap<>());
+        GameManager gameManager = new GameManager(roomMates, new GameFactory(), new UserConnector(),
+                new ScheduledThreadPoolExecutor(GameServer.WORKING_THREAD_NUMBER));
+
         sce.getServletContext().setAttribute("roomMates", roomMates);
         sce.getServletContext().setAttribute(MatchMaker.class.getName(),
                 new MatchingManager(roomMates, new FixedRoomSizeMatcherFactory()));

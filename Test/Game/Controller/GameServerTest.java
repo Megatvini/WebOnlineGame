@@ -33,6 +33,7 @@ public class GameServerTest {
     private EndpointConfig configMock;
     private Map userPropertiesMock;
     private Session sessionMock;
+    private GameManager gameManagerMock;
 
     private void initMocks() {
         httpSessionMock = mock(HttpSession.class);
@@ -41,42 +42,40 @@ public class GameServerTest {
         configMock = mock(EndpointConfig.class);
         userPropertiesMock = mock(Map.class);
         sessionMock = mock(Session.class);
+        gameManagerMock = mock(GameManager.class);
 
         when(configMock.getUserProperties()).thenReturn(userPropertiesMock);
-        when(userPropertiesMock.get("httpSession")).thenReturn(httpSessionMock);
+        when(userPropertiesMock.get(HttpSession.class.getName())).thenReturn(httpSessionMock);
         when(httpSessionMock.getAttribute("userName")).thenReturn("rezo");
         when(httpSessionMock.getServletContext()).thenReturn(servletContextMock);
-        when(servletContextMock.getAttribute("roomMates")).thenReturn(roomMates);
+        when(servletContextMock.getAttribute(GameManager.class.getName())).thenReturn(gameManagerMock);
     }
 
     @Test
     public void testOnMessage() throws Exception {
-        GameManager gameManager = mock(GameManager.class);
-        GameServer gameServer = new GameServer(gameManager);
+        GameServer gameServer = new GameServer();
         initMocks();
 
         gameServer.open(sessionMock, configMock);
         gameServer.onMessage(initMessage, sessionMock);
-        verify(gameManager).addPlayer(eq("rezo"), any());
+        verify(gameManagerMock).addPlayer(eq("rezo"), any());
     }
 
     @Test
     public void testOnMessage1() throws Exception {
-        GameManager gameManager = mock(GameManager.class);
-        GameServer gameServer = new GameServer(gameManager);
+        GameServer gameServer = new GameServer();
         initMocks();
 
         gameServer.open(sessionMock, configMock);
         gameServer.onMessage(initMessage, sessionMock);
         gameServer.onMessage(updateMessage, sessionMock);
 
-        verify(gameManager).addPlayer(eq("rezo"), any());
+        verify(gameManagerMock).addPlayer(eq("rezo"), any());
     }
 
     @Test
     public void testOnClose() throws Exception {
-        GameManager gameManagerMock = mock(GameManager.class);
-        GameServer gameServer = new GameServer(gameManagerMock);
+        GameServer gameServer = new GameServer();
         initMocks();
 
         gameServer.open(sessionMock, configMock);
@@ -89,15 +88,15 @@ public class GameServerTest {
 
     @Test
     public void testWithRoomMates() {
-        GameServer gameServer = new GameServer();
         initMocks();
+        GameServer gameServer = new GameServer();
 
         gameServer.open(sessionMock, configMock);
         gameServer.open(sessionMock, configMock);
 
         verify(configMock, times(2)).getUserProperties();
-        verify(userPropertiesMock, times(2)).get("httpSession");
+        verify(userPropertiesMock, times(2)).get(HttpSession.class.getName());
         verify(httpSessionMock).getServletContext();
-        verify(servletContextMock).getAttribute("roomMates");
+        verify(servletContextMock).getAttribute(GameManager.class.getName());
     }
 }

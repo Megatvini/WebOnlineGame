@@ -12,19 +12,17 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 @ServerEndpoint(value="/game", configurator=ServerConfig.class)
 public class GameServer {
-    private static GameManager gameManager;
+    public static final int WORKING_THREAD_NUMBER = 10;
+    private GameManager gameManager;
     private static ConcurrentMap<Session, String> userConnectionMap = new ConcurrentHashMap<>();
-    private static final int WORKING_THREAD_NUMBER = 10;
-
     /**
      * constructor only used for testing purposes
      * @param manager
      */
-    public GameServer(GameManager manager) {
-        gameManager = manager;
-    }
 
-
+    /**
+     * default constructor
+     */
     public GameServer() {
 
     }
@@ -37,7 +35,7 @@ public class GameServer {
         userConnectionMap.put(session, userName);
 
         //initialize gameManager only once
-        if (gameManager == null) RoomMateMap(httpSession);
+        if (gameManager == null) initGameManager(httpSession);
         System.out.println("someone connected " + session + " http: " + httpSession);
     }
 
@@ -47,12 +45,9 @@ public class GameServer {
      * playing rooms
      * @param httpSession is needed to get ServletContext
      */
-    private synchronized void RoomMateMap(HttpSession httpSession) {
-        Map<String, Collection<String>> roomMates = (Map<String, Collection<String>>)
-                httpSession.getServletContext().getAttribute("roomMates");
-        gameManager = new GameManager(roomMates, new GameFactory(), new UserConnector(),
-                new ScheduledThreadPoolExecutor(WORKING_THREAD_NUMBER));
-        if (roomMates == null) throw new RuntimeException("COULD NOT GET ROOMMATES");
+    private synchronized void initGameManager(HttpSession httpSession) {
+        gameManager = (GameManager) httpSession.getServletContext().getAttribute(GameManager.class.getName());
+        if (gameManager == null) throw new RuntimeException("COULD NOT GET ROOMMATES");
     }
 
     /**
@@ -115,6 +110,6 @@ public class GameServer {
     @OnError
     public void onError(Session session, Throwable t) {
         System.out.println("OnError");
-        t.printStackTrace();
+        //t.printStackTrace();
     }
 }
