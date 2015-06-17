@@ -3,29 +3,36 @@ package Game.Model;
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
 import java.awt.geom.Point2D;
+import java.util.Random;
 
 /**
  * Created by SHAKO on 03-Jun-15.
  */
 public class Player {
-
-    private String name;
+    private static Random rand = new Random();
 
     private boolean active;
 
-    private int potNum;
+    private String name;
 
+    private int potNum;
+    
     private  double x;
     private double y;
 
-    public Player(String name){
-        this(name, true, 0);
+    private int type;
+
+    int place;
+
+    public Player(String name, int type){
+        this(name, true, 0, type);
     }
 
-    public Player(String name, boolean active, int potNum) {
+    public Player(String name, boolean active, int potNum, int type) {
         this.name = name;
         this.active = active;
         this.potNum = potNum;
+        this.type = type;
     }
 
     public String getName() {
@@ -68,6 +75,30 @@ public class Player {
     public void setPosition(Point2D.Double loc) {
         x = loc.x;
         y = loc.y;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setPlace(int place) {
+        this.place = place;
+    }
+
+    public int getPlace() {
+        return place;
+    }
+
+    public static Player getWinner(Player p1, Player p2) {
+        if (p1.potNum > p2.potNum) {
+            return p1;
+        } else if (p2.potNum > p1.potNum) {
+            return p2;
+        }else if (rand.nextBoolean()) {
+            return p1;
+        } else {
+            return p2;
+        }
     }
 
     @Override

@@ -76,6 +76,9 @@ public class GameWorld implements iWorld {
     // when game starts, starts two task in background thread: potion addition, player distance increment
     private Timer timer;
 
+    // collection to record places of players, who lose earlier has lower index
+    Collection<String> plPlaces;
+
     /**
      * constructor for testing purposes only
      */
@@ -118,6 +121,7 @@ public class GameWorld implements iWorld {
         potions = Collections.synchronizedList(new ArrayList<>());
         potsToAdd = new HashMap<>();
         potsToRemove = new HashMap<>();
+        plPlaces = Collections.synchronizedList(new ArrayList<>());
         players.forEach(p -> addPlayerAtCorner(p));
         for (int i = 0; i < startPotNum; i++) { addPotAtRandom(false); }
         if (startGame) { startGame(); }
@@ -166,7 +170,7 @@ public class GameWorld implements iWorld {
                 nameOnPlayer.keySet().contains(name)) {
             return false;
         }
-        Player p = new Player(name);
+        Player p = new Player(name, nameOnPlayer.size());
         boolean added = false;
         for (int i = playersAtCorner; i < CORNER_NUM; i++) {
             if (tryPlayerInCell(p, getCornerCell(i))) {
@@ -210,7 +214,7 @@ public class GameWorld implements iWorld {
      * @return true iff player added
      */
     public synchronized boolean addPlayerInCell(String name, Cell c) {
-        Player p = new Player(name);
+        Player p = new Player(name, nameOnPlayer.size());
         boolean placeFound = false;
         if (tryPlayerInCell(p, c)) {
             placeFound = true;
@@ -411,6 +415,9 @@ public class GameWorld implements iWorld {
 
     private void initUpdateVars(String name) {
         potsToAdd.put(name, Collections.synchronizedSet(new HashSet<>()));
+        potions.forEach(pot -> {
+            potsToAdd.forEach((playerName, list) -> list.add(pot));
+        });
         potsToRemove.put(name, Collections.synchronizedList(new ArrayList<>()));
     }
 
@@ -571,15 +578,14 @@ public class GameWorld implements iWorld {
                     player.getActive() &&
                     distance(plPos.x + pRadius, plPos.y + pRadius, otherPlPos.x + pRadius, otherPlPos.y + pRadius) < dist) {
                 System.out.println("mover name: " + p.getName() + ":" + p.getPotNum() + ", ith's name: " + player.getName()  + ":" + player.getPotNum());
-                if (p.getPotNum() > player.getPotNum()) {
+                if (Player.getWinner(p, player).equals(p)) {
                     kickPlayer(p, player);
                     playersPlayer(p);
-                    return true;
-                } else if (p.getPotNum() < player.getPotNum()) {
+                } else {
                     kickPlayer(player, p);
                     playersPlayer(player);
-                    return true;
                 }
+                return true;
             }
         }
         return false;
@@ -635,6 +641,7 @@ public class GameWorld implements iWorld {
 
     private void kickPlayer(Player kicker, Player toKick) {
         toKick.setActive(false);
+        plPlaces.add(toKick.getName());
         if (state == State.RUNNING) {
             kicker.setPotNum(kicker.getPotNum() + potForKick);
         }
@@ -810,6 +817,17 @@ public class GameWorld implements iWorld {
         return Collections.unmodifiableCollection(nameOnPlayer.keySet());
     }
 
+    /**
+     * returns collection in which are kicked players, player which
+     * lose earlier has lower index
+     *
+     * @return collection of kicked players, player which lose earlier has lower index
+     */
+    @Override
+    public Collection<String> playerPlaces() {
+        return Collections.unmodifiableCollection(plPlaces);
+    }
+
     @Override
     public boolean isFinished() {
         return state == State.FINISHED;
@@ -822,6 +840,19 @@ public class GameWorld implements iWorld {
         JsonObjectBuilder initJson = factory.createObjectBuilder();
 
         initJson.add("type", "INIT");
+
+        JsonArrayBuilder plTypesJson = factory.createArrayBuilder();
+        Iterator<String> plIt = nameOnPlayer.keySet().iterator();
+        while (plIt.hasNext()) {
+            String nextName = plIt.next();
+            JsonObjectBuilder plTypeJson = factory.createObjectBuilder();
+            plTypeJson.add("name", nextName)
+                    .add("type", nameOnPlayer.get(nextName).getType());
+
+            plTypesJson.add(plTypeJson);
+        }
+        initJson.add("playerTypes", plTypesJson);
+
 
         JsonObjectBuilder mazeJson = pm.toJsonBuilder();
         initJson.add("planeMaze", mazeJson);
