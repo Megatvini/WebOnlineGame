@@ -293,7 +293,8 @@ function parsePotions(addPots,removePots) {
 			.mount(self.scene1);
 	}
 	for(i = 0 ; i < removePots.length; i ++){
-		id = removePots[i].id;
+		//console.log(removePots[i].id);
+		id = removePots[i];
 		potions[id].destroy();
 	}
 
