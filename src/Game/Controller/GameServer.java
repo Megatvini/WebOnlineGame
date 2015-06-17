@@ -45,7 +45,7 @@ public class GameServer {
      * playing rooms
      * @param httpSession is needed to get ServletContext
      */
-    private synchronized void initGameManager(HttpSession httpSession) {
+    private void initGameManager(HttpSession httpSession) {
         gameManager = (GameManager) httpSession.getServletContext().getAttribute(GameManager.class.getName());
         if (gameManager == null) throw new RuntimeException("COULD NOT GET GAME MANAGER");
     }

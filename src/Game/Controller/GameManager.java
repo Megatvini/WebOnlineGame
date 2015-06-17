@@ -79,14 +79,16 @@ public class GameManager {
      */
     public void addPlayer(String playerName, Session playerConnection) {
         connector.addUser(playerName, playerConnection);
-        if (rooms.get(playerName) == null) {
-            iWorld world = gameFactory.getNewInstance();
-            world.addPlayerAtCorner(playerName);
-            Collection<String> mates = roomMates.get(playerName);
-            mates.forEach(player->rooms.put(player, world));
-        } else {
-            iWorld world = rooms.get(playerName);
-            world.addPlayerAtCorner(playerName);
+        synchronized (roomMates) {
+            if (rooms.get(playerName) == null) {
+                iWorld world = gameFactory.getNewInstance();
+                world.addPlayerAtCorner(playerName);
+                Collection<String> mates = roomMates.get(playerName);
+                mates.forEach(player->rooms.put(player, world));
+            } else {
+                iWorld world = rooms.get(playerName);
+                world.addPlayerAtCorner(playerName);
+            }
         }
         sendInit(playerName);
         checkIfRoomIsFull(playerName);

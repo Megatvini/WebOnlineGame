@@ -37,7 +37,7 @@ public class Listener implements ServletContextListener,
          initialized(when the Web application is deployed). 
          You can initialize servlet context related data here.
       */
-        Map<String, Collection<String>> roomMates = Collections.synchronizedMap(new HashMap<>());
+        Map<String, Collection<String>> roomMates = new ConcurrentHashMap<>();
         GameManager gameManager = new GameManager(roomMates, new GameFactory(), new UserConnector(),
                 new ScheduledThreadPoolExecutor(GameServer.WORKING_THREAD_NUMBER));
 
