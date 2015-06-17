@@ -78,7 +78,7 @@ public interface iWorld {
      * lose earlier has lower index
      * @return collection of kicked players, player which lose earlier has lower index
      */
-    Collection<String> playerPlaces();
+    List<String> playerPlaces();
 
     /**
      * @return game state on or not.

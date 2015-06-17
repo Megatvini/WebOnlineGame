@@ -77,7 +77,7 @@ public class GameWorld implements iWorld {
     private Timer timer;
 
     // collection to record places of players, who lose earlier has lower index
-    Collection<String> plPlaces;
+    List<String> plPlaces;
 
     /**
      * constructor for testing purposes only
@@ -577,7 +577,6 @@ public class GameWorld implements iWorld {
             if (!p.equals(player) &&
                     player.getActive() &&
                     distance(plPos.x + pRadius, plPos.y + pRadius, otherPlPos.x + pRadius, otherPlPos.y + pRadius) < dist) {
-                System.out.println("mover name: " + p.getName() + ":" + p.getPotNum() + ", ith's name: " + player.getName()  + ":" + player.getPotNum());
                 if (Player.getWinner(p, player).equals(p)) {
                     kickPlayer(p, player);
                     playersPlayer(p);
@@ -634,7 +633,7 @@ public class GameWorld implements iWorld {
 
     private void gameOnCheck() {
         if (activePlNum < 2) {
-            System.out.println("game overed");
+            System.out.println("game over");
             finishGame();
         }
     }
@@ -824,8 +823,8 @@ public class GameWorld implements iWorld {
      * @return collection of kicked players, player which lose earlier has lower index
      */
     @Override
-    public Collection<String> playerPlaces() {
-        return Collections.unmodifiableCollection(plPlaces);
+    public List<String> playerPlaces() {
+        return Collections.unmodifiableList(plPlaces);
     }
 
     @Override

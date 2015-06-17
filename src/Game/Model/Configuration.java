@@ -125,11 +125,15 @@ public class Configuration {
      */
     private void checkConfig() {
         if (2 * pRadius > cellWidth || 2 * pRadius > cellHeight) {
-            throw new RuntimeException("Player radius is too large for corridor");
+            throw new RuntimeException("Player's diameter is too large for corridor, player's Diameter: " + 2 * pRadius
+                    + ", cell's Width: " + cellWidth
+                    + ", cell's Height: " + cellHeight);
         }
 
         if (2 * potRadius > cellWidth || 2 * potRadius > cellHeight) {
-            throw new RuntimeException("Potion radius is too large for corridor");
+            throw new RuntimeException("Potion's diameter is too large for corridor, potion's Diameter: " + 2 * pRadius
+                    + ", cell's Width: " + cellWidth
+                    + ", cell's Height: " + cellHeight);
         }
     }
 
