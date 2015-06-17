@@ -840,15 +840,11 @@ public class GameWorld implements iWorld {
 
         initJson.add("type", "INIT");
 
-        JsonArrayBuilder plTypesJson = factory.createArrayBuilder();
+        JsonObjectBuilder plTypesJson = factory.createObjectBuilder();
         Iterator<String> plIt = nameOnPlayer.keySet().iterator();
         while (plIt.hasNext()) {
             String nextName = plIt.next();
-            JsonObjectBuilder plTypeJson = factory.createObjectBuilder();
-            plTypeJson.add("name", nextName)
-                    .add("type", nameOnPlayer.get(nextName).getType());
-
-            plTypesJson.add(plTypeJson);
+            plTypesJson.add(nextName, nameOnPlayer.get(nextName).getType());
         }
         initJson.add("playerTypes", plTypesJson);
 

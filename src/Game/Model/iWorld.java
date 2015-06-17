@@ -97,5 +97,5 @@ public interface iWorld {
      * potions stop to add, minimum distance, player can approach other
      * without risk of kicking one of them, will stop increase
      */
-    void finishGame(); //@@ aq safiqralia kide
+    void finishGame();
 }
