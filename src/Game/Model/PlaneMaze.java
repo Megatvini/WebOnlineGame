@@ -29,7 +29,7 @@ public class PlaneMaze {
      * awd
      */
     public PlaneMaze(int numRows, int numCols) {
-        rand.setSeed(1);
+
         try {
             if (numRows < 0 || numCols < 0) {
                 throw new Exception("Number of rows and number of columns must be equal or greater than zero!");

@@ -143,11 +143,11 @@ var IgeTiledComponent = IgeClass.extend({
 			onLoadFunc = function (textures, tileSetCount, tileSetItem) {
 				return function () {
 					var i, cc,
-						cs = new IgeCellSheet(tileSetItem.image, this.width / tileSetItem.tilewidth, this.height / tileSetItem.tileheight)
+						cs = new IgeCellSheet(tileSetItem.image, 1, 1)
 							.id(tileSetItem.name)
 							.on('loaded', function () {
 								cc = this.cellCount();
-
+								console.log("------------------------"+cc);
 								this._tiledStartingId = tileSetItem.firstgid;
 								// Fill the lookup array
 								for (i = 0; i < cc; i++) {
