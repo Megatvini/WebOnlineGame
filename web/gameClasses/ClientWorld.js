@@ -14,8 +14,6 @@ var ClientWorld = {
             .id('uiScene')
             .ignoreCamera(true)
             .mount(this.mainScene);
-
-
         // Create UI elements
         new IgeFontEntity()
             .texture(ige.client.textures.font)
