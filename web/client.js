@@ -96,7 +96,7 @@ function initSocket() {
 		console.log('Error detected: ' + error);
 	};
 	connection.onmessage = function(e){
-		//console.log(e.data);
+		console.log(e.data);
 		var snapShot = JSON.parse(e.data);
 		handler(snapShot);
 

@@ -10,22 +10,6 @@ var ClientWorld = {
         this.objectScene = new IgeScene2d()
             .id('objectScene')
             .mount(this.mainScene);
-
-
-        self.tileMap1 = new IgeTileMap2d()
-            .id('tileMap1')
-            .depth(0)
-            .tileWidth(ige.client.gameConfig.width)
-            .tileHeight(ige.client.gameConfig.width)
-            .drawGrid(1)
-            //.drawMouse(true)
-            .translateTo(0, 0, 0)
-            .highlightOccupied(true)
-            .drawBounds(false)
-            .mount(ige.client.mainScene);
-
-
-
         this.uiScene = new IgeScene2d()
             .id('uiScene')
             .ignoreCamera(true)
