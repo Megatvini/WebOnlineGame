@@ -106,12 +106,30 @@ public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
             arr[i] = temp;
         }
     }
+
+    static int p = 0;
+    public static void printSubsets(String s, int k) {
+        if (k == 0) {
+            p++;
+            System.out.println(s);
+            return;
+        }
+        printSubsets(s, k - 1);
+        printSubsets(s + k, k - 1);
+    }
+
     public static void main(String s[]) {
         Configuration config = Configuration.getInstance();
-        PlaneMaze pm = new PlaneMaze(config.getNumRows(), config.getNumCols());
+        GameMaze pm = new GameMaze(config.getNumRows(), config.getNumCols(), config);
         GameWorld gw = new GameWorld(pm, config);
         gw.addPlayerAtCorner("nika");
         gw.addPlayerAtCorner("rezo");
+        gw.addPlayerAtCorner("rezo");
+        gw.addPlayerAtCorner("andro");
+
+        System.out.println(gw.getInit());
+        gw.startGame();
+        System.out.println(gw.getUpdate("nika"));
 
 
 

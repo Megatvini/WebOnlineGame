@@ -19,8 +19,8 @@ public class PlaneMaze {
 
     private CellInner[][] cells;
 
-    private int numRows;
-    private int numCols;
+    protected int numRows;
+    protected int numCols;
 
     /**
      * @@ have to rewrite all comments including this ofc

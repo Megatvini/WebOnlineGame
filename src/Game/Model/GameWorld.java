@@ -14,61 +14,31 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class GameWorld implements iWorld {
 
-    // file name to read configuration info from
-    private static final String fileName = "ConfigFile.properties";
-
-    // number of corners of game map
-    private static final int CORNER_NUM = 4;
-
-    // random instance to generate pseudo random stuff
-    private static final Random rand = new Random();
-
     // enum of states of this class instance
     enum State {NEW, RUNNING, FINISHED}
 
 
-    // variables to read from configuration object
     private int maxPlayers;
-    private int numRows;
-    private int numCols;
-    private double width;
-    private double height;
-    private double wallWidth;
-    private double pRadius;
-    private double maxMove;
-    private double startDist;
     private double plusDist;
     private long plusDistDelay;
-    private double potRadius;
     private int startPotNum;
     private long addPotDelay;
     private int potForKick;
-    private double cellWidth;
-    private double cellHeight;
 
     // state of this class
     private State state;
 
     // maze object which has raw info about maze for this game world
-    private PlaneMaze pm;
-
-    // getting starting value from configuration info for dist
-    private double dist;
+    private GameMaze gm;
 
     // fill depended on info passed in constructor
     private ConcurrentMap<String, Player> nameOnPlayer;
-
-    // coordinates of potions, up-left point of rect surrounding circle
-    private List<Point2D.Double> potions;
 
     // new potions to send by json
     private Map<String, Set<Point2D.Double>> potsToAdd;
 
     // potions to remove from display, send as json
     private Map<String, List<Integer>> potsToRemove;
-
-    // number of player added at one corners of game world
-    private int playersAtCorner;
 
     // getting value according to number of active players
     private int activePlNum;
@@ -82,10 +52,9 @@ public class GameWorld implements iWorld {
     /**
      * constructor for testing purposes only
      */
-    public GameWorld(PlaneMaze pm, Configuration config, ConcurrentMap<String, Player> nameOnPlayer, List<Point2D.Double> potions, State state) {
-        this(new ArrayList<>(), pm, config, false);
+    public GameWorld(GameMaze gm, Configuration config, ConcurrentMap<String, Player> nameOnPlayer, List<Point2D.Double> potions, State state) {
+        this(new ArrayList<>(), gm, config, false);
         this.nameOnPlayer = nameOnPlayer;
-        this.potions = potions;
         this.state = state;
     }
 
@@ -96,10 +65,10 @@ public class GameWorld implements iWorld {
 
     /**
      * @@ have to rewrite all comments including this ofc
-     * @@ plane maze sizes have to match this' static sizes(numRows, numCols)
+     * @@ plane maze sizes have to match this' static? sizes(numRows, numCols)
      */
-    public GameWorld(PlaneMaze pm, Configuration config) {
-        this(new ArrayList<>(), pm, config, false);
+    public GameWorld(GameMaze gm, Configuration config) {
+        this(new ArrayList<>(), gm, config, false);
     }
 
 
@@ -108,17 +77,15 @@ public class GameWorld implements iWorld {
      * variable, iff game is on: players cannot move from old distance on too far new distances, request
      * will be just ignored, player will be on same place; cannot add new players; cannot start game(again).
      * @param players names of players ki bijos
-     * @param pm abstract representation of maze, represents some maze and we can check where are and where are not walls
+     * @param gm abstract representation of maze, represents some maze and we can check where are and where are not walls
      * @param startGame user tells to start game or not. if true passed game will start at the end of constructor.
      */
-    public GameWorld(Collection<String> players, PlaneMaze pm, Configuration config, boolean startGame) {
+    public GameWorld(Collection<String> players, GameMaze gm, Configuration config, boolean startGame) {
         state = State.NEW;
-        this.pm = pm;
+        this.gm = gm;
         readConfig(config);
-        dist = startDist;
         nameOnPlayer = new ConcurrentHashMap<>();
         activePlNum = 0;
-        potions = Collections.synchronizedList(new ArrayList<>());
         potsToAdd = new HashMap<>();
         potsToRemove = new HashMap<>();
         plPlaces = Collections.synchronizedList(new ArrayList<>());
@@ -133,22 +100,11 @@ public class GameWorld implements iWorld {
      */
     private void readConfig(Configuration config) {
         maxPlayers = config.getMaxPlayers();
-        numRows = config.getNumRows();
-        numCols = config.getNumCols();
-        width = config.getWidth();
-        height = config.getHeight();
-        wallWidth = config.getWallWidth();
-        pRadius = config.getPRadius();
-        maxMove = config.getMaxMove();
-        startDist = config.getStartDist();
         plusDist = config.getPlusDist();
         plusDistDelay = config.getPlusDistDelay();
-        potRadius = config.getPotRadius();
         startPotNum = config.getStartPotNum();
         addPotDelay = config.getAddPotDelay();
         potForKick = config.getPotForKick();
-        cellWidth = config.getCellWidth();
-        cellHeight = config.getCellHeight();
     }
 
     /* game creation methods, before start */
@@ -166,20 +122,12 @@ public class GameWorld implements iWorld {
      */
     @Override
     public synchronized boolean addPlayerAtCorner(String name) {
-        if (nameOnPlayer.size() >= maxPlayers ||
-                nameOnPlayer.keySet().contains(name)) {
-            return false;
+        if (!canAddPlayer(name)) { return false; }
+        if (gm.addPlayerAtCorner(name)){
+            addPlayer(new Player(name, nameOnPlayer.size()));
+            return true;
         }
-        Player p = new Player(name, nameOnPlayer.size());
-        boolean added = false;
-        for (int i = playersAtCorner; i < CORNER_NUM; i++) {
-            if (tryPlayerInCell(p, getCornerCell(i))) {
-                playersAtCorner++;
-                added = true;
-                break;
-            }
-        }
-        return added;
+        return false;
     }
 
 
@@ -194,11 +142,11 @@ public class GameWorld implements iWorld {
      * @return true iff player added
      */
     public synchronized boolean addPlayerAtRandom(String name) {
-        if (nameOnPlayer.size() >= maxPlayers ||
-                nameOnPlayer.keySet().contains(name)) {
-            return false;
+        if (!canAddPlayer(name)) { return false; }
+        if (gm.addPlayerAtRandom(name)){
+            addPlayer(new Player(name, nameOnPlayer.size()));
+            return true;
         }
-        // TODO method code bitch !
         return false;
     }
 
@@ -214,268 +162,49 @@ public class GameWorld implements iWorld {
      * @return true iff player added
      */
     public synchronized boolean addPlayerInCell(String name, Cell c) {
-        Player p = new Player(name, nameOnPlayer.size());
-        boolean placeFound = false;
-        if (tryPlayerInCell(p, c)) {
-            placeFound = true;
-            if (isCorner(c)) {
-                playersAtCorner++;
-            }
+        if (!canAddPlayer(name)) { return false; }
+        if (gm.addPlayerInCell(name, c)){
+            addPlayer(new Player(name, nameOnPlayer.size()));
+            return true;
         }
-        return placeFound;
+        return false;
     }
 
-    /**
-     * removes player from game, if game does not contain player with given name
-     * null will be returned.
-     * @param name name of player to remove from game if is in game
-     * @return player which has given name, or null if there is no player with given name
-     */
-    public synchronized Player removePlayer(String name) {
-        return nameOnPlayer.remove(name);
+    private boolean canAddPlayer(String name) {
+        return state == State.NEW
+                && nameOnPlayer.size() < maxPlayers
+                && !nameOnPlayer.keySet().contains(name);
     }
 
-
-    /**
-     * Tries to add potion in random cell, on random position. If potion
-     * with some position conflicts with one of players(i.e. potion intersects with
-     * one of players) tries another cell xor position.
-     * @return true iff potion added
-     */
-    public synchronized boolean addPotAtRandom(boolean cornerAllowed) {
-        Integer[] cells = new Integer[numRows * numCols];
-        for (int i = 0; i < numRows * numCols; i++) {
-            cells[i] = i;
-        }
-        shuffleArray(cells);
-        boolean added = false;
-        for (int i = 0; i < cells.length; i++) {
-            Cell nextRandCell = new Cell(cells[i] / numCols, cells[i] % numCols);
-            if ((cornerAllowed || !isCorner(nextRandCell)) && addPotInCell(nextRandCell)) {
-                added = true;
-                break;
-            }
-        }
-        return added;
-    }
-
-    /**
-     * Tries to add potion in given cell, on random position. If potion
-     * with some position conflicts with one of players(i.e. potion intersects with
-     * one of players) tries another position. If cell is out of bounds of game map
-     * proper runtime exception will be thrown.
-     * @param c cell to add new potion in
-     * @return true iff potion added
-     */
-    public synchronized boolean addPotInCell(Cell c) {
-        if (c.row < 0 || c.row > numRows - 1 ||
-                c.col < 0 || c.col > numCols - 1) {
-            throw new RuntimeException("Cell is out of bounds!");
-        }
-        boolean added = false;
-        for (int i = 0; i < Integer.MAX_VALUE; i++) {
-            final Point2D.Double pot = randOvalInCell(c, potRadius);
-            if (!potionConflicts(pot)) {
-                potions.add(pot);
-                potsToAdd.forEach((name, set) -> set.add(pot));
-                added = true;
-                break;
-            }
-        }
-        return added;
-    }
-
-    /**
-     * removes last added potion, or null if there are no potions
-     * @return last added potion or null if there are no potions
-     */
-    public synchronized Point2D.Double removeLastPot() {
-        if (potions.size() <= 0) {
-            return null;
-        }
-        return potions.remove(potions.size() - 1);
-    }
-
-    /* helper methods for game creation methods */
-
-    /**
-     * Gets cell for index-th corner of maze, 0th is up-left,
-     * indexing is clockwise, index must be in [0, 3] interval,
-     * if not runtime exeption will be thrown.
-     * @param index index of corner cell to be returned
-     * @return cell for index-th corner of maze
-     */
-    private Cell getCornerCell(int index) {
-        Cell c;
-        switch (index) {
-            case 0:
-                c = new Cell(0, 0);
-                break;
-            case 1:
-                c = new Cell(0, numCols - 1);
-                break;
-            case 2:
-                c = new Cell(numRows - 1, numCols - 1);
-                break;
-            case 3:
-                c = new Cell(numRows - 1, 0);
-                break;
-            default:
-                throw new RuntimeException("Index must be in [0, 3] interval!");
-        }
-        return c;
-    }
-
-    /**
-     * Tries to add player in given cell on some random location, if player conflicts with
-     * one of players(i.e. it is near to one of player then determined distance and those two
-     * have different count of potions) or potion(i.e. it overlaps one of potions) does not adds.
-     * If cell is out of game map bounds runtime exception thrown. Does not adds if already added
-     * max count of players, or already added player with that name.
-     * @param p player to try addition in given cell
-     * @param c cell in which to try addition of player
-     * @return try iff player added
-     */
-    private boolean tryPlayerInCell(Player p, Cell c) {
-        if (c.row < 0 || c.row > numRows - 1 ||
-                c.col < 0 || c.col > numCols - 1) {
-            throw new RuntimeException("Cell is out of bounds!");
-        }
-        if (nameOnPlayer.size() >= maxPlayers ||
-                nameOnPlayer.keySet().contains(p.getName())) {
-            return false;
-        }
-        boolean placeFound = false;
-        for (int i = 0; i < Integer.MAX_VALUE; i++) {
-            p.setPosition(randOvalInCell(c, pRadius));
-            if (!playerConflicts(p)) {
-                placeFound = true;
-                nameOnPlayer.put(p.getName(), p);
-                initUpdateVars(p.getName());
-                activePlNum++;
-                break;
-            }
-        }
-        return placeFound;
-    }
-
-    /**
-     * Checks if given player conflicts with one of players(i.e.
-     * it is near one of active player than given distance and they
-     * have different count of potions) or with one of potions(i.e. it
-     * intersects one of potion). Given player have to be active, otherwise
-     * this method is redundant(false returned immediately if not active)
-     * @param player player to check conflict for
-     * @return true iff player is active and conflicts with players or potions
-     */
-    private boolean playerConflicts(Player player) {
-        return plConflictPl(player) || plConflictPot(player);
-    }
-
-    /**
-     * Checks if given player conflicts with one of players(i.e.
-     * it is near one of active player than given distance and they have
-     * different count of potions). Given player have to be active, otherwise
-     * this method is redundant(false returned immediately if not active)
-     * @param player player to check conflict for
-     * @return true iff player is active and conflicts with players or potions
-     */
-    private boolean plConflictPl(Player player) {
-        if (!player.getActive()) {
-            return false;
-        }
-        Point2D.Double pos = player.getPosition();
-        return nameOnPlayer.values().stream().anyMatch(p -> {
-            Point2D.Double otherPlPos = p.getPosition();
-            return p.getActive() &&
-                    distance(otherPlPos.x + pRadius, otherPlPos.y + pRadius, pos.x + pRadius, pos.y + pRadius) < dist &&
-                    p.getPotNum() != player.getPotNum();
-        });
-    }
-
-    /**
-     * Checks if given player conflicts with one of potions(i.e. it
-     * intersects one of potion). Given player have to be active, otherwise
-     * this method is redundant(false returned immediately if not active)
-     * @param player player to check conflict for
-     * @return true iff player is active and conflicts with players or potions
-     */
-    private boolean plConflictPot(Player player) {
-        if (!player.getActive()) {
-            return false;
-        }
-        Point2D.Double pos = player.getPosition();
-        return potions.stream().anyMatch(pot -> {
-            if (distance(pot.x + potRadius, pot.y + potRadius, pos.x + pRadius, pos.y + pRadius) < potRadius + pRadius) {
-                return true;
-            }
-            return false;
-        });
+    private void addPlayer(Player p) {
+        nameOnPlayer.put(p.getName(), p);
+        activePlNum++;
+        initUpdateVars(p.getName());
     }
 
     private void initUpdateVars(String name) {
         potsToAdd.put(name, Collections.synchronizedSet(new HashSet<>()));
-        potions.forEach(pot -> {
+        gm.getPotions().forEach(pot -> {
             potsToAdd.forEach((playerName, list) -> list.add(pot));
         });
         potsToRemove.put(name, Collections.synchronizedList(new ArrayList<>()));
     }
 
-    /**
-     * checks if given cell is one of corners of game map
-     * @param c cell to check if it is corner cell
-     * @return true iff given cell is one of corner cells of game map
-     */
-    private boolean isCorner(Cell c) {
-        return (c.row == 0 || c.row == numRows - 1) && (c.col == 0 || c.col == numCols - 1);
-    }
-
-    /**
-     * Checks If potion with some position conflicts with one of players(i.e.
-     * potion intersects with one of players).
-     * @param pot potion to check conflict
-     * @return true iff given player conflicts with one of players
-     */
-    private boolean potionConflicts(Point2D.Double pot) {
-        return nameOnPlayer.values().stream().anyMatch(p -> {
-            Point2D.Double plPos = p.getPosition();
-            if (p.getActive() &&
-                    distance(plPos.x + pRadius, plPos.y + pRadius, pot.x + potRadius, pot.y + potRadius) < potRadius + pRadius) {
-                return true;
-            }
-            return false;
-        });
-    }
-
-    /**
-     * Generates random circle position in given cell, with given radius, so that it does not
-     * leave cell bounds. Position is up-left point of square, with perpendicular edges
-     * to Ox Oy, surrounding circle.
-     * @param c cell in which to generate circle position
-     * @param radius radius of circle to generate position of
-     * @return position of circle in given cell with given carius
-     */
-    private Point2D.Double randOvalInCell(Cell c, double radius) {
-        double rXInCell = randDouble(0, cellWidth - 2 * radius);
-        double rYInCell = randDouble(0, cellHeight - 2 * radius);
-
-        return new Point2D.Double((cellWidth + wallWidth) * c.col + rXInCell,
-                (cellHeight + wallWidth) * c.row + rYInCell);
-    }
-
-    /**
-     * Shuffle given generic type array uniformly
-     * @param arr array to shuffle
-     * @param <T> type of array(elements in it) to shuffle
-     */
-    private static <T> void shuffleArray(T[] arr) {
-        for (int i = arr.length - 1; i > 0; i--) {
-            int index = rand.nextInt(i + 1);
-            // Simple swap
-            T temp = arr[index];
-            arr[index] = arr[i];
-            arr[i] = temp;
+    public synchronized Point2D.Double addPotAtRandom(boolean conflictAllowed) {
+        Point2D.Double pot = gm.addPotAtRandom(conflictAllowed);
+        if (pot != null) {
+            potsToAdd.forEach((name, set) -> set.add(pot));
         }
+        return pot;
+    }
+
+    public synchronized boolean addPotInCell(Cell c, boolean conflictAllowed) {
+        Point2D.Double pot = gm.addPotInCell(c, conflictAllowed);
+        if (pot != null) {
+            potsToAdd.forEach((name, set) -> set.add(pot));
+            return true;
+        }
+        return  false;
     }
 
     /* methods after game has been started */
@@ -494,8 +223,10 @@ public class GameWorld implements iWorld {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                incDist();
-                System.out.println("dist increased: " + dist);
+                gm.increaseDist(plusDist);
+                playersPlayers();
+                gameOnCheck();
+                System.out.println("dist increased: " + gm.getDist());
             }
         }, 0, plusDistDelay);
     }
@@ -504,33 +235,19 @@ public class GameWorld implements iWorld {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                addPotAtRand();
+                Point2D.Double pot = addPotAtRandom(false);
+                potsToAdd.forEach((name, set) -> set.add(pot));
+                playersPot(pot);
+                gameOnCheck();
                 System.out.println("Potion added");
             }
         }, 0, addPotDelay);
     }
 
-    private void incDist() {
-        dist += plusDist;
-        playersPlayers();
-        gameOnCheck();
-    }
-
-    /*
-     * @@ if game in in NEW state tries until adds player at random so that it does not intersects with any player
-     */
-    private synchronized boolean addPotAtRand() {
-        Point2D.Double pot = randOval(potRadius);
-        potions.add(pot);
-        potsToAdd.forEach((name, set) -> set.add(pot));
-        playersPot(pot);
-        gameOnCheck();
-        return true;
-    }
-
     @Override
     public boolean playerMove(String playerName, double dx, double dy) {
-        Point2D.Double pos = nameOnPlayer.get(playerName).getPosition();
+        gm.plusPlayerPos(playerName, dx, dy);
+        Point2D.Double pos = gm.getPlPosition(playerName);
         setPlayerCoordinates(playerName, pos.getX() + dx, pos.getY() + dy);
         return true;
     }
@@ -538,20 +255,16 @@ public class GameWorld implements iWorld {
     @Override
     public boolean setPlayerCoordinates(String playerName, double x, double y) {
         Player p = nameOnPlayer.get(playerName);
+
         if (!p.getActive()) { return false; }
+        if (state == State.RUNNING && !gm.longMove(p.getName(), x, y)) { return false; }
+        if (gm.collideWall(p.getName())) { return false; }
 
-        Point2D.Double pos = p.getPosition();
+        gm.setPlayerPos(playerName, x, y);
 
-        if (state == State.RUNNING &&
-                distance(x, y, pos.x, pos.y) > maxMove) { return false; }
-
-        //if (wrongPlace(x, y)) { return false; }
-
-        p.setPosition(x, y);
-
-        potionsPlayer(p);
-        playersPlayer(p);
-        gameOnCheck();
+        //potionsPlayer(p);
+        //playersPlayer(p);
+        //gameOnCheck();
         return true;
     }
 
@@ -567,68 +280,45 @@ public class GameWorld implements iWorld {
     /*
      * @@ passed player must be active
      */
-    private boolean playersPlayer(Player p) {
-        Point2D.Double plPos = p.getPosition();
-
-        Collection<Player> players = nameOnPlayer.values();
-
-        for (Player player : players) {
-            Point2D.Double otherPlPos = player.getPosition();
-            if (!p.equals(player) &&
-                    player.getActive() &&
-                    distance(plPos.x + pRadius, plPos.y + pRadius, otherPlPos.x + pRadius, otherPlPos.y + pRadius) < dist) {
-                if (Player.getWinner(p, player).equals(p)) {
-                    kickPlayer(p, player);
-                    playersPlayer(p);
-                } else {
-                    kickPlayer(player, p);
-                    playersPlayer(player);
-                }
-                return true;
+    private void playersPlayer(Player p) {
+        Collection<String> collidedPlayers = gm.collidedPlayers(p.getName());
+        Iterator<String> colPlsIt = collidedPlayers.iterator();
+        while (colPlsIt.hasNext()) {
+            String nextName = colPlsIt.next();
+            Player colPl = nameOnPlayer.get(nextName);
+            if (Player.getWinner(p, colPl).equals(p)) {
+                kickPlayer(p, colPl);
+                playersPlayer(p);
+            } else {
+                kickPlayer(colPl, p);
+                playersPlayer(colPl);
             }
+            break;
         }
-        return false;
     }
 
     private void playersPot(Point2D.Double pot) {
-        Collection<Player> players = nameOnPlayer.values();
-        players.stream().anyMatch(p -> {
-            if (p.getActive()) {
-                Point2D.Double plPos = p.getPosition();
-                if (distance(plPos.x + pRadius, plPos.y + pRadius, pot.x + potRadius, pot.y + potRadius) < pRadius + potRadius) {
-                    p.potionPlus();
-                    potions.remove(pot);
-                    potsToRemove.forEach((name, list) -> list.add(pot.hashCode()));
-                    playersPlayer(p);
-                    return true;
-                }
-            }
-            return false;
+        Collection<String> collidedPlayers = gm.collidedPlayers(pot);
+        collidedPlayers.forEach(n -> {
+            Player p = nameOnPlayer.get(n);
+            p.potionPlus();
+            gm.removePot(pot);
+            potsToRemove.forEach((name, list) -> list.add(pot.hashCode()));
+            playersPlayer(p);
         });
     }
 
     /*
      * @@ must be active player
      */
-    private boolean potionsPlayer(Player player) {
-        boolean somePotTaken = false;
-        Point2D.Double pos = player.getPosition();
-        synchronized (potions) {
-            Iterator<Point2D.Double> potIt = potions.iterator();
-            while (potIt.hasNext()) {
-                Point2D.Double nextPot = potIt.next();
-                if (distance(pos.x + pRadius, pos.y + pRadius, nextPot.x + potRadius, nextPot.y + potRadius) < pRadius + potRadius) {
-                    player.potionPlus();
-                    potIt.remove();
-                    potsToRemove.forEach((name, list) -> list.add(nextPot.hashCode()));
-                    if (!somePotTaken) {
-                        somePotTaken = true;
-                    }
-                    playersPlayer(player);
-                }
-            }
-        }
-        return somePotTaken;
+    private void potionsPlayer(Player player) {
+        Collection<Point2D.Double> collidedPots = gm.collidedPotions(player.getName());
+        collidedPots.forEach(pot -> {
+            player.potionPlus();
+            gm.removePot(pot);
+            potsToRemove.forEach((name, list) -> list.add(pot.hashCode()));
+            playersPlayer(player);
+        });
     }
 
     private void gameOnCheck() {
@@ -640,170 +330,12 @@ public class GameWorld implements iWorld {
 
     private void kickPlayer(Player kicker, Player toKick) {
         toKick.setActive(false);
+        gm.removePlayer(toKick.getName());
         plPlaces.add(toKick.getName());
         if (state == State.RUNNING) {
             kicker.setPotNum(kicker.getPotNum() + potForKick);
         }
         activePlNum--;
-    }
-
-
-    private Point2D.Double randOval(double radius) {
-        int randRow = rand.nextInt(numRows);
-        int randCol = rand.nextInt(numCols);
-        return randOvalInCell(new Cell(randRow, randCol), radius);
-    }
-
-    /**
-     * generates random value between two values [min, max), uniformly distributed.
-     * @param min generated value will not be lower
-     * @param max  generated value will not be higher
-     * @return return double uniformly distributed in interval: [min, max)
-     */
-    private double randDouble(double min, double max) {
-        return min + (max - min) * rand.nextDouble();
-    }
-
-    private double distance(double x1, double y1, double x2, double y2) {
-        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
-    }
-
-    /* collision methods */
-
-    private boolean wrongPlace(Double x, Double y) {
-        int rowIndx = (int)((y + pRadius) / (cellHeight + wallWidth));
-        if (rowIndx < 0 || y + pRadius > rowIndx * (cellHeight + wallWidth) + cellHeight) {
-            return true;
-        }
-
-        int colIndx = (int)((x + pRadius) / (cellWidth + wallWidth));
-        if (colIndx < 0 || x + pRadius > colIndx * (cellWidth + wallWidth) + cellWidth) {
-            return true;
-        }
-
-        if (collideAround(x, y, new Cell(rowIndx, colIndx))) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean collideAround(double x, double y, Cell c) {
-        for (int i = -1; i < 2; i++) {
-            for (int j = -1; j < 2; j++) {
-                Cell neighbour = new Cell(c.row + i, c.col + j);
-                if (c.row == neighbour.row ^ c.col == neighbour.col) {
-                    if (!pm.cellInBounds(neighbour) || pm.isWall(c, neighbour)) {
-                        if (intersect(x + pRadius, y + pRadius, pRadius, getLongRect(c, neighbour))) {
-                            return true;
-                        }
-                    }
-                } else {
-                    if (c.row != neighbour.row || c.col != neighbour.col) {
-                        if (!pm.cellInBounds(neighbour) || isSmallRect(c, neighbour)) {
-                            if (intersect(x + pRadius, y + pRadius, pRadius, getSmallRect(c, neighbour))) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    /*
-     * @@ have to be adjacent
-     */
-    private Rectangle2D.Double getLongRect(Cell c1, Cell c2) {
-        Rectangle2D.Double r;
-        if (c1.row == c2.row) {
-            int maxRow = Math.max(c1.row, c2.row);
-            r = new Rectangle2D.Double(cellWidth * maxRow + wallWidth * (maxRow - 1),
-                    (cellHeight + wallWidth) * c1.row,
-                    wallWidth,
-                    cellHeight);
-
-        } else {
-            int maxCol = Math.max(c1.col, c2.col);
-            r = new Rectangle2D.Double((cellWidth + wallWidth) * c1.col,
-                    cellHeight * maxCol + wallWidth * (maxCol - 1),
-                    cellWidth,
-                    wallWidth);
-
-        }
-        return r;
-    }
-
-    /**
-     * checks if given circumference and rectangle intersect each other
-     * @param cX centre x coordinate of  circumference
-     * @param cY centre y coordinate of  circumference
-     * @param rad radius of circumference
-     * @param rect rectangle to check collision with
-     * @return true - iff given circumference and rectangle intersects each other, false otherwise
-     */
-    private boolean intersect(double cX, double cY, double rad, Rectangle2D.Double rect) {
-        double dx = Math.abs(cX - rect.x - rect.width / 2);
-        double xDist = rect.width / 2 + rad;
-        if (dx > xDist)
-            return false;
-        double dy = Math.abs(cY - rect.y - rect.height / 2);
-        double yDist = rect.height / 2 + rad;
-        if (dy > yDist)
-            return false;
-        if (dx <= rect.width / 2 || dy <= rect.height / 2)
-            return true;
-        double xCornerDist = dx - rect.width / 2;
-        double yCornerDist = dy - rect.height / 2;
-        double xCornerDistSq = xCornerDist * xCornerDist;
-        double yCornerDistSq = yCornerDist * yCornerDist;
-        double maxCornerDistSq = rad * rad;
-        return xCornerDistSq + yCornerDistSq <= maxCornerDistSq;
-    }
-
-    /*
-     * @@ must not be out of bounds non of them
-     * @@ have to be diagonally adjacent
-     */
-    private boolean isSmallRect(Cell c1, Cell c2) {
-        int minRow = Math.min(c1.row, c2.row);
-        int minCol = Math.min(c1.col, c2.col);
-        int maxRow = Math.max(c1.row, c2.row);
-        int maxCol = Math.max(c1.col, c2.col);
-
-        Cell upLeft = new Cell(minRow, minCol);
-        Cell upRight = new Cell(minRow, minCol + 1);
-        Cell downRight = new Cell(maxRow, maxCol);
-        Cell downLeft = new Cell(maxRow, maxCol - 1);
-
-
-        if (pm.isWall(upLeft, upRight)) {
-            return true;
-        } else if (pm.isWall(upRight, downRight)) {
-            return true;
-        } else if (pm.isWall(downRight, downLeft)) {
-            return true;
-        } else if (pm.isWall(downLeft, upLeft)) {
-            return true;
-        }
-        return false;
-    }
-
-    /*
-     * @@ have to be diagonally adjacent
-     */
-    private Rectangle2D.Double getSmallRect(Cell c1, Cell c2) {
-        Rectangle2D.Double r = new Rectangle2D.Double();
-        r.width = wallWidth;
-        r.height = wallWidth;
-
-        int minRow = Math.min(c1.row, c2.row);
-        int minCol = Math.min(c1.col, c2.col);
-
-        r.x = cellWidth * (minCol + 1) + wallWidth * minCol;
-        r.y = cellHeight * (minRow + 1) + wallWidth * minRow;
-        return r;
     }
 
     @Override
@@ -849,15 +381,10 @@ public class GameWorld implements iWorld {
         initJson.add("playerTypes", plTypesJson);
 
 
-        JsonObjectBuilder mazeJson = pm.toJsonBuilder();
+        JsonObjectBuilder mazeJson = gm.toJsonBuilder();
         initJson.add("planeMaze", mazeJson);
 
-        JsonObjectBuilder configJson = factory.createObjectBuilder();
-        configJson.add("width", width)
-                .add("height", height)
-                .add("wallWidth", wallWidth)
-                .add("pRadius", pRadius)
-                .add("potRadius", potRadius);
+        JsonObjectBuilder configJson = gm.configJsonBuilder();
         initJson.add("configuration", configJson);
 
 
@@ -882,6 +409,10 @@ public class GameWorld implements iWorld {
         while (plIt.hasNext()) {
             String nextName = plIt.next();
             JsonObjectBuilder playerJson = nameOnPlayer.get(nextName).toJsonBuilder();
+            Point2D.Double pos = gm.getPlPosition(nextName);
+            JsonObjectBuilder plPosJson = factory.createObjectBuilder();
+            plPosJson.add("x", pos.x).add("y", pos.y);
+            playerJson.add("position", plPosJson);
             playersJson.add(playerJson);
         }
         updateJson.add("players", playersJson);
@@ -914,13 +445,13 @@ public class GameWorld implements iWorld {
 
 
         // add json distance double
-        updateJson.add("distance", dist);
+        updateJson.add("distance", gm.getDist());
 
         return updateJson.build();
     }
 
     public double getMinDist() {
-        return dist;
+        return gm.getDist();
     }
 
     @Override

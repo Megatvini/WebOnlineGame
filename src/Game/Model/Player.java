@@ -16,13 +16,10 @@ public class Player {
     private String name;
 
     private int potNum;
-    
-    private  double x;
-    private double y;
 
     private int type;
 
-    int place;
+    private int place;
 
     public Player(String name, int type){
         this(name, true, 0, type);
@@ -61,20 +58,6 @@ public class Player {
             throw new RuntimeException("Potion number must be greater or equal to zero!");
         }
         this.potNum = potNum;
-    }
-
-    public Point2D.Double getPosition() {
-        return new Point2D.Double(x, y);
-    }
-
-    public void setPosition(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public void setPosition(Point2D.Double loc) {
-        x = loc.x;
-        y = loc.y;
     }
 
     public int getType() {
@@ -122,11 +105,11 @@ public class Player {
 
         playerJson.add("name", name);
 
-        JsonObjectBuilder plPosJson = Json.createObjectBuilder();
-
-        plPosJson.add("x", x).add("y", y);
-
-        playerJson.add("position", plPosJson);
+//        JsonObjectBuilder plPosJson = Json.createObjectBuilder();
+//
+//        plPosJson.add("x", x).add("y", y);
+//
+//        playerJson.add("position", plPosJson);
 
         return playerJson;
     }

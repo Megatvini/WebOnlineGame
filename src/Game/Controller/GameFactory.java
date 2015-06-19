@@ -1,9 +1,6 @@
 package Game.Controller;
 
-import Game.Model.Configuration;
-import Game.Model.GameWorld;
-import Game.Model.PlaneMaze;
-import Game.Model.iWorld;
+import Game.Model.*;
 
 /**
  * Created by Nika on 21:11, 6/6/2015.
@@ -15,7 +12,7 @@ import Game.Model.iWorld;
 public class GameFactory {
     public iWorld getNewInstance() {
         Configuration config = Configuration.getInstance();
-        PlaneMaze maze = new PlaneMaze(config.getNumRows(), config.getNumCols());
+        GameMaze maze = new GameMaze(config.getNumRows(), config.getNumCols(), config);
         maze.makePerfect();
         return new GameWorld(maze, config);
     }
