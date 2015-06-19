@@ -86,7 +86,7 @@ public class GameMaze extends PlaneMaze {
     }
 
     public Point2D.Double addPotAtRandom(boolean conflictAllowed) {
-        for (int i = 0; i < Integer.MAX_VALUE; i++) {
+        for (int i = 0; i < 2 * width * height; i++) {
             Point2D.Double pot = randOval(potRadius);
             if (!potions.contains(pot)
                     && (conflictAllowed || !ovalConflicts(pot, potRadius, nameOnPos.values(), pRadius))) {
@@ -102,7 +102,7 @@ public class GameMaze extends PlaneMaze {
                 c.col < 0 || c.col > numCols - 1) {
             throw new RuntimeException("Cell is out of bounds!");
         }
-        for (int i = 0; i < Integer.MAX_VALUE; i++) {
+        for (int i = 0; i < cellWidth * cellHeight; i++) {
             Point2D.Double pot = randOvalInCell(c, potRadius);
             if (!potions.contains(pot)
                     && (conflictAllowed || !ovalConflicts(pot, potRadius, nameOnPos.values(), pRadius))) {
@@ -164,7 +164,7 @@ public class GameMaze extends PlaneMaze {
                 collidedPots.add(nextPot);
             }
         }
-        return collidedPots;
+        return Collections.unmodifiableCollection(collidedPots);
     }
 
     public Collection<String> collidedPlayers(String name) {
@@ -231,9 +231,9 @@ public class GameMaze extends PlaneMaze {
                 c.col < 0 || c.col > numCols - 1) {
             throw new RuntimeException("Cell is out of bounds!");
         }
-        for (int i = 0; i < Integer.MAX_VALUE; i++) {
+        for (int i = 0; i < cellWidth * cellHeight; i++) {
             Point2D.Double pos = randOvalInCell(c, pRadius);
-            if (!ovalConflicts(pos, dist, nameOnPos.values(), dist) &&
+            if (!ovalConflicts(pos, dist / 2, nameOnPos.values(), dist / 2) &&
                     !ovalConflicts(pos, pRadius, potions, potRadius)) {
                 nameOnPos.put(name, pos);
                 return true;
@@ -260,8 +260,8 @@ public class GameMaze extends PlaneMaze {
         return min + (max - min) * rand.nextDouble();
     }
 
-    private boolean ovalConflicts(Point2D.Double pos, double r, Collection<Point2D.Double> ovals, double ovalsR) {
-        return ovals.stream().anyMatch(o -> ovalsIntersect(pos, r, o, ovalsR));
+    private boolean ovalConflicts(Point2D.Double oval, double r, Collection<Point2D.Double> ovals, double ovalsR) {
+        return ovals.stream().anyMatch(o -> ovalsIntersect(oval, r, o, ovalsR));
     }
 
     private boolean ovalsIntersect(Point2D.Double o1, double r1, Point2D.Double o2, double r2) {

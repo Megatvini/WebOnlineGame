@@ -36,24 +36,24 @@ public class Player {
         return name;
     }
 
-    public boolean getActive() {
+    public synchronized boolean getActive() {
         return active;
     }
 
-    public void setActive(boolean active){
+    public synchronized void setActive(boolean active){
         this.active = active;
     }
 
-    public int getPotNum() {
+    public synchronized int getPotNum() {
         return potNum;
     }
 
-    public void potionPlus() {
+    public synchronized void potionPlus() {
         potNum++;
     }
 
     //@@ exception aris aq setPotNum-shi
-    public void setPotNum(int potNum) {
+    public synchronized void setPotNum(int potNum) {
         if (potNum < 0) {
             throw new RuntimeException("Potion number must be greater or equal to zero!");
         }
@@ -64,15 +64,15 @@ public class Player {
         return type;
     }
 
-    public void setPlace(int place) {
+    public synchronized void setPlace(int place) {
         this.place = place;
     }
 
-    public int getPlace() {
+    public synchronized int getPlace() {
         return place;
     }
 
-    public static Player getWinner(Player p1, Player p2) {
+    public static synchronized Player getWinner(Player p1, Player p2) {
         if (p1.potNum > p2.potNum) {
             return p1;
         } else if (p2.potNum > p1.potNum) {
@@ -98,18 +98,12 @@ public class Player {
         return name.equals(p.getName());
     }
 
-    public JsonObjectBuilder toJsonBuilder() {
+    public synchronized JsonObjectBuilder toJsonBuilder() {
         JsonObjectBuilder playerJson = Json.createObjectBuilder();
 
         playerJson.add("active", active);
 
         playerJson.add("name", name);
-
-//        JsonObjectBuilder plPosJson = Json.createObjectBuilder();
-//
-//        plPosJson.add("x", x).add("y", y);
-//
-//        playerJson.add("position", plPosJson);
 
         return playerJson;
     }

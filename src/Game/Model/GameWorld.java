@@ -17,7 +17,7 @@ public class GameWorld implements iWorld {
     // enum of states of this class instance
     enum State {NEW, RUNNING, FINISHED}
 
-
+    // configuration variables
     private int maxPlayers;
     private double plusDist;
     private long plusDistDelay;
@@ -47,7 +47,7 @@ public class GameWorld implements iWorld {
     private Timer timer;
 
     // collection to record places of players, who lose earlier has lower index
-    List<String> plPlaces;
+    private List<String> plPlaces;
 
     /**
      * constructor for testing purposes only
@@ -184,9 +184,7 @@ public class GameWorld implements iWorld {
 
     private void initUpdateVars(String name) {
         potsToAdd.put(name, Collections.synchronizedSet(new HashSet<>()));
-        gm.getPotions().forEach(pot -> {
-            potsToAdd.forEach((playerName, list) -> list.add(pot));
-        });
+        gm.getPotions().forEach(pot -> potsToAdd.forEach((playerName, list) -> list.add(pot)));
         potsToRemove.put(name, Collections.synchronizedList(new ArrayList<>()));
     }
 
@@ -235,7 +233,7 @@ public class GameWorld implements iWorld {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Point2D.Double pot = addPotAtRandom(false);
+                Point2D.Double pot = addPotAtRandom(true);
                 potsToAdd.forEach((name, set) -> set.add(pot));
                 playersPot(pot);
                 gameOnCheck();
@@ -248,7 +246,7 @@ public class GameWorld implements iWorld {
     public boolean playerMove(String playerName, double dx, double dy) {
         gm.plusPlayerPos(playerName, dx, dy);
         Point2D.Double pos = gm.getPlPosition(playerName);
-        setPlayerCoordinates(playerName, pos.getX() + dx, pos.getY() + dy);
+        setPlayerCoordinates(playerName, pos.x + dx, pos.y + dy);
         return true;
     }
 
@@ -257,14 +255,14 @@ public class GameWorld implements iWorld {
         Player p = nameOnPlayer.get(playerName);
 
         if (!p.getActive()) { return false; }
-        if (state == State.RUNNING && !gm.longMove(p.getName(), x, y)) { return false; }
+        if (state == State.RUNNING && gm.longMove(p.getName(), x, y)) { return false; }
         if (gm.collideWall(p.getName())) { return false; }
 
         gm.setPlayerPos(playerName, x, y);
 
-        //potionsPlayer(p);
-        //playersPlayer(p);
-        //gameOnCheck();
+        potionsPlayer(p);
+        playersPlayer(p);
+        gameOnCheck();
         return true;
     }
 
@@ -286,12 +284,14 @@ public class GameWorld implements iWorld {
         while (colPlsIt.hasNext()) {
             String nextName = colPlsIt.next();
             Player colPl = nameOnPlayer.get(nextName);
-            if (Player.getWinner(p, colPl).equals(p)) {
-                kickPlayer(p, colPl);
-                playersPlayer(p);
-            } else {
-                kickPlayer(colPl, p);
-                playersPlayer(colPl);
+            if (colPl.getActive()) {
+                if (Player.getWinner(p, colPl).equals(p)) {
+                    kickPlayer(p, colPl);
+                    playersPlayer(p);
+                } else {
+                    kickPlayer(colPl, p);
+                    playersPlayer(colPl);
+                }
             }
             break;
         }
@@ -423,8 +423,8 @@ public class GameWorld implements iWorld {
             potsToAdd.get(playerName).forEach(pot -> {
                 JsonObjectBuilder potJson = factory.createObjectBuilder();
                 potJson.add("id", pot.hashCode())
-                        .add("x", pot.getX())
-                        .add("y", pot.getY());
+                        .add("x", pot.x)
+                        .add("y", pot.y);
                 addPotsJson.add(potJson);
             });
             potsToAdd.get(playerName).clear();
