@@ -6,17 +6,18 @@ var Character = IgeEntityBox2d.extend({
 	myId: '',
 	connection : {},
 	isMainCharacter : false ,
-	updateBuffer : [],
 	lastUpdate:  null,
 	lastUpdate2:  null,
 	interpolation : 80 ,
 	extrapolation: 100,
 
-	init: function (data,name,myId,gametexture,connection) {
+	init: function (data,name,myId,gametexture,connection,position) {
+		this.updateBuffer  = [],
+		//console.log(JSON.stringify(this.lastUpdate));
 		this.isMainCharacter = name==myId;
 		this.connection=connection;
 		this.config = data;
-		this.myId=myId;
+		this.myId=name;
 		var self = this;
 		this.textures = gametexture;
 		IgeEntityBox2d.prototype.init.call(this);
@@ -79,8 +80,6 @@ var Character = IgeEntityBox2d.extend({
 			case 1:
 				self = this ;
 				this._characterTexture = this.textures.water;
-
-
 				self.texture(self._characterTexture);
 
 				this.animation.define('walkDown', [1], 8, -1)
@@ -193,10 +192,13 @@ var Character = IgeEntityBox2d.extend({
 		// makes the entity appear further in the foreground
 		// the closer they become to the bottom of the screen
 		//this.depth(this._translate.y);
-		if(!this.isMainCharacter){
-			var update = this.getNextUpdate();
-			if(update!=null)
-				this.transTo(update.x,update.y);
+		if(this.located) {
+			if (!this.isMainCharacter) {
+				var update = this.getNextUpdate();
+				if (update != null) {
+					this.transTo(update.x, update.y);
+				}
+			}
 		}
 		IgeEntityBox2d.prototype.update.call(this, ctx);
 	},
@@ -214,13 +216,18 @@ var Character = IgeEntityBox2d.extend({
 		var config = this.config;
 		var x1 = x - config.width / 2 + config.pRadius;
 		var y1 = y - config.height / 2 + config.pRadius;
-		if(!this.isMainCharacter) {
-			//console.log(this._translate.x);
-			this._translate.x = x1;
-			this._translate.y = y1;
+		if(!this.isMainCharacter&&this.located) {
+
+			this._translate.x=x1;
+			this._translate.y=y1;
+
+			console.log(this.myId+" x "+this._translate.x+"  y "+this._translate.y);
+			/*this._translate.x = x1;
+			 this._translate.y = y1;*/
 		}
 		else{
 			this.translateTo(x1,y1,0);
+			this.located=true;
 		}
 		return this ;
 	}
@@ -256,37 +263,45 @@ var Character = IgeEntityBox2d.extend({
 		}));
 	},
 	getNextUpdate: function(){
+		var y;
+		var x;
 		var currentTime = new Date().getTime();
+		var lastUpdate = this.lastUpdate;
+		var lastUpdate2 = this.lastUpdate2;
 		if (this.updateBuffer.length != 0) {
-			var update = this.updateBuffer[0];
-			var differense = currentTime - update.date;
-			update=update.snapShot;
+			var update1 = JSON.parse(JSON.stringify(this.updateBuffer[0]));
+			var differense = currentTime - update1.date;
+			var update = update1.snapShot;
+			//console.log("bufferSize  " +this.updateBuffer.length+ " diff  " +differense);
 			if (differense >= this.interpolation) {
-				this.lastUpdate2=lastUpdate;
+				this.lastUpdate2= JSON.parse(JSON.stringify(this.lastUpdate));
 				this.lastUpdate=update;
 				this.updateBuffer.shift();
+				//console.log(" bufferSize  " +this.updateBuffer.length+ " diff  " +differense);
 				return update
 			} else {
-				var lastUpdate = this.lastUpdate;
 				if(lastUpdate!=null) {
-					var x = (lastUpdate.x + (update.x - lastUpdate.x) / 2);
-					var y = (lastUpdate.y + (update.y - lastUpdate.y) / 2);
+					x = (lastUpdate.x+ (update.x - lastUpdate.x) / 2);
+					y = (lastUpdate.y+ (update.y - lastUpdate.y) / 2);
+					//console.log(" bufferSize  " +this.updateBuffer.length+ " diff  " +differense+ " x " + x + " y "+ y);
 					return {x: x, y: y};
 				}
 			}
-		}else{
-			var lastUpdate = this.lastUpdate;
-			var lastUpdate2 = this.lastUpdate2;
+		}
+		else{
 			if(lastUpdate2!=null&&lastUpdate!=null) {
-				var x = (lastUpdate.x + (lastUpdate.x - lastUpdate2.x));
-				var y = (lastUpdate.y + (lastUpdate.y - lastUpdate2.y));
+				x = (lastUpdate.x+(lastUpdate.x - lastUpdate2.x) / 2);
+				y = (lastUpdate.y+(lastUpdate.y - lastUpdate2.y) / 2);
+				//console.log(" $ no buffer $ bufferSize  " +this.updateBuffer.length+ " diff  " +differense+ " x " + x + " y "+ y)
 				return {x: x, y: y};
 			}
 		}
-		return null ;
+		return null;
+
 
 	},
 	addUpdate: function(data){
+		//console.log(this.myId+" "+data.x+"  "+data.y)
 		var d = new Date().getTime();
 		var update = {
 			date:d,

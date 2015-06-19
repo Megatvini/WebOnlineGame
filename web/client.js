@@ -96,7 +96,7 @@ function initSocket() {
 		console.log('Error detected: ' + error);
 	};
 	connection.onmessage = function(e){
-		console.log(e.data);
+		//console.log(e.data);
 		var snapShot = JSON.parse(e.data);
 		handler(snapShot);
 
@@ -116,8 +116,14 @@ function handler(snapShot){
 		/** @namespace snapShot.addPots */
 
 		//console.log(distanceR);
+		/** @namespace snapShot.finished */
 		if(snapShot.finished){
 			if(!ige.isOFF) {
+				for(var key in characters){
+					if(characters.hasOwnProperty(key)){
+						console.log(key+' '+"changes occurred" + characters[key].changesOccured);
+					}
+				}
 				ige.client.mainScene.destroy();
 				self.textures.wall.destroy();
 				ige.stop();
@@ -150,11 +156,19 @@ function parsePlayers(players) {
 			position = onePlayer.position;
 		if (typeof (characters[name]) == 'undefined') {
 			/** @namespace gameConfig.pRadius */
-			var newPlayer = characters[name] = new Character(gameConfig,name,myId,self.textures,connection)
+			var newPlayer = characters[name] = new Character(gameConfig,name,myId,self.textures,connection,position)
 				.id(name)
-				.transTo(position.x, position.y,gameConfig)
+				.transTo(position.x, position.y)
 				.setType(i)
 				.mount(self.mainScene);
+			if(typeof (characters[name].lastposition)=='undefined'){
+				characters[name].changesOccured = 0 ;
+				characters[name].lastposition=position;
+
+			}
+			if(characters[name].lastposition.x!=position.x||characters[name].lastposition.y!=position.y){
+				characters[name].changesOccured ++;
+			}
 			if (name == myId) {
 				player1 = newPlayer;
 				player1.addComponent(PlayerComponent);
@@ -167,7 +181,8 @@ function parsePlayers(players) {
 				}
 			}else {
 				if (name != myId) {
-					characters[name].addUpdate(position);
+					characters[name]. /*transTo(position.x, position.y);*/
+						addUpdate(position);
 				}
 			}
 		}
