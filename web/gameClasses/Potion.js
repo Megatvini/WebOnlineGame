@@ -8,7 +8,7 @@ var Potion = IgeEntity.extend({
         var self = this;
         IgeEntity.prototype.init.call(this);
 
-        //.mount(self.scene1)
+        //mount(self.scene1)
     },
     /**
      *Function that calculates legal coordinates of potion object. this is kind of override of function translateTo

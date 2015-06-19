@@ -25,7 +25,6 @@ var Character = IgeEntityBox2d.extend({
 			.addComponent(IgeVelocityComponent);
 		self.width(data.pRadius * 2)
 			.height(data.pRadius * 2)
-			.setType(1);
 		if(this.isMainCharacter) {
 			self.box2dBody({
 				type: 'dynamic',
