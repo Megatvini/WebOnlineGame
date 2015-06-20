@@ -47,7 +47,6 @@ public class QuickPlay extends HttpServlet {
         MatchMaker matchMaker = (MatchMaker) getServletContext().getAttribute(Servlets.MatchMaker.class.getName());
         if (matchMaker == null) throw new RuntimeException("matchMaker is null");
         matchMaker.addParticipant(userName, list);
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/matchMaking/loading.jsp");
-        dispatcher.forward(request, response);
+        response.sendRedirect("/matchMaking/loading.jsp");
     }
 }

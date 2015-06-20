@@ -39,7 +39,7 @@ public class StartingGroupService extends HttpServlet {
         if (userName == null) throw new RuntimeException("nickname was null");
 
         StartingGroup group = groupMap.get(userName);
-        if (group == null) request.getRequestDispatcher("matchMaking/play.jsp").forward(request, response); //
+        if (group == null) response.sendRedirect("matchMaking/play.jsp");
         PrintWriter writer = response.getWriter();
         ArrayList<String> arr = new ArrayList<>();
         group.getGroup().forEach(arr::add);
