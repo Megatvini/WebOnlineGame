@@ -272,6 +272,17 @@ public class PlaneMaze {
      * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
      * awd
      */
+    public boolean isWall(int r1, int c1, int r2, int c2) {
+        return isWall(new Cell(r1, c1), new Cell(r2, c2));
+    }
+
+
+        /**
+         * @@ have to rewrite all comments including this ofc
+         * awdnaipwn dnawpidnpian wdnanwdpianwpidnpawnd
+         * aowdbpanwd pnapwndpanwpdn pawdnapwn danpwdawd
+         * awd
+         */
     public boolean isWall(Cell p1, Cell p2) {
         if (!cellInBounds(p1) || !cellInBounds(p2)) {
             try {

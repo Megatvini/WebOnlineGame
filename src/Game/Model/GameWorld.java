@@ -256,7 +256,7 @@ public class GameWorld implements iWorld {
 
         if (!p.getActive()) { return false; }
         if (state == State.RUNNING && gm.longMove(p.getName(), x, y)) { return false; }
-        if (gm.collideWall(p.getName())) { return false; }
+        //if (gm.collideWall(p.getName(), x, y)) { return false; }
 
         gm.setPlayerPos(playerName, x, y);
 
@@ -423,8 +423,7 @@ public class GameWorld implements iWorld {
             potsToAdd.get(playerName).forEach(pot -> {
                 JsonObjectBuilder potJson = factory.createObjectBuilder();
                 potJson.add("id", pot.hashCode())
-                        .add("x", pot.x)
-                        .add("y", pot.y);
+                        .add("x", pot.x).add("y", pot.y);
                 addPotsJson.add(potJson);
             });
             potsToAdd.get(playerName).clear();

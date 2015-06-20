@@ -122,8 +122,54 @@ public class GameMaze extends PlaneMaze {
         return distance(plPos.x, plPos.y, x, y) > maxMove;
     }
 
-    public boolean collideWall(String name) {
+    public boolean collideWall(String name, double x, double y) {
+//        if (x < 0 || x + 2 * pRadius > width || y < 0 || y + 2 * pRadius > height) { return true; }
+//
+//        double cX = x + pRadius;
+//        double cY = y + pRadius;
+//        int rowIndx = (int)(cY / (cellHeight + wallWidth));
+//        int colIndx = (int)(cX / (cellWidth + wallWidth));
+//        boolean collideHor = false;
+//        boolean collideVer = false;
+//        if (cY > rowIndx * (cellHeight + wallWidth) + cellHeight) { collideHor = true; }
+//        if (cX > colIndx * (cellWidth + wallWidth) + cellWidth) { collideVer = true; }
+//
+//
+//        if (collideHor && collideVer) {
+//            return isSquare(rowIndx, colIndx);
+//        } else if (collideHor) {
+//            if (isWall(rowIndx, colIndx, rowIndx + 1, colIndx)) {
+//                return true;
+//            } else {
+//                if () ...''
+//                return isSquare();
+//            }
+//        } else if (collideVer) {
+//            if (isWall(rowIndx, colIndx, rowIndx, colIndx + 1)) {
+//                return true;
+//            } else {
+//                if ()...
+//                return isSquare();
+//            }
+//        } else {
+//            boolean touchesUp =;
+//            if (touchesUp) {
+//
+//            } else if () {
+//
+//            } else if () {
+//
+//            } else {
+//
+//            }
+//
+//        }
+
         return false;
+    }
+
+    private boolean touches(int row, int col, double x, double y) {
+        return true;
     }
 
     public double getDist() {
@@ -278,35 +324,6 @@ public class GameMaze extends PlaneMaze {
 
      /* collision methods */
 
-//    private boolean wrongPlace(Double x, Double y) {
-//        if (x < 0 || x + 2 * pRadius > width || y < 0 || y + 2 * pRadius > height) { return true; }
-//
-//        double cX = x + pRadius;
-//        double cY = y + pRadius;
-//        double rowIndx = cY / (cellHeight + wallWidth);
-//        double colIndx = cX / (cellWidth + wallWidth);
-//        boolean collideHor = false;
-//        boolean collideVer = false;
-//        if (cY > rowIndx * (cellHeight + wallWidth) + cellHeight) { collideHor = true; }
-//        if (cX > colIndx * (cellWidth + wallWidth) + cellWidth) { collideVer = true; }
-//
-//        if (collideHor && collideVer) {
-//
-//        } else if (collideHor) {
-//
-//        } else if (collideVer) {
-//
-//        } else {
-//
-//        }
-//
-////        if (collideAround(x, y, new Cell(rowIndx, colIndx))) {
-////            return true;
-////        }
-//
-//        return false;
-//    }
-//
 ////    private boolean collideAround(double x, double y, Cell c) {
 ////        for (int i = -1; i < 2; i++) {
 ////            for (int j = -1; j < 2; j++) {
@@ -425,89 +442,3 @@ public class GameMaze extends PlaneMaze {
 //        return r;
 //    }
 }
-
-
-
-
-
-
-
-
-
-    /**
-     * Gets cell for index-th corner of maze, 0th is up-left,
-     * indexing is clockwise, index must be in [0, 3] interval,
-     * if not runtime exeption will be thrown.
-     * @param index index of corner cell to be returned
-     * @return cell for index-th corner of maze
-     */
-//private Cell getCornerCell(int index) {
-
-/**
- * Tries to add player in given cell on some random location, if player conflicts with
- * one of players(i.e. it is near to one of player then determined distance and those two
- * have different count of potions) or potion(i.e. it overlaps one of potions) does not adds.
- * If cell is out of game map bounds runtime exception thrown. Does not adds if already added
- * max count of players, or already added player with that name.
- * @param p player to try addition in given cell
- * @param c cell in which to try addition of player
- * @return try iff player added
- */
-//private boolean tryPlayerInCell(Player p, Cell c) {
-
-/**
- * Checks if given player conflicts with one of players(i.e.
- * it is near one of active player than given distance and they
- * have different count of potions) or with one of potions(i.e. it
- * intersects one of potion). Given player have to be active, otherwise
- * this method is redundant(false returned immediately if not active)
- //* @param player player to check conflict for
- * @return true iff player is active and conflicts with players or potions
- */
-//private boolean playerConflicts(Player player) {
-
-
-/**
- * Checks if given player conflicts with one of players(i.e.
- * it is near one of active player than given distance and they have
- * different count of potions). Given player have to be active, otherwise
- * this method is redundant(false returned immediately if not active)
- //* @param player player to check conflict for
- * @return true iff player is active and conflicts with players or potions
- */
-//private boolean plConflictPl(Player player) {
-
-/**
- * Checks if given player conflicts with one of potions(i.e. it
- * intersects one of potion). Given player have to be active, otherwise
- * this method is redundant(false returned immediately if not active)
- //* @param player player to check conflict for
- * @return true iff player is active and conflicts with players or potions
- */
-//private boolean plConflictPot(Player player) {
-
-/**
- * Tries to add potion in random cell, on random position. If potion
- * with some position conflicts with one of players(i.e. potion intersects with
- * one of players) tries another cell xor position.
- * @return true iff potion added
- */
-//public synchronized boolean addPotAtRandom(boolean cornerAllowed) {
-
-
-/**
- * checks if given cell is one of corners of game map
- * @param c cell to check if it is corner cell
- * @return true iff given cell is one of corner cells of game map
- */
-//private boolean isCorner(Cell c) {
-
-    /**
-     * Tries to add potion in given cell, on random position. If potion
-     * with some position conflicts with one of players(i.e. potion intersects with
-     * one of players) tries another position. If cell is out of bounds of game map
-     * proper runtime exception will be thrown.
-     * @param c cell to add new potion in
-     * @return true iff potion added
-     */
-    //public synchronized boolean addPotInCell(Cell c) {
