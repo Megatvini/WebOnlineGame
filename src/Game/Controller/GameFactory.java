@@ -14,6 +14,7 @@ public class GameFactory {
         Configuration config = Configuration.getInstance();
         GameMaze maze = new GameMaze(config.getNumRows(), config.getNumCols(), config);
         maze.makePerfect();
+        maze.makeThiner(0.3);
         return new GameWorld(maze, config);
     }
 }

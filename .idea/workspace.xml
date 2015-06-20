@@ -10,8 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9e55fc6-ff33-4d8b-89ab-aab5f918ccf4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/gameClasses/ClientWorld.js" afterPath="$PROJECT_DIR$/web/gameClasses/ClientWorld.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/gameClasses/Character.js" afterPath="$PROJECT_DIR$/web/gameClasses/Character.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ConfigFile.properties" afterPath="$PROJECT_DIR$/src/ConfigFile.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game/Controller/GameFactory.java" afterPath="$PROJECT_DIR$/src/Game/Controller/GameFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/gameClasses/Maze.js" afterPath="$PROJECT_DIR$/web/gameClasses/Maze.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/client.js" afterPath="$PROJECT_DIR$/web/client.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -29,6 +31,7 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/WebOnlineGame$RUN.coverage" NAME="RUN Coverage Results" MODIFIED="1434737513288" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/WebOnlineGame$allTests.coverage" NAME="allTests Coverage Results" MODIFIED="1434059220342" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -46,19 +49,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="client.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="client.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/client.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.0357698">
-              <caret line="69" column="4" selection-start-line="69" selection-start-column="4" selection-end-line="69" selection-end-column="4" />
+            <state vertical-scroll-proportion="-3.7419355">
+              <caret line="165" column="4" selection-start-line="165" selection-start-column="4" selection-end-line="165" selection-end-column="4" />
               <folding>
+                <element signature="e#231#1352#0" expanded="false" />
                 <element signature="e#1843#1962#0" expanded="false" />
                 <element signature="e#1914#1954#0" expanded="false" />
                 <element signature="e#1998#2039#0" expanded="false" />
-                <element signature="e#2466#2503#0" expanded="false" />
-                <element signature="e#2506#2540#0" expanded="false" />
-                <element signature="n#!!doc;n#getCookie#0" expanded="false" />
-                <element signature="e#5050#5188#0" expanded="false" />
+                <element signature="e#2164#2253#0" expanded="false" />
+                <element signature="e#2468#2505#0" expanded="false" />
+                <element signature="e#2508#2542#0" expanded="false" />
+                <element signature="e#5608#5746#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -74,24 +78,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientWorld.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/gameClasses/ClientWorld.js">
+      <file leaf-file-name="Character.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/gameClasses/Character.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+            <state vertical-scroll-proportion="-4.8333335">
+              <caret line="215" column="25" selection-start-line="215" selection-start-column="21" selection-end-line="215" selection-end-column="25" />
               <folding>
-                <element signature="e#0#38#0" expanded="false" />
+                <element signature="e#1240#1449#0" expanded="false" />
+                <element signature="e#1476#3093#0" expanded="false" />
+                <element signature="e#3097#3209#0" expanded="false" />
+                <element signature="e#3235#4275#0" expanded="false" />
+                <element signature="e#5869#6044#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConfigFile.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ConfigFile.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="9" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -100,14 +98,30 @@
         <entry file="file://$PROJECT_DIR$/web/gameClasses/Maze.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+              <caret line="320" column="0" selection-start-line="320" selection-start-column="0" selection-end-line="320" selection-end-column="0" />
               <folding>
-                <element signature="e#0#38#0" expanded="false" />
-                <element signature="e#416#6505#0" expanded="false" />
-                <element signature="e#6542#6682#0" expanded="false" />
-                <element signature="e#6713#7325#0" expanded="false" />
-                <element signature="e#9786#11035#0" expanded="false" />
+                <element signature="e#415#6504#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameFactory.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Game/Controller/GameFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConfigFile.properties" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ConfigFile.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.36391914">
+              <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -144,6 +158,7 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/web/client.js" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/web/gameClasses/Maze.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -151,7 +166,6 @@
       <list>
         <option value="$PROJECT_DIR$/src/Servlets/Listener.java" />
         <option value="$PROJECT_DIR$/web/matchMaking/newroom.jsp" />
-        <option value="$PROJECT_DIR$/src/Game/Controller/GameFactory.java" />
         <option value="$PROJECT_DIR$/src/Game/Controller/PlayerJsonParser.java" />
         <option value="$PROJECT_DIR$/src/Game/Controller/ServerConfig.java" />
         <option value="$PROJECT_DIR$/Test/Servlets/CreateRoomTest.java" />
@@ -190,16 +204,17 @@
         <option value="$PROJECT_DIR$/web/gameClasses/Potion.js" />
         <option value="$PROJECT_DIR$/web/ige/engine/components/IgeTiledComponent.js" />
         <option value="$PROJECT_DIR$/web/gameClasses/Map.js" />
-        <option value="$PROJECT_DIR$/web/gameClasses/Maze.js" />
-        <option value="$PROJECT_DIR$/web/gameClasses/Character.js" />
         <option value="$PROJECT_DIR$/web/gameClasses/Circle.js" />
         <option value="$PROJECT_DIR$/src/Game/Controller/GameServer.java" />
         <option value="$PROJECT_DIR$/web/file.html" />
         <option value="$PROJECT_DIR$/src/Game/Model/PlaneMaze.java" />
         <option value="$PROJECT_DIR$/web/assets/Circle.js" />
-        <option value="$PROJECT_DIR$/src/ConfigFile.properties" />
-        <option value="$PROJECT_DIR$/web/client.js" />
         <option value="$PROJECT_DIR$/web/gameClasses/ClientWorld.js" />
+        <option value="$PROJECT_DIR$/web/gameClasses/Character.js" />
+        <option value="$PROJECT_DIR$/web/client.js" />
+        <option value="$PROJECT_DIR$/web/gameClasses/Maze.js" />
+        <option value="$PROJECT_DIR$/src/Game/Controller/GameFactory.java" />
+        <option value="$PROJECT_DIR$/src/ConfigFile.properties" />
       </list>
     </option>
   </component>
@@ -253,9 +268,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -298,12 +310,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameClasses" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -315,7 +334,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.31116122" />
     <property name="FullScreen" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/ige" />
+    <property name="last_opened_file_path" value="$USER_HOME$/realtime-multiplayer-in-html5" />
     <property name="dynamic.classpath" value="false" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers" value="false" />
@@ -347,127 +366,6 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\WebOnlineGame\src" />
     </key>
-  </component>
-  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
-    <UpdatedFiles>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Updated from server" />
-        <option name="myStatusName" value="Changed on server" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="CHANGED_ON_SERVER" />
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated" />
-          <option name="myStatusName" value="Changed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/Test/MatchMaking/FixedRoomSizeMatcherTest.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/Test/MatchMaking/MatchMakerTest.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/Game/Controller/GameManager.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/Game/Controller/GameServer.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/Game/Controller/ServerConfig.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/Game/Model/Configuration.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/Game/Model/GameWorld.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/Game/Model/Player.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/Game/Model/iWorld.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/MatchMaking/FixedRoomSizeMatcher.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/MatchMaking/MatchingManager.java</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Created" />
-          <option name="myStatusName" value="Created" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CREATED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Deleted" />
-          <option name="myStatusName" value="Deleted" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="true" />
-          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Restored" />
-          <option name="myStatusName" value="Will be restored" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="RESTORED" />
-        </FILE-GROUP>
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Modified" />
-        <option name="myStatusName" value="Modified" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MODIFIED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Skipped" />
-        <option name="myStatusName" value="Skipped" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SKIPPED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with conflicts" />
-        <option name="myStatusName" value="Will be merged with conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_CONFLICTS" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with tree conflicts" />
-        <option name="myStatusName" value="Merged with tree conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with property conflicts" />
-        <option name="myStatusName" value="Will be merged with property conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged" />
-        <option name="myStatusName" value="Will be merged" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Not in repository" />
-        <option name="myStatusName" value="Not in repository" />
-        <option name="mySupportsDeletion" value="true" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="UNKNOWN" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally added" />
-        <option name="myStatusName" value="Locally added" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_ADDED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally removed" />
-        <option name="myStatusName" value="Locally removed" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_REMOVED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Switched" />
-        <option name="myStatusName" value="Switched" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SWITCHED" />
-      </FILE-GROUP>
-    </UpdatedFiles>
   </component>
   <component name="RunManager" selected="Tomcat Server.RUN">
     <configuration default="false" name="PlaneMazeTesterClassNotPartOfProject" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -1008,7 +906,11 @@
       <workItem from="1434543292026" duration="25596000" />
       <workItem from="1434607054203" duration="26083000" />
       <workItem from="1434639259266" duration="1485000" />
-      <workItem from="1434656914095" duration="1887000" />
+      <workItem from="1434656914095" duration="7645000" />
+      <workItem from="1434666912203" duration="619000" />
+      <workItem from="1434730542547" duration="5628000" />
+      <workItem from="1434737188512" duration="10753000" />
+      <workItem from="1434794025156" duration="8048000" />
     </task>
     <task id="LOCAL-00001" summary="Added DDL statements">
       <created>1433434253476</created>
@@ -1130,11 +1032,29 @@
       <option name="project" value="LOCAL" />
       <updated>1434657321836</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="sheiicvala vizualuri efeqtebi, tamashis damtavreba, motamashis gaqroba da sxva">
+      <created>1434658818271</created>
+      <option name="number" value="00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1434658818271</updated>
+    </task>
+    <task id="LOCAL-00022" summary="sheiicvala vizualuri efeqtebi, tamashis damtavreba, motamashis gaqroba da sxva">
+      <created>1434659120568</created>
+      <option name="number" value="00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1434659120568</updated>
+    </task>
+    <task id="LOCAL-00023" summary="gasworda 3 motamasheze bug (rogorc iqna)">
+      <created>1434747325090</created>
+      <option name="number" value="00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1434747325090</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="269498000" />
+    <option name="totallyTimeSpent" value="300304000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1147,7 +1067,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1157,10 +1077,10 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962178" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34323922" sideWeight="0.55219126" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3447251" sideWeight="0.54900396" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24583964" sideWeight="0.50886077" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.51560175" sideWeight="0.39681274" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42347696" sideWeight="0.40876493" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32838038" sideWeight="0.4969743" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48439822" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -1169,8 +1089,8 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1872214" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19840637" sideWeight="0.48885587" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.56315005" sideWeight="0.60318726" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19840637" sideWeight="0.48885587" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.53491825" sideWeight="0.59123504" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
@@ -1244,23 +1164,75 @@
     <MESSAGE value="&quot;finish&quot; instead of &quot;gameOn&quot;" />
     <MESSAGE value="gasworda potionis gaqroba" />
     <MESSAGE value="sheiicvala vizualuri efeqtebi, tamashis damtavreba, motamashis gaqroba da sxva" />
-    <option name="LAST_COMMIT_MESSAGE" value="sheiicvala vizualuri efeqtebi, tamashis damtavreba, motamashis gaqroba da sxva" />
+    <MESSAGE value="gasworda 3 motamasheze bug (rogorc iqna)" />
+    <option name="LAST_COMMIT_MESSAGE" value="gasworda 3 motamasheze bug (rogorc iqna)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/web/client.js</url>
-          <line>120</line>
+          <line>126</line>
           <option name="timeStamp" value="107" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/web/client.js</url>
+          <line>164</line>
+          <option name="timeStamp" value="127" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/web/client.js</url>
+          <line>168</line>
+          <option name="timeStamp" value="128" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/web/client.js</url>
+          <line>169</line>
+          <option name="timeStamp" value="129" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/web/client.js</url>
+          <line>165</line>
+          <option name="timeStamp" value="130" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/web/gameClasses/Character.js</url>
+          <line>139</line>
+          <option name="timeStamp" value="155" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/web/gameClasses/Character.js</url>
+          <line>284</line>
+          <option name="timeStamp" value="157" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/web/gameClasses/Character.js</url>
+          <line>277</line>
+          <option name="timeStamp" value="158" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/web/gameClasses/Character.js</url>
+          <line>271</line>
+          <option name="timeStamp" value="159" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/web/gameClasses/Character.js</url>
+          <line>270</line>
+          <option name="timeStamp" value="160" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="119" />
+      <option name="time" value="161" />
     </breakpoint-manager>
-    <watches-manager />
+    <watches-manager>
+      <configuration name="JavascriptDebugType">
+        <watch expression="this.isMainCharacter" language="JavaScript" />
+        <watch expression="this._translate.x" language="JavaScript" />
+        <watch expression="typeof (characters[name].lastposition)=='undefined'" language="JavaScript" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <PATH>
@@ -1279,46 +1251,10 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="5" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/ige/engine/components/database/mongodb/IgeMongoDb.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/ige/engine/components/database/mongodb/IgeMongoDbComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2799378">
-          <caret line="10" column="57" selection-start-line="10" selection-start-column="47" selection-end-line="10" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/ige/engine/components/editor/panels/IgeEditorPanelsComponent.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="15.029549">
           <caret line="1206" column="28" selection-start-line="1206" selection-start-column="28" selection-end-line="1206" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game/Controller/GameManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24105754">
-          <caret line="131" column="28" selection-start-line="131" selection-start-column="18" selection-end-line="131" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -1327,13 +1263,6 @@
         <state vertical-scroll-proportion="0.91290826">
           <caret line="842" column="22" selection-start-line="842" selection-start-column="22" selection-end-line="842" selection-end-column="22" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/ige/engine/core/IgeObject.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.096423">
-          <caret line="1137" column="72" selection-start-line="1137" selection-start-column="72" selection-end-line="1137" selection-end-column="72" />
         </state>
       </provider>
     </entry>
@@ -1411,7 +1340,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1518,13 +1446,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/gameClasses/Character.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.4466019">
-          <caret line="80" column="4" selection-start-line="80" selection-start-column="4" selection-end-line="80" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/fourColors.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.22727273">
@@ -1560,25 +1481,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/gameClasses/Maze.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#38#0" expanded="false" />
-            <element signature="e#416#6505#0" expanded="false" />
-            <element signature="e#6542#6682#0" expanded="false" />
-            <element signature="e#6713#7325#0" expanded="false" />
-            <element signature="e#9786#11035#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Game/Model/Cell.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1586,23 +1492,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="81" column="25" selection-start-line="81" selection-start-column="25" selection-end-line="81" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ConfigFile.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="9" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/Circle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="13" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1615,35 +1504,120 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.36547434">
           <caret line="181" column="24" selection-start-line="181" selection-start-column="20" selection-end-line="181" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/gameClasses/ClientWorld.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3919129">
+          <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/Circle.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="13" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/ige/engine/core/IgeEntity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27682737">
+          <caret line="1582" column="13" selection-start-line="1582" selection-start-column="13" selection-end-line="1582" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/ige/engine/core/IgeObject.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.41679627">
+          <caret line="1426" column="4" selection-start-line="1426" selection-start-column="4" selection-end-line="1426" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/ige/engine/core/IgePoint.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="300" column="0" selection-start-line="300" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/ige/engine/core/IgeEngine.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1227" column="33" selection-start-line="1227" selection-start-column="33" selection-end-line="1227" selection-end-column="33" />
           <folding>
-            <element signature="e#0#38#0" expanded="false" />
+            <marker date="1433453596345" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1433453596345" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1433453596345" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Controller/GameManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/gameClasses/Character.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.8333335">
+          <caret line="215" column="25" selection-start-line="215" selection-start-column="21" selection-end-line="215" selection-end-column="25" />
+          <folding>
+            <element signature="e#1240#1449#0" expanded="false" />
+            <element signature="e#1476#3093#0" expanded="false" />
+            <element signature="e#3097#3209#0" expanded="false" />
+            <element signature="e#3235#4275#0" expanded="false" />
+            <element signature="e#5869#6044#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/client.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0357698">
-          <caret line="69" column="4" selection-start-line="69" selection-start-column="4" selection-end-line="69" selection-end-column="4" />
+        <state vertical-scroll-proportion="-3.7419355">
+          <caret line="165" column="4" selection-start-line="165" selection-start-column="4" selection-end-line="165" selection-end-column="4" />
           <folding>
+            <element signature="e#231#1352#0" expanded="false" />
             <element signature="e#1843#1962#0" expanded="false" />
             <element signature="e#1914#1954#0" expanded="false" />
             <element signature="e#1998#2039#0" expanded="false" />
-            <element signature="e#2466#2503#0" expanded="false" />
-            <element signature="e#2506#2540#0" expanded="false" />
-            <element signature="n#!!doc;n#getCookie#0" expanded="false" />
-            <element signature="e#5050#5188#0" expanded="false" />
+            <element signature="e#2164#2253#0" expanded="false" />
+            <element signature="e#2468#2505#0" expanded="false" />
+            <element signature="e#2508#2542#0" expanded="false" />
+            <element signature="e#5608#5746#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/gameClasses/Maze.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="320" column="0" selection-start-line="320" selection-start-column="0" selection-end-line="320" selection-end-column="0" />
+          <folding>
+            <element signature="e#415#6504#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Controller/GameFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ConfigFile.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36391914">
+          <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
