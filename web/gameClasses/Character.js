@@ -221,7 +221,7 @@ var Character = IgeEntityBox2d.extend({
 			this._translate.x=x1;
 			this._translate.y=y1;
 
-			console.log(this.myId+" x "+this._translate.x+"  y "+this._translate.y);
+			//console.log(this.myId+" x "+this._translate.x+"  y "+this._translate.y);
 			/*this._translate.x = x1;
 			 this._translate.y = y1;*/
 		}

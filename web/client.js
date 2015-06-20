@@ -146,7 +146,7 @@ function handler(snapShot){
 	if(snapShot.type&&snapShot.type=="INIT") {
 		console.log(JSON.stringify(snapShot));
 		self.gameConfig = gameConfig =  createGameConfig(snapShot);
-		new Maze(snapShot,self).createMaze();
+		new Maze(snapShot,self,self.gameConfig).createMaze();
 	}
 }
 function parsePlayers(players) {

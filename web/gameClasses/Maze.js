@@ -7,13 +7,12 @@ var Maze = IgeEntityBox2d.extend({
     gameConfig: {},
     snapshot: {},
     init: function (snapshot,creator) {
+
         this.snapshot=snapshot;
         this.creator = creator;
         this.gameConfig= creator.gameConfig;
         var self = this ;
         IgeEntity.prototype.init.call(this);
-
-
 
         //.mount(self.scene1)
     },
@@ -187,14 +186,6 @@ var Maze = IgeEntityBox2d.extend({
     },*/
 
 
-    transTo : function(x,y,config){
-        this.translateTo(x-config.width/2+config.potRadius,
-            y-config.height/2+config.potRadius,0);
-        return this;
-
-    },
-
-
     createMaze: function() {
         var snapShot = this.snapshot;
         var gameConfig = this.gameConfig;
@@ -202,72 +193,66 @@ var Maze = IgeEntityBox2d.extend({
             cellHoryzSize = (gameConfig.width-(maze.numCols-1)*gameConfig.wallWidth)/maze.numCols,
             cellVertSize = (gameConfig.height-(maze.numRows-1)*gameConfig.wallWidth) /maze.numRows,
             walls = maze.walls,
-            zeroX = gameConfig.width/ 2,
-            zeroY = gameConfig.height/ 2,
             startX = 0,
             startY = 0;
         this.createFrame();
-        this.createInnerMaze(walls, startX, cellHoryzSize, startY, cellVertSize, zeroX, zeroY);
+        this.createInnerMaze(walls, startX, cellHoryzSize, startY, cellVertSize);
     },
-    createInnerMaze: function(walls, startX, cellHoryzSize, startY, cellVertSize, zeroX, zeroY) {
+    createInnerMaze: function(walls, startX, cellHoryzSize, startY, cellVertSize) {
         var gameConfig = this.gameConfig;
         for (var wall1 in walls) {
             if (walls.hasOwnProperty(wall1)) {
                 var wall = walls[wall1];
+
                 var col1 = wall.cell1.col;
                 var row1 = wall.cell1.row;
+
                 var col2 = wall.cell2.col;
                 var row2 = wall.cell2.row;
+
                 var drawX;
                 var drawY;
                 var wWidth;
                 var wHeight;
-                var H = true;
-                startX = (col1) * cellHoryzSize + col1 * gameConfig.wallWidth;
+                startX = col1 * cellHoryzSize + col1 * gameConfig.wallWidth;
                 startY = row1 * cellVertSize + row1 * gameConfig.wallWidth;
 
                 //ixateba zemot an qvemot
                 if (col1 == col2) {
+                    wHeight = gameConfig.wallWidth;
+                    wWidth = cellHoryzSize + gameConfig.wallWidth;
+                    drawX = startX - gameConfig.wallWidth;
+
                     if (row1 < row2) {
-
                         // ixateba qvemot
-
-                        wHeight = gameConfig.wallWidth;
-                        wWidth = cellHoryzSize + gameConfig.wallWidth;
-                        drawY = startY + cellVertSize + gameConfig.wallWidth / 2;
-                        drawX = startX + wWidth / 2;
+                        drawY = startY + cellVertSize ;
 
                     } else {
-
                         //ixateba zemot
+                        drawY = startY - gameConfig.wallWidth ;
 
-                        wHeight = gameConfig.wallWidth;
-                        wWidth = cellHoryzSize + gameConfig.wallWidth;
-
-                        drawY = startY - wHeight / 2;
-                        drawX = startX + wWidth / 2;
                     }
 
                 } else {///ixateba marjvniv an marcxniv
-                    if (col1 < col2) { //marjvniv
-                        wHeight = cellVertSize + gameConfig.wallWidth;
 
-                        wWidth = gameConfig.wallWidth;
-                        drawY = startY + wHeight / 2;
-                        drawX = startX + cellHoryzSize + wWidth / 2;
+                    wHeight = cellVertSize + gameConfig.wallWidth*2;
+                    wWidth = gameConfig.wallWidth;
+                    drawY = startY -gameConfig.wallWidth;
+
+                    if (col1 < col2) { //marjvniv
+
+                        drawX = startX + cellHoryzSize ;
                     }
                     else { // marcxniv
-                        wHeight = cellVertSize + gameConfig.wallWidth;
 
-                        wWidth = gameConfig.wallWidth;
-                        drawY = startY + wHeight / 2;
-                        drawX = startX - wWidth / 2;
+                        drawX = startX - gameConfig.wallWidth;
                     }
                 }
                 //x,y,width,height
 
-                this.createWall(wWidth, wHeight)
-                    .translateTo(drawX-zeroX, drawY-zeroX, gameConfig);
+                var newWall = this.createWall(wWidth, wHeight);
+                this.transTo(newWall,drawX,drawY);
+
 
 
             }
@@ -278,35 +263,45 @@ var Maze = IgeEntityBox2d.extend({
     createFrame: function() {
         var gameConfig = this.gameConfig;
         ///marcxena
-        var startCx = -gameConfig.width / 2 - gameConfig.wallWidth / 2;
+
+        /** @namespace gameConfig.wallWidth */
+
+        var startCx = -gameConfig.wallWidth;
         var startCy = 0;
-        this.createWall(gameConfig.wallWidth, gameConfig.height)
-            .translateTo(startCx, startCy, 0);
 
-        /////////////////////////////////////////////////////////////////////////////////////
+        this.transTo( this.createWall(gameConfig.wallWidth, gameConfig.height),     startCx,startCy);
 
-        startCx = 0;
-        startCy = -gameConfig.height / 2 - gameConfig.wallWidth / 2;
 
-        this.createWall(gameConfig.width + 2 * gameConfig.wallWidth, gameConfig.wallWidth)
-            .translateTo(startCx, startCy, 0);
+        //zemot
 
-        ///////////////////////////////////////////////////////////////////////////////////////
-        startCx = gameConfig.width / 2 + gameConfig.wallWidth / 2;
+        startCx = -gameConfig.wallWidth;
+        startCy = -gameConfig.wallWidth;
+
+        this.transTo(this.createWall(gameConfig.width + 2
+            * gameConfig.wallWidth, gameConfig.wallWidth), startCx, startCy);
+
+
+       //marjvniv
+        startCx = gameConfig.width;
         startCy = 0;
-        this.createWall(gameConfig.wallWidth, gameConfig.height)
-            .translateTo(startCx, startCy, 0);
 
-        //////////////////////////////////////////////////////////////////////////////////////////
-        startCx = 0;
-        startCy = gameConfig.height / 2 + gameConfig.wallWidth / 2;
-        this.createWall(gameConfig.width + 2 * gameConfig.wallWidth, gameConfig.wallWidth)
-            .translateTo(startCx, startCy, 0);
+
+        this.transTo(this.createWall(gameConfig.wallWidth, gameConfig.height), startCx, startCy);
+
+        //qvemot
+
+        startCx = -gameConfig.wallWidth;
+        startCy = gameConfig.height;
+
+
+
+        this.transTo(this.createWall(gameConfig.width + 2 * gameConfig.wallWidth, gameConfig.wallWidth)
+            , startCx, startCy);
+
         return this ;
     },
 
     createWall:function(wWidth, wHeight) {
-        var gameConfig= this.gameConfig ;
         return new IgeEntityBox2d()
             .width(wWidth)
             .height(wHeight)
@@ -322,7 +317,15 @@ var Maze = IgeEntityBox2d.extend({
                     }
                 }]
             });
-        return this
+    },
+
+    transTo: function (entity,x, y) {
+        var config = this.config;
+        var x1 = x - gameConfig.width / 2 + entity.width() /2;
+        var y1 = y - gameConfig.height / 2 + entity.height() /2;
+            entity.translateTo(x1,y1,0);
+
+        return this ;
     }
 
 
