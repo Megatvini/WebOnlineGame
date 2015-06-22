@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import Core.Controller.Account;
+import Core.Model.DBWorker;
+import Core.Model.UserControl;
 import Interfaces.Controller.iAccount;
 
 /**
@@ -22,8 +24,9 @@ public class AddToFriend extends HttpServlet {
         iAccount accountFrom = null;
         iAccount accountTo = null;
         try {
-            accountFrom = new Account(nicknameFrom);
-            accountTo = new Account(nicknameTo);
+            UserControl userControl = (UserControl)getServletContext().getAttribute("userControl");
+            accountFrom = userControl.getUser(nicknameFrom);
+            accountTo = userControl.getUser(nicknameTo);
         } catch (Exception e) {
             e.printStackTrace();
         }

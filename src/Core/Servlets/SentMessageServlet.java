@@ -1,7 +1,7 @@
 package Core.Servlets;
 
-import Core.Controller.Account;
-import Interfaces.View.iMessageView;
+import Core.Model.UserControl;
+import Interfaces.Controller.iAccount;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,13 +19,14 @@ public class SentMessageServlet extends HttpServlet {
         String nicknameFrom = request.getParameter("profileFrom");
         String nicknameTo = request.getParameter("profileTo");
         String message = request.getParameter("message");
+        UserControl userControl = (UserControl)getServletContext().getAttribute("userControl");
 
         try {
-            Account accFrom = new Account(nicknameFrom);
-            accFrom.sentMessage(nicknameTo, new iMessageView.Message(message, iMessageView.Message.Type.SENT));
+            iAccount accFrom = userControl.getUser(nicknameFrom);
+            //TODO:
 
-            Account accTo = new Account(nicknameTo);
-            accTo.sentMessage(nicknameFrom, new iMessageView.Message(message, iMessageView.Message.Type.GOTTEN));
+            iAccount accTo = userControl.getUser(nicknameTo);
+            //TODO:
 
         } catch (Exception e) {
             e.printStackTrace();

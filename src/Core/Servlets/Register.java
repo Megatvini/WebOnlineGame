@@ -2,6 +2,7 @@ package Core.Servlets;
 
 import Core.Controller.Account;
 import Core.Controller.Hashing;
+import Core.Model.UserControl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +22,8 @@ public class Register extends HttpServlet {
         account.setNickname(request.getParameter("nickname"));
         account.setMail(request.getParameter("mail"));
         account.setPassword(Hashing.getHash(request.getParameter("password")));
-        account.save();
+        UserControl userControl = (UserControl)getServletContext().getAttribute("userControl");
+        userControl.registerUser(account);
 
         HttpSession session = request.getSession();
         session.setAttribute("nickname", account.getNickname());

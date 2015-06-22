@@ -1,6 +1,5 @@
 package Interfaces.View;
 
-import Core.View.MessageList;
 
 import java.util.Hashtable;
 
@@ -18,5 +17,4 @@ public interface iShorProfile {
 
     public Hashtable<String, iShorProfile> getWaitingFriends();
 
-    public Hashtable<String, MessageList> getUnreadMessages();
 }

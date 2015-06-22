@@ -1,6 +1,5 @@
 package Interfaces.View;
 
-import Core.View.MessageList;
 
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -24,8 +23,6 @@ public interface iProfile extends iShorProfile{
     public String getPassword();
 
     public Hashtable<String, iShorProfile> getFriends();
-
-    public MessageList getMessages(String nickname);
 
     public boolean isOnline();
 }

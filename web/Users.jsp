@@ -1,8 +1,6 @@
-<%@ page import="Core.ViewManager" %>
 <%@ page import="Interfaces.View.iShorProfile" %>
 <%@ page import="Core.Controller.Account" %>
 <%@ page import="java.util.HashMap" %>
-<%@ page import="Core.ControlManager" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -60,9 +58,9 @@
     {
       String search = request.getParameter("search");
       if(search == null)
-        profiles = ControlManager.getOnlineUsers(nickname);
+        profiles = null;  // TODO
       else
-        profiles = ControlManager.getOnlineUsersLike(search);
+        profiles = null; //TODO
     }
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>

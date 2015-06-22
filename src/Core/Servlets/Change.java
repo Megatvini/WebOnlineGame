@@ -1,6 +1,8 @@
 package Core.Servlets;
 
 import Core.Controller.Account;
+import Core.Model.UserControl;
+import Interfaces.Controller.iAccount;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,23 +18,24 @@ import java.io.IOException;
 @WebServlet("/ChangeAccount")
 public class Change extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        UserControl userControl = (UserControl)getServletContext().getAttribute("userControl");
         HttpSession session=request.getSession();
-        Account account = null;
+        iAccount account = null;
         try {
-            account = new Account((String)session.getAttribute("nickname"));
+
+            account = userControl.getUser((session.getAttribute("nickname")).toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        account.save();
+
         session.setAttribute("nickname", account.getNickname());
 
         account.setFirstname(request.getParameter("firstname"));
         account.setLastname(request.getParameter("lastname"));
         account.setMail(request.getParameter("mail"));
         account.setPicturePath(request.getParameter("picture"));
-int x;
-        account.save();
+
+        userControl.changeUser(account.getNickname(),account);
 
         response.sendRedirect("index.jsp");
     }

@@ -1,10 +1,7 @@
 package Core.Controller;
 
 import Core.Model.UserControl;
-import Core.View.MessageList;
 import Interfaces.Controller.iAccount;
-import Interfaces.View.iMessageView;
-import Interfaces.View.iProfile;
 import Interfaces.View.iShorProfile;
 
 import java.util.Hashtable;
@@ -19,7 +16,7 @@ public class Account implements iAccount {
     @Override
     public void addFriend(String nickname) throws Exception {
         if(nickname.equals(_nickname)) throw new Exception("shen tavs amateb");
-        Account friend = new Account(nickname);
+        iAccount friend = (new UserControl()).getUser(nickname);
         _friendsWaiting.put(nickname, friend);
     }
 
@@ -28,7 +25,6 @@ public class Account implements iAccount {
        if ( !_friendsWaiting.containsKey(nickname)) return;
          _friends.put(nickname, _friendsWaiting.get(nickname));
         _friendsWaiting.remove(nickname);
-        _messages.put(nickname,new MessageList());
     }
 
     private void addFriend(Hashtable<String, iShorProfile> friends) {
@@ -37,28 +33,6 @@ public class Account implements iAccount {
 
     private void addWaitingFriend(Hashtable<String, iShorProfile> friends) {
         _friendsWaiting = friends;
-    }
-
-    public Account(String nickname) throws Exception {
-       iProfile prof = UserControl.getUser(nickname);
-
-        _nickname = prof.getNickname();
-        _fisrtname = prof.getFirstname();
-        _lastname = prof.getLastname();
-        _gender = prof.getGender();
-        _mail = prof.getMail();
-        _picPath = prof.getPicturePath();
-        _rank = prof.getRank();
-        _password = prof.getPassword();
-        addFriend(prof.getFriends());
-        addWaitingFriend(prof.getWaitingFriends());
-
-        Hashtable<String, iShorProfile> friends = prof.getFriends();
-        for(iShorProfile pr : friends.values()){
-            _messages.put(pr.getNickname(),new MessageList());
-        }
-
-        setMessages(((Account)prof).getMessages());
     }
 
     public Account(){
@@ -154,14 +128,9 @@ public class Account implements iAccount {
         _rank=rank;
     }
 
-    @Override
-    public void save() {
-        UserControl.RegisterUser(this);
-    }
 
     @Override
     public Hashtable<String, iShorProfile> getFriends() {
-
         return _friends;
     }
 
@@ -171,30 +140,6 @@ public class Account implements iAccount {
         return _friendsWaiting;
     }
 
-    @Override
-    public Hashtable<String, MessageList> getUnreadMessages() {
-        return null;
-    }
-
-    Hashtable<String, MessageList> _messages = new Hashtable<String, MessageList>();
-
-    @Override
-    public MessageList getMessages(String nickname) {
-        return _messages.get(nickname);
-    }
-
-    public Hashtable<String, MessageList> getMessages() {
-        return _messages;
-    }
-
-    private  void setMessages(Hashtable<String, MessageList> messages){
-        _messages = messages;
-    }
-
-    public void sentMessage(String nickname, iMessageView.Message message){
-        MessageList mess =  _messages.get(nickname);
-        mess.addMessage(message.getMessage(), message.getType());
-    }
 
     @Override
     public boolean isOnline()

@@ -1,6 +1,6 @@
 <%@ page import="Interfaces.View.iShorProfile" %>
-<%@ page import="Core.ViewManager" %>
 <%@ page import="Core.Controller.Account" %>
+<%@ page import="Core.Model.UserControl" %>
 <%--
   Created by IntelliJ IDEA.
   User: Annie
@@ -17,8 +17,11 @@
 <%
   String nick = (String)session.getAttribute("nickname");
   iShorProfile prof ;
-  if (nick != null)
-   prof = new Account(nick);//TODO:
+  if (nick != null) {
+    UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
+    prof = userControl.getUser(nick);
+   //TODO:
+  }
   else
   prof = new Account();
 %>

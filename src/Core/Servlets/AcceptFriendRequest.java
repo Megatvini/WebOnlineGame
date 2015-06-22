@@ -1,6 +1,7 @@
 package Core.Servlets;
 
 import Core.Controller.Account;
+import Core.Model.UserControl;
 import Interfaces.Controller.iAccount;
 
 import javax.servlet.ServletException;
@@ -22,8 +23,9 @@ public class AcceptFriendRequest extends HttpServlet {
         iAccount accountFrom = null;
         iAccount accountTo = null;
         try {
-            accountFrom = new Account(nicknameFrom);
-            accountTo = new Account(nicknameTo);
+            UserControl userControl = (UserControl)getServletContext().getAttribute("userControl");
+            accountFrom = userControl.getUser(nicknameFrom);
+            accountTo = userControl.getUser(nicknameTo);
         } catch (Exception e) {
             e.printStackTrace();
         }

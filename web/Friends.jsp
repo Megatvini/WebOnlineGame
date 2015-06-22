@@ -1,9 +1,8 @@
-<%@ page import="Core.ViewManager" %>
+
 <%@ page import="Interfaces.View.iShorProfile" %>
 <%@ page import="Core.Controller.Account" %>
 <%@ page import="Interfaces.View.iProfile" %>
 <%@ page import="java.util.HashMap" %>
-<%@ page import="Core.ControlManager" %>
 <%@ page import="java.util.Hashtable" %>
 <%--
   Created by IntelliJ IDEA.

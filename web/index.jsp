@@ -1,6 +1,7 @@
-<%@ page import="Core.ViewManager" %>
+
 <%@ page import="Interfaces.View.iProfile" %>
 <%@ page import="Core.Controller.Account" %>
+<%@ page import="Core.Model.UserControl" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -57,7 +58,8 @@
     }
     else
     {
-      profile = new Account(nickname);
+      UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
+      profile = userControl.getUser(nickname);
     }
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>

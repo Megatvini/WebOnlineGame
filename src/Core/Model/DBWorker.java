@@ -8,7 +8,7 @@ import java.sql.*;
 public class DBWorker {
 
 
-    private static Connection getConnection(){
+    private Connection getConnection(){
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (InstantiationException e) {
@@ -32,8 +32,7 @@ public class DBWorker {
         return conn;
     }
 
-
-    public static ResultSet getResult(String query) {
+    public ResultSet getResult(String query) {
       Connection conn = getConnection();
         Statement stmt = null;
         ResultSet rs = null;
@@ -50,7 +49,7 @@ public class DBWorker {
         return rs;
     }
 
-    public static Integer execute(String query){
+    public Integer execute(String query){
         Connection conn = getConnection();
         Statement stmt = null;
         Integer num=0;

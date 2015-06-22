@@ -1,7 +1,8 @@
 package Core.Servlets;
 
-import Core.AuthenticationManager;
 import Core.DBInfo;
+import Core.Model.UserControl;
+import Interfaces.Controller.iAccount;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +23,9 @@ public class SignIn extends HttpServlet {
 
         boolean logined = false;
         try {
-            logined = AuthenticationManager.login(nickname, password);
+            UserControl userControl = (UserControl)getServletContext().getAttribute("userControl");
+            iAccount accaunt = userControl.getUser(nickname);
+            logined = accaunt.getPassword().equals(password);
         } catch (Exception e) {
             response.sendRedirect("Accont/Login.jsp?error=1");
             return;
