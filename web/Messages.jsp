@@ -4,6 +4,9 @@
 <%@ page import="Interfaces.View.iProfile" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Hashtable" %>
+<%@ page import="Core.Model.UserControl" %>
+<%@ page import="Core.Controller.Message" %>
+<%@ page import="java.util.ArrayList" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -52,7 +55,7 @@
 <div class="wrapper">
   <%
     String nickname = (String)session.getAttribute("nickname");
-    Hashtable<String, iShorProfile> profiles = new Hashtable<String, iShorProfile>();
+    //Hashtable<String, iShorProfile> profiles = new Hashtable<String, iShorProfile>();
     iProfile profile;
     if(nickname == null) {
       String redirectURL = "Accont/Login.jsp";
@@ -61,11 +64,13 @@
     }
     else
     {
-      profile = new Account(nickname);
-      profiles = profile.getFriends();
+      UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
+      profile = userControl.getUser(nickname);
+     // profiles = profile.getFriends();
     }
-    String friend = request.getParameter("friend");
-    if(friend == null) friend = "";
+   String friend = request.getParameter("friend");
+   // if(friend == null)
+      friend = "1";
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
@@ -83,10 +88,7 @@
         </div>
         <div class="box-body no-padding">
           <ul class="nav nav-pills nav-stacked">
-            <% for (iShorProfile shortProf : profiles.values()) {
-            %>
-            <li class="<%= friend.equals(shortProf.getNickname()) ? "active" : ""%>"><a href="Messages.jsp?friend=<%=shortProf.getNickname()%>"><img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 60px; border-radius: 50%; ">  <%=shortProf.getNickname()%></a></li>
-            <% } %>
+
           </ul>
         </div><!-- /.box-body -->
       </div>
@@ -96,9 +98,14 @@
       <div class="box box-solid">
         <div class="box-body no-padding">
           <ul class="nav nav-pills nav-stacked">
-            <% if(!friend.equals("")) for (int i = 0; i<profile.getMessages(friend).size(); i++ ) {
-              String mess = profile.getMessages(friend).getMessage(i).getMessage();
-              String style = profile.getMessages(friend).getMessage(i).getType() == iMessageView.Message.Type.SENT ?
+            <%
+              UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
+              ArrayList<Message> messages = userControl.getMessages(profile.getID(), Integer.parseInt(friend));
+
+
+              for (int i = 0; i<messages.size(); i++ ) {
+              String mess = messages.get(i).getText();
+              String style = messages.get(i).getType() == Message.Type.SENT ?
                       "background-color: rgb(186, 223, 255);\n" +
                       "    text-align: right;" :
               "background-color: rgb(140, 179, 213)";
@@ -108,7 +115,7 @@
           </ul>
         </div><!-- /.box-body -->
         <form action="/SendMessage" method="post">
-          <input type="hidden" name="profileFrom" value="<%= nickname %>">
+          <input type="hidden" name="profileFrom" value="<%= profile.getID() %>">
           <input type="hidden" name="profileTo" value="<%= friend %>">
           <textarea  style="width: 100%; height:70px"  name="message"></textarea>
           <button class="btn btn-block btn-primary">მიწერა</button>

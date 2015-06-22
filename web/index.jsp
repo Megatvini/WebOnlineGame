@@ -2,6 +2,10 @@
 <%@ page import="Interfaces.View.iProfile" %>
 <%@ page import="Core.Controller.Account" %>
 <%@ page import="Core.Model.UserControl" %>
+<%@ page import="Interfaces.Controller.iAccount" %>
+<%@ page import="Core.Controller.Message" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.util.ArrayList" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -49,6 +53,9 @@
 <body class="skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
   <%
+    UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
+      ArrayList<Message> messages = userControl.getMessages(1,2);
+
     String nickname = (String)session.getAttribute("nickname");
     iProfile profile;
     if(nickname == null) {
@@ -58,7 +65,6 @@
     }
     else
     {
-      UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
       profile = userControl.getUser(nickname);
     }
   %>

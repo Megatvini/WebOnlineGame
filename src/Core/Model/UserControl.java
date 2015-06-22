@@ -7,6 +7,8 @@ import Interfaces.View.iProfile;
 import Interfaces.View.iShorProfile;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -96,11 +98,13 @@ public class UserControl {
 
         Integer i = (new DBWorker()).execute(query);
     }
+
     public iAccount getUser(String nickname) throws Exception {
         iAccount account = new Account();
         ResultSet result = (new DBWorker()).getResult("SELECT * FROM accounts where Nickname = '" + nickname + "'");
         if (!result.next()) throw new Exception("notRegistered");
         account.setNickname(nickname);
+        account.setID(result.getInt("ID"));
         account.setFirstname(result.getString("FirstName"));
         account.setLastname(result.getString("LastName"));
         account.setPassword(result.getString("Password"));
@@ -130,7 +134,44 @@ public class UserControl {
         return  users;
     }
 
-    public void sendMessage(Message message){
+    public void sendMessage(Message message) throws Exception {
 
+        ResultSet result = (new DBWorker()).getResult("SELECT * FROM conversations where AccIDFrom = " + message.getAccFrom() +
+                                                                                    " AND AccIDTo =" + message.getAccTo());
+
+        if (!result.next()) throw new Exception("shecdomaaa");
+        int conversationIDFrom = result.getInt("ID");
+
+
+        result = (new DBWorker()).getResult("SELECT * FROM conversations where AccIDFrom = " + message.getAccTo() +
+                " AND AccIDTo =" + message.getAccFrom());
+
+        if (!result.next()) throw new Exception("shecdomaaa");
+        int conversationIDTo = result.getInt("ID");
+
+        boolean b = message.getType().equals(Message.Type.SENT);
+        String query =  "insert into messages (Text, Sender, Conversations_ID) values ('"+ message.getText() +"', "+ (b? 1:2) +", " + conversationIDFrom + "); " ;
+       (new DBWorker()).execute(query);
+        query = "insert into messages (Text, Sender, Conversations_ID) values ('"+ message.getText() +"', "+ (b? 2:1) +", " + conversationIDTo + "); ";
+        (new DBWorker()).execute(query);
+    }
+
+    public ArrayList<Message> getMessages(int userID, int friendID) throws SQLException {
+
+        ArrayList<Message> messages = new ArrayList<Message>();
+        ResultSet result = (new DBWorker()).getResult("select * from messages inner join conversations"+
+                " on conversations.ID = messages.Conversations_ID where conversations.AccIDFrom = " + userID +
+                " and conversations.AccIDTo = " + friendID );
+
+        while (result.next()) {
+            Message message = new Message();
+            message.setText(result.getString("Text"));
+            message.setAccFrom(userID);
+            message.setAccTo(friendID);
+            message.setType(   (result.getInt("Sender"))== 1 ? Message.Type.SENT: Message.Type.GOTTEN  );
+            messages.add(message);
+            //TODO date
+        }
+        return  messages;
     }
 }

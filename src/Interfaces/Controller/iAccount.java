@@ -25,4 +25,5 @@ public interface iAccount extends iProfile {
 
     public void confirmFriend(String nickname);
 
+    public void setID(int ID);
 }

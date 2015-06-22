@@ -147,9 +147,16 @@ public class Account implements iAccount {
         return true;
     }
 
+    private int _ID;
 
     @Override
     public int getID() {
-        return 1;
+        return _ID;
     }
+
+    public void setID(int ID){
+        _ID = ID;
+    }
+
+
 }

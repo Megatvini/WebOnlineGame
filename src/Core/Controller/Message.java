@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class Message {
     public enum Type{SENT, GOTTEN}
-    public Message(String accFrom,String accTo, String text, Message.Type type, Date date){
+    public Message(int accFrom,int accTo, String text, Message.Type type, Date date){
         _accFrom = accFrom;
         _accTo = accTo;
         _text = text;
@@ -19,16 +19,16 @@ public class Message {
 
     }
 
-    public Message(String accFrom,String accTo){
+    public Message(int accFrom,int accTo){
        _accFrom = accFrom;
         _accTo = accTo;
     }
 
     String _text;
-    public String getMessage(){
+    public String getText(){
         return _text;
     }
-    public void getMessage(String newText){
+    public void setText(String newText){
         _text = newText;
     }
 
@@ -36,7 +36,7 @@ public class Message {
     public Type getType(){
         return _type;
     }
-    public void getType(Type newType){
+    public void setType(Type newType){
         _type = newType;
     }
 
@@ -44,23 +44,21 @@ public class Message {
     public Date getDate(){
         return _date;
     }
-    public void getType(Date newType){
-        _date = newType;
+    public void setDate(Date newDate){
+        _date = newDate;
     }
 
-    String _accTo;
-    public String getAccTo(){
+    int _accTo;
+    public int getAccTo(){
         return  _accTo;
     }
-    public void setAccTo(String accTo){
+    public void setAccTo(int accTo){
         _accTo = accTo;
     }
 
-    String _accFrom;
-    public String getAccFrom(){
-        return  _accFrom;
-    }
-    public void setAccFrom(String accFrom){
+    int _accFrom;
+    public int getAccFrom(){ return  _accFrom; }
+    public void setAccFrom(int accFrom){
         _accFrom = accFrom;
     }
 }
