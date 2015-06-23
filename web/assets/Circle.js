@@ -15,13 +15,17 @@ var image = {
         };
 
         var grd = ctx.createRadialGradient(centre.x, centre.y, 1, centre.x, centre.y, entity._geometry.x);
-        grd.addColorStop(.2, 'rgba(0,0,0,0)');
-        grd.addColorStop(.3, 'rgba(0,0,255,.6)');
-        grd.addColorStop(1, 'rgba(0,0,0,.01)');
+        var circleRadius = entity._geometry.x ;
+        var playerRadius = entity.radius;
+        var dr = playerRadius/circleRadius;
+        grd.addColorStop(dr, 'rgba(0,0,0,0)');
+        grd.addColorStop(dr, 'rgba(0,0,255,.6)');
+        grd.addColorStop(1, 'rgba(0,0,255,.1)');
 
         ctx.beginPath();
         ctx.arc(centre.x,centre.y,entity._geometry.x,0,2*Math.PI);
         ctx.fillStyle = grd;
+        ctx.strokeStyle = 'rgba(0,0,255,0)' ;
         ctx.fill();
         ctx.stroke();
 

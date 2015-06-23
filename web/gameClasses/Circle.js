@@ -4,7 +4,8 @@
  */
 var Circle = IgeEntity.extend({
     classId: 'Cyrcle',
-    init: function (distanceR) {
+    init: function (distanceR,radius) {
+        this.radius = radius ;
         var self = this;
         IgeEntity.prototype.init.call(this);
         // Load the character texture file

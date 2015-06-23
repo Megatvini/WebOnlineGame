@@ -17,176 +17,186 @@ var Maze = IgeEntityBox2d.extend({
         //.mount(self.scene1)
     },
 
+    createBackGround: function () {
+        new IgeEntity()
+            .width(ige.client.gameConfig.width)
+            .height(ige.client.gameConfig.height)
+            .mount(this.creator.mainScene)
+            .depth(0)
+           // .translateTo(-ige.client.gameConfig.width/2,-ige.client.gameConfig.height/2,0)
+            .texture(new IgeTexture('../assets/floor.js'))
+    },
     /*createGoodMaze: function(){
-        var maze,
-            cellHeight,
-            cellWidth,
-            snapShot =   this.snapshot,
-            gameConfig = this.gameConfig,
-            map,
-            height,
-            width,
-            tileheight,
-            data1 = [],
-            data2 = [],
-            tilewidth;
+     var maze,
+     cellHeight,
+     cellWidth,
+     snapShot =   this.snapshot,
+     gameConfig = this.gameConfig,
+     map,
+     height,
+     width,
+     tileheight,
+     data1 = [],
+     data2 = [],
+     tilewidth;
 
 
 
-        maze = snapShot.planeMaze;
+     maze = snapShot.planeMaze;
 
 
-        //number of spots
-        width = gameConfig.width / gameConfig.wallWidth+2; // number of  cals
-        height = gameConfig.height / gameConfig.wallWidth+2; // number of  rows
+     //number of spots
+     width = gameConfig.width / gameConfig.wallWidth+2; // number of  cals
+     height = gameConfig.height / gameConfig.wallWidth+2; // number of  rows
 
-        //size of one spot
-        tileheight = gameConfig.wallWidth; //one spot size
-        tilewidth = gameConfig.wallWidth; //one spot size
+     //size of one spot
+     tileheight = gameConfig.wallWidth; //one spot size
+     tilewidth = gameConfig.wallWidth; //one spot size
 
-        //number of spots in one cell
-        cellWidth = ( width - maze.numCols + 1 ) / maze.numCols;
-        cellHeight = ( height - maze.numRows + 1 ) / maze.numRows;
-
-
-        var i,j;
-
-        for(i = 0; i < width*height; ++i) {
-           // data1[i] = 1;
-            data2[i] = 0;
-        }
-
-        for(i = 0; i < maze.walls.length; ++i){
-            var wall = maze.walls[i],
-                col1 = wall.cell1.col,
-                row1 = wall.cell1.row,
-                col2 = wall.cell2.col,
-                row2 = wall.cell2.row;
-
-            var x  = col1*cellWidth+col1*tilewidth; //left most upper
-            var y  = row1*cellHeight+row1*tileheight;//left most upper
-
-            var x1 = x , y1 = y , endY = y1 , endX = x1 ;
+     //number of spots in one cell
+     cellWidth = ( width - maze.numCols + 1 ) / maze.numCols;
+     cellHeight = ( height - maze.numRows + 1 ) / maze.numRows;
 
 
-            //up or down
-            if( col1== col2 ){
-                if( row1< row2 ){//down
+     var i,j;
 
-                    x1 = x;                // starting x coordinate
-                    y1+=cellHeight;        // starting y coordinate
-                    endX=x1+cellWidth;     // we draw horizontally
-                    endY=y1;               // y remains
+     for(i = 0; i < width*height; ++i) {
+     // data1[i] = 1;
+     data2[i] = 0;
+     }
+
+     for(i = 0; i < maze.walls.length; ++i){
+     var wall = maze.walls[i],
+     col1 = wall.cell1.col,
+     row1 = wall.cell1.row,
+     col2 = wall.cell2.col,
+     row2 = wall.cell2.row;
+
+     var x  = col1*cellWidth+col1*tilewidth; //left most upper
+     var y  = row1*cellHeight+row1*tileheight;//left most upper
+
+     var x1 = x , y1 = y , endY = y1 , endX = x1 ;
 
 
+     //up or down
+     if( col1== col2 ){
+     if( row1< row2 ){//down
 
-                } else {//up
-
-                    x1 = x;                // starting x coordinate
-                    y1-=1;                 // starting y coordinate
-                    endX=x1+cellWidth;     // we draw horizontally
-                    endY=y1;               // y remains
+     x1 = x;                // starting x coordinate
+     y1+=cellHeight;        // starting y coordinate
+     endX=x1+cellWidth;     // we draw horizontally
+     endY=y1;               // y remains
 
 
 
-                }
-            } else if (col1 < col2) { //right
+     } else {//up
 
-                x1 += cellWidth;       // starting x coordinate
-                y1 += y;               // starting y coordinate
-                endX = x1;             // x remains
-                endY += cellHeight;    // we draw vertically
-
-
-            } else { //left
-
-                x1 -= 1;                               // starting x coordinate
-                y1 += y;                           // starting y coordinate
-                endX = x1;                           //x remains
-                endY = y1 + cellHeight;             // we draw vertically
+     x1 = x;                // starting x coordinate
+     y1-=1;                 // starting y coordinate
+     endX=x1+cellWidth;     // we draw horizontally
+     endY=y1;               // y remains
 
 
-            }
+
+     }
+     } else if (col1 < col2) { //right
+
+     x1 += cellWidth;       // starting x coordinate
+     y1 += y;               // starting y coordinate
+     endX = x1;             // x remains
+     endY += cellHeight;    // we draw vertically
 
 
-            for(var k = x1; k <=endX; k ++){
-                for(j = y1; j <=endY ; j++){
-                    data2[j*width+k]=2;
-                }
-            }
+     } else { //left
 
-        }
-
-        var data= {
-            data1:data1,
-            data2:data2,
-            tileWidth:tilewidth,
-            tileHeight:tileheight
-        };
-        map = new Map(height,width,data);
+     x1 -= 1;                               // starting x coordinate
+     y1 += y;                           // starting y coordinate
+     endX = x1;                           //x remains
+     endY = y1 + cellHeight;             // we draw vertically
 
 
-        ige.addComponent(IgeTiledComponent)
-            .tiled.loadJson(map.getData() /!* you can also use a url: 'maps/example.js'*!/, function (layerArray, layersById){
-                // The return data from the tiled component are two arguments,
-                // the first is an array of IgeTextureMap instances, each one
-                // representing one of the Tiled map's layers. The ID of each
-                // instance is the same as the name assigned to the Tiled
-                // layer it represents. The second argument contains the same
-                // instances but each instance is stored in a property that is
-                // named after the layer it represents so instead of having to
-                // loop the array you can simply pick the layer you want via
-                // the name assigned to it like layersById['layer name']
-
-                // We can add all our layers to our main scene by looping the
-                // array or we can pick a particular layer via the layersById
-                // object. Let's give an example:
-                var i, destTileX = - 1, destTileY = -1,
-                    tileChecker = function (tileData, tileX, tileY) {
-                        // If the map tile data is set, don't path along it
-                        return !tileData;
-                    };
-
-                for (i = 0; i < layerArray.length; i++) {
-                    // Check if the layer is a tile layer
-                    if (layerArray[i].type === 'tilelayer') {
-                        // Before we mount the layer we will adjust the size of
-                        // the layer's tiles because Tiled calculates tile width
-                        // based on the line from the left-most point to the
-                        // right-most point of a tile whereas IGE calculates the
-                        // tile width as the length of one side of the tile square.
-                        layerArray[i]
-                            .tileWidth(tilewidth)
-                            .tileHeight(tileheight)
-                            .hoverColor('#ffffff')
-
-                            //.isometricMounts(false)
-                            .drawBounds(false)
-                            .drawBoundsData(false)
-                            .mount(ige.client.mainScene)
-                            .translateTo(-150,-150,0);
-                    }
-
-                    // Check if the layer is an "object" layer
-                    if (layerArray[i].type === 'objectlayer') {
-                        //layerArray[i].mount(self.backScene);
-                    }
-                }
-
-                // Or if we wanted to only use the "DirtLayer" from the example
-                // map data, we could do this:
-                //layersById.DirtLayer.mount(self.mainScene);
-
-                // Create static box2d objects from the dirt layer
-                ige.box2d.staticsFromMap(layersById.DirtLayer);
+     }
 
 
-            });
+     for(var k = x1; k <=endX; k ++){
+     for(j = y1; j <=endY ; j++){
+     data2[j*width+k]=2;
+     }
+     }
 
-    },*/
+     }
+
+     var data= {
+     data1:data1,
+     data2:data2,
+     tileWidth:tilewidth,
+     tileHeight:tileheight
+     };
+     map = new Map(height,width,data);
+
+
+     ige.addComponent(IgeTiledComponent)
+     .tiled.loadJson(map.getData() /!* you can also use a url: 'maps/example.js'*!/, function (layerArray, layersById){
+     // The return data from the tiled component are two arguments,
+     // the first is an array of IgeTextureMap instances, each one
+     // representing one of the Tiled map's layers. The ID of each
+     // instance is the same as the name assigned to the Tiled
+     // layer it represents. The second argument contains the same
+     // instances but each instance is stored in a property that is
+     // named after the layer it represents so instead of having to
+     // loop the array you can simply pick the layer you want via
+     // the name assigned to it like layersById['layer name']
+
+     // We can add all our layers to our main scene by looping the
+     // array or we can pick a particular layer via the layersById
+     // object. Let's give an example:
+     var i, destTileX = - 1, destTileY = -1,
+     tileChecker = function (tileData, tileX, tileY) {
+     // If the map tile data is set, don't path along it
+     return !tileData;
+     };
+
+     for (i = 0; i < layerArray.length; i++) {
+     // Check if the layer is a tile layer
+     if (layerArray[i].type === 'tilelayer') {
+     // Before we mount the layer we will adjust the size of
+     // the layer's tiles because Tiled calculates tile width
+     // based on the line from the left-most point to the
+     // right-most point of a tile whereas IGE calculates the
+     // tile width as the length of one side of the tile square.
+     layerArray[i]
+     .tileWidth(tilewidth)
+     .tileHeight(tileheight)
+     .hoverColor('#ffffff')
+
+     //.isometricMounts(false)
+     .drawBounds(false)
+     .drawBoundsData(false)
+     .mount(ige.client.mainScene)
+     .translateTo(-150,-150,0);
+     }
+
+     // Check if the layer is an "object" layer
+     if (layerArray[i].type === 'objectlayer') {
+     //layerArray[i].mount(self.backScene);
+     }
+     }
+
+     // Or if we wanted to only use the "DirtLayer" from the example
+     // map data, we could do this:
+     //layersById.DirtLayer.mount(self.mainScene);
+
+     // Create static box2d objects from the dirt layer
+     ige.box2d.staticsFromMap(layersById.DirtLayer);
+
+
+     });
+
+     },*/
 
 
     createMaze: function() {
+        this.createBackGround();
         var snapShot = this.snapshot;
         var gameConfig = this.gameConfig;
         var maze = snapShot.planeMaze,
@@ -269,7 +279,7 @@ var Maze = IgeEntityBox2d.extend({
         var startCx = -gameConfig.wallWidth;
         var startCy = 0;
 
-        this.transTo( this.createWall(gameConfig.wallWidth, gameConfig.height),     startCx,startCy);
+        this.transTo( this.createWall(gameConfig.wallWidth, gameConfig.height, true),startCx,startCy);
 
 
         //zemot
@@ -278,15 +288,15 @@ var Maze = IgeEntityBox2d.extend({
         startCy = -gameConfig.wallWidth;
 
         this.transTo(this.createWall(gameConfig.width + 2
-            * gameConfig.wallWidth, gameConfig.wallWidth), startCx, startCy);
+            * gameConfig.wallWidth, gameConfig.wallWidth, true), startCx, startCy);
 
 
-       //marjvniv
+        //marjvniv
         startCx = gameConfig.width;
         startCy = 0;
 
 
-        this.transTo(this.createWall(gameConfig.wallWidth, gameConfig.height), startCx, startCy);
+        this.transTo(this.createWall(gameConfig.wallWidth, gameConfig.height, true), startCx, startCy);
 
         //qvemot
 
@@ -295,19 +305,20 @@ var Maze = IgeEntityBox2d.extend({
 
 
 
-        this.transTo(this.createWall(gameConfig.width + 2 * gameConfig.wallWidth, gameConfig.wallWidth)
+        this.transTo(this.createWall(gameConfig.width + 2 * gameConfig.wallWidth, gameConfig.wallWidth, true)
             , startCx, startCy);
 
         return this ;
     },
 
-    createWall:function(wWidth, wHeight) {
-        return new IgeEntityBox2d()
+    createWall:function(wWidth, wHeight, isFrame) {
+        var wall =  new IgeEntityBox2d()
             .width(wWidth)
             .height(wHeight)
             .texture(this.creator.textures.wall)
             .drawBounds(true)
-            .mount(this.creator.objectScene)
+            .mount(this.creator.backScene)
+            .depth(1)
             .box2dBody({
                 type: 'static',
                 allowSleep: true,
@@ -317,18 +328,17 @@ var Maze = IgeEntityBox2d.extend({
                     }
                 }]
             });
+        wall.isFrame = isFrame;
+        return wall;
     },
 
     transTo: function (entity,x, y) {
-        var config = this.config;
         var x1 = x - gameConfig.width / 2 + entity.width() /2;
         var y1 = y - gameConfig.height / 2 + entity.height() /2;
-            entity.translateTo(x1,y1,0);
+        entity.translateTo(x1,y1,0);
 
         return this ;
     }
-
-
 
 
 

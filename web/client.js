@@ -5,10 +5,9 @@ var self = this,
 	potions = {}, //potions
 	player1,
 	connection,
-	debugOn,
 	distanceR,
-	myId = getCookie("playerID");
-
+	playerTypes = {} ;
+myId = getCookie("playerID");
 var Client = IgeClass.extend({
 	classId: 'Client',
 	init: function () {
@@ -25,7 +24,7 @@ var Client = IgeClass.extend({
 			.box2d.start();
 
 		self.textures.potion = new IgeTexture('./assets/potion.png');
-		self.textures.wall= new IgeTexture('./assets/wall.png');
+		self.textures.wall= new IgeTexture('./assets/wall.js');
 		self.textures.circle = new IgeTexture('./assets/Circle.js');
 		self.textures.water = new IgeTexture('./assets/water.png');
 		self.textures.fire = new IgeTexture('./assets/fire.png');
@@ -40,6 +39,7 @@ var Client = IgeClass.extend({
 				// Check if the engine started successfully
 				if (success) {
 					self.createWorld();
+					new UI().createBackScene();
 					gameOn();
 				}
 			});
@@ -56,24 +56,15 @@ var Client = IgeClass.extend({
 
 function gameOn() {
 
-	function debugGame(debugConfig, debugUpdate) {
-		gameConfig = createGameConfig(debugConfig);
-		createMaze(debugConfig);
-		handler(debugUpdate);
-	}
+
 	function realGame() {
+
+
 		connection = initSocket();
 	}
+	realGame();
 
-	if (myId == 'debug') {
-		debugOn = true;
-		debugGame(debugConfig, debugUpdate);
-	}
-	else {
-		debugOn=false;
-		realGame();
 
-	}
 
 }
 
@@ -110,6 +101,20 @@ function createGameConfig(snapShot) {
 	return snapShot.configuration;
 }
 
+
+function endGame() {
+	//ige.client.mainScene.destroy();
+	//self.textures.wall.destroy();
+	//ige.stop();
+	ige.isOFF = true;
+	//alert("GAME OVER");
+}
+function showGameStats(result) {
+
+
+
+
+}
 function handler(snapShot){
 	if(snapShot.type&&snapShot.type=="UPDATE"){
 		/** @namespace snapShot.removePots */
@@ -119,22 +124,22 @@ function handler(snapShot){
 		/** @namespace snapShot.finished */
 		if(snapShot.finished){
 			if(!ige.isOFF) {
-				for(var key in characters){
-					if(characters.hasOwnProperty(key)){
-						console.log(key+' '+"changes occurred" + characters[key].changesOccured);
-					}
-				}
-				ige.client.mainScene.destroy();
-				self.textures.wall.destroy();
-				ige.stop();
-				ige.isOFF=true;
-				alert("GAME OVER");
+				showGameStats({
+					"n":{"pl":1,"p":124}, "rezo":{"pl":1,"p":124}
+				}  );
+
+				setTimeout(function() {
+					endGame();
+				}, 10)
+
 			}
 
 		}else {
 			var addPots = snapShot.addPots,
 				removePots= snapShot.removePots;
+			/** @namespace snapShot.potNum */
 			ige.$('scoreText').text(snapShot.potNum+' potions');
+			/** @namespace snapShot.players */
 			parsePlayers(snapShot.players);
 			parsePotions(addPots,removePots);
 			if (snapShot.distance != distanceR) {
@@ -146,7 +151,9 @@ function handler(snapShot){
 	if(snapShot.type&&snapShot.type=="INIT") {
 		console.log(JSON.stringify(snapShot));
 		self.gameConfig = gameConfig =  createGameConfig(snapShot);
+		self.playerTypes=snapShot.playerTypes;
 		new Maze(snapShot,self,self.gameConfig).createMaze();
+
 	}
 }
 function parsePlayers(players) {
@@ -159,16 +166,9 @@ function parsePlayers(players) {
 			var newPlayer = characters[name] = new Character(gameConfig,name,myId,self.textures,connection,position)
 				.id(name)
 				.transTo(position.x, position.y)
-				.setType(i)
-				.mount(self.mainScene);
-			if(typeof (characters[name].lastposition)=='undefined'){
-				characters[name].changesOccured = 0 ;
-				characters[name].lastposition=position;
-
-			}
-			if(characters[name].lastposition.x!=position.x||characters[name].lastposition.y!=position.y){
-				characters[name].changesOccured ++;
-			}
+				.setType(self.playerTypes[name])
+				.mount(self.objectScene)
+				.depth(2);
 			if (name == myId) {
 				player1 = newPlayer;
 				player1.addComponent(PlayerComponent);
@@ -194,7 +194,7 @@ function mountCircles(){
 			if(circles[char])
 				circles[char].destroy();
 			var character   = characters[char];
-			circles[char]=new Circle(distanceR)
+			circles[char]=new Circle(distanceR,self.gameConfig.pRadius)
 				.mount(character)
 		}
 
@@ -211,7 +211,7 @@ function parsePotions(addPots,removePots) {
 			.width(gameConfig.potRadius * 2)
 			.height(gameConfig.potRadius * 2)
 			.transTo(x, y, gameConfig)
-			.mount(self.mainScene);
+			.mount(self.objectScene);
 	}
 	for(i = 0 ; i < removePots.length; i ++){
 		//console.log(removePots[i].id);
