@@ -4,8 +4,6 @@ import javax.json.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * Created by SHAKO on 30-May-15.
@@ -19,6 +17,7 @@ public class GameWorld implements iWorld {
 
     // configuration variables
     private int maxPlayers;
+    private int startLifeNum;
     private double plusDist;
     private long plusDistDelay;
     private int startPotNum;
@@ -32,7 +31,7 @@ public class GameWorld implements iWorld {
     private GameMaze gm;
 
     // fill depended on info passed in constructor
-    private ConcurrentMap<String, Player> nameOnPlayer;
+    private Map<String, Player> nameOnPlayer;
 
     // new potions to send by json
     private Map<String, Set<Point2D.Double>> potsToAdd;
@@ -48,15 +47,6 @@ public class GameWorld implements iWorld {
 
     // collection to record places of players, who lose earlier has lower index
     private List<String> plPlaces;
-
-    /**
-     * constructor for testing purposes only
-     */
-    public GameWorld(GameMaze gm, Configuration config, ConcurrentMap<String, Player> nameOnPlayer, List<Point2D.Double> potions, State state) {
-        this(new ArrayList<>(), gm, config, false);
-        this.nameOnPlayer = nameOnPlayer;
-        this.state = state;
-    }
 
     public State getState() {
         return state;
@@ -84,11 +74,11 @@ public class GameWorld implements iWorld {
         state = State.NEW;
         this.gm = gm;
         readConfig(config);
-        nameOnPlayer = new ConcurrentHashMap<>();
+        nameOnPlayer = new HashMap<>();
         activePlNum = 0;
         potsToAdd = new HashMap<>();
         potsToRemove = new HashMap<>();
-        plPlaces = Collections.synchronizedList(new ArrayList<>());
+        plPlaces = new ArrayList<>();
         players.forEach(p -> addPlayerAtCorner(p));
         for (int i = 0; i < startPotNum; i++) { addPotAtRandom(false); }
         if (startGame) { startGame(); }
@@ -100,6 +90,7 @@ public class GameWorld implements iWorld {
      */
     private void readConfig(Configuration config) {
         maxPlayers = config.getMaxPlayers();
+        startLifeNum = config.getLifeNum();
         plusDist = config.getPlusDist();
         plusDistDelay = config.getPlusDistDelay();
         startPotNum = config.getStartPotNum();
@@ -124,7 +115,7 @@ public class GameWorld implements iWorld {
     public synchronized boolean addPlayerAtCorner(String name) {
         if (!canAddPlayer(name)) { return false; }
         if (gm.addPlayerAtCorner(name)){
-            addPlayer(new Player(name, nameOnPlayer.size()));
+            addPlayer(new Player(name, startLifeNum, nameOnPlayer.size()));
             return true;
         }
         return false;
@@ -144,7 +135,7 @@ public class GameWorld implements iWorld {
     public synchronized boolean addPlayerAtRandom(String name) {
         if (!canAddPlayer(name)) { return false; }
         if (gm.addPlayerAtRandom(name)){
-            addPlayer(new Player(name, nameOnPlayer.size()));
+            addPlayer(new Player(name, startLifeNum, nameOnPlayer.size()));
             return true;
         }
         return false;
@@ -164,7 +155,7 @@ public class GameWorld implements iWorld {
     public synchronized boolean addPlayerInCell(String name, Cell c) {
         if (!canAddPlayer(name)) { return false; }
         if (gm.addPlayerInCell(name, c)){
-            addPlayer(new Player(name, nameOnPlayer.size()));
+            addPlayer(new Player(name, startLifeNum, nameOnPlayer.size()));
             return true;
         }
         return false;
@@ -251,9 +242,8 @@ public class GameWorld implements iWorld {
     }
 
     @Override
-    public boolean setPlayerCoordinates(String playerName, double x, double y) {
+    public synchronized boolean setPlayerCoordinates(String playerName, double x, double y) {
         Player p = nameOnPlayer.get(playerName);
-
         if (!p.getActive()) { return false; }
         if (state == State.RUNNING && gm.longMove(p.getName(), x, y)) { return false; }
         //if (gm.collideWall(p.getName(), x, y)) { return false; }
@@ -263,6 +253,7 @@ public class GameWorld implements iWorld {
         potionsPlayer(p);
         playersPlayer(p);
         gameOnCheck();
+
         return true;
     }
 
@@ -278,22 +269,18 @@ public class GameWorld implements iWorld {
     /*
      * @@ passed player must be active
      */
-    private void playersPlayer(Player p) {
+    private synchronized void playersPlayer(Player p) {
         Collection<String> collidedPlayers = gm.collidedPlayers(p.getName());
         Iterator<String> colPlsIt = collidedPlayers.iterator();
         while (colPlsIt.hasNext()) {
             String nextName = colPlsIt.next();
             Player colPl = nameOnPlayer.get(nextName);
-            if (colPl.getActive()) {
-                if (Player.getWinner(p, colPl).equals(p)) {
-                    kickPlayer(p, colPl);
-                    playersPlayer(p);
-                } else {
-                    kickPlayer(colPl, p);
-                    playersPlayer(colPl);
-                }
+            if (p.isWinner(colPl)) {
+                kickPlayer(p, colPl);
+            } else {
+                kickPlayer(colPl, p);
+                break;
             }
-            break;
         }
     }
 
@@ -323,19 +310,25 @@ public class GameWorld implements iWorld {
 
     private void gameOnCheck() {
         if (activePlNum < 2) {
-            System.out.println("game over");
+            System.out.println("GameWorld(gameOnCheck): game over");
             finishGame();
         }
     }
 
     private void kickPlayer(Player kicker, Player toKick) {
-        toKick.setActive(false);
-        gm.removePlayer(toKick.getName());
-        plPlaces.add(toKick.getName());
+        toKick.decreaseLifeNum();
+        if (toKick.getLifeNum() == 0) {
+            toKick.setActive(false);
+            gm.removePlayer(toKick.getName());
+            plPlaces.add(toKick.getName());
+            activePlNum--;
+        } else {
+            gm.resetPlace(toKick.getName());
+        }
         if (state == State.RUNNING) {
             kicker.setPotNum(kicker.getPotNum() + potForKick);
         }
-        activePlNum--;
+
     }
 
     @Override
@@ -380,6 +373,17 @@ public class GameWorld implements iWorld {
         }
         initJson.add("playerTypes", plTypesJson);
 
+        JsonArrayBuilder potsJson = factory.createArrayBuilder();
+        Iterator<Point2D.Double> potIt = gm.getPotions().iterator();
+        while (potIt.hasNext()) {
+            Point2D.Double nextPot = potIt.next();
+            JsonObjectBuilder potJson = factory.createObjectBuilder();
+            potJson.add("id", nextPot.hashCode())
+                    .add("x", nextPot.x)
+                    .add("y", nextPot.y);
+            potsJson.add(potJson);
+        }
+        initJson.add("potions", potsJson);
 
         JsonObjectBuilder mazeJson = gm.toJsonBuilder();
         initJson.add("planeMaze", mazeJson);
@@ -392,7 +396,8 @@ public class GameWorld implements iWorld {
     }
 
     @Override
-    public JsonObject getUpdate(String playerName) {
+    public synchronized JsonObject getUpdate(String playerName) {
+
         JsonBuilderFactory factory = Json.createBuilderFactory(null);
 
         JsonObjectBuilder updateJson = factory.createObjectBuilder();
@@ -400,6 +405,18 @@ public class GameWorld implements iWorld {
         updateJson.add("type", "UPDATE");
 
         updateJson.add("finished", isFinished());
+
+        if (isFinished() == true) {
+            JsonObjectBuilder resultsJson = factory.createObjectBuilder();
+            for (int i = 0; i < plPlaces.size(); i++) {
+                String name = plPlaces.get(i);
+                JsonObjectBuilder resultJson = factory.createObjectBuilder();
+                resultJson.add("place", i)
+                        .add("potNum", nameOnPlayer.get(name).getPotNum());
+                resultsJson.add(name, resultJson);
+            }
+            updateJson.add("results", resultsJson);
+        }
 
         updateJson.add("potNum", nameOnPlayer.get(playerName).getPotNum());
 
@@ -419,28 +436,24 @@ public class GameWorld implements iWorld {
 
         // create and add json addPots' array
         JsonArrayBuilder addPotsJson = factory.createArrayBuilder();
-        synchronized (potsToAdd.get(playerName)) {
-            potsToAdd.get(playerName).forEach(pot -> {
-                JsonObjectBuilder potJson = factory.createObjectBuilder();
-                potJson.add("id", pot.hashCode())
-                        .add("x", pot.x).add("y", pot.y);
-                addPotsJson.add(potJson);
-            });
-            potsToAdd.get(playerName).clear();
-            updateJson.add("addPots", addPotsJson);
-        }
+        potsToAdd.get(playerName).forEach(pot -> {
+                    JsonObjectBuilder potJson = factory.createObjectBuilder();
+                    potJson.add("id", pot.hashCode())
+                    .add("x", pot.x).add("y", pot.y);
+                    addPotsJson.add(potJson);
+        });
+        potsToAdd.get(playerName).clear();
+        updateJson.add("addPots", addPotsJson);
 
 
         // create and add json removePots' array
         JsonArrayBuilder removePotsJson = factory.createArrayBuilder();
-        synchronized (potsToRemove.get(playerName)) {
-            Iterator<Integer> idIt = potsToRemove.get(playerName).iterator();
-            while (idIt.hasNext()) {
-                removePotsJson.add(idIt.next());
-                idIt.remove();
-            }
-            updateJson.add("removePots", removePotsJson);
+        Iterator<Integer> idIt = potsToRemove.get(playerName).iterator();
+        while (idIt.hasNext()) {
+            removePotsJson.add(idIt.next());
+            idIt.remove();
         }
+        updateJson.add("removePots", removePotsJson);
 
 
         // add json distance double

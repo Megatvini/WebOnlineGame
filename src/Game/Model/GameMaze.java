@@ -5,6 +5,7 @@ import javax.json.JsonObjectBuilder;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 //@@ sinqronizaciaq davikide ro davwere mere vifiqreb
 //@@ it will override player
@@ -30,6 +31,9 @@ public class GameMaze extends PlaneMaze {
     private double cellHeight;
 
     private Map<String, Point2D.Double> nameOnPos;
+    private Map<String, Point2D.Double> nameOnStartPlace;
+    private Set<String> removedPlayers;
+
     private Set<Point2D.Double> potions;
 
     // number of player added at one corners of game world
@@ -38,8 +42,10 @@ public class GameMaze extends PlaneMaze {
     public GameMaze(int numRows, int numCols, Configuration config) {
         super(numRows, numCols);
         readConfig(config);
-        nameOnPos = new HashMap<>();
-        potions = new HashSet<>();
+        nameOnPos = Collections.synchronizedMap(new HashMap<>());
+        nameOnStartPlace = new HashMap<>();
+        removedPlayers = Collections.synchronizedSet(new HashSet<>());
+        potions = Collections.synchronizedSet(new HashSet<>());
         playersAtCorner = 0;
     }
 
@@ -66,7 +72,7 @@ public class GameMaze extends PlaneMaze {
         return false;
     }
 
-    public synchronized boolean addPlayerAtRandom(String name) {
+    public boolean addPlayerAtRandom(String name) {
         // TODO method code bitch !
         return false;
     }
@@ -81,8 +87,13 @@ public class GameMaze extends PlaneMaze {
         return false;
     }
 
+    public void resetPlace(String name) {
+        nameOnPos.get(name).setLocation(nameOnStartPlace.get(name));
+    }
+
     public Point2D.Double removePlayer(String name) {
-        return nameOnPos.remove(name);
+        removedPlayers.add(name);
+        return nameOnPos.get(name);
     }
 
     public Point2D.Double addPotAtRandom(boolean conflictAllowed) {
@@ -203,11 +214,13 @@ public class GameMaze extends PlaneMaze {
     public Collection<Point2D.Double> collidedPotions(String name) {
         Collection<Point2D.Double> collidedPots = new ArrayList<>();
         Point2D.Double playerPos = nameOnPos.get(name);
-        Iterator<Point2D.Double> potsIt = potions.iterator();
-        while(potsIt.hasNext()) {
-            Point2D.Double nextPot = potsIt.next();
-            if (ovalsIntersect(playerPos, pRadius, nextPot, potRadius)) {
-                collidedPots.add(nextPot);
+        synchronized (potions) {
+            Iterator<Point2D.Double> potsIt = potions.iterator();
+            while(potsIt.hasNext()) {
+                Point2D.Double nextPot = potsIt.next();
+                if (ovalsIntersect(playerPos, pRadius, nextPot, potRadius)) {
+                    collidedPots.add(nextPot);
+                }
             }
         }
         return Collections.unmodifiableCollection(collidedPots);
@@ -216,12 +229,15 @@ public class GameMaze extends PlaneMaze {
     public Collection<String> collidedPlayers(String name) {
         Collection<String> collidedPls = new ArrayList<>();
         Point2D.Double playerPos = nameOnPos.get(name);
-        Iterator<String> plsIt = nameOnPos.keySet().iterator();
-        while(plsIt.hasNext()) {
-            String nextPl = plsIt.next();
-            if (!nextPl.equals(name)
-                    && ovalsIntersect(playerPos, dist / 2, nameOnPos.get(nextPl), dist / 2)) {
-                collidedPls.add(nextPl);
+        synchronized (nameOnPos) {
+            Iterator<String> plsIt = nameOnPos.keySet().iterator();
+            while (plsIt.hasNext()) {
+                String nextPl = plsIt.next();
+                if (!nextPl.equals(name)
+                        && ovalsIntersect(playerPos, dist / 2, nameOnPos.get(nextPl), dist / 2)
+                        && !removedPlayers.contains(nextPl)) {
+                    collidedPls.add(nextPl);
+                }
             }
         }
         return collidedPls;
@@ -229,11 +245,13 @@ public class GameMaze extends PlaneMaze {
 
     public Collection<String> collidedPlayers(Point2D.Double pot) {
         Collection<String> collidedPls = new ArrayList<>();
-        Iterator<String> plsIt = nameOnPos.keySet().iterator();
-        while(plsIt.hasNext()) {
-            String nextPl = plsIt.next();
-            if (ovalsIntersect(pot, potRadius, nameOnPos.get(nextPl), pRadius)) {
-                collidedPls.add(nextPl);
+        synchronized (nameOnPos) {
+            Iterator<String> plsIt = nameOnPos.keySet().iterator();
+            while(plsIt.hasNext()) {
+                String nextPl = plsIt.next();
+                if (ovalsIntersect(pot, potRadius, nameOnPos.get(nextPl), pRadius)) {
+                    collidedPls.add(nextPl);
+                }
             }
         }
         return collidedPls;
@@ -282,6 +300,7 @@ public class GameMaze extends PlaneMaze {
             if (!ovalConflicts(pos, dist / 2, nameOnPos.values(), dist / 2) &&
                     !ovalConflicts(pos, pRadius, potions, potRadius)) {
                 nameOnPos.put(name, pos);
+                nameOnStartPlace.put(name, new Point2D.Double(pos.x, pos.y));
                 return true;
             }
         }
