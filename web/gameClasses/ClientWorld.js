@@ -20,7 +20,8 @@ var ClientWorld = {
         this.uiScene = new IgeScene2d()
             .id('uiScene')
             .ignoreCamera(true)
-            .mount(this.objectScene);
+            .mount(this.mainScene)
+            .depth(6);
 
         // Create UI elements
         new IgeFontEntity()

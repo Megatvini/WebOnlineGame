@@ -8,155 +8,141 @@
 var UI = IgeUiElement.extend({
     classId: 'UI',
     init: function () {
+        this.UITexture = { };
         var self = this;
         IgeUiElement.prototype.init.call(this);
+        this.UITexture.nameFont = new IgeFontSheet('../assets/agency_fb_20pt.png', 0);
+        this.UITexture.potNumFont = new IgeFontSheet('../assets/agency_fb_20pt.png', 0);
+        this.UITexture.home = new IgeTexture('../assets/home.png');
+
 
         //mount(self.scene1)
     },
 
     createBackScene: function(){
-        ige.ui.style('#topNav', {
+
+        ige.ui.style('#bottomNav', {
             'backgroundColor': '#212121',
-            'top': 0,
+            'bottom': 0,
             'left': 0,
             'right': 0,
             'height': 42
         });
 
-        ige.ui.style('#leftNav', {
-            'backgroundColor': '#3d3d3d',
-            'top': 42,
-            'left': 0,
-            'width': 225,
-            'bottom': 0
-        });
 
-        ige.ui.style('#main', {
-            'backgroundColor': '#ffffff',
-            'left': 225,
-            'right': 0,
-            'top': 42,
-            'bottom': 0
-        });
-
-        /* ige.ui.style('#logo', {
-         'backgroundImage': self.gameTexture.metronic,
-         'backgroundRepeat': 'no-repeat',
-         'middle': 0,
-         'left': 20,
-         'width': 86,
-         'height': 14
-         });*/
-
-        ige.ui.style('.title', {
-            'font': '3em Open Sans',
-            'color': '#666666',
-            'width': 200,
-            'height': 40,
-            'top': 10,
-            'left': 10
-        });
-
-        ige.ui.style('.subTitle', {
-            'font': 'lighter 16px Open Sans',
-            'color': '#666666',
-            'width': 400,
-            'height': 40,
-            'top': 40,
-            'left': 11
-        });
-
-        ige.ui.style('IgeUiTextBox', {
-            'backgroundColor': '#ffffff',
-            'borderColor': '#212121',
-            'borderWidth': 1,
-            'bottom': null,
-            'right': null,
-            'width': 300,
-            'height': 30,
-            'left': 15,
-            'font': '12px Open Sans',
-            'color': '#000000'
-        });
-
-        ige.ui.style('#textBox1', {
-            'top': 140
-        });
-
-        ige.ui.style('#textBox2', {
-            'top': 180
-        });
-
-        ige.ui.style('#textBox1:focus', {
-            'borderColor': '#00ff00'
-        });
-
-        ige.ui.style('#textBox2:focus', {
-            'borderColor': '#00ff00'
-        });
-
-        ige.ui.style('#dashBar', {
-            'backgroundColor': '#eeeeee',
-            'top': 80,
-            'left': 15,
-            'right': 15,
-            'height': 40
-        });
-
-        ige.ui.style('IgeUiLabel', {
-            'font': '12px Open Sans',
-            'color': '#000000'
-        });
-
-        ige.ui.style('#homeLabel', {
-            'font': '14px Open Sans',
-            'color': '#333333'
-        });
-
-        var topNav = new IgeUiElement()
-            .id('topNav')
-            .mount(ige.client.uiScene);
-
-        /* new IgeUiElement()
-         .id('logo')
-         .mount(topNav);*/
-
-        var leftNav = new IgeUiElement()
-            .id('leftNav')
-            .mount(ige.client.uiScene);
+        var bottomNav = new IgeUiElement()
+            .id('bottomNav')
+            .mount(self.uiScene);
 
 
 
     },
 
-    createStatscene: function () {
+    createStatscene: function (results1) {
+
+        ige.ui.style('.LstatSpot', {
+            'backgroundColor': 'yellow',
+            'borderColor': '#212121',
+            'borderWidth': 1,
+            'width': 200,
+            'height': 25,
+            'left': 15
+
+        });
+
+        ige.ui.style('.RstatSpot', {
+            'backgroundColor': 'green',
+            'width': 150,
+            'height': 25,
+            'left': 230
+        });
+
+
+        ige.ui.style('#main', {
+            'backgroundColor': '#ffffff',
+            'center': 0,
+            'width': 400,
+            'height': 400,
+            'top': '25%'
+        });
+
+
+        ige.ui.style('.playerNames', {
+            'color': 'blue',
+            'width': 200,
+            'height': 15,
+            'left': 5
+
+        });
+        ige.ui.style('.playerPots', {
+            'color': 'red',
+            'width': 100,
+            'height': 15,
+            'left': 5
+
+        });
+
+
+        ige.ui.style('#home', {
+            'backgroundImage': this.UITexture.home,
+            'backgroundRepeat': 'no-repeat',
+            'bottom': 0,
+            'center': 0,
+            'height': 70,
+            'width': 70
+
+        });
+
         var main = new IgeUiElement()
             .id('main')
             .mount(self.uiScene);
 
-        new IgeUiLabel()
-            .value('Dashboard')
-            .styleClass('title')
+
+        var results = {
+            'i': {'potNum': 1},
+            'i1': {'potNum': 1}
+
+        }
+
+
+        var startY = 100;
+        for (var statKey in results) {
+            if (results.hasOwnProperty(statKey)) {
+                console.log("/.//////////////..." + statKey);
+                var potNum = results[statKey].potNum;
+
+                var L = new IgeUiElement()
+                    .styleClass('LstatSpot')
+                    .top(startY)
+                    .mount(main);
+
+
+                new IgeUiLabel()
+                    .styleClass('playerNames')
+                    .font(this.UITexture.nameFont)
+                    .mount(L)
+                    .value(statKey);
+
+                var R = new IgeUiElement()
+                    .styleClass('RstatSpot')
+                    .top(startY)
+                    .mount(main);
+
+                new IgeUiLabel()
+                    .styleClass('playerPots')
+                    .font(this.UITexture.potNumFont)
+                    .mount(R)
+                    .value(potNum.toString());
+
+
+                startY += 40;
+            }
+
+
+        }
+        new IgeUiElement()
+            .id('home')
             .mount(main);
-
-        new IgeUiLabel()
-            .value('Login with your username and password')
-            .styleClass('subTitle')
-            .mount(main);
-
-
-        var dashBar = new IgeUiElement()
-            .id('dashBar')
-            .mount(main);
-
-        new IgeUiLabel()
-            .id('homeLabel')
-            .value('Home')
-            .width(100)
-            .height(40)
-            .left(0)
-            .top(0)
-            .mount(dashBar);
     }
 
 });

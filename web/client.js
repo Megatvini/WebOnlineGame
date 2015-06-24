@@ -6,9 +6,11 @@ var self = this,
 	player1,
 	connection,
 	distanceR,
+
 	playerTypes = {} ;
 myId = getCookie("playerID");
 var Client = IgeClass.extend({
+	updateHandler: {},
 	classId: 'Client',
 	init: function () {
 		self = this  ;
@@ -32,6 +34,7 @@ var Client = IgeClass.extend({
 		self.textures.wind = new IgeTexture('./assets/wind.png');
 		self.textures.font = new IgeFontSheet('./assets/agency_fb_20pt.png',3);
 
+
 		ige.on('texturesLoaded', function (){
 			// Create the HTML canvas
 			ige.createFrontBuffer(true);
@@ -39,7 +42,9 @@ var Client = IgeClass.extend({
 				// Check if the engine started successfully
 				if (success) {
 					self.createWorld();
-					new UI().createBackScene();
+					self.UI = 	new UI();
+					self.UI.createBackScene();
+					self.updateHandler = new Handler();
 					gameOn();
 				}
 			});
@@ -56,15 +61,7 @@ var Client = IgeClass.extend({
 
 function gameOn() {
 
-
-	function realGame() {
-
-
 		connection = initSocket();
-	}
-	realGame();
-
-
 
 }
 
@@ -103,40 +100,40 @@ function createGameConfig(snapShot) {
 
 
 function endGame() {
-	//ige.client.mainScene.destroy();
+	ige.client.objectScene.destroy();
 	//self.textures.wall.destroy();
 	//ige.stop();
 	ige.isOFF = true;
 	//alert("GAME OVER");
 }
-function showGameStats(result) {
 
 
+function showGameStats(results) {
 
+	self.UI.createStatscene(results)
 
 }
 function handler(snapShot){
+
+	var addPots = snapShot.potions;
+
 	if(snapShot.type&&snapShot.type=="UPDATE"){
 		/** @namespace snapShot.removePots */
 		/** @namespace snapShot.addPots */
-
+		addPots = snapShot.addPots ;
+		var removePots= snapShot.removePots;
 		//console.log(distanceR);
 		/** @namespace snapShot.finished */
 		if(snapShot.finished){
 			if(!ige.isOFF) {
-				showGameStats({
-					"n":{"pl":1,"p":124}, "rezo":{"pl":1,"p":124}
-				}  );
-
+				showGameStats(snapShot.results);
 				setTimeout(function() {
 					endGame();
 				}, 10)
-
 			}
 
 		}else {
-			var addPots = snapShot.addPots,
-				removePots= snapShot.removePots;
+
 			/** @namespace snapShot.potNum */
 			ige.$('scoreText').text(snapShot.potNum+' potions');
 			/** @namespace snapShot.players */
