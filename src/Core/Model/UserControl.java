@@ -6,6 +6,7 @@ import Interfaces.Controller.iAccount;
 import Interfaces.View.iProfile;
 import Interfaces.View.iShorProfile;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ import java.util.Set;
  * Created by gukam on 5/29/2015.
  */
 public class UserControl {
+    DBWorker dbWorker = new DBWorker();
+
    private static Set<Integer> _accounts = new HashSet<Integer>();
 
     public void addOnlineUser(Integer id){
@@ -45,11 +48,17 @@ public class UserControl {
                 "0" +
                 ")";
 
-        Integer i = (new DBWorker()).execute(query);
+        Connection conn = dbWorker.getConnection();
+        Integer i = dbWorker.execute(query, conn);
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void changeUser(int ID, iAccount account){
-
         String query = "INSERT INTO accounts " +
                 "(Nickname, " +
                 "LastName, " +
@@ -70,8 +79,14 @@ public class UserControl {
                 "' ', " +
                 "0" +
                 ")";
+        Connection conn = dbWorker.getConnection();
+        Integer i = dbWorker.execute(query, conn);
 
-        Integer i = (new DBWorker()).execute(query);
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void changeUser(String nickname, iAccount account){
@@ -97,13 +112,23 @@ public class UserControl {
                 "0" +
                 ")";
 
-        Integer i = (new DBWorker()).execute(query);
+        Connection conn = dbWorker.getConnection();
+        Integer i = dbWorker.execute(query, conn);
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public iAccount getUser(String nickname) throws Exception {
-        iAccount account = new Account();
-        ResultSet result = (new DBWorker()).getResult("SELECT * FROM accounts where Nickname = '" + nickname + "'");
+        Connection conn = dbWorker.getConnection();
+        ResultSet result = dbWorker.getResult("SELECT * FROM accounts where Nickname = '" + nickname + "'", conn);
+
         if (!result.next()) throw new Exception("notRegistered");
+
+        iAccount account = new Account();
         account.setNickname(nickname);
         account.setID(result.getInt("ID"));
         account.setFirstname(result.getString("FirstName"));
@@ -111,14 +136,21 @@ public class UserControl {
         account.setPassword(result.getString("Password"));
         account.setGender(result.getString("Gender").equals("Male") ? Account.Gender.MALE : Account.Gender.FEMALE);
         // TODO: wamosagebia about, surati, rating, birthdate, mail
-        result.close();
+        try {
+            result.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return account;
     }
-
     public iAccount getUser(int id) throws Exception {
-        iAccount account = new Account();
-        ResultSet result = (new DBWorker()).getResult("SELECT * FROM accounts where ID = '" + id + "'");
+        Connection conn = dbWorker.getConnection();
+        ResultSet result = dbWorker.getResult("SELECT * FROM accounts where ID = '" + id + "'", conn);
+
         if (!result.next()) throw new Exception("notRegistered");
+
+        iAccount account = new Account();
         account.setNickname(result.getString("Nickname"));
         account.setFirstname(result.getString("FirstName"));
         account.setLastname(result.getString("LastName"));
@@ -126,6 +158,14 @@ public class UserControl {
         account.setID(result.getInt("ID"));
         account.setGender(result.getString("Gender").equals("Male") ? Account.Gender.MALE : Account.Gender.FEMALE);
         // TODO: wamosagebia about, surati, rating, birthdate, mail
+
+        try {
+            result.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return account;
     }
 
@@ -136,33 +176,40 @@ public class UserControl {
     }
 
     public void sendMessage(Message message) throws Exception {
-
-        ResultSet result = (new DBWorker()).getResult("SELECT * FROM conversations where AccIDFrom = " + message.getAccFrom() +
-                                                                                    " AND AccIDTo =" + message.getAccTo());
+        Connection conn = dbWorker.getConnection();
+        ResultSet result = dbWorker.getResult("SELECT * FROM conversations where AccIDFrom = " + message.getAccFrom() +
+                " AND AccIDTo =" + message.getAccTo(), conn);
 
         if (!result.next()) throw new Exception("shecdomaaa");
         int conversationIDFrom = result.getInt("ID");
 
-
-        result = (new DBWorker()).getResult("SELECT * FROM conversations where AccIDFrom = " + message.getAccTo() +
-                " AND AccIDTo =" + message.getAccFrom());
+        result = dbWorker.getResult("SELECT * FROM conversations where AccIDFrom = " + message.getAccTo() +
+                " AND AccIDTo =" + message.getAccFrom(), conn);
 
         if (!result.next()) throw new Exception("shecdomaaa");
         int conversationIDTo = result.getInt("ID");
 
         boolean b = message.getType().equals(Message.Type.SENT);
         String query =  "insert into messages (Text, Sender, Conversations_ID) values ('"+ message.getText() +"', "+ (b? 1:2) +", " + conversationIDFrom + "); " ;
-       (new DBWorker()).execute(query);
+        dbWorker.execute(query, conn);
         query = "insert into messages (Text, Sender, Conversations_ID) values ('"+ message.getText() +"', "+ (b? 2:1) +", " + conversationIDTo + "); ";
-        (new DBWorker()).execute(query);
+        dbWorker.execute(query, conn);
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<Message> getMessages(int userID, int friendID) throws SQLException {
 
         ArrayList<Message> messages = new ArrayList<Message>();
-        ResultSet result = (new DBWorker()).getResult("select * from messages inner join conversations"+
+
+        Connection conn = dbWorker.getConnection();
+        ResultSet result = dbWorker.getResult("select * from messages inner join conversations" +
                 " on conversations.ID = messages.Conversations_ID where conversations.AccIDFrom = " + userID +
-                " and conversations.AccIDTo = " + friendID );
+                " and conversations.AccIDTo = " + friendID, conn);
 
         while (result.next()) {
             Message message = new Message();
@@ -173,43 +220,78 @@ public class UserControl {
             messages.add(message);
             //TODO date
         }
+
+        try {
+            result.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return  messages;
     }
 
     public void addFriend(int idFrom, int idTo){
+
+        Connection conn = dbWorker.getConnection();
         String query = "insert into waitingfriends (accIDFrom, AccIDTo) values ("+idFrom+", "+idTo+")";
-        (new DBWorker()).execute(query);
+        dbWorker.execute(query, conn);
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void confirmFriendRequest(int idFrom, int idTo){
-        DBWorker dbWorker = new DBWorker();
-
+        Connection conn = dbWorker.getConnection();
         String query = "delete FROM mydb.waitingfriends where accIDTo = " + idFrom +" and accIDFrom = " + idTo +";";
-        dbWorker.execute(query);
+        dbWorker.execute(query, conn);
 
         query = "insert into friends (accIDFrom, AccIDTo) values ("+idFrom+", "+idTo+")";
-        dbWorker.execute(query);
+        dbWorker.execute(query, conn);
 
         query = "insert into conversations (AccIDFrom, AccIDTo) values ("+idFrom+", "+idTo+")";
-        dbWorker.execute(query);
+        dbWorker.execute(query, conn);
 
         query = "insert into conversations (AccIDFrom, AccIDTo) values  ("+idTo+", "+idFrom+")";
-        dbWorker.execute(query);
+        dbWorker.execute(query, conn);
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getID(String nickname) throws SQLException {
-        ResultSet result = (new DBWorker()).getResult("select ID from accounts where Nickname = '" + nickname +"'");
+        Connection conn = dbWorker.getConnection();
+        ResultSet result = dbWorker.getResult("select ID from accounts where Nickname = '" + nickname + "'", conn);
         result.next();
-        return result.getInt("ID");
+        int id = result.getInt("ID");
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 
     public Set<Integer> getWaitingFriends(int id) throws SQLException {
         Set<Integer> waitingFriends = new HashSet<Integer>();
 
-        ResultSet result = (new DBWorker()).getResult("select * from waitingfriends where AccIDTo = " + id);
+        Connection conn = dbWorker.getConnection();
+        ResultSet result = dbWorker.getResult("select * from waitingfriends where AccIDTo = " + id, conn);
 
         while (result.next()) {
             waitingFriends.add(result.getInt("AccIDFrom"));
+        }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return  waitingFriends;
     }
@@ -217,16 +299,39 @@ public class UserControl {
     public Set<Integer> getFriends(int id) throws SQLException {
         Set<Integer> friends = new HashSet<Integer>();
 
-        ResultSet result = (new DBWorker()).getResult("select * from friends where AccIDTo = " + id);
+        Connection conn = dbWorker.getConnection();
+        ResultSet result = dbWorker.getResult("select * from friends where AccIDTo = " + id, conn);
         while (result.next()) {
-            friends.add(result.getInt("AccIDFrom"));
-        }
+            friends.add(result.getInt("AccIDFrom"));        }
 
-        result = (new DBWorker()).getResult("select * from friends where AccIDFrom = " + id);
+
+        result = dbWorker.getResult("select * from friends where AccIDFrom = " + id, conn);
         while (result.next()) {
             friends.add(result.getInt("AccIDTo"));
         }
 
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  friends;
+    }
+
+    public Set<Integer> getUsersLike(String search) throws SQLException {
+        Set<Integer> friends = new HashSet<Integer>();
+
+        Connection conn = dbWorker.getConnection();
+        ResultSet result = dbWorker.getResult("select * from Accounts where Nickname like '%" + search + "%'", conn);
+        while (result.next()) {
+            friends.add(result.getInt("ID"));
+        }
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return  friends;
     }
 }

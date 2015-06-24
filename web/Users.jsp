@@ -67,7 +67,7 @@
         accounts.removeAll(userControl.getFriends(userControl.getID(nickname)));
     }
       else
-        accounts = null; //TODO
+        accounts = userControl.getUsersLike(search);
     }
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>

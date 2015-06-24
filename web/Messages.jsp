@@ -75,7 +75,7 @@
     }
    String friend = request.getParameter("friend");
     if(friend == null)
-      friend = "-1";
+      friend = friends.isEmpty()? "0" : friends.iterator().next().toString();
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
@@ -95,8 +95,9 @@
           <ul class="nav nav-pills nav-stacked">
             <% for (int id : friends) {
               iShorProfile shortProf = userControl.getUser(id);
+              Integer d = shortProf.getID();
             %>
-            <li class="<%= friend.equals(shortProf.getNickname()) ? "active" : ""%>">
+            <li class="<%= friend.equals(d.toString()) ? "active" : "" %>">
               <a href="Messages.jsp?friend=<%=shortProf.getID()%>">
                 <img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 60px; border-radius: 50%; ">  <%=shortProf.getNickname()%>
               </a>
@@ -112,9 +113,7 @@
         <div class="box-body no-padding">
           <ul class="nav nav-pills nav-stacked">
             <%
-
               ArrayList<Message> messages = userControl.getMessages(profile.getID(), Integer.parseInt(friend));
-
 
               for (int i = 0; i<messages.size(); i++ ) {
               String mess = messages.get(i).getText();
