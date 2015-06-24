@@ -54,7 +54,6 @@
 <div class="wrapper">
   <%
     UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
-      ArrayList<Message> messages = userControl.getMessages(1,2);
 
     String nickname = (String)session.getAttribute("nickname");
     iProfile profile;

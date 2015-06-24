@@ -1,6 +1,9 @@
 <%@ page import="Interfaces.View.iShorProfile" %>
 <%@ page import="Core.Controller.Account" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="Core.Model.UserControl" %>
+<%@ page import="java.util.Set" %>
+<%@ page import="java.util.HashSet" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -48,19 +51,23 @@
 <body class="skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
   <%
+    UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
     String nickname = (String)session.getAttribute("nickname");
-    HashMap<String, iShorProfile> profiles = new HashMap<String, iShorProfile>();
+    Set<Integer> accounts = new HashSet<Integer>();
+
     if(nickname == null) {
       String redirectURL = "Accont/Login.jsp";
       response.sendRedirect(redirectURL);
     }
-    else
-    {
+    else {
       String search = request.getParameter("search");
-      if(search == null)
-        profiles = null;  // TODO
+      if (search == null) {
+        accounts = userControl.getOnlineUsers();
+        accounts.remove(userControl.getID(nickname));
+        accounts.removeAll(userControl.getFriends(userControl.getID(nickname)));
+    }
       else
-        profiles = null; //TODO
+        accounts = null; //TODO
     }
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
@@ -71,8 +78,8 @@
     <div align="center">
 
       <div style="background-color: #0063dc; margin: 30px" >
-        <% for (iShorProfile shortProf : profiles.values()) {
-
+        <% for (Integer userID : accounts) {
+          iShorProfile shortProf = (iShorProfile)userControl.getUser(userID);
         %>
         <div style="background-color: #B0EDFF; width: 49%; float: left; padding: 5px 5px 5px 20px; border: groove #010046 thin">
           <img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 100px; height: 100px; border-radius: 50%; float: left">
@@ -81,8 +88,8 @@
               <%=shortProf.getNickname()%>
             </div>
             <form action="/AddFriend" method="post">
-              <input type="hidden" name="nickname1" value="<%= nickname %>">
-              <input type="hidden" name="nickname2" value="<%= shortProf.getNickname() %>">
+              <input type="hidden" name="id1" value="<%= nickname %>">
+              <input type="hidden" name="id2" value="<%= shortProf.getID() %>">
             <div style="width:  100px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">დამატება</button></div>
             <div style="width:  100px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">მიწერა</button></div>
             </form>

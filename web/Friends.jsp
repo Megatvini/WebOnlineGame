@@ -4,6 +4,9 @@
 <%@ page import="Interfaces.View.iProfile" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Hashtable" %>
+<%@ page import="java.util.Set" %>
+<%@ page import="java.util.HashSet" %>
+<%@ page import="Core.Model.UserControl" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -51,9 +54,12 @@
 <body class="skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
   <%
+    UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
     String nickname = (String)session.getAttribute("nickname");
-    Hashtable<String, iShorProfile> profiles = new Hashtable<String, iShorProfile>();
-    Hashtable<String, iShorProfile> waitingProfiles = new Hashtable<String, iShorProfile>();
+
+    Set<Integer> waitingFriends = new HashSet<Integer>();
+    Set<Integer> friends = new HashSet<Integer>();
+
     iProfile profile;
     if(nickname == null) {
       String redirectURL = "Accont/Login.jsp";
@@ -62,9 +68,10 @@
     }
     else
     {
-      profile = new Account(nickname);
-      profiles = profile.getFriends();
-      waitingProfiles = profile.getWaitingFriends();
+      profile = userControl.getUser(nickname);
+
+      waitingFriends = userControl.getWaitingFriends(profile.getID());
+      friends = userControl.getFriends(profile.getID());
     }
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
@@ -73,8 +80,8 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
     <div style="background-color: #0063dc; margin: 30px" >
-      <% for (iShorProfile shortProf : waitingProfiles.values()) {
-
+      <% for (int id : waitingFriends) {
+        iShorProfile shortProf = userControl.getUser(id);
       %>
       <div style="background-color: #B0EDFF; width: 49%; float: left; padding: 5px 5px 5px 20px; border: groove #010046 thin">
         <img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 100px; height: 100px; border-radius: 50%; float: left">
@@ -83,8 +90,8 @@
             <%=shortProf.getNickname()%>
           </div>
           <form action="/AcceptFriend" method="post">
-            <input type="hidden" name="nickname1" value="<%= nickname %>">
-            <input type="hidden" name="nickname2" value="<%= shortProf.getNickname() %>">
+            <input type="hidden" name="id1" value="<%= nickname %>">
+            <input type="hidden" name="id2" value="<%= shortProf.getID() %>">
             <div style="width:  120px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">დათანხმება</button></div>
             <div style="width:  120px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">უარყოფა</button></div>
           </form>
@@ -95,7 +102,8 @@
 
 
     <div style="background-color: #0063dc; margin: 30px" >
-      <% for (iShorProfile shortProf : profiles.values()) {
+      <% for (int id : friends) {
+        iShorProfile shortProf = userControl.getUser(id);
 
       %>
       <div style="background-color: #B0EDFF; width: 49%; float: left; padding: 5px 5px 5px 20px; border: groove #010046 thin">

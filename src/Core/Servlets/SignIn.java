@@ -21,10 +21,13 @@ public class SignIn extends HttpServlet {
         String nickname = request.getParameter("nickname");
         String password = request.getParameter("password");
 
+        UserControl userControl = (UserControl)getServletContext().getAttribute("userControl");
+        iAccount accaunt;
+
         boolean logined = false;
         try {
-            UserControl userControl = (UserControl)getServletContext().getAttribute("userControl");
-            iAccount accaunt = userControl.getUser(nickname);
+
+            accaunt = userControl.getUser(nickname);
             logined = accaunt.getPassword().equals(password);
         } catch (Exception e) {
             response.sendRedirect("Accont/Login.jsp?error=1");
@@ -35,6 +38,7 @@ public class SignIn extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("nickname", nickname);
             response.sendRedirect("index.jsp");
+            userControl.addOnlineUser(accaunt.getID());
         }
         else {
             response.sendRedirect("Accont/Login.jsp?error=2");

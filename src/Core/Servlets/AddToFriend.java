@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import Core.Controller.Account;
 import Core.Model.DBWorker;
@@ -18,23 +19,18 @@ import Interfaces.Controller.iAccount;
 @WebServlet("/AddFriend")
 public class AddToFriend extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String nicknameFrom = request.getParameter("nickname1");
-        String nicknameTo = request.getParameter("nickname2");
+        UserControl userControl;
+        userControl = (UserControl)getServletContext().getAttribute("userControl");
 
-        iAccount accountFrom = null;
-        iAccount accountTo = null;
+        int IDFrom = 0;
         try {
-            UserControl userControl = (UserControl)getServletContext().getAttribute("userControl");
-            accountFrom = userControl.getUser(nicknameFrom);
-            accountTo = userControl.getUser(nicknameTo);
-        } catch (Exception e) {
-            e.printStackTrace();
+            IDFrom = userControl.getID(request.getParameter("id1"));
+        } catch (SQLException e) {
+           //TODO
         }
-        try {
-            accountTo.addFriend(nicknameFrom);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        int IDTo = Integer.parseInt(request.getParameter("id2"));
+
+        userControl.addFriend(IDFrom, IDTo);
         response.sendRedirect("Users.jsp");
     }
 

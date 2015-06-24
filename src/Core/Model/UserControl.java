@@ -11,16 +11,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by gukam on 5/29/2015.
  */
 public class UserControl {
-   private static HashMap<String ,iAccount> _accounts = new HashMap<String, iAccount>();
+   private static Set<Integer> _accounts = new HashSet<Integer>();
+
+    public void addOnlineUser(Integer id){
+        _accounts.add(id);
+    }
 
     public void registerUser(iAccount account){
-        _accounts.put(account.getNickname(), account);
-
         String query = "INSERT INTO accounts " +
                 "(Nickname, " +
                 "LastName, " +
@@ -46,7 +49,6 @@ public class UserControl {
     }
 
     public void changeUser(int ID, iAccount account){
-        _accounts.put(account.getNickname(), account);
 
         String query = "INSERT INTO accounts " +
                 "(Nickname, " +
@@ -73,7 +75,6 @@ public class UserControl {
     }
 
     public void changeUser(String nickname, iAccount account){
-        _accounts.put(account.getNickname(), account);
 
         String query = "INSERT INTO accounts " +
                 "(Nickname, " +
@@ -110,6 +111,7 @@ public class UserControl {
         account.setPassword(result.getString("Password"));
         account.setGender(result.getString("Gender").equals("Male") ? Account.Gender.MALE : Account.Gender.FEMALE);
         // TODO: wamosagebia about, surati, rating, birthdate, mail
+        result.close();
         return account;
     }
 
@@ -121,17 +123,16 @@ public class UserControl {
         account.setFirstname(result.getString("FirstName"));
         account.setLastname(result.getString("LastName"));
         account.setPassword(result.getString("Password"));
+        account.setID(result.getInt("ID"));
         account.setGender(result.getString("Gender").equals("Male") ? Account.Gender.MALE : Account.Gender.FEMALE);
         // TODO: wamosagebia about, surati, rating, birthdate, mail
         return account;
     }
 
-    public  HashMap<String, iShorProfile> getOnlineUsers(){
-        HashMap<String, iShorProfile> users = new HashMap<String, iShorProfile>();
-        for(iAccount acc : _accounts.values()){
-            users.put(acc.getNickname(), acc);
-        }
-        return  users;
+    public  Set<Integer> getOnlineUsers(){
+        Set<Integer> accounts = new HashSet<Integer>();
+        accounts.addAll(_accounts);
+        return  accounts;
     }
 
     public void sendMessage(Message message) throws Exception {
@@ -173,5 +174,59 @@ public class UserControl {
             //TODO date
         }
         return  messages;
+    }
+
+    public void addFriend(int idFrom, int idTo){
+        String query = "insert into waitingfriends (accIDFrom, AccIDTo) values ("+idFrom+", "+idTo+")";
+        (new DBWorker()).execute(query);
+    }
+
+    public void confirmFriendRequest(int idFrom, int idTo){
+        DBWorker dbWorker = new DBWorker();
+
+        String query = "delete FROM mydb.waitingfriends where accIDTo = " + idFrom +" and accIDFrom = " + idTo +";";
+        dbWorker.execute(query);
+
+        query = "insert into friends (accIDFrom, AccIDTo) values ("+idFrom+", "+idTo+")";
+        dbWorker.execute(query);
+
+        query = "insert into conversations (AccIDFrom, AccIDTo) values ("+idFrom+", "+idTo+")";
+        dbWorker.execute(query);
+
+        query = "insert into conversations (AccIDFrom, AccIDTo) values  ("+idTo+", "+idFrom+")";
+        dbWorker.execute(query);
+    }
+
+    public int getID(String nickname) throws SQLException {
+        ResultSet result = (new DBWorker()).getResult("select ID from accounts where Nickname = '" + nickname +"'");
+        result.next();
+        return result.getInt("ID");
+    }
+
+    public Set<Integer> getWaitingFriends(int id) throws SQLException {
+        Set<Integer> waitingFriends = new HashSet<Integer>();
+
+        ResultSet result = (new DBWorker()).getResult("select * from waitingfriends where AccIDTo = " + id);
+
+        while (result.next()) {
+            waitingFriends.add(result.getInt("AccIDFrom"));
+        }
+        return  waitingFriends;
+    }
+
+    public Set<Integer> getFriends(int id) throws SQLException {
+        Set<Integer> friends = new HashSet<Integer>();
+
+        ResultSet result = (new DBWorker()).getResult("select * from friends where AccIDTo = " + id);
+        while (result.next()) {
+            friends.add(result.getInt("AccIDFrom"));
+        }
+
+        result = (new DBWorker()).getResult("select * from friends where AccIDFrom = " + id);
+        while (result.next()) {
+            friends.add(result.getInt("AccIDTo"));
+        }
+
+        return  friends;
     }
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Created by gukam on 6/4/2015.
@@ -17,22 +18,19 @@ import java.io.IOException;
 @WebServlet("/AcceptFriend")
 public class AcceptFriendRequest extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String nicknameFrom = request.getParameter("nickname1");
-        String nicknameTo = request.getParameter("nickname2");
+        UserControl userControl;
+        userControl = (UserControl)getServletContext().getAttribute("userControl");
 
-        iAccount accountFrom = null;
-        iAccount accountTo = null;
+        int IDFrom = 0;
         try {
-            UserControl userControl = (UserControl)getServletContext().getAttribute("userControl");
-            accountFrom = userControl.getUser(nicknameFrom);
-            accountTo = userControl.getUser(nicknameTo);
-        } catch (Exception e) {
-            e.printStackTrace();
+            IDFrom = userControl.getID(request.getParameter("id1"));
+        } catch (SQLException e) {
+            //TODO
         }
+        int IDTo = Integer.parseInt(request.getParameter("id2"));
+
         try {
-            accountFrom.confirmFriend(nicknameTo);
-            accountTo.addFriend(nicknameFrom);
-            accountTo.confirmFriend(nicknameFrom);
+            userControl.confirmFriendRequest(IDFrom, IDTo);
         } catch (Exception e) {
             e.printStackTrace();
         }

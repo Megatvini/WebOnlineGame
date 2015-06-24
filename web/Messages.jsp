@@ -2,11 +2,9 @@
 <%@ page import="Interfaces.View.iShorProfile" %>
 <%@ page import="Core.Controller.Account" %>
 <%@ page import="Interfaces.View.iProfile" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="java.util.Hashtable" %>
 <%@ page import="Core.Model.UserControl" %>
 <%@ page import="Core.Controller.Message" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.*" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -54,9 +52,12 @@
 <body class="skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
   <%
+    UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
+
     String nickname = (String)session.getAttribute("nickname");
-    //Hashtable<String, iShorProfile> profiles = new Hashtable<String, iShorProfile>();
-    iProfile profile;
+    Set<Integer> friends = new HashSet<Integer>();
+    iProfile profile = null;
+
     if(nickname == null) {
       String redirectURL = "Accont/Login.jsp";
       response.sendRedirect(redirectURL);
@@ -64,13 +65,17 @@
     }
     else
     {
-      UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
-      profile = userControl.getUser(nickname);
-     // profiles = profile.getFriends();
+      try {
+        profile = userControl.getUser(nickname);
+        friends = userControl.getFriends(profile.getID());
+      }
+      catch (Exception ex){
+        String k = ex.getMessage();
+      }
     }
    String friend = request.getParameter("friend");
-   // if(friend == null)
-      friend = "1";
+    if(friend == null)
+      friend = "-1";
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
@@ -88,7 +93,15 @@
         </div>
         <div class="box-body no-padding">
           <ul class="nav nav-pills nav-stacked">
-
+            <% for (int id : friends) {
+              iShorProfile shortProf = userControl.getUser(id);
+            %>
+            <li class="<%= friend.equals(shortProf.getNickname()) ? "active" : ""%>">
+              <a href="Messages.jsp?friend=<%=shortProf.getID()%>">
+                <img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 60px; border-radius: 50%; ">  <%=shortProf.getNickname()%>
+              </a>
+            </li>
+            <% } %>
           </ul>
         </div><!-- /.box-body -->
       </div>
@@ -99,7 +112,7 @@
         <div class="box-body no-padding">
           <ul class="nav nav-pills nav-stacked">
             <%
-              UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
+
               ArrayList<Message> messages = userControl.getMessages(profile.getID(), Integer.parseInt(friend));
 
 

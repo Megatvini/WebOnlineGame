@@ -22,7 +22,7 @@ public class DBWorker {
         Connection conn = null;
         try {
             conn =    DriverManager.getConnection("jdbc:mysql://localhost/mydb?" +
-                    "user=root&password=anniemargvela1");
+                    "user=root&password=gukaguk1");
 
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
@@ -46,6 +46,7 @@ public class DBWorker {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return rs;
     }
 
@@ -67,6 +68,7 @@ public class DBWorker {
             e.printStackTrace();
             result=-1;
         }
+
         return result;
     }
 }
