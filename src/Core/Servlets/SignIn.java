@@ -1,6 +1,7 @@
 package Core.Servlets;
 
 
+import Core.Controller.Hashing;
 import Core.Model.Dao.AccountDao;
 import Interfaces.iAccount;
 
@@ -31,8 +32,13 @@ public class SignIn extends HttpServlet {
             return;
         }
 
-        request.getSession().setAttribute("nickName", nickname);
-        response.sendRedirect("index.jsp");
+        if (Hashing.getHash(account.getPassword()).equals(Hashing.getHash(password))) {
+            request.getSession().setAttribute("nickName", nickname);
+            response.sendRedirect("index.jsp");
+        } else {
+            //TODO Send redirect with wrong username or password
+            //response.sendRedirect("Accont/Login.jsp?error=2");
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
