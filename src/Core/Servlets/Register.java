@@ -20,6 +20,8 @@ import java.util.regex.Pattern;
  */
 @WebServlet("/Registration")
 public class Register extends HttpServlet {
+    private static final int MIN_PASSWORD_LENGTH = 5;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AccountDao accountDao = (AccountDao) getServletContext().getAttribute(AccountDao.class.getName());
         Set<String> onlineUsers = (Set<String>) getServletContext().getAttribute("onlineUsers");
@@ -61,7 +63,7 @@ public class Register extends HttpServlet {
     }
 
     private boolean isValidPassword(String password) {
-        if (password.length()<5) return false;
+        if (password.length()<MIN_PASSWORD_LENGTH) return false;
         Pattern p = Pattern.compile("((\\p{Punct})*([a-zA-Z])*([0-9])*)*");
         Matcher m = p.matcher(password);
         return m.matches();
