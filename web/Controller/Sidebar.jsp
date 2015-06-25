@@ -1,6 +1,5 @@
-<%@ page import="Interfaces.View.iShorProfile" %>
-<%@ page import="Core.Controller.Account" %>
-<%@ page import="Core.Model.UserControl" %>
+<%@ page import="Core.Model.Bean.Account" %>
+<%@ page import="Interfaces.iProfile" %>
 <%--
   Created by IntelliJ IDEA.
   User: Annie
@@ -15,15 +14,15 @@
 </head>
 <body>
 <%
-  String nick = (String)session.getAttribute("nickname");
-  iShorProfile prof ;
-  if (nick != null) {
-    UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
-    prof = userControl.getUser(nick);
-   //TODO:
-  }
-  else
-  prof = new Account();
+//  String nick = (String)session.getAttribute("nickname");
+//  iShorProfile prof ;
+//  if (nick != null) {
+//    UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
+//    prof = userControl.getUser(nick);
+//   //TODO:
+//  }
+//  else
+    iProfile prof = new Account();
 %>
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">

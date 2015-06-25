@@ -1,4 +1,6 @@
-package Core.Model;
+package Core.Model.Dao;
+
+import Core.DBInfo;
 
 import java.sql.*;
 
@@ -6,11 +8,15 @@ import java.sql.*;
  * Created by Annie on 12-Jun-15.
  */
 public class DBWorker {
+    private Connection conn;
 
+    public DBWorker() {
+        conn = getConnection();
+    }
 
-    public Connection getConnection(){
+    private Connection getConnection(){
         try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            Class.forName(DBInfo.JDBC_DRIVER).newInstance();
         } catch (InstantiationException e) {
             System.out.println("VendorError: " + e.getMessage());
         } catch (IllegalAccessException e) {
@@ -21,9 +27,11 @@ public class DBWorker {
 
         Connection conn = null;
         try {
-            conn =    DriverManager.getConnection("jdbc:mysql://localhost/mydb?" +
-                    "user=root&password=gukaguk1");
+            String s = DBInfo.DB_URL + "mydb?" +
+                    "user=" +DBInfo.USER+"&password=" +DBInfo.PASS;
 
+            System.out.println(s);
+            conn = DriverManager.getConnection(s);
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
@@ -32,13 +40,15 @@ public class DBWorker {
         return conn;
     }
 
-    public ResultSet getResult(String query, Connection conn) {
+
+    public ResultSet getResult(String query) {
         Statement stmt = null;
         ResultSet rs = null;
         try {
             stmt = conn.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
         try {
             rs = stmt.executeQuery(query);
@@ -49,7 +59,7 @@ public class DBWorker {
         return rs;
     }
 
-    public Integer execute(String query, Connection conn){
+    public Integer execute(String query){
         Statement stmt = null;
         Integer num=0;
         Integer result=-1;
@@ -57,16 +67,12 @@ public class DBWorker {
             stmt = conn.createStatement();
             num = stmt.executeUpdate(query , Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = stmt.getGeneratedKeys();
-            if (rs.next()){
-                result=rs.getInt(1);
-            }
             rs.close();
             stmt.close();
         } catch (Exception e) {
             e.printStackTrace();
             result=-1;
         }
-
         return result;
     }
 }

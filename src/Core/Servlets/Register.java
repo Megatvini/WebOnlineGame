@@ -1,15 +1,13 @@
 package Core.Servlets;
 
-import Core.Controller.Account;
+import Core.Model.Bean.Account;
 import Core.Controller.Hashing;
-import Core.Model.UserControl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -18,15 +16,15 @@ import java.io.IOException;
 @WebServlet("/Registration")
 public class Register extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Account account = new Account();
-        account.setNickname(request.getParameter("nickname"));
-        account.setMail(request.getParameter("mail"));
-        account.setPassword(Hashing.getHash(request.getParameter("password")));
-        UserControl userControl = (UserControl)getServletContext().getAttribute("userControl");
-        userControl.registerUser(account);
-
-        HttpSession session = request.getSession();
-        session.setAttribute("nickname", account.getNickname());
+//        Account account = new Account();
+//        account.setNickname(request.getParameter("nickname"));
+//        account.setMail(request.getParameter("mail"));
+//        account.setPassword(Hashing.getHash(request.getParameter("password")));
+//        UserControl userControl = (UserControl)getServletContext().getAttribute("userControl");
+//        userControl.registerUser(account);
+//
+//        HttpSession session = request.getSession();
+//        session.setAttribute("nickname", account.getNickname());
 
         response.sendRedirect("index.jsp");
     }

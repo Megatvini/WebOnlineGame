@@ -1,9 +1,11 @@
-package Interfaces.Controller;
-import Interfaces.View.iProfile;
+package Interfaces;
+
+import java.util.Date;
 
 /**
  * Created by gukam on 5/28/2015.
  */
+
 public interface iAccount extends iProfile {
     public void setNickname(String nickname);
 
@@ -11,19 +13,27 @@ public interface iAccount extends iProfile {
 
     public void setPicturePath(String PicPath);
 
-    public void setFirstname(String fisrtname);
+    public void setFirstName(String firstName);
 
-    public void setLastname(String lastname);
+    public void setLastName(String lastName);
 
     public void setMail(String mail);
 
     public void setGender(Gender gender);
 
-    public void setRank(int rank);
+    public void setRating(int rank);
 
     public void addFriend(String nickname) throws Exception;
 
     public void confirmFriend(String nickname);
 
     public void setID(int ID);
+
+    public boolean removeFriend(String friend);
+
+    public boolean removeWaitingFriend(String waitingFriend);
+
+    public void setBirthDate(Date date);
+
+    public String setAbout(String text);
 }

@@ -1,8 +1,9 @@
-<%@ page import="Interfaces.View.iShorProfile" %>
-<%@ page import="Core.Controller.Account" %>
-<%@ page import="Interfaces.Controller.iAccount" %>
+<%@ page import="Core.Model.Bean.Account" %>
+<%@ page import="Interfaces.iAccount" %>
 <%@ page import="java.util.Hashtable" %>
-<%@ page import="Core.Model.UserControl" %>
+<%@ page import="Interfaces.iProfile" %>
+<%@ page import="java.util.HashSet" %>
+<%@ page import="java.util.Set" %>
 <%--
   Created by IntelliJ IDEA.
   User: Annie
@@ -28,16 +29,17 @@
   <nav class="navbar navbar-static-top" role="navigation">
 
     <%
-      String nick = (String)session.getAttribute("nickname");
-      iShorProfile prof ;
-      if (nick != null) {
-        UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
-        prof = userControl.getUser(nick); //TODO:
-        }
-      else
-        prof = new Account();
-
-      Hashtable<String, iShorProfile> waitingFriends = prof.getWaitingFriends();
+//      String nick = (String)session.getAttribute("nickname");
+//      iProfile prof ;
+//      if (nick != null) {
+//        UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
+//        prof = userControl.getUser(nick); //TODO:
+//        }
+//      else
+//        prof = new Account();
+//
+//      Hashtable<String, iShorProfile> waitingFriends = prof.getWaitingFriends();
+      Set<iProfile> waitingFriends = new HashSet<>();
     %>
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
@@ -52,7 +54,7 @@
             <li>
               <!-- inner menu: contains the actual data -->
               <ul class="menu">
-                <% for (iShorProfile shortProf : waitingFriends.values()) {
+                <% for (iProfile shortProf : waitingFriends) {
 
                 %>
                 <li>

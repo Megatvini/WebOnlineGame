@@ -15,15 +15,14 @@ import java.util.Properties;
  * Created by gukam on 5/28/2015.
  */
 public class DBInfo {
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/";
+    public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    public static final String DB_URL = "jdbc:mysql://localhost/";
 
     //  Database credentials
-    static final String USER = "username";
-    static final String PASS = "password";
+    public static final String USER = "root";
+    public static final String PASS = "agbdlcid";
 
     public static void getMySQLDataSource() {
-
 
     }
 

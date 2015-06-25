@@ -1,8 +1,6 @@
 package Core.Servlets;
 
-import Core.Controller.Message;
-import Core.Model.UserControl;
-import Interfaces.Controller.iAccount;
+import Core.Model.Bean.Message;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +18,9 @@ public class SentMessageServlet extends HttpServlet {
         int fromID = Integer.parseInt(request.getParameter("profileFrom"));
         int toID = Integer.parseInt(request.getParameter("profileTo"));
         String message = request.getParameter("message");
-        UserControl userControl = (UserControl)getServletContext().getAttribute("userControl");
+
+        System.out.println("SEND MESSAGE: " + request.getParameterMap());
+        //UserControl userControl = (UserControl)getServletContext().getAttribute("userControl");
 
         Message mes = new Message();
         mes.setText(message);
@@ -29,11 +29,11 @@ public class SentMessageServlet extends HttpServlet {
         mes.setType(Message.Type.SENT);
         //TODO date
 
-        try {
-            userControl.sendMessage(mes);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            userControl.sendMessage(mes);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         String referer = request.getHeader("Referer");
         response.sendRedirect(referer);

@@ -1,9 +1,10 @@
-<%@ page import="Interfaces.View.iShorProfile" %>
-<%@ page import="Core.Controller.Account" %>
+<%@ page import="Core.Model.Bean.Account" %>
 <%@ page import="java.util.HashMap" %>
-<%@ page import="Core.Model.UserControl" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.HashSet" %>
+<%@ page import="com.sun.deploy.panel.IProperty" %>
+<%@ page import="com.sun.corba.se.spi.ior.iiop.IIOPProfile" %>
+<%@ page import="Interfaces.iProfile" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -51,24 +52,24 @@
 <body class="skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
   <%
-    UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
+    //UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
     String nickname = (String)session.getAttribute("nickname");
-    Set<Integer> accounts = new HashSet<Integer>();
+    Set<iProfile> accounts = new HashSet<>();
 
     if(nickname == null) {
       String redirectURL = "Accont/Login.jsp";
       response.sendRedirect(redirectURL);
     }
-    else {
-      String search = request.getParameter("search");
-      if (search == null) {
-        accounts = userControl.getOnlineUsers();
-        accounts.remove(userControl.getID(nickname));
-        accounts.removeAll(userControl.getFriends(userControl.getID(nickname)));
-    }
-      else
-        accounts = userControl.getUsersLike(search);
-    }
+//    else {
+//      String search = request.getParameter("search");
+//      if (search == null) {
+//        accounts = userControl.getOnlineUsers();
+//        accounts.remove(userControl.getID(nickname));
+//        accounts.removeAll(userControl.getFriends(userControl.getID(nickname)));
+//    }
+//      else
+//        accounts = userControl.getUsersLike(search);
+//    }
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
@@ -78,8 +79,8 @@
     <div align="center">
 
       <div style="background-color: #0063dc; margin: 30px" >
-        <% for (Integer userID : accounts) {
-          iShorProfile shortProf = (iShorProfile)userControl.getUser(userID);
+        <% //for (Integer userID : accounts) {
+          iProfile shortProf = new Account();
         %>
         <div style="background-color: #B0EDFF; width: 49%; float: left; padding: 5px 5px 5px 20px; border: groove #010046 thin">
           <img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 100px; height: 100px; border-radius: 50%; float: left">
@@ -96,7 +97,7 @@
           </div>
         </div>
 
-        <% } %>
+        <% //} %>
       </div>
 
 

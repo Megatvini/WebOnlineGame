@@ -1,9 +1,7 @@
 
-<%@ page import="Interfaces.View.iShorProfile" %>
-<%@ page import="Core.Controller.Account" %>
-<%@ page import="Interfaces.View.iProfile" %>
-<%@ page import="Core.Model.UserControl" %>
-<%@ page import="Core.Controller.Message" %>
+<%@ page import="Core.Model.Bean.Account" %>
+<%@ page import="Interfaces.iProfile" %>
+<%@ page import="Core.Model.Bean.Message" %>
 <%@ page import="java.util.*" %>
 <%--
   Created by IntelliJ IDEA.
@@ -52,10 +50,10 @@
 <body class="skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
   <%
-    UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
+    //UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
 
     String nickname = (String)session.getAttribute("nickname");
-    Set<Integer> friends = new HashSet<Integer>();
+    Set<iProfile> friends = new HashSet<>();
     iProfile profile = null;
 
     if(nickname == null) {
@@ -66,8 +64,8 @@
     else
     {
       try {
-        profile = userControl.getUser(nickname);
-        friends = userControl.getFriends(profile.getID());
+        profile = new Account();//userControl.getUser(nickname);
+        //friends = userControl.getFriends(profile.getID());
       }
       catch (Exception ex){
         String k = ex.getMessage();
@@ -93,16 +91,16 @@
         </div>
         <div class="box-body no-padding">
           <ul class="nav nav-pills nav-stacked">
-            <% for (int id : friends) {
-              iShorProfile shortProf = userControl.getUser(id);
-              Integer d = shortProf.getID();
-            %>
-            <li class="<%= friend.equals(d.toString()) ? "active" : "" %>">
-              <a href="Messages.jsp?friend=<%=shortProf.getID()%>">
-                <img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 60px; border-radius: 50%; ">  <%=shortProf.getNickname()%>
-              </a>
-            </li>
-            <% } %>
+            <%--<% for (int id : friends) {--%>
+              <%--//iShorProfile shortProf = userControl.getUser(id);--%>
+              <%--//Integer d = shortProf.getID();--%>
+            <%--%>--%>
+            <%--<li class="<%= friend.equals(d.toString()) ? "active" : "" %>">--%>
+              <%--<a href="Messages.jsp?friend=<%=shortProf.getID()%>">--%>
+                <%--<img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 60px; border-radius: 50%; ">  <%=shortProf.getNickname()%>--%>
+              <%--</a>--%>
+            <%--</li>--%>
+            <%--<% } %>--%>
           </ul>
         </div><!-- /.box-body -->
       </div>
@@ -112,18 +110,18 @@
       <div class="box box-solid">
         <div class="box-body no-padding">
           <ul class="nav nav-pills nav-stacked">
-            <%
-              ArrayList<Message> messages = userControl.getMessages(profile.getID(), Integer.parseInt(friend));
+            <%--<%--%>
+              <%--ArrayList<Message> messages = userControl.getMessages(profile.getID(), Integer.parseInt(friend));--%>
 
-              for (int i = 0; i<messages.size(); i++ ) {
-              String mess = messages.get(i).getText();
-              String style = messages.get(i).getType() == Message.Type.SENT ?
-                      "background-color: rgb(186, 223, 255);\n" +
-                      "    text-align: right;" :
-              "background-color: rgb(140, 179, 213)";
-            %>
-            <li style="<%= style %> ; font-size: 19px"> <%= mess %></li>
-            <% } %>
+              <%--for (int i = 0; i<messages.size(); i++ ) {--%>
+              <%--String mess = messages.get(i).getText();--%>
+              <%--String style = messages.get(i).getType() == Message.Type.SENT ?--%>
+                      <%--"background-color: rgb(186, 223, 255);\n" +--%>
+                      <%--"    text-align: right;" :--%>
+              <%--"background-color: rgb(140, 179, 213)";--%>
+            <%--%>--%>
+            <%--<li style="<%= style %> ; font-size: 19px"> <%= mess %></li>--%>
+            <%--<% } %>--%>
           </ul>
         </div><!-- /.box-body -->
         <form action="/SendMessage" method="post">

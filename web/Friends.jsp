@@ -1,12 +1,10 @@
 
-<%@ page import="Interfaces.View.iShorProfile" %>
-<%@ page import="Core.Controller.Account" %>
-<%@ page import="Interfaces.View.iProfile" %>
+<%@ page import="Core.Model.Bean.Account" %>
+<%@ page import="Interfaces.iProfile" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Hashtable" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.HashSet" %>
-<%@ page import="Core.Model.UserControl" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -54,25 +52,28 @@
 <body class="skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
   <%
-    UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
-    String nickname = (String)session.getAttribute("nickname");
-
-    Set<Integer> waitingFriends = new HashSet<Integer>();
-    Set<Integer> friends = new HashSet<Integer>();
-
-    iProfile profile;
-    if(nickname == null) {
-      String redirectURL = "Accont/Login.jsp";
-      response.sendRedirect(redirectURL);
-      profile = new Account();
-    }
-    else
-    {
-      profile = userControl.getUser(nickname);
-
-      waitingFriends = userControl.getWaitingFriends(profile.getID());
-      friends = userControl.getFriends(profile.getID());
-    }
+//    String nickname = (String)session.getAttribute("nickname");
+//
+//    Set<Integer> waitingFriends = new HashSet<Integer>();
+//    Set<Integer> friends = new HashSet<Integer>();
+//
+//    iProfile profile;
+//    if(nickname == null) {
+//      String redirectURL = "Accont/Login.jsp";
+//      response.sendRedirect(redirectURL);
+//      profile = new Account();
+//    }
+//    else
+//    {
+//      profile = userControl.getUser(nickname);
+//
+//      waitingFriends = userControl.getWaitingFriends(profile.getID());
+//      friends = userControl.getFriends(profile.getID());
+//    }
+    String nickname = "nika";
+    iProfile shortProf = new Account();
+    Set<iProfile> waitingFriends = new HashSet<>();
+    Set<iProfile> Friends = new HashSet<>();
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
@@ -80,8 +81,8 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
     <div style="background-color: #0063dc; margin: 30px" >
-      <% for (int id : waitingFriends) {
-        iShorProfile shortProf = userControl.getUser(id);
+      <% for (iProfile friend : waitingFriends) {
+        //iShorProfile shortProf = userControl.getUser(id);
       %>
       <div style="background-color: #B0EDFF; width: 49%; float: left; padding: 5px 5px 5px 20px; border: groove #010046 thin">
         <img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 100px; height: 100px; border-radius: 50%; float: left">
@@ -102,8 +103,8 @@
 
 
     <div style="background-color: #0063dc; margin: 30px" >
-      <% for (int id : friends) {
-        iShorProfile shortProf = userControl.getUser(id);
+      <% for (iProfile friend: Friends) {
+        //iShorProfile shortProf = userControl.getUser(id);
 
       %>
       <div style="background-color: #B0EDFF; width: 49%; float: left; padding: 5px 5px 5px 20px; border: groove #010046 thin">

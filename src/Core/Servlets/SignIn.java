@@ -1,15 +1,11 @@
 package Core.Servlets;
 
-import Core.DBInfo;
-import Core.Model.UserControl;
-import Interfaces.Controller.iAccount;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -21,28 +17,27 @@ public class SignIn extends HttpServlet {
         String nickname = request.getParameter("nickname");
         String password = request.getParameter("password");
 
-        UserControl userControl = (UserControl)getServletContext().getAttribute("userControl");
-        iAccount accaunt;
-
-        boolean logined = false;
-        try {
-
-            accaunt = userControl.getUser(nickname);
-            logined = accaunt.getPassword().equals(password);
-        } catch (Exception e) {
-            response.sendRedirect("Accont/Login.jsp?error=1");
-            return;
-        }
-
-        if (logined) {
-            HttpSession session = request.getSession();
-            session.setAttribute("nickname", nickname);
-            response.sendRedirect("index.jsp");
-            userControl.addOnlineUser(accaunt.getID());
-        }
-        else {
-            response.sendRedirect("Accont/Login.jsp?error=2");
-        }
+//        //UserControl userControl = (UserControl)getServletContext().getAttribute("userControl");
+//        iAccount accaunt;
+//
+//        boolean logined = false;
+//        try {
+//            accaunt = userControl.getUser(nickname);
+//            logined = accaunt.getPassword().equals(password);
+//        } catch (Exception e) {
+//            response.sendRedirect("Accont/Login.jsp?error=1");
+//            return;
+//        }
+//
+//        if (logined) {
+//            HttpSession session = request.getSession();
+//            session.setAttribute("nickname", nickname);
+//            response.sendRedirect("index.jsp");
+//            userControl.addOnlineUser(accaunt.getID());
+//        }
+//        else {
+//            response.sendRedirect("Accont/Login.jsp?error=2");
+//        }
 
     }
 

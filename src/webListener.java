@@ -2,7 +2,10 @@
  * Created by Annie on 22-Jun-15.
  */
 
-import Core.Model.UserControl;
+import Core.Model.Dao.AccountDao;
+import Core.Model.Dao.DBWorker;
+import Core.Model.Dao.FriendsDao;
+import Core.Model.Dao.MessageDao;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -25,10 +28,17 @@ public class webListener implements ServletContextListener,
     // ServletContextListener implementation
     // -------------------------------------------------------
     public void contextInitialized(ServletContextEvent sce) {
-        UserControl userControl = new UserControl();
+
         ServletContext sc = sce.getServletContext();
 
-        sc.setAttribute("userControl", userControl);
+        DBWorker dbWorker = new DBWorker();
+        AccountDao accountDao = new AccountDao(dbWorker);
+        FriendsDao friendsDao = new FriendsDao(dbWorker);
+        MessageDao messageDao = new MessageDao(dbWorker);
+
+        sc.setAttribute(AccountDao.class.getName(), accountDao);
+        sc.setAttribute(FriendsDao.class.getName(), friendsDao);
+        sc.setAttribute(MessageDao.class.getName(), messageDao);
     }
 
     public void contextDestroyed(ServletContextEvent sce) {
