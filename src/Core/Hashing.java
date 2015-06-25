@@ -5,6 +5,6 @@ package Core;
  */
 public class Hashing {
     public static String getHash(String text) {
-        return text;
+        return text+1;
     }
 }

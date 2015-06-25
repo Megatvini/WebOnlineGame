@@ -55,8 +55,7 @@
   <%
     AccountDao userControl = (AccountDao)pageContext.getServletContext().getAttribute(AccountDao.class.getName());
 
-//    String nickname = (String)session.getAttribute("nickname");
-      String nickname = "anniemargvela";
+    String nickname = (String)session.getAttribute("nickname");
     iProfile profile;
     if(nickname == null) {
       String redirectURL = "Accont/Login.jsp";

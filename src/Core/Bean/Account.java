@@ -11,13 +11,13 @@ public class Account implements iAccount {
     private String _nickname;
     private String _password;
     private String _picPath= "http://a3.files.biography.com/image/upload/c_fill,cs_srgb,dpr_1.0,g_face,h_300,q_80,w_300/MTIwNjA4NjM0MjAzODMzODY4.jpg";
-    private String _firstName;
-    private String _lastName ;
+    private String _firstName = "";
+    private String _lastName = "";
     private String _mail;
-    private int _rating;
+    private int _rating = 1200;
     private int _ID;
     private Date birthDate;
-    private String about;
+    private String about = "";
 
     @Override
     public void setID(int ID) {

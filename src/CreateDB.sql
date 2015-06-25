@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Accounts` (
   `LastName` VARCHAR(45) NULL,
   `FirstName` VARCHAR(45) NULL,
   `Gender` ENUM('Male', 'Female') NULL,
-  `Password` VARCHAR(60) NULL,
+  `Password` VARCHAR(60) NOT NULL,
   `BirthDate` DATE NULL,
   `About` TEXT NULL,
   `GameRating` INT NOT NULL,

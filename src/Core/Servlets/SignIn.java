@@ -33,7 +33,7 @@ public class SignIn extends HttpServlet {
         }
 
         if (account.getPassword().equals(Hashing.getHash(password))) {
-            request.getSession().setAttribute("nickName", nickname);
+            request.getSession().setAttribute("nickname", nickname);
             onlineUsers.add(nickname);
             response.sendRedirect("index.jsp");
         } else {

@@ -21,29 +21,27 @@ public class AccountDao {
 
     public void registerUser(iAccount account){
         String query = "INSERT INTO accounts \n" +
-                "Values ('"+
-                account.getNickname() +"','\n" +
-                account.getLastName() +"','\n" +
-                account.getFirstName()+"','\n" +
-                account.getGender()+"','\n" +
-                account.getPassword()+"','\n" +
-                account.getBirthDate()+"','\n" +
-                account.getAbout()+"','\n" +
-                account.getRating()+"')";
+                "(Nickname, LastName,  FirstName ,  Gender ,  Password ,  BirthDate ,  about ,  GameRating ,  Mail)\n" +
+                "Values ('"+account.getNickname()+"'," +
+                "'"+account.getFirstName()+"','"+account.getLastName()+
+                "','"+account.getGender()+"','"+account.getPassword()+
+                "', "+account.getBirthDate()+", '"+account.getAbout()+
+                "','"+account.getRating()+"','"+account.getMail()+"')";
         dbWorker.execute(query);
     }
 
     public void changeUser(iAccount account){
         String query = "UPDATE accounts SET\n" +
-                "Nickname = "+ account.getNickname() +",\n" +
-                "LastName = "+ account.getLastName() +",\n" +
-                "FirstName = "+account.getFirstName()+",\n" +
-                "GENDER = "+account.getGender()+",\n" +
-                "Password = "+account.getPassword()+",\n" +
-                "BirthDate = "+account.getBirthDate()+",\n" +
-                "about = "+account.getAbout()+",\n" +
-                "GameRating = "+account.getRating()+"\n" +
-                "where ID = "+account.getID()+";";
+                "Nickname = '"+ account.getNickname() +"'," +
+                "LastName = '"+ account.getLastName() +"'," +
+                "FirstName = '"+account.getFirstName()+"'," +
+                "GENDER = '"+account.getGender()+"'," +
+                "Password = '"+account.getPassword()+"'," +
+                "BirthDate = "+account.getBirthDate()+"," +
+                "about = '"+account.getAbout()+"'," +
+                "GameRating = '"+account.getRating() +"'\n" +
+                "where ID = '"+account.getID()+"';";
+        System.out.println(query);
         dbWorker.execute(query);
     }
 
