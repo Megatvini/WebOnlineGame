@@ -31,13 +31,15 @@ public class AccountDao {
     }
 
     public void changeUser(iAccount account){
+        java.sql.Date sqlDate = new java.sql.Date(account.getBirthDate().getTime());
+
         String query = "UPDATE accounts SET\n" +
                 "Nickname = '"+ account.getNickname() +"'," +
                 "LastName = '"+ account.getLastName() +"'," +
                 "FirstName = '"+account.getFirstName()+"'," +
                 "GENDER = '"+account.getGender()+"'," +
                 "Password = '"+account.getPassword()+"'," +
-                "BirthDate = "+account.getBirthDate()+"," +
+                "BirthDate = '"+ sqlDate.toString() +"'," +
                 "about = '"+account.getAbout()+"'," +
                 "GameRating = '"+account.getRating() +"'\n" +
                 "where ID = '"+account.getID()+"';";
