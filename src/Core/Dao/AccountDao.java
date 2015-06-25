@@ -73,13 +73,13 @@ public class AccountDao {
         return assembleAccount(resultSet);
     }
 
-    public Set<iAccount> getUsersLike(String search){
-        Set<iAccount> accounts = new HashSet<>();
+    public Set<String> getUsersLike(String search){
+        Set<String> accounts = new HashSet<>();
 
         ResultSet result = dbWorker.getResult("select Nickname from Accounts where Nickname like '%" + search + "%'");
         try {
             while (result.next()) {
-                accounts.add(getUser(result.getString("Nickname")));
+                accounts.add(result.getString("Nickname"));
             }
         } catch (Exception e) {
             System.out.println("SQLEXCEPTION");

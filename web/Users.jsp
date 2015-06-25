@@ -1,9 +1,5 @@
 <%@ page import="Core.Bean.Account" %>
-<%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Set" %>
-<%@ page import="java.util.HashSet" %>
-<%@ page import="com.sun.deploy.panel.IProperty" %>
-<%@ page import="com.sun.corba.se.spi.ior.iiop.IIOPProfile" %>
 <%@ page import="Interfaces.iProfile" %>
 <%@ page import="Core.Dao.AccountDao" %>
 <%--
@@ -53,26 +49,24 @@
 <body class="skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
   <%
-  /*  AccountDao userControl = (AccountDao)pageContext.getServletContext().getAttribute(AccountDao.class.getName());
-    Set<String> onlineUsers = (Set<String>)pageContext.getServletContext().getAttribute("onlineUsers");
+    AccountDao userControl = (AccountDao) application.getAttribute(AccountDao.class.getName());
+    Set<String> users = null;
 
     String nickname = (String)session.getAttribute("nickname");
 
-    if(nickname == null) {
+    if (nickname == null) {
       String redirectURL = "Accont/Login.jsp";
       response.sendRedirect(redirectURL);
+      return;
     }
     else {
-      String search = request.getParameter("search");
-
-      if (search == null) {
-        onlineUsers.remove(nickname);
-       // accounts.removeAll(userControl.getFriends(userControl.getID(nickname)));
+        String search = request.getParameter("search");
+        if (search == null) {
+          users = (Set<String>) application.getAttribute("onlineUsers");
+        } else {
+          users = userControl.getUsersLike(search);
+        }
     }
-     // else
-       // accounts = userControl.getUsersLike(search);
-
-    }*/
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
@@ -82,25 +76,30 @@
     <div align="center">
 
       <div style="background-color: #0063dc; margin: 30px" >
-        <% // for (String userNick : onlineUsers) {
-        //  iProfile shortProf = new Account();
+        <%  for (String userNick : users) {
+          iProfile shortProf = null;
+          try {
+            shortProf = userControl.getUser(userNick);
+          } catch (Exception e) {
+            continue;
+          }
         %>
         <div style="background-color: #B0EDFF; width: 49%; float: left; padding: 5px 5px 5px 20px; border: groove #010046 thin">
-          <img src="<%= "" //shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 100px; height: 100px; border-radius: 50%; float: left">
+          <img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 100px; height: 100px; border-radius: 50%; float: left">
           <div style="padding: 20px 5px 5px 5px; ">
             <div style="font-size: 22px; text-align: left; padding-left: 110px">
-              <%= "" //shortProf.getNickname()%>
+              <%= shortProf.getNickname()%>
             </div>
             <form action="/AddFriend" method="post">
-              <input type="hidden" name="id1" value="<%= "" // nickname %>">
-              <input type="hidden" name="id2" value="<%= "" // shortProf.getID() %>">
+              <input type="hidden" name="id1" value="<%= nickname %>">
+              <input type="hidden" name="id2" value="<%= shortProf.getID() %>">
             <div style="width:  100px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">დამატება</button></div>
             <div style="width:  100px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">მიწერა</button></div>
             </form>
           </div>
         </div>
 
-        <%// } %>
+        <% } %>
       </div>
 
 
