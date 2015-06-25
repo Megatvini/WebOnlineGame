@@ -46,16 +46,11 @@ public class DBWorker {
         ResultSet rs = null;
         try {
             stmt = conn.createStatement();
+            rs = stmt.executeQuery(query);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
-        try {
-            rs = stmt.executeQuery(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
         return rs;
     }
 
