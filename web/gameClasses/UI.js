@@ -15,8 +15,6 @@ var UI = IgeUiElement.extend({
         this.UITexture.potNumFont = new IgeFontSheet('../assets/agency_fb_20pt.png', 0);
         this.UITexture.home = new IgeTexture('../assets/home.png');
 
-
-        //mount(self.scene1)
     },
 
     createBackScene: function(){
@@ -38,14 +36,14 @@ var UI = IgeUiElement.extend({
 
     },
 
-    createStatscene: function (results1) {
-
+    createStatscene: function (results) {
+        var uiInstance = this;
         ige.ui.style('.LstatSpot', {
             'backgroundColor': 'yellow',
             'borderColor': '#212121',
             'borderWidth': 1,
             'width': 200,
-            'height': 25,
+            'height': 50,
             'left': 15
 
         });
@@ -53,10 +51,21 @@ var UI = IgeUiElement.extend({
         ige.ui.style('.RstatSpot', {
             'backgroundColor': 'green',
             'width': 150,
-            'height': 25,
+            'height': 50,
             'left': 230
         });
 
+        ige.ui.style('.LstatSpot:hover', {
+            'backgroundColor': '#000011'
+
+
+        });
+
+        ige.ui.style('.RstatSpot:hover', {
+            'backgroundColor': '#000011'
+
+
+        });
 
         ige.ui.style('#main', {
             'backgroundColor': '#ffffff',
@@ -70,14 +79,14 @@ var UI = IgeUiElement.extend({
         ige.ui.style('.playerNames', {
             'color': 'blue',
             'width': 200,
-            'height': 15,
+            'height': 40,
             'left': 5
 
         });
         ige.ui.style('.playerPots', {
             'color': 'red',
             'width': 100,
-            'height': 15,
+            'height': 40,
             'left': 5
 
         });
@@ -98,14 +107,7 @@ var UI = IgeUiElement.extend({
             .mount(self.uiScene);
 
 
-        var results = {
-            'i': {'potNum': 1},
-            'i1': {'potNum': 1}
-
-        }
-
-
-        var startY = 100;
+        var startY = 10;
         for (var statKey in results) {
             if (results.hasOwnProperty(statKey)) {
                 console.log("/.//////////////..." + statKey);
@@ -135,16 +137,32 @@ var UI = IgeUiElement.extend({
                     .value(potNum.toString());
 
 
-                startY += 40;
+                startY += 53;
             }
 
 
         }
-        new IgeUiElement()
-            .id('home')
-            .mount(main);
-    }
 
+        uiInstance.redirectHome = function () {
+            console.log("assigning")
+            window.location.assign("http://localhost:8080")
+
+        }
+
+        var homeIcon = new IgeUiElement()
+            .id('home')
+            .mount(main)
+            .mouseUp(uiInstance.redirectHome);
+
+        homeIcon.mouseOver(function () {
+            uiInstance.UITexture.home.applyFilter(IgeFilters.brighten, {value: 100});
+        })
+
+
+        homeIcon.mouseDown(function () {
+            uiInstance.UITexture.home.applyFilter(IgeFilters.threshold, {value: 80});
+        })
+    }
 });
 
 if (typeof(module) !== 'undefined' && typeof(module.exports) !== 'undefined') { module.exports = UI; }

@@ -1,19 +1,13 @@
 var self = this,
-	characters = {}, // players in the world
 	gameConfig = {},
-	circles = {}, //sizes
-	potions = {}, //potions
-	player1,
-	connection,
-	distanceR,
+	connection;
 
-	playerTypes = {} ;
-myId = getCookie("playerID");
 var Client = IgeClass.extend({
 	updateHandler: {},
 	classId: 'Client',
 	init: function () {
-		self = this  ;
+		self = this;
+		self.myId = getCookie("playerID");
 		self.playerNum = 0 ;
 		self.textures = {};
 		ige.showStats(1);
@@ -61,7 +55,7 @@ var Client = IgeClass.extend({
 
 function gameOn() {
 
-		connection = initSocket();
+	connection = initSocket();
 
 }
 
@@ -71,7 +65,7 @@ function initSocket() {
 		console.log("connection opened");
 		connection.send(JSON.stringify({
 			"type": "init",
-			"name": myId
+			"name": self.myId
 		}));
 
 
@@ -99,124 +93,29 @@ function createGameConfig(snapShot) {
 }
 
 
-function endGame() {
-	ige.client.objectScene.destroy();
-	//self.textures.wall.destroy();
-	//ige.stop();
-	ige.isOFF = true;
-	//alert("GAME OVER");
-}
-
-
-function showGameStats(results) {
-
-	self.UI.createStatscene(results)
-
-}
+/**
+ * Update play maker
+ * @param snapShot
+ */
 function handler(snapShot){
 
-	var addPots = snapShot.potions;
+	var pots = snapShot.potions;
 
 	if(snapShot.type&&snapShot.type=="UPDATE"){
-		/** @namespace snapShot.removePots */
-		/** @namespace snapShot.addPots */
-		addPots = snapShot.addPots ;
-		var removePots= snapShot.removePots;
-		//console.log(distanceR);
-		/** @namespace snapShot.finished */
-		if(snapShot.finished){
-			if(!ige.isOFF) {
-				showGameStats(snapShot.results);
-				setTimeout(function() {
-					endGame();
-				}, 10)
-			}
+		self.updateHandler.addUpdate(snapShot);
 
-		}else {
 
-			/** @namespace snapShot.potNum */
-			ige.$('scoreText').text(snapShot.potNum+' potions');
-			/** @namespace snapShot.players */
-			parsePlayers(snapShot.players);
-			parsePotions(addPots,removePots);
-			if (snapShot.distance != distanceR) {
-				distanceR = snapShot.distance;
-				mountCircles();
-			}
-		}
 	}
 	if(snapShot.type&&snapShot.type=="INIT") {
 		console.log(JSON.stringify(snapShot));
 		self.gameConfig = gameConfig =  createGameConfig(snapShot);
 		self.playerTypes=snapShot.playerTypes;
 		new Maze(snapShot,self,self.gameConfig).createMaze();
+		self.updateHandler.parsePotions(pots,[]);
 
 	}
 }
-function parsePlayers(players) {
-	for (var i = 0; i < players.length; i++) {
-		var onePlayer = players[i],
-			name = onePlayer.name,
-			position = onePlayer.position;
-		if (typeof (characters[name]) == 'undefined') {
-			/** @namespace gameConfig.pRadius */
-			var newPlayer = characters[name] = new Character(gameConfig,name,myId,self.textures,connection,position)
-				.id(name)
-				.transTo(position.x, position.y)
-				.setType(self.playerTypes[name])
-				.mount(self.objectScene)
-				.depth(2);
-			if (name == myId) {
-				player1 = newPlayer;
-				player1.addComponent(PlayerComponent);
-			}
-		} else {
-			if(!onePlayer.active){
-				if(!characters[name].destroed) {
-					characters[name].destroy();
-					characters[name].destroed=true;
-				}
-			}else {
-				if (name != myId) {
-					characters[name]. /*transTo(position.x, position.y);*/
-						addUpdate(position);
-				}
-			}
-		}
-	}
-}
-function mountCircles(){
-	for(var char in characters) {
-		if (characters.hasOwnProperty(char)){
-			if(circles[char])
-				circles[char].destroy();
-			var character   = characters[char];
-			circles[char]=new Circle(distanceR,self.gameConfig.pRadius)
-				.mount(character)
-		}
 
-	}
-}
-function parsePotions(addPots,removePots) {
-	for(var i = 0 ; i < addPots.length; i ++){
-		var onePotion = addPots[i];
-		var x = onePotion.x,
-			y = onePotion.y,
-			id= onePotion.id;
-		potions[id]=new Potion()
-			.texture(self.textures.potion)
-			.width(gameConfig.potRadius * 2)
-			.height(gameConfig.potRadius * 2)
-			.transTo(x, y, gameConfig)
-			.mount(self.objectScene);
-	}
-	for(i = 0 ; i < removePots.length; i ++){
-		//console.log(removePots[i].id);
-		id = removePots[i];
-		potions[id].destroy();
-	}
-
-}
 /**
  * gets name from cookie
  * @param cname key name

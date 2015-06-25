@@ -6,11 +6,6 @@ var Character = IgeEntityBox2d.extend({
 	myId: '',
 	connection : {},
 	isMainCharacter : false ,
-	lastUpdate:  null,
-	lastUpdate2:  null,
-	interpolation : 80 ,
-	extrapolation: 100,
-
 	init: function (data,name,myId,gametexture,connection,position) {
 		this.updateBuffer  = [],
 		//console.log(JSON.stringify(this.lastUpdate));
@@ -187,22 +182,6 @@ var Character = IgeEntityBox2d.extend({
 		return this;
 	},
 
-	update: function (ctx) {
-		// Set the depth to the y co-ordinate which basically
-		// makes the entity appear further in the foreground
-		// the closer they become to the bottom of the screen
-		//this.depth(this._translate.y);
-		if(this.located) {
-			if (!this.isMainCharacter) {
-				var update = this.getNextUpdate();
-				if (update != null) {
-					this.transTo(update.x, update.y);
-				}
-			}
-		}
-		IgeEntityBox2d.prototype.update.call(this, ctx);
-	},
-
 	destroy: function () {
 		// Destroy the texture object
 		if (this._characterTexture) {
@@ -261,57 +240,7 @@ var Character = IgeEntityBox2d.extend({
 				"y":pos.y
 			}
 		}));
-	},
-	getNextUpdate: function(){
-		var y;
-		var x;
-		var currentTime = new Date().getTime();
-		var lastUpdate = this.lastUpdate;
-		var lastUpdate2 = this.lastUpdate2;
-		if (this.updateBuffer.length != 0) {
-			var update1 = JSON.parse(JSON.stringify(this.updateBuffer[0]));
-			var differense = currentTime - update1.date;
-			var update = update1.snapShot;
-			//console.log("bufferSize  " +this.updateBuffer.length+ " diff  " +differense);
-			if (differense >= this.interpolation) {
-				this.lastUpdate2= JSON.parse(JSON.stringify(this.lastUpdate));
-				this.lastUpdate=update;
-				this.updateBuffer.shift();
-				//console.log(" bufferSize  " +this.updateBuffer.length+ " diff  " +differense);
-				return update
-			} else {
-				if(lastUpdate!=null) {
-					x = (lastUpdate.x+ (update.x - lastUpdate.x) / 2);
-					y = (lastUpdate.y+ (update.y - lastUpdate.y) / 2);
-					//console.log(" bufferSize  " +this.updateBuffer.length+ " diff  " +differense+ " x " + x + " y "+ y);
-					return {x: x, y: y};
-				}
-			}
-		}
-		else{
-			if(lastUpdate2!=null&&lastUpdate!=null) {
-				x = (lastUpdate.x+(lastUpdate.x - lastUpdate2.x) / 2);
-				y = (lastUpdate.y+(lastUpdate.y - lastUpdate2.y) / 2);
-				//console.log(" $ no buffer $ bufferSize  " +this.updateBuffer.length+ " diff  " +differense+ " x " + x + " y "+ y)
-				return {x: x, y: y};
-			}
-		}
-		return null;
-
-
-	},
-	addUpdate: function(data){
-		//console.log(this.myId+" "+data.x+"  "+data.y)
-		var d = new Date().getTime();
-		var update = {
-			date:d,
-			snapShot:data
-		};
-		this.updateBuffer.push(update);
-
 	}
-
-
 
 });
 
