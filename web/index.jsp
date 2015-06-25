@@ -1,11 +1,11 @@
 
 <%@ page import="Interfaces.iProfile" %>
-<%@ page import="Core.Model.Bean.Account" %>
+<%@ page import="Core.Bean.Account" %>
 <%@ page import="Interfaces.iAccount" %>
-<%@ page import="Core.Model.Bean.Message" %>
+<%@ page import="Core.Bean.Message" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="Core.Model.Dao.AccountDao" %>
+<%@ page import="Core.Dao.AccountDao" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam

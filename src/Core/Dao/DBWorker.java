@@ -1,4 +1,4 @@
-package Core.Model.Dao;
+package Core.Dao;
 
 import Core.DBInfo;
 

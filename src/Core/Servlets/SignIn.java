@@ -1,8 +1,7 @@
 package Core.Servlets;
 
-
-import Core.Controller.Hashing;
-import Core.Model.Dao.AccountDao;
+import Core.Dao.AccountDao;
+import Core.Hashing;
 import Interfaces.iAccount;
 
 import javax.servlet.ServletException;
@@ -25,23 +24,20 @@ public class SignIn extends HttpServlet {
         AccountDao accountDao = (AccountDao) getServletContext().getAttribute(AccountDao.class.getName());
         Set<String> onlineUsers = (Set<String>) getServletContext().getAttribute("onlineUsers");
 
-
         iAccount account;
         try {
             account = accountDao.getUser(nickname);
         } catch (Exception e) {
-            //TODO redirect to wrong parameters
-            //response.sendRedirect("Accont/Login.jsp?error=2");
+            response.sendRedirect("Accont/Login.jsp?error=2");
             return;
         }
 
-        if (Hashing.getHash(account.getPassword()).equals(Hashing.getHash(password))) {
+        if (account.getPassword().equals(Hashing.getHash(password))) {
             request.getSession().setAttribute("nickName", nickname);
             onlineUsers.add(nickname);
             response.sendRedirect("index.jsp");
         } else {
-            //TODO Send redirect with wrong username or password
-            //response.sendRedirect("Accont/Login.jsp?error=2");
+            response.sendRedirect("Accont/Login.jsp?error=2");
         }
     }
 

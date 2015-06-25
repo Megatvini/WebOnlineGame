@@ -1,5 +1,5 @@
 
-<%@ page import="Core.Model.Bean.Account" %>
+<%@ page import="Core.Bean.Account" %>
 <%@ page import="Interfaces.iProfile" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Hashtable" %>

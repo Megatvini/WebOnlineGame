@@ -2,10 +2,10 @@
  * Created by Annie on 22-Jun-15.
  */
 
-import Core.Model.Dao.AccountDao;
-import Core.Model.Dao.DBWorker;
-import Core.Model.Dao.FriendsDao;
-import Core.Model.Dao.MessageDao;
+import Core.Dao.AccountDao;
+import Core.Dao.DBWorker;
+import Core.Dao.FriendsDao;
+import Core.Dao.MessageDao;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;

@@ -1,6 +1,6 @@
-package Core.Model.Dao;
+package Core.Dao;
 
-import Core.Model.Bean.Account;
+import Core.Bean.Account;
 import Interfaces.iAccount;
 
 import java.sql.ResultSet;
@@ -56,26 +56,16 @@ public class AccountDao {
 
     private iAccount assembleAccount(ResultSet result) throws SQLException {
         iAccount account = new Account();
-
         account.setID(result.getInt("ID"));
-      //  result.next();
         account.setNickname(result.getString("Nickname"));
-     //   result.next();
         account.setLastName(result.getString("LastName"));
-     //   result.next();
         account.setFirstName(result.getString("FirstName"));
-     //   result.next();
         account.setGender(result.getString("Gender").equals("Male") ? Account.Gender.MALE : Account.Gender.FEMALE);
-      //  result.next();
         account.setPassword(result.getString("password"));
-      //  result.next();
-      //  account.setBirthDate(result.getDate("birthDate"));
-       // result.next();
-      //  account.setAbout(result.getString("about"));
-       // result.next();
-     //   account.setRating(result.getInt("GameRating"));
-       // result.next();
-     //   account.setMail(result.getString("Mail"));
+        account.setBirthDate(result.getDate("birthDate"));
+        account.setAbout(result.getString("about"));
+        account.setRating(result.getInt("GameRating"));
+        account.setMail(result.getString("Mail"));
         return account;
     }
 

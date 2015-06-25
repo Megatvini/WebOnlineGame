@@ -1,7 +1,7 @@
 package Core.Servlets;
 
-import Core.Model.Dao.AccountDao;
-import Core.Model.Dao.FriendsDao;
+import Core.Dao.AccountDao;
+import Core.Dao.FriendsDao;
 import Interfaces.iAccount;
 
 import javax.servlet.ServletException;
@@ -29,7 +29,7 @@ public class AddToFriend extends HttpServlet {
         try {
             account = accountDao.getUser(userName);
         } catch (Exception e) {
-            //TODO redirect to error page
+            response.sendRedirect("Accont/Login.jsp");
             return;
         }
 

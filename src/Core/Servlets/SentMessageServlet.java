@@ -1,8 +1,8 @@
 package Core.Servlets;
 
-import Core.Model.Bean.Message;
-import Core.Model.Dao.AccountDao;
-import Core.Model.Dao.MessageDao;
+import Core.Bean.Message;
+import Core.Dao.AccountDao;
+import Core.Dao.MessageDao;
 import Interfaces.iAccount;
 
 import javax.servlet.ServletException;
@@ -31,14 +31,13 @@ public class SentMessageServlet extends HttpServlet {
         try {
             account = accountDao.getUser(userName);
         } catch (Exception e) {
-            //TODO redirect to error page
+            response.sendRedirect("Accont/register.jsp");
             return;
         }
 
-
         String message = request.getParameter("message");
+        if (message==null || message.equals("")) return;
 
-        System.out.println("SEND MESSAGE: " + request.getParameterMap());
 
         Message mes = new Message();
         mes.setText(message);

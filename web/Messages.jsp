@@ -1,11 +1,11 @@
 
-<%@ page import="Core.Model.Bean.Account" %>
+<%@ page import="Core.Bean.Account" %>
 <%@ page import="Interfaces.iProfile" %>
-<%@ page import="Core.Model.Bean.Message" %>
+<%@ page import="Core.Bean.Message" %>
 <%@ page import="java.util.*" %>
-<%@ page import="Core.Model.Dao.AccountDao" %>
-<%@ page import="Core.Model.Dao.FriendsDao" %>
-<%@ page import="Core.Model.Dao.MessageDao" %>
+<%@ page import="Core.Dao.AccountDao" %>
+<%@ page import="Core.Dao.FriendsDao" %>
+<%@ page import="Core.Dao.MessageDao" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam

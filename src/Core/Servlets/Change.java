@@ -1,6 +1,7 @@
 package Core.Servlets;
 
-import Core.Model.Dao.AccountDao;
+import Core.Bean.Account;
+import Core.Dao.AccountDao;
 import Interfaces.iAccount;
 
 import javax.servlet.ServletException;
@@ -27,16 +28,15 @@ public class Change extends HttpServlet {
         try {
             account = accountDao.getUser(userName);
         } catch (Exception e) {
-            //TODO redirect to login page
+            response.sendRedirect("Accont/Login.jsp");
             return;
         }
 
-        session.setAttribute("nickname", account.getNickname());
-
         account.setFirstName(request.getParameter("firstname"));
         account.setLastName(request.getParameter("lastname"));
-        account.setMail(request.getParameter("mail"));
         account.setPicturePath(request.getParameter("picture"));
+        account.setAbout(request.getParameter("about"));
+        //TODO BirthDate and Gender
 
         accountDao.changeUser(account);
 

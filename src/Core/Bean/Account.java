@@ -1,10 +1,8 @@
-package Core.Model.Bean;
+package Core.Bean;
 
 import Interfaces.iAccount;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by gukam on 5/29/2015.

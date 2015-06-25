@@ -1,11 +1,11 @@
-<%@ page import="Core.Model.Bean.Account" %>
+<%@ page import="Core.Bean.Account" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.HashSet" %>
 <%@ page import="com.sun.deploy.panel.IProperty" %>
 <%@ page import="com.sun.corba.se.spi.ior.iiop.IIOPProfile" %>
 <%@ page import="Interfaces.iProfile" %>
-<%@ page import="Core.Model.Dao.AccountDao" %>
+<%@ page import="Core.Dao.AccountDao" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam

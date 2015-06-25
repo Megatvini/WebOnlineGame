@@ -1,4 +1,4 @@
-<%@ page import="Core.Model.Bean.Account" %>
+<%@ page import="Core.Bean.Account" %>
 <%@ page import="Interfaces.iAccount" %>
 <%@ page import="java.util.Hashtable" %>
 <%@ page import="Interfaces.iProfile" %>

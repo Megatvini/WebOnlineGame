@@ -1,6 +1,6 @@
-package Core.Model.Dao;
+package Core.Dao;
 
-import Core.Model.Bean.Message;
+import Core.Bean.Message;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
