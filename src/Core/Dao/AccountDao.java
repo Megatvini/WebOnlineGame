@@ -34,7 +34,7 @@ public class AccountDao {
             stmt.setString(3, account.getFirstName());
             stmt.setString(4, account.getGender() == iProfile.Gender.FEMALE? "female":"male");
             stmt.setString(5, account.getPassword());
-            stmt.setDate(6, account.getBirthDate());
+            stmt.setDate(6, null);
             stmt.setString(7, account.getAbout());
             stmt.setInt(8, account.getRating());
             stmt.setString(9, account.getMail());
@@ -58,7 +58,7 @@ public class AccountDao {
             stmt.setString(2, account.getFirstName());
             stmt.setString(3, account.getGender() == iProfile.Gender.FEMALE ? "female" : "male");
             stmt.setString(4, account.getPassword());
-            stmt.setDate(5, account.getBirthDate());
+            stmt.setDate(5, new java.sql.Date(account.getBirthDate().getTime()));
             stmt.setString(6, account.getAbout());
             stmt.setInt(7, account.getRating());
             stmt.setInt(8, account.getID());

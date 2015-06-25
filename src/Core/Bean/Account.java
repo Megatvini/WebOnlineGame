@@ -2,7 +2,7 @@ package Core.Bean;
 
 import Interfaces.iAccount;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by gukam on 5/29/2015.
@@ -109,7 +109,6 @@ public class Account implements iAccount {
     public int getID() {
         return _ID;
     }
-
 
     @Override
     public Date getBirthDate() {

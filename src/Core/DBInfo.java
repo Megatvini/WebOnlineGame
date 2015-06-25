@@ -20,7 +20,7 @@ public class DBInfo {
 
     //  Database credentials
     public static final String USER = "root";
-    public static final String PASS = "gukaguk1";
+    public static final String PASS = "agbdlcid";
 
     public static void getMySQLDataSource() {
 
