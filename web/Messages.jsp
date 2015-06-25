@@ -3,6 +3,9 @@
 <%@ page import="Interfaces.iProfile" %>
 <%@ page import="Core.Model.Bean.Message" %>
 <%@ page import="java.util.*" %>
+<%@ page import="Core.Model.Dao.AccountDao" %>
+<%@ page import="Core.Model.Dao.FriendsDao" %>
+<%@ page import="Core.Model.Dao.MessageDao" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -50,10 +53,13 @@
 <body class="skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
   <%
-    //UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
+    AccountDao userControl = (AccountDao)pageContext.getServletContext().getAttribute(AccountDao.class.getName());
+    FriendsDao friendControl = (FriendsDao)pageContext.getServletContext().getAttribute(FriendsDao.class.getName());
+    MessageDao messageControl = (MessageDao)pageContext.getServletContext().getAttribute(MessageDao.class.getName());
 
-    String nickname = (String)session.getAttribute("nickname");
-    Set<iProfile> friends = new HashSet<>();
+   // String nickname = (String)session.getAttribute("nickname");
+    String nickname = "anniemargvela";
+    Set<String> friends = new HashSet<>();
     iProfile profile = null;
 
     if(nickname == null) {
@@ -64,16 +70,16 @@
     else
     {
       try {
-        profile = new Account();//userControl.getUser(nickname);
-        //friends = userControl.getFriends(profile.getID());
+        profile = userControl.getUser(nickname);
+        friends = friendControl.getFriendNamesByID(profile.getID());
       }
       catch (Exception ex){
         String k = ex.getMessage();
       }
     }
-   String friend = request.getParameter("friend");
-    if(friend == null)
-      friend = friends.isEmpty()? "0" : friends.iterator().next().toString();
+   String friendNickname = request.getParameter("friend");
+    if(friendNickname == null)
+      friendNickname = friends.isEmpty()? "0" : friends.iterator().next().toString();
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
@@ -91,16 +97,15 @@
         </div>
         <div class="box-body no-padding">
           <ul class="nav nav-pills nav-stacked">
-            <%--<% for (int id : friends) {--%>
-              <%--//iShorProfile shortProf = userControl.getUser(id);--%>
-              <%--//Integer d = shortProf.getID();--%>
-            <%--%>--%>
-            <%--<li class="<%= friend.equals(d.toString()) ? "active" : "" %>">--%>
-              <%--<a href="Messages.jsp?friend=<%=shortProf.getID()%>">--%>
-                <%--<img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 60px; border-radius: 50%; ">  <%=shortProf.getNickname()%>--%>
-              <%--</a>--%>
-            <%--</li>--%>
-            <%--<% } %>--%>
+            <% for (String nick : friends) {
+              iProfile shortProf = userControl.getUser(nick);
+            %>
+            <li class="<%= friendNickname.equals(nick) ? "active" : "" %>">
+              <a href="Messages.jsp?friend=<%=nick%>">
+                <img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 60px; border-radius: 50%; ">  <%=shortProf.getNickname()%>
+              </a>
+            </li>
+          <% } %>
           </ul>
         </div><!-- /.box-body -->
       </div>
@@ -110,30 +115,29 @@
       <div class="box box-solid">
         <div class="box-body no-padding">
           <ul class="nav nav-pills nav-stacked">
-            <%--<%--%>
-              <%--ArrayList<Message> messages = userControl.getMessages(profile.getID(), Integer.parseInt(friend));--%>
+            <%
+              int friendID = userControl.getUser(friendNickname).getID();
+              List<Message> messages = messageControl.getMessages(profile.getID(), friendID);
 
-              <%--for (int i = 0; i<messages.size(); i++ ) {--%>
-              <%--String mess = messages.get(i).getText();--%>
-              <%--String style = messages.get(i).getType() == Message.Type.SENT ?--%>
-                      <%--"background-color: rgb(186, 223, 255);\n" +--%>
-                      <%--"    text-align: right;" :--%>
-              <%--"background-color: rgb(140, 179, 213)";--%>
-            <%--%>--%>
-            <%--<li style="<%= style %> ; font-size: 19px"> <%= mess %></li>--%>
-            <%--<% } %>--%>
+              for (int i = 0; i<messages.size(); i++ ) {
+              String mess = messages.get(i).getText();
+              String style = messages.get(i).getType() == Message.Type.SENT ?
+                      "background-color: rgb(186, 223, 255);\n" +
+                      "    text-align: right;" :
+              "background-color: rgb(140, 179, 213)";
+            %>
+            <li style="<%= style %> ; font-size: 19px"> <%= mess %></li>
+          <% } %>
           </ul>
         </div><!-- /.box-body -->
         <form action="/SendMessage" method="post">
           <input type="hidden" name="profileFrom" value="<%= profile.getID() %>">
-          <input type="hidden" name="profileTo" value="<%= friend %>">
+          <input type="hidden" name="profileTo" value="<%= 2 %>">
           <textarea  style="width: 100%; height:70px"  name="message"></textarea>
           <button class="btn btn-block btn-primary">მიწერა</button>
         </form>
       </div>
     </div>
-
-
 
   </div><!-- /.content-wrapper -->
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>

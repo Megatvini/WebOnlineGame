@@ -5,6 +5,7 @@
 <%@ page import="Core.Model.Bean.Message" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="Core.Model.Dao.AccountDao" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -52,20 +53,21 @@
 <body class="skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
   <%
-//    UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
-//
+    AccountDao userControl = (AccountDao)pageContext.getServletContext().getAttribute(AccountDao.class.getName());
+
 //    String nickname = (String)session.getAttribute("nickname");
-//    iProfile profile;
-//    if(nickname == null) {
-//      String redirectURL = "Accont/Login.jsp";
-//      response.sendRedirect(redirectURL);
-//      profile = new Account();
-//    }
-//    else
-//    {
-//      profile = userControl.getUser(nickname);
-//    }
-    iProfile profile = new Account();
+      String nickname = "anniemargvela";
+    iProfile profile;
+    if(nickname == null) {
+      String redirectURL = "Accont/Login.jsp";
+      response.sendRedirect(redirectURL);
+      profile = new Account();
+    }
+    else
+    {
+      profile = userControl.getUser(nickname);
+    }
+
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>

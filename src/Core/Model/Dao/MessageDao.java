@@ -50,7 +50,7 @@ public class MessageDao {
             message.setText(result.getString("Text"));
             message.setAccFrom(userID);
             message.setAccTo(friendID);
-            //message.setType(   (result.getInt("Sender"))== 1 ? Message.Type.SENT: Message.Type.GOTTEN  );
+            message.setType(   (result.getInt("Sender"))== 1 ? Message.Type.SENT: Message.Type.GOTTEN  );
             messages.add(message);
             //TODO date
         }
