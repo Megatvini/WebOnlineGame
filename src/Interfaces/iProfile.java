@@ -21,8 +21,6 @@ public interface iProfile{
 
     public String getPassword();
 
-    public Set<String> getFriends();
-
     public String getNickname();
 
     public String getPicturePath();
@@ -30,8 +28,6 @@ public interface iProfile{
     public int getRating();
 
     public int getID();
-
-    public Set<String> getWaitingFriends();
 
     public Date getBirthDate();
 

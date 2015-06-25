@@ -2,6 +2,9 @@ package Core.Servlets;
 
 import Core.Model.Bean.Account;
 import Core.Controller.Hashing;
+import Core.Model.Dao.AccountDao;
+import Core.Model.Dao.FriendsDao;
+import Interfaces.iAccount;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,20 +19,17 @@ import java.io.IOException;
 @WebServlet("/Registration")
 public class Register extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        Account account = new Account();
-//        account.setNickname(request.getParameter("nickname"));
-//        account.setMail(request.getParameter("mail"));
-//        account.setPassword(Hashing.getHash(request.getParameter("password")));
-//        UserControl userControl = (UserControl)getServletContext().getAttribute("userControl");
-//        userControl.registerUser(account);
-//
-//        HttpSession session = request.getSession();
-//        session.setAttribute("nickname", account.getNickname());
+        AccountDao accountDao = (AccountDao) getServletContext().getAttribute(AccountDao.class.getName());
+
+        iAccount account = new Account();
+        //TODO get parameters from request and init Account
+        //TODO check if account with username is already registered
+        accountDao.registerUser(account);
 
         response.sendRedirect("index.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doPost(request, response);
     }
 }

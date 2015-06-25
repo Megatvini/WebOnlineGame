@@ -14,14 +14,12 @@ import java.io.IOException;
 @WebServlet("/Logout")
 public class SignOut extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session=request.getSession();
+        HttpSession session = request.getSession();
         session.invalidate();
         response.sendRedirect("Accont/Login.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session=request.getSession();
-        session.invalidate();
-        response.sendRedirect("Accont/Login.jsp");
+        doPost(request, response);
     }
 }

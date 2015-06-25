@@ -10,8 +10,6 @@ import java.util.Set;
  * Created by gukam on 5/29/2015.
  */
 public class Account implements iAccount {
-    private Set<String> _friends;
-    private Set<String> _friendsWaiting;
     private String _nickname;
     private String _password;
     private String _picPath= "http://a3.files.biography.com/image/upload/c_fill,cs_srgb,dpr_1.0,g_face,h_300,q_80,w_300/MTIwNjA4NjM0MjAzODMzODY4.jpg";
@@ -23,38 +21,9 @@ public class Account implements iAccount {
     private Date birthDate;
     private String about;
 
-
-    public Account() {
-        _friends = new HashSet<>();
-        _friendsWaiting = new HashSet<>();
-    }
-
-    @Override
-    public void addFriend(String nickname) throws Exception {
-        if(nickname.equals(_nickname)) throw new Exception("shen tavs amateb");
-        _friendsWaiting.add(nickname);
-    }
-
-    @Override
-    public void confirmFriend(String nickname)  {
-        if (!_friendsWaiting.contains(nickname)) return;
-        _friends.add(nickname);
-        _friendsWaiting.remove(nickname);
-    }
-
     @Override
     public void setID(int ID) {
         _ID = ID;
-    }
-
-    @Override
-    public boolean removeFriend(String nickname) {
-        return _friends.remove(nickname);
-    }
-
-    @Override
-    public boolean removeWaitingFriend(String nickname) {
-        return _friendsWaiting.remove(nickname);
     }
 
     @Override
@@ -138,17 +107,6 @@ public class Account implements iAccount {
         _rating=rating;
     }
 
-
-    @Override
-    public Set<String> getFriends() {
-        return _friends;
-    }
-
-    @Override
-    public Set<String> getWaitingFriends() {
-        return _friendsWaiting;
-    }
-
     @Override
     public int getID() {
         return _ID;
@@ -174,6 +132,5 @@ public class Account implements iAccount {
     public void setBirthDate(Date date) {
         birthDate = date;
     }
-
 
 }

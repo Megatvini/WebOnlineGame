@@ -1,6 +1,9 @@
 package Core.Servlets;
 
 
+import Core.Model.Dao.AccountDao;
+import Interfaces.iAccount;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,31 +20,22 @@ public class SignIn extends HttpServlet {
         String nickname = request.getParameter("nickname");
         String password = request.getParameter("password");
 
-//        //UserControl userControl = (UserControl)getServletContext().getAttribute("userControl");
-//        iAccount accaunt;
-//
-//        boolean logined = false;
-//        try {
-//            accaunt = userControl.getUser(nickname);
-//            logined = accaunt.getPassword().equals(password);
-//        } catch (Exception e) {
-//            response.sendRedirect("Accont/Login.jsp?error=1");
-//            return;
-//        }
-//
-//        if (logined) {
-//            HttpSession session = request.getSession();
-//            session.setAttribute("nickname", nickname);
-//            response.sendRedirect("index.jsp");
-//            userControl.addOnlineUser(accaunt.getID());
-//        }
-//        else {
-//            response.sendRedirect("Accont/Login.jsp?error=2");
-//        }
+        AccountDao accountDao = (AccountDao) getServletContext().getAttribute(AccountDao.class.getName());
 
+        iAccount account;
+        try {
+            account = accountDao.getUser(nickname);
+        } catch (Exception e) {
+            //TODO redirect to wrong parameters
+            //response.sendRedirect("Accont/Login.jsp?error=2");
+            return;
+        }
+
+        request.getSession().setAttribute("nickName", nickname);
+        response.sendRedirect("index.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doPost(request, response);
     }
 }

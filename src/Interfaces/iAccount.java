@@ -23,15 +23,7 @@ public interface iAccount extends iProfile {
 
     public void setRating(int rank);
 
-    public void addFriend(String nickname) throws Exception;
-
-    public void confirmFriend(String nickname);
-
     public void setID(int ID);
-
-    public boolean removeFriend(String friend);
-
-    public boolean removeWaitingFriend(String waitingFriend);
 
     public void setBirthDate(Date date);
 

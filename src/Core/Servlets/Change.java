@@ -1,5 +1,6 @@
 package Core.Servlets;
 
+import Core.Model.Dao.AccountDao;
 import Interfaces.iAccount;
 
 import javax.servlet.ServletException;
@@ -16,12 +17,18 @@ import java.io.IOException;
 @WebServlet("/ChangeAccount")
 public class Change extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session=request.getSession();
-        iAccount account = null;
+        HttpSession session = request.getSession();
+        String userName = (String) request.getSession().getAttribute("nickname");
+        if (userName == null) return;
+
+        AccountDao accountDao = (AccountDao) getServletContext().getAttribute(AccountDao.class.getName());
+
+        iAccount account;
         try {
-            // account = userControl.getUser((session.getAttribute("nickname")).toString());
+            account = accountDao.getUser(userName);
         } catch (Exception e) {
-            e.printStackTrace();
+            //TODO redirect to login page
+            return;
         }
 
         session.setAttribute("nickname", account.getNickname());
@@ -31,12 +38,12 @@ public class Change extends HttpServlet {
         account.setMail(request.getParameter("mail"));
         account.setPicturePath(request.getParameter("picture"));
 
-        //userControl.changeUser(account.getNickname(),account);
+        accountDao.changeUser(account);
 
         response.sendRedirect("index.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doPost(request, response);
     }
 }
