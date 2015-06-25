@@ -2,7 +2,11 @@ package Core.Dao;
 
 import Core.Bean.Account;
 import Interfaces.iAccount;
+import Interfaces.iProfile;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
@@ -13,43 +17,77 @@ import java.util.Set;
  */
 
 public class AccountDao {
-    private DBWorker dbWorker;
+    private DataSource dataSource;
 
-    public AccountDao(DBWorker dbWorker) {
-        this.dbWorker = dbWorker;
+    public AccountDao(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
-    public void registerUser(iAccount account){
-        String query = "INSERT INTO accounts \n" +
-                "(Nickname, LastName,  FirstName ,  Gender ,  Password ,  BirthDate ,  about ,  GameRating ,  Mail)\n" +
-                "Values ('"+account.getNickname()+"'," +
-                "'"+account.getFirstName()+"','"+account.getLastName()+
-                "','"+account.getGender()+"','"+account.getPassword()+
-                "', "+account.getBirthDate()+", '"+account.getAbout()+
-                "','"+account.getRating()+"','"+account.getMail()+"')";
-        dbWorker.execute(query);
+    public boolean registerUser(iAccount account){
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO accounts " +
+                    "(Nickname, LastName,  FirstName ,  Gender ,  Password ,  BirthDate ,  about ,  GameRating ,  Mail) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            stmt.setString(1, account.getNickname());
+            stmt.setString(2, account.getLastName());
+            stmt.setString(3, account.getFirstName());
+            stmt.setString(4, account.getGender() == iProfile.Gender.FEMALE? "female":"male");
+            stmt.setString(5, account.getPassword());
+            stmt.setDate(6, account.getBirthDate());
+            stmt.setString(7, account.getAbout());
+            stmt.setInt(8, account.getRating());
+            stmt.setString(9, account.getMail());
+            System.out.println(stmt.toString());
+            stmt.execute();
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
     }
 
-    public void changeUser(iAccount account){
-        String query = "UPDATE accounts SET\n" +
-                "Nickname = '"+ account.getNickname() +"'," +
-                "LastName = '"+ account.getLastName() +"'," +
-                "FirstName = '"+account.getFirstName()+"'," +
-                "GENDER = '"+account.getGender()+"'," +
-                "Password = '"+account.getPassword()+"'," +
-                "BirthDate = "+account.getBirthDate()+"," +
-                "about = '"+account.getAbout()+"'," +
-                "GameRating = '"+account.getRating() +"'\n" +
-                "where ID = '"+account.getID()+"';";
-        System.out.println(query);
-        dbWorker.execute(query);
+    public boolean changeUser(iAccount account){
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement stmt = connection.prepareStatement("UPDATE accounts SET " +
+                    "LastName = ?, FirstName = ?, Gender = ?, Password = ?, " +
+                    "BirthDate = ?, about = ?, GameRating = ? WHERE ID = ?;");
+            stmt.setString(1, account.getLastName());
+            stmt.setString(2, account.getFirstName());
+            stmt.setString(3, account.getGender() == iProfile.Gender.FEMALE ? "female" : "male");
+            stmt.setString(4, account.getPassword());
+            stmt.setDate(5, account.getBirthDate());
+            stmt.setString(6, account.getAbout());
+            stmt.setInt(7, account.getRating());
+            stmt.setInt(8, account.getID());
+            System.out.println(stmt.toString());
+            stmt.execute();
+
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
     }
 
     public iAccount getUser(String nickname) throws Exception {
-        ResultSet result = dbWorker.getResult("SELECT * FROM accounts where Nickname = '" + nickname + "'");
-
-        if (!result.next()) throw new Exception("notRegistered");
-        return assembleAccount(result);
+        iAccount res = null;
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM accounts WHERE NickName = ?;");
+            stmt.setString(1, nickname);
+            ResultSet result = stmt.executeQuery();
+            if (!result.next()) throw new Exception("notRegistered");
+            res = assembleAccount(result);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            return null;
+        }
+        return res;
     }
 
     private iAccount assembleAccount(ResultSet result) throws SQLException {
@@ -67,22 +105,19 @@ public class AccountDao {
         return account;
     }
 
-    public iAccount getUserById(int id) throws SQLException {
-        String query = "Select * from accounts where ID = " + id +";";
-        ResultSet resultSet = dbWorker.getResult(query);
-        return assembleAccount(resultSet);
-    }
-
     public Set<String> getUsersLike(String search){
         Set<String> accounts = new HashSet<>();
-
-        ResultSet result = dbWorker.getResult("select Nickname from Accounts where Nickname like '%" + search + "%'");
         try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement stmt = connection.prepareStatement("SELECT Nickname FROM accounts WHERE NickName LIKE ?;");
+            stmt.setString(1, "%"+search+"%");
+            ResultSet result = stmt.executeQuery();
             while (result.next()) {
                 accounts.add(result.getString("Nickname"));
             }
-        } catch (Exception e) {
-            System.out.println("SQLEXCEPTION");
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
             return null;
         }
         return accounts;

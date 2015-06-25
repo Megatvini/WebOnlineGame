@@ -2,10 +2,11 @@
  * Created by Annie on 22-Jun-15.
  */
 
+import Core.DBInfo;
 import Core.Dao.AccountDao;
-import Core.Dao.DBWorker;
 import Core.Dao.FriendsDao;
 import Core.Dao.MessageDao;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -31,13 +32,18 @@ public class webListener implements ServletContextListener,
     // ServletContextListener implementation
     // -------------------------------------------------------
     public void contextInitialized(ServletContextEvent sce) {
+        BasicDataSource ds = new BasicDataSource();
+        ds.setDriverClassName(DBInfo.JDBC_DRIVER);
+        ds.setUrl(DBInfo.DB_URL + "mydb?" + "user=" +DBInfo.USER+"&password=" +DBInfo.PASS);
+        ds.setUsername(DBInfo.USER);
+        ds.setPassword(DBInfo.PASS);
+
+
 
         ServletContext sc = sce.getServletContext();
-
-        DBWorker dbWorker = new DBWorker();
-        AccountDao accountDao = new AccountDao(dbWorker);
-        FriendsDao friendsDao = new FriendsDao(dbWorker);
-        MessageDao messageDao = new MessageDao(dbWorker);
+        AccountDao accountDao = new AccountDao(ds);
+        FriendsDao friendsDao = new FriendsDao(ds);
+        MessageDao messageDao = new MessageDao(ds);
         Set<String> onlineUsers = Collections.synchronizedSet(new HashSet<>());
 
         sc.setAttribute(AccountDao.class.getName(), accountDao);

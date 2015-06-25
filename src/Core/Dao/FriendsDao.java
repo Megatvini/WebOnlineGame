@@ -1,5 +1,8 @@
 package Core.Dao;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
@@ -9,43 +12,93 @@ import java.util.Set;
  * Created by Nika on 02:56, 6/25/2015.
  */
 public class FriendsDao {
-    private DBWorker dbWorker;
+    private DataSource dataSource;
 
-    public FriendsDao(DBWorker dbWorker) {
-        this.dbWorker = dbWorker;
+    public FriendsDao(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
 
-    public void addFriend(int id1, int id2){
-        String query = "insert into friends (accIDFrom, AccIDTo) values ("+id1+", "+id2+")";
-        dbWorker.execute(query);
+    public boolean addFriend(int id1, int id2){
+        try {
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pst = conn.prepareStatement("INSERT INTO friends (accIDFrom, AccIDTo) VALUES (?, ?)");
+            pst.setInt(1, id1);
+            pst.setInt(2, id2);
+            pst.execute();
 
-        query = "insert into friends (accIDFrom, AccIDTo) values ("+id2+", "+id1+")";
-        dbWorker.execute(query);
+            pst.setInt(1, id2);
+            pst.setInt(2, id1);
+            pst.execute();
+
+            pst.close();
+            conn.close();
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
     }
 
-    public void removeFriend(int id1, int id2) {
-        String query = "DELETE From friends\n" +
-                "where AccIDFrom = "+id1+" AND AccIDTo = "+id2+";";
-        dbWorker.execute(query);
+    public boolean removeFriend(int id1, int id2) {
+        try {
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pst = conn.prepareStatement("DELETE FROM friends WHERE AccIDFrom = ? AND AccIDTo = ?");
+            pst.setInt(1, id1);
+            pst.setInt(2, id2);
+            pst.execute();
 
-        query = "DELETE From friends\n" +
-                "where AccIDFrom = "+id2+" AND AccIDTo = "+id1+";";
-        dbWorker.execute(query);
+            pst.setInt(1, id2);
+            pst.setInt(2, id1);
+            pst.execute();
+
+            pst.close();
+            conn.close();
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
     }
 
-    public void addFriendRequest(int requestFromID, int requestToID) {
-        String query = "insert into waitingFriends (accIDFrom, AccIDTo) values ("+requestFromID+", "+requestToID+")";
-        dbWorker.execute(query);
+    public boolean addFriendRequest(int requestFromID, int requestToID) {
+        try {
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pst = conn.prepareStatement("INSERT INTO waitingFriends (accIDFrom, AccIDTo) VALUES (?, ?)");
+            pst.setInt(1, requestFromID);
+            pst.setInt(2, requestToID);
+            pst.execute();
+
+            pst.close();
+            conn.close();
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
     }
 
-    public void confirmFriendRequest(int idFrom, int idTo){
-        String query = "delete FROM waitingFriends where accIDTo = " + idFrom +" and accIDFrom = " + idTo +";";
-        dbWorker.execute(query);
+    public boolean confirmFriendRequest(int idFrom, int idTo){
+        try {
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pst = conn.prepareStatement("DELETE FROM waitingFriends WHERE AccIDTo = ? AND AccIDTo = ?");
+            pst.setInt(1, idFrom);
+            pst.setInt(2, idTo);
+            pst.execute();
+            pst.close();
 
-        query = "insert into friends (accIDFrom, AccIDTo) values ("+idFrom+", "+idTo+")";
-        dbWorker.execute(query);
+            pst = conn.prepareStatement("INSERT INTO friends (AccIDFrom, AccIDTo) VALUES (?, ?)");
+            pst.setInt(1, idFrom);
+            pst.setInt(2, idTo);
+            pst.execute();
 
+            pst.setInt(2, idFrom);
+            pst.setInt(1, idTo);
+            pst.execute();
+
+            pst.close();
+            conn.close();
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
 //        query = "insert into conversations (AccIDFrom, AccIDTo) values ("+idFrom+", "+idTo+")";
 //        dbWorker.execute(query);
 //
@@ -53,109 +106,149 @@ public class FriendsDao {
 //        dbWorker.execute(query);
     }
 
+
     public Set<String> getFriendRequestsFrom(String accountName) {
-        Set<String> requestFrom = new HashSet<>();
-        String query = "select Nickname from \n" +
-                "\t(select AccIDTo from waitingfriends\n" +
-                "\tleft join accounts\n" +
-                "\ton AccIDFrom = accounts.ID\n" +
-                "\twhere Nickname ="+ accountName +") as pa\n" +
-                "left join accounts\n" +
-                "on AccIDTo = accounts.ID";
-
-        ResultSet result = dbWorker.getResult(query);
+        Set<String> requestsFrom = new HashSet<>();
         try {
-            while (result.next()) {
-                requestFrom.add(result.getString("Nickname"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pst = conn.prepareStatement(
+                    "SELECT Nickname FROM " +
+                        "(SELECT AccIDTo FROM waitingfriends " +
+                        "LEFT JOIN accounts ON accIDFrom = accounts.ID " +
+                        "WHERE Nickname = ?) AS pa" +
+                    "LEFT JOIN accounts ON AccIDTo = accounts.ID");
+            pst.setString(1, accountName);
 
-        return  requestFrom;
+            ResultSet result = pst.executeQuery();
+            while (result.next()) {
+                requestsFrom.add(result.getString("Nickname"));
+            }
+            pst.close();
+            conn.close();
+        } catch (SQLException e) {
+            return null;
+        }
+        return requestsFrom;
     }
 
     public Set<String> getFriendRequestsFrom(int accID) {
-        Set<String> requestFrom = new HashSet<>();
-        String query = "select nickName from waitingfriends\n" +
-                "left join accounts\n" +
-                "on AccIDTo = accounts.ID\n" +
-                "where AccIDFrom = "+accID+";";
-        ResultSet resultSet = dbWorker.getResult(query);
+        Set<String> requestsFrom = new HashSet<>();
         try {
-            while (resultSet.next()) requestFrom.add(resultSet.getString("nickName"));
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pst = conn.prepareStatement(
+                            "SELECT Nickname FROM waitingfriends " +
+                            "LEFT JOIN accounts " +
+                            "ON AccIDTo = accounts.ID " +
+                            "WHERE AccIDFrom = ?");
+            pst.setInt(1, accID);
+
+            ResultSet result = pst.executeQuery();
+            while (result.next()) {
+                requestsFrom.add(result.getString("Nickname"));
+            }
+            pst.close();
+            conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
-        return requestFrom;
+        return requestsFrom;
     }
 
     public Set<String> getFriendRequestsTo(String accountName) {
         Set<String> requestsTo = new HashSet<>();
-        String query = "select Nickname from \n" +
-                "\t(select AccIDFrom from waitingfriends\n" +
-                "\tleft join accounts\n" +
-                "\ton AccIDTo = accounts.ID\n" +
-                "\twhere Nickname ="+ accountName +") as pa\n" +
-                "left join accounts\n" +
-                "on AccIDFrom = accounts.ID";
-
-        ResultSet result = dbWorker.getResult(query);
         try {
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pst = conn.prepareStatement(
+                    "SELECT Nickname FROM " +
+                            "(SELECT AccIDFrom FROM waitingfriends " +
+                            "LEFT JOIN accounts " +
+                            "ON AccIDTo = accounts.ID " +
+                            "WHERE Nickname = ?) AS pa " +
+                    "LEFT JOIN accounts " +
+                    "ON AccIDFrom = accounts.ID");
+            pst.setString(1, accountName);
+
+            ResultSet result = pst.executeQuery();
             while (result.next()) {
                 requestsTo.add(result.getString("Nickname"));
             }
+            pst.close();
+            conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
         return requestsTo;
     }
 
     public Set<String> getFriendRequestsTo(int accID) {
-        Set<String> requestFrom = new HashSet<>();
-        String query = "select Nickname from waitingfriends\n" +
-                "left join accounts\n" +
-                "on AccIDFrom = accounts.ID\n" +
-                "where AccIDTo = "+accID+";";
-        ResultSet resultSet = dbWorker.getResult(query);
+        Set<String> requestsTo = new HashSet<>();
         try {
-            while (resultSet.next()) requestFrom.add(resultSet.getString("nickName"));
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pst = conn.prepareStatement(
+                    "SELECT Nickname FROM waitingfriends " +
+                    "LEFT JOIN accounts " +
+                    "ON AccIDFrom = accounts.ID " +
+                    "WHERE AccIDTo = ?");
+            pst.setInt(1, accID);
+
+            ResultSet result = pst.executeQuery();
+            while (result.next()) {
+                requestsTo.add(result.getString("Nickname"));
+            }
+            pst.close();
+            conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
-        return requestFrom;
+        return requestsTo;
     }
 
     public Set<String> getFriendNames(String accountName) {
         Set<String> friends = new HashSet<>();
-        String query = "select NickName from \n" +
-                    "(select AccIDTo from friends\n" +
-                    "left join accounts\n" +
-                    "on AccIDFrom = accounts.ID\n" +
-                    "where Nickname = "+accountName+") as pa\n" +
-                "left join accounts\n" +
-                "on AccIDTo = accounts.ID;";
-        ResultSet result = dbWorker.getResult(query);
         try {
-            while (result.next()) friends.add(result.getString("Nickname"));
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pst = conn.prepareStatement(
+                    "SELECT Nickname FROM " +
+                            "(SELECT AccIDTo FROM friends " +
+                            "LEFT JOIN accounts " +
+                            "ON AccIDFrom = accounts.ID " +
+                            "WHERE Nickname = ?) AS PA " +
+                    "LEFT JOIN accounts " +
+                    "ON AccIDTo = accounts.ID");
+            pst.setString(1, accountName);
+
+            ResultSet result = pst.executeQuery();
+            while (result.next()) {
+                friends.add(result.getString("Nickname"));
+            }
+            pst.close();
+            conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
-        return  friends;
+        return friends;
     }
 
     public Set<String> getFriendNamesByID(int id) {
         Set<String> friends = new HashSet<>();
-        String query = "select Nickname from friends\n" +
-                "left join accounts\n" +
-                "on AccIDTo = accounts.ID\n" +
-                "where AccIDFrom = "+ id +";";
-        ResultSet result = dbWorker.getResult(query);
         try {
-            while (result.next()) friends.add(result.getString("Nickname"));
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pst = conn.prepareStatement(
+                        "SELECT Nickname FROM friends " +
+                        "LEFT JOIN accounts " +
+                        "ON AccIDTo = accounts.ID " +
+                        "WHERE AccIDFrom = ?");
+            pst.setInt(1, id);
+
+            ResultSet result = pst.executeQuery();
+            while (result.next()) {
+                friends.add(result.getString("Nickname"));
+            }
+            pst.close();
+            conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
-        return  friends;
+        return friends;
     }
 }

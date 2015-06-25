@@ -2,7 +2,7 @@ package Core.Bean;
 
 import Interfaces.iAccount;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Created by gukam on 5/29/2015.

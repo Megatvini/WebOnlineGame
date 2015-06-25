@@ -1,7 +1,7 @@
 package Interfaces;
 
-import java.util.Date;
-import java.util.Set;
+
+import java.sql.Date;
 
 /**
  * Created by gukam on 5/28/2015.
