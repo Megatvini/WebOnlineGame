@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Set;
 
 /**
  * Created by gukam on 5/31/2015.
@@ -22,6 +23,8 @@ public class SignIn extends HttpServlet {
         String password = request.getParameter("password");
 
         AccountDao accountDao = (AccountDao) getServletContext().getAttribute(AccountDao.class.getName());
+        Set<String> onlineUsers = (Set<String>) getServletContext().getAttribute("onlineUsers");
+
 
         iAccount account;
         try {
@@ -34,6 +37,7 @@ public class SignIn extends HttpServlet {
 
         if (Hashing.getHash(account.getPassword()).equals(Hashing.getHash(password))) {
             request.getSession().setAttribute("nickName", nickname);
+            onlineUsers.add(nickname);
             response.sendRedirect("index.jsp");
         } else {
             //TODO Send redirect with wrong username or password

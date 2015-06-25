@@ -15,6 +15,9 @@ import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import javax.servlet.http.HttpSessionBindingEvent;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @WebListener()
 public class webListener implements ServletContextListener,
@@ -35,10 +38,12 @@ public class webListener implements ServletContextListener,
         AccountDao accountDao = new AccountDao(dbWorker);
         FriendsDao friendsDao = new FriendsDao(dbWorker);
         MessageDao messageDao = new MessageDao(dbWorker);
+        Set<String> onlineUsers = Collections.synchronizedSet(new HashSet<>());
 
         sc.setAttribute(AccountDao.class.getName(), accountDao);
         sc.setAttribute(FriendsDao.class.getName(), friendsDao);
         sc.setAttribute(MessageDao.class.getName(), messageDao);
+        sc.setAttribute("onlineUsers", onlineUsers);
     }
 
     public void contextDestroyed(ServletContextEvent sce) {
