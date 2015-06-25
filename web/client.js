@@ -22,10 +22,12 @@ var Client = IgeClass.extend({
 		self.textures.potion = new IgeTexture('./assets/potion.png');
 		self.textures.wall= new IgeTexture('./assets/wall.js');
 		self.textures.circle = new IgeTexture('./assets/Circle.js');
-		self.textures.water = new IgeTexture('./assets/water.png');
-		self.textures.fire = new IgeTexture('./assets/fire.png');
-		self.textures.ground = new IgeTexture('./assets/ground.png');
-		self.textures.wind = new IgeTexture('./assets/wind.png');
+
+		self.textures[0] = new IgeTexture('./assets/water.png');
+		self.textures[1] = new IgeTexture('./assets/fire.png');
+		self.textures[2] = new IgeTexture('./assets/ground.png');
+		self.textures[3] = new IgeTexture('./assets/wind.png');
+
 		self.textures.font = new IgeFontSheet('./assets/agency_fb_20pt.png',3);
 
 
@@ -110,6 +112,7 @@ function handler(snapShot){
 		console.log(JSON.stringify(snapShot));
 		self.gameConfig = gameConfig =  createGameConfig(snapShot);
 		self.playerTypes=snapShot.playerTypes;
+		self.UI.addPlayers(self.playerTypes);
 		new Maze(snapShot,self,self.gameConfig).createMaze();
 		self.updateHandler.parsePotions(pots,[]);
 

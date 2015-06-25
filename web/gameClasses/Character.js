@@ -59,7 +59,7 @@ var Character = IgeEntityBox2d.extend({
 		switch (type) {
 			case 0:
 				self = this ;
-				this._characterTexture = this.textures.fire;
+				this._characterTexture = this.textures[0];
 
 				self.texture(self._characterTexture);
 
@@ -74,7 +74,7 @@ var Character = IgeEntityBox2d.extend({
 
 			case 1:
 				self = this ;
-				this._characterTexture = this.textures.water;
+				this._characterTexture = this.textures[1];
 				self.texture(self._characterTexture);
 
 				this.animation.define('walkDown', [1], 8, -1)
@@ -88,7 +88,7 @@ var Character = IgeEntityBox2d.extend({
 
 			case 2:
 				self = this ;
-				this._characterTexture = this.textures.wind;
+				this._characterTexture = this.textures[2];
 
 				// Wait for the texture to load
 				self.texture(self._characterTexture);
@@ -103,7 +103,7 @@ var Character = IgeEntityBox2d.extend({
 
 			case 3:
 				self = this ;
-				this._characterTexture = this.textures.ground;
+				this._characterTexture = this.textures[3];
 
 				// Wait for the texture to load
 
