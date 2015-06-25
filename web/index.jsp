@@ -109,9 +109,32 @@
               <div class="input-group-addon">
                 <i class="fa fa-calendar"></i>
               </div>
-              <input type="date" class="form-control" value="<%= profile.getMail() %>" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
+              <input type="date" class="form-control" value="<%= profile.getBirthDate() %>" name="date" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
             </div><!-- /.input group -->
           </div><!-- /.form group -->
+
+          <div class="form-group">
+            <label>არწერა</label>
+            <textarea class="form-control" rows="3" name="about" placeholder="Enter ..."><%= profile.getAbout() %></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>სქესი</label>
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" <%= profile.getGender() == iAccount.Gender.MALE ? "checked=\"\"" : "" %> >
+                კაცი
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" <%= profile.getGender() == iAccount.Gender.FEMALE ? "checked=\"\"" : "" %>>
+                ქალი
+              </label>
+            </div>
+
+          </div>
+
         </div><!-- /.box-body -->
         <div align="center"  style=" padding-bottom: 20px;">   <button class="btn btn-block btn-primary" style="width: 250px;">შენახვა</button></div>
       </form>
