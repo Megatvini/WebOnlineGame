@@ -1,5 +1,6 @@
 <%@ page import="Core.Bean.Account" %>
 <%@ page import="Interfaces.iProfile" %>
+<%@ page import="Core.Dao.AccountDao" %>
 <%--
   Created by IntelliJ IDEA.
   User: Annie
@@ -14,15 +15,15 @@
 </head>
 <body>
 <%
-//  String nick = (String)session.getAttribute("nickname");
-//  iShorProfile prof ;
-//  if (nick != null) {
-//    UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
-//    prof = userControl.getUser(nick);
-//   //TODO:
-//  }
-//  else
-    iProfile prof = new Account();
+  AccountDao userControl = (AccountDao)pageContext.getServletContext().getAttribute(AccountDao.class.getName());
+ String nick = (String)session.getAttribute("nickname");
+ iProfile prof ;
+  if (nick != null) {
+    prof = userControl.getUser(nick);
+   //TODO:
+  }
+ else
+    prof = new Account();
 %>
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
