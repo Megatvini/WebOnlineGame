@@ -3,7 +3,6 @@ package Core.Servlets;
 import Core.Bean.Message;
 import Core.Dao.AccountDao;
 import Interfaces.iAccount;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import javax.servlet.ServletException;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +31,7 @@ public class MessageUpdate extends HttpServlet {
         if (unreadMessages == null) throw new RuntimeException("Unread Messages is NULL");
 
         AccountDao accountDao = (AccountDao) getServletContext().getAttribute(AccountDao.class.getName());
-        iAccount account = null;
+        iAccount account;
         try {
             account = accountDao.getUser(userName);
         } catch (Exception e) {
@@ -49,10 +47,11 @@ public class MessageUpdate extends HttpServlet {
                 excludeFieldsWithoutExposeAnnotation()
                 .create().toJson(messages);
         PrintWriter writer = response.getWriter();
+        System.out.println(jsonString);
         writer.print(jsonString);
         writer.close();
 
-        messages.remove(messagesFrom);
+        if (messagesFrom != null) messages.remove(messagesFrom);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

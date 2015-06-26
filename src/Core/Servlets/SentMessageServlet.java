@@ -19,6 +19,7 @@ import java.util.*;
 @WebServlet("/SendMessage")
 public class SentMessageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("profileTo");
         int toID = Integer.parseInt(request.getParameter("profileTo"));
 
         String userName = (String) request.getSession().getAttribute("nickname");
@@ -60,7 +61,7 @@ public class SentMessageServlet extends HttpServlet {
         if (unreadMessages == null) throw new RuntimeException("Unread Messages is NULL");
 
         synchronized (unreadMessages) {
-            Map<String, List<Message>> accountMessages = unreadMessages.get(unreadMessages.get(toID));
+            Map<String, List<Message>> accountMessages = unreadMessages.get(toID);
             if (accountMessages == null) {
                 accountMessages = Collections.synchronizedMap(new HashMap<>());
                 List<Message> messageList = Collections.synchronizedList(new ArrayList<>());
@@ -74,7 +75,7 @@ public class SentMessageServlet extends HttpServlet {
                     messageList.add(mes);
                     accountMessages.put(userName, messageList);
                 } else {
-                    accountMessages.put(userName, messageList);
+                    messageList.add(mes);
                 }
             }
         }

@@ -1,4 +1,3 @@
-
 <%@ page import="Core.Bean.Account" %>
 <%@ page import="Interfaces.iProfile" %>
 <%@ page import="Core.Bean.Message" %>
@@ -58,7 +57,7 @@
     FriendsDao friendControl = (FriendsDao)pageContext.getServletContext().getAttribute(FriendsDao.class.getName());
     MessageDao messageControl = (MessageDao)pageContext.getServletContext().getAttribute(MessageDao.class.getName());
 
-   String nickname = (String)session.getAttribute("nickname");
+    String nickname = (String)session.getAttribute("nickname");
 
     Set<String> friends = new HashSet<>();
     iProfile profile = null;
@@ -78,7 +77,7 @@
         String k = ex.getMessage();
       }
     }
-   String friendNickname = request.getParameter("friend");
+    String friendNickname = request.getParameter("friend");
     if(friendNickname == null)
       friendNickname = friends.isEmpty()? "0" : friends.iterator().next().toString();
   %>
@@ -107,7 +106,7 @@
               </a>
               <div id="<%= nick %>" style="width:30px; float:right;"></div>
             </li>
-          <% } %>
+            <% } %>
           </ul>
         </div><!-- /.box-body -->
       </div>
@@ -122,21 +121,21 @@
               List<Message> messages = messageControl.getMessages(profile.getID(), friendID);
 
               for (int i = 0; i<messages.size(); i++ ) {
-              String mess = messages.get(i).getText();
-              String style = messages.get(i).getType() == Message.Type.SENT ?
-                      "background-color: rgb(186, 223, 255);\n" +
-                      "    text-align: right;" :
-              "background-color: rgb(140, 179, 213)";
+                String mess = messages.get(i).getText();
+                String style = messages.get(i).getType() == Message.Type.SENT ?
+                        "background-color: rgb(186, 223, 255);\n" +
+                                "    text-align: right;" :
+                        "background-color: rgb(140, 179, 213)";
             %>
             <li style="<%= style %> ; font-size: 19px"> <%= mess %></li>
-          <% } %>
+            <% } %>
           </ul>
         </div><!-- /.box-body -->
 
-          <input type="hidden" name="profileFrom" value="<%= profile.getID() %>">
-          <input type="hidden" id="profileTo" value="<%= friendNickname %>">
-          <textarea  style="width: 100%; height:70px" id="messageText"  name="message"></textarea>
-          <button class="btn btn-block btn-primary" onclick="sendMessage()">მიწერა</button>
+        <input type="hidden" name="profileFrom" value="<%= profile.getID() %>">
+        <input type="hidden" id="profileTo" value="<%= friendID %>">
+        <textarea  style="width: 100%; height:70px" id="messageText"  name="message"></textarea>
+        <button class="btn btn-block btn-primary" onclick="sendMessage()">მიწერა</button>
 
       </div>
     </div>
@@ -145,32 +144,32 @@
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
 <script>
+  var profileTo =   $("#profileTo").val();
+
   function writeText(text, date ){
     $("#messages").append('<li style="background-color: rgb(186, 223, 255); font-size: 19px; text-align: right;" ' +
             '">' + text + ' </li>');
     $("#messageText").val("");
   }
+
   function sendMessage(){
+    var text = $("#messageText").val();
+    writeText(text);
 
-    writeText($("#messageText").val());
-
-    var data = {
-      'shako': [{'text': 'zdarova shako ' , 'date' : new Date().getDate() } ],
-      'koka': [{'text': 'zdarova koka ' , 'date' : new Date().getDate() } ]
-
-    };
-
-    update(data);
-
-   // xmlhttp.open("POST","demo_post.asp",true);
-   // xmlhttp.send();
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST","SendMessage",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("profileTo="+profileTo+"&message="+text);
   }
-  var profileTo =   $("#profileTo").val();
-  function update(data){
 
+  function update(data){
     var j = JSON.parse(data);
     writeText(profileTo);
-   var list  =  j[profileTo] ;
+    if(j==null)
+      return ;
+    var list  =  j[profileTo] ;
+    if(list==null)
+      return ;
     var i ;
     for(i = 0 ; i < list.length; i ++ ){
       var oneMessage = list[i] ;
@@ -179,30 +178,25 @@
 
     for(var m in j ){
       if(j.hasOwnProperty(m)) {
-          var oneM = j[m];
-
-          $("#"+m).text(oneM.length.toString());
+        var oneM = j[m];
+        $("#"+m).text(oneM.length.toString());
       }
     }
 
   }
 
-
-
   function check() {
     $.get("http://"+window.location.host + "/MessageUpdate?msgs="+profileTo, function(resp) {
       console.log(resp);
-      update(resp)
+      if (resp != null)
+        update(resp)
     });
   }
 
-  check();
-  setInterval(check(),1000);
-
-
-
-
-
+  $(document).ready(function() {
+    check();
+    setInterval(check, 5000);
+  });
 
 </script>
 <!-- jQuery 2.1.4 -->

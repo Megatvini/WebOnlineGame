@@ -9,114 +9,116 @@ import java.util.Date;
  * Created by gukam on 5/29/2015.
  */
 public class Account implements iAccount {
-    private String _nickname;
-    private String _password;
-    private String _picPath;
-    private String _firstName;
-    private String _lastName;
-    private String _mail;
-    private int _rating;
-    private int _ID;
+    private String nickname;
+    private String password;
+    private String picPath;
+    private String firstName;
+    private String lastName;
+    private String mail;
+    private int rating;
+    private int ID;
     private Date birthDate;
     private String about;
+    private Gender gender;
+
 
     public Account() {
-        _picPath = "http://a3.files.biography.com/image/upload/c_fill,cs_srgb,dpr_1.0,g_face,h_300,q_80,w_300/MTIwNjA4NjM0MjAzODMzODY4.jpg";
-        _firstName = "";
-        _lastName = "";
+        picPath = "http://a3.files.biography.com/image/upload/c_fill,cs_srgb,dpr_1.0,g_face,h_300,q_80,w_300/MTIwNjA4NjM0MjAzODMzODY4.jpg";
+        firstName = "";
+        lastName = "";
         about = "";
-        _rating = GameManager.DEFAULT_RATING;
+        rating = GameManager.DEFAULT_RATING;
+        gender = Gender.MALE;
     }
 
     @Override
     public void setID(int ID) {
-        _ID = ID;
+        this.ID = ID;
     }
 
     @Override
     public String getNickname() {
-        return _nickname;
+        return nickname;
     }
     @Override
     public void setNickname(String nickname) {
-        _nickname=nickname;
+        this.nickname=nickname;
     }
 
     @Override
     public void setPassword(String password) {
-        _password = password;
+        this.password = password;
     }
     @Override
     public String getPassword() {
-        return _password;
+        return password;
     }
 
 
     @Override
     public String getPicturePath() {
-        return _picPath;
+        return picPath;
     }
 
     @Override
     public void setPicturePath(String PicPath) {
-        _picPath=PicPath;
+        this.picPath=PicPath;
     }
 
 
     @Override
     public String getFirstName() {
-        return _firstName;
+        return firstName;
     }
 
     @Override
     public void setFirstName(String firstName) {
-        _firstName =firstName;
+        this.firstName =firstName;
     }
 
 
     @Override
     public String getLastName() {
-        return _lastName;
+        return lastName;
     }
     @Override
     public void setLastName(String lastName) {
-        _lastName =lastName;
+        this.lastName =lastName;
     }
 
 
     @Override
     public String getMail() {
-        return _mail;
+        return mail;
     }
     @Override
     public void setMail(String mail) {
-        _mail=mail;
+        this.mail=mail;
     }
 
-    private Gender _gender = Gender.MALE;
     @Override
     public Gender getGender() {
-        return _gender;
+        return gender;
     }
     @Override
     public void setGender(Gender gender) {
-        _gender=gender;
+        this.gender=gender;
     }
 
 
     @Override
     public int getRating() {
-        return _rating;
+        return rating;
     }
 
     @Override
     public void setRating(int rating) {
-        _rating=rating;
+        this.rating=rating;
     }
 
     @Override
     public int getID() {
-        return _ID;
+        return ID;
     }
 
     @Override
