@@ -164,9 +164,9 @@
    // xmlhttp.open("POST","demo_post.asp",true);
    // xmlhttp.send();
   }
-
+  var profileTo =   $("#profileTo").val();
   function update(data){
-    var profileTo =   $("#profileTo").val();
+
     var j =/* JSON.parse(data);*/ data ;
     writeText(profileTo);
    var list  =  j[profileTo] ;
@@ -185,6 +185,18 @@
     }
 
   }
+
+
+
+  function check() {
+    $.get("http://"+window.location.host + "/MessageUpdate?msgs="+profileTo, function(resp) {
+      console.log(resp);
+      update(resp)
+    });
+  }
+
+  check();
+  setInterval(check(),1000);
 
 
 
