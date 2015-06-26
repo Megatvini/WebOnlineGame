@@ -27,5 +27,5 @@ public interface iAccount extends iProfile {
 
     public void setBirthDate(Date date);
 
-    public String setAbout(String text);
+    public void setAbout(String text);
 }

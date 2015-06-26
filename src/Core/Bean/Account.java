@@ -1,5 +1,6 @@
 package Core.Bean;
 
+import Core.Controller.GameManager;
 import Interfaces.iAccount;
 
 import java.util.Date;
@@ -10,14 +11,22 @@ import java.util.Date;
 public class Account implements iAccount {
     private String _nickname;
     private String _password;
-    private String _picPath= "http://a3.files.biography.com/image/upload/c_fill,cs_srgb,dpr_1.0,g_face,h_300,q_80,w_300/MTIwNjA4NjM0MjAzODMzODY4.jpg";
-    private String _firstName = "";
-    private String _lastName = "";
+    private String _picPath;
+    private String _firstName;
+    private String _lastName;
     private String _mail;
-    private int _rating = 1200;
+    private int _rating;
     private int _ID;
     private Date birthDate;
-    private String about = "";
+    private String about;
+
+    public Account() {
+        _picPath = "http://a3.files.biography.com/image/upload/c_fill,cs_srgb,dpr_1.0,g_face,h_300,q_80,w_300/MTIwNjA4NjM0MjAzODMzODY4.jpg";
+        _firstName = "";
+        _lastName = "";
+        about = "";
+        _rating = GameManager.DEFAULT_RATING;
+    }
 
     @Override
     public void setID(int ID) {
@@ -121,8 +130,8 @@ public class Account implements iAccount {
     }
 
     @Override
-    public String setAbout(String text) {
-        return about = text;
+    public void setAbout(String text) {
+        about = text;
     }
 
     @Override
