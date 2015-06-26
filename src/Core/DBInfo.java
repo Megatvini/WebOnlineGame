@@ -21,37 +21,4 @@ public class DBInfo {
     //  Database credentials
     public static final String USER = "root";
     public static final String PASS = "agbdlcid";
-
-    public static void getMySQLDataSource() {
-
-    }
-
-    public static void testDataSource() {
-        DataSource ds = null;
-        getMySQLDataSource();
-
-        Connection con = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-        try {
-            con = ds.getConnection();
-            stmt = con.createStatement();
-            rs = stmt.executeQuery("select * from accounts");
-            while(rs.next()){
-                System.out.println("Employee ID="+rs.getInt("Nickname"));
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        } finally{
-            try {
-                if(rs != null) rs.close();
-                if(stmt != null) stmt.close();
-                if(con != null) con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
 }
