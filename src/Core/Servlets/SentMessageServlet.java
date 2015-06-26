@@ -35,8 +35,13 @@ public class SentMessageServlet extends HttpServlet {
             return;
         }
 
+        String referer = request.getHeader("Referer");
+
         String message = request.getParameter("message");
-        if (message==null || message.equals("")) return;
+        if (message==null || message.equals("")) {
+            response.sendRedirect(referer);
+            return;
+        }
 
 
         Message mes = new Message();
@@ -49,10 +54,9 @@ public class SentMessageServlet extends HttpServlet {
         try {
             messageDao.sendMessage(mes);
         } catch (Exception e) {
+            response.sendRedirect(referer);
             return;
         }
-
-        String referer = request.getHeader("Referer");
         response.sendRedirect(referer);
     }
 

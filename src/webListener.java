@@ -26,6 +26,7 @@ public class webListener implements ServletContextListener,
 
     // Public constructor is required by servlet spec
     public webListener() {
+
     }
 
     // -------------------------------------------------------
@@ -37,8 +38,6 @@ public class webListener implements ServletContextListener,
         ds.setUrl(DBInfo.DB_URL + "mydb?" + "user=" +DBInfo.USER+"&password=" +DBInfo.PASS);
         ds.setUsername(DBInfo.USER);
         ds.setPassword(DBInfo.PASS);
-
-
 
         ServletContext sc = sce.getServletContext();
         AccountDao accountDao = new AccountDao(ds);

@@ -78,9 +78,9 @@ public class FriendsDao {
     public boolean confirmFriendRequest(int idFrom, int idTo){
         try {
             Connection conn = dataSource.getConnection();
-            PreparedStatement pst = conn.prepareStatement("DELETE FROM waitingFriends WHERE AccIDTo = ? AND AccIDTo = ?");
-            pst.setInt(1, idFrom);
-            pst.setInt(2, idTo);
+            PreparedStatement pst = conn.prepareStatement("DELETE FROM waitingFriends WHERE AccIDFrom = ? AND AccIDTo = ?");
+            pst.setInt(1, idTo);
+            pst.setInt(2, idFrom);
             pst.execute();
             pst.close();
 
@@ -92,6 +92,16 @@ public class FriendsDao {
             pst.setInt(2, idFrom);
             pst.setInt(1, idTo);
             pst.execute();
+            pst.close();
+
+            pst = conn.prepareStatement("INSERT INTO conversations (AccIDFrom, AccIDTo) VALUES (?, ?)");
+            pst.setInt(1, idFrom);
+            pst.setInt(2, idTo);
+            pst.execute();
+
+            pst.setInt(1, idTo);
+            pst.setInt(2, idFrom);
+            pst.execute();
 
             pst.close();
             conn.close();
@@ -99,11 +109,6 @@ public class FriendsDao {
             return false;
         }
         return true;
-//        query = "insert into conversations (AccIDFrom, AccIDTo) values ("+idFrom+", "+idTo+")";
-//        dbWorker.execute(query);
-//
-//        query = "insert into conversations (AccIDFrom, AccIDTo) values  ("+idTo+", "+idFrom+")";
-//        dbWorker.execute(query);
     }
 
 

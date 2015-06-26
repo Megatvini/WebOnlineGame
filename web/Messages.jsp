@@ -57,8 +57,8 @@
     FriendsDao friendControl = (FriendsDao)pageContext.getServletContext().getAttribute(FriendsDao.class.getName());
     MessageDao messageControl = (MessageDao)pageContext.getServletContext().getAttribute(MessageDao.class.getName());
 
-   // String nickname = (String)session.getAttribute("nickname");
-    String nickname = "anniemargvela";
+   String nickname = (String)session.getAttribute("nickname");
+
     Set<String> friends = new HashSet<>();
     iProfile profile = null;
 
@@ -132,7 +132,7 @@
         </div><!-- /.box-body -->
         <form action="/SendMessage" method="post">
           <input type="hidden" name="profileFrom" value="<%= profile.getID() %>">
-          <input type="hidden" name="profileTo" value="<%= 2 %>">
+          <input type="hidden" name="profileTo" value="<%= friendID %>">
           <textarea  style="width: 100%; height:70px"  name="message"></textarea>
           <button class="btn btn-block btn-primary">მიწერა</button>
         </form>
