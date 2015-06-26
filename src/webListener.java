@@ -2,6 +2,7 @@
  * Created by Annie on 22-Jun-15.
  */
 
+import Core.Bean.Message;
 import Core.DBInfo;
 import Core.Dao.AccountDao;
 import Core.Dao.FriendsDao;
@@ -16,9 +17,7 @@ import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import javax.servlet.http.HttpSessionBindingEvent;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @WebListener()
 public class webListener implements ServletContextListener,
@@ -44,11 +43,14 @@ public class webListener implements ServletContextListener,
         FriendsDao friendsDao = new FriendsDao(ds);
         MessageDao messageDao = new MessageDao(ds);
         Set<String> onlineUsers = Collections.synchronizedSet(new HashSet<>());
+        Map<Integer, Map<String, List<Message>>> unreadMessages = Collections.synchronizedMap(new HashMap<>());
+
 
         sc.setAttribute(AccountDao.class.getName(), accountDao);
         sc.setAttribute(FriendsDao.class.getName(), friendsDao);
         sc.setAttribute(MessageDao.class.getName(), messageDao);
         sc.setAttribute("onlineUsers", onlineUsers);
+        sc.setAttribute("unreadMessages", unreadMessages);
     }
 
     public void contextDestroyed(ServletContextEvent sce) {

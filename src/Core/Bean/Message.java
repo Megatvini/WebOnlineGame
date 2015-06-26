@@ -1,5 +1,7 @@
 package Core.Bean;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.Date;
 
 /**
@@ -9,7 +11,9 @@ public class Message {
     private int _accFrom;
     private int _accTo;
     private String _header;
+    @Expose
     private String _text;
+    @Expose
     private Date _date;
     public enum Type{SENT, GOTTEN}
 
