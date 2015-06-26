@@ -104,6 +104,7 @@
               <a href="Messages.jsp?friend=<%=nick%>">
                 <img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 60px; border-radius: 50%; ">  <%=shortProf.getNickname()%>
               </a>
+              <div id="<%= nick %>" style="width:30px; float:right;"></div>
             </li>
           <% } %>
           </ul>
@@ -114,7 +115,7 @@
     <div style=" padding-left: 310px">
       <div class="box box-solid">
         <div class="box-body no-padding">
-          <ul class="nav nav-pills nav-stacked">
+          <ul id="messages" class="nav nav-pills nav-stacked">
             <%
               int friendID = userControl.getUser(friendNickname).getID();
               List<Message> messages = messageControl.getMessages(profile.getID(), friendID);
@@ -130,19 +131,67 @@
           <% } %>
           </ul>
         </div><!-- /.box-body -->
-        <form action="/SendMessage" method="post">
+
           <input type="hidden" name="profileFrom" value="<%= profile.getID() %>">
-          <input type="hidden" name="profileTo" value="<%= friendID %>">
-          <textarea  style="width: 100%; height:70px"  name="message"></textarea>
-          <button class="btn btn-block btn-primary">მიწერა</button>
-        </form>
+          <input type="hidden" id="profileTo" value="<%= friendNickname %>">
+          <textarea  style="width: 100%; height:70px" id="messageText"  name="message"></textarea>
+          <button class="btn btn-block btn-primary" onclick="sendMessage()">მიწერა</button>
+
       </div>
     </div>
 
   </div><!-- /.content-wrapper -->
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
+<script>
+  function writeText(text, date ){
+    $("#messages").append('<li style="background-color: rgb(186, 223, 255); font-size: 19px; text-align: right;" ' +
+            '">' + text + ' </li>');
+    $("#messageText").val("");
+  }
+  function sendMessage(){
 
+    writeText($("#messageText").val());
+
+    var data = {
+      'shako': [{'text': 'zdarova shako ' , 'date' : new Date().getDate() } ],
+      'koka': [{'text': 'zdarova koka ' , 'date' : new Date().getDate() } ]
+
+    };
+
+    update(data);
+
+   // xmlhttp.open("POST","demo_post.asp",true);
+   // xmlhttp.send();
+  }
+
+  function update(data){
+    var profileTo =   $("#profileTo").val();
+    var j =/* JSON.parse(data);*/ data ;
+    writeText(profileTo);
+   var list  =  j[profileTo] ;
+    var i ;
+    for(i = 0 ; i < list.length; i ++ ){
+      var oneMessage = list[i] ;
+      writeText(oneMessage.text, oneMessage.date);
+    }
+
+    for(var m in j ){
+      if(j.hasOwnProperty(m)) {
+          var oneM = j[m];
+
+          $("#"+m).text(oneM.length.toString());
+      }
+    }
+
+  }
+
+
+
+
+
+
+</script>
 <!-- jQuery 2.1.4 -->
 <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <!-- jQuery UI 1.11.2 -->
