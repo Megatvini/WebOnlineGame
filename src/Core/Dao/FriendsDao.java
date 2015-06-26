@@ -111,6 +111,21 @@ public class FriendsDao {
         return true;
     }
 
+    public boolean rejectFriendRequest(int idFrom, int idTo){
+        try {
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pst = conn.prepareStatement(
+                    "DELETE FROM waitingfriends WHERE AccIDTo = ? AND AccIDFrom = ?");
+            pst.setInt(1, idFrom);
+            pst.setInt(2, idTo);
+            pst.close();
+            conn.close();
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
+    }
+
 
     public Set<String> getFriendRequestsFrom(String accountName) {
         Set<String> requestsFrom = new HashSet<>();

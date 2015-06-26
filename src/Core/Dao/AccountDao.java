@@ -9,7 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -111,6 +113,68 @@ public class AccountDao {
             Connection connection = dataSource.getConnection();
             PreparedStatement stmt = connection.prepareStatement("SELECT Nickname FROM accounts WHERE NickName LIKE ?;");
             stmt.setString(1, "%"+search+"%");
+            ResultSet result = stmt.executeQuery();
+            while (result.next()) {
+                accounts.add(result.getString("Nickname"));
+            }
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            return null;
+        }
+        return accounts;
+    }
+
+    public Set<String> getUsersLike(String search, int pageNumber, int accountsPerPage){
+        Set<String> accounts = new HashSet<>();
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(
+                    "SELECT Nickname FROM accounts " +
+                    "WHERE NickName LIKE ? " +
+                    "ORDER BY Nickname LIMIT ?, ?;");
+            stmt.setString(1, "%"+search+"%");
+            stmt.setInt(2, pageNumber*accountsPerPage);
+            stmt.setInt(3, (pageNumber + 1)*accountsPerPage);
+
+            ResultSet result = stmt.executeQuery();
+            while (result.next()) {
+                accounts.add(result.getString("Nickname"));
+            }
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            return null;
+        }
+        return accounts;
+    }
+
+    public int getUsersCount() {
+        int res = 0;
+        try {
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pst = conn.prepareStatement(
+                    "SELECT Count(*) FROM accounts");
+            ResultSet resultSet = pst.executeQuery();
+            if (resultSet.next()) res = resultSet.getInt(1);
+            pst.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    public List<String> getPlayersInterval(int pageNumber, int accountsPerPage) {
+        List<String> accounts = new ArrayList<>();
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(
+                    "SELECT Nickname, GameRating FROM accounts " +
+                    "ORDER BY GameRating DESC " +
+                    "LIMIT ?, ?");
+            stmt.setInt(1, pageNumber*accountsPerPage);
+            stmt.setInt(2, (pageNumber+1)*accountsPerPage);
             ResultSet result = stmt.executeQuery();
             while (result.next()) {
                 accounts.add(result.getString("Nickname"));
