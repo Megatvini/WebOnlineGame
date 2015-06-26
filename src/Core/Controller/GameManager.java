@@ -1,11 +1,8 @@
 package Core.Controller;
 
-import Core.Bean.Game;
 import Core.Dao.AccountDao;
 import Core.Dao.GameDao;
 import Interfaces.iAccount;
-
-import java.lang.management.PlatformLoggingMXBean;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +12,7 @@ import java.util.List;
  */
 
 public class GameManager {
+    public static final int DEFAULT_RATING = 1200;
     private AccountDao accountDao;
     private GameDao gameDao;
 
@@ -23,6 +21,12 @@ public class GameManager {
         this.gameDao = gameDao;
     }
 
+    /**
+     * takes game result, saves it in database and
+     * changes player rating according to results
+     * @param playerPositions game result, positions of players
+     *                        //winner is on last index
+     */
     public void addNewGameResults(List<String> playerPositions) {
         //for each player count their ratingChange and put participation
         //give each account new rating and save it to database;
@@ -43,6 +47,13 @@ public class GameManager {
         }
     }
 
+
+    /**
+     * takes current player positions and
+     * calculates their ratingChanges
+     * @param playerPositions positions of player after game
+     * @return rating changes accordingly
+     */
     private List<Integer> calculateRatingChanges(List<String> playerPositions) {
         List<Integer> result = new ArrayList<>();
         for (int i=0; i<playerPositions.size(); i++) {

@@ -25,6 +25,12 @@ public class AccountDao {
         this.dataSource = dataSource;
     }
 
+    /**
+     * register new account to database
+     * does not check if account is already registered
+     * @param account info about new account
+     * @return return true iif account was successfully created
+     */
     public boolean registerUser(iAccount account){
         try {
             Connection connection = dataSource.getConnection();
@@ -50,6 +56,11 @@ public class AccountDao {
         return true;
     }
 
+    /**
+     * updates user
+     * @param account
+     * @return true iff user was successfully updated
+     */
     public boolean changeUser(iAccount account){
         try {
             Connection connection = dataSource.getConnection();
@@ -75,6 +86,12 @@ public class AccountDao {
         return true;
     }
 
+    /**
+     * returns user from database if found
+     * @param nickname name of a user
+     * @return Account with nickname
+     * @throws Exception if user with nickname was not found
+     */
     public iAccount getUser(String nickname) throws Exception {
         iAccount res = null;
         try {
@@ -92,6 +109,12 @@ public class AccountDao {
         return res;
     }
 
+    /**
+     * assembles account from resultSet
+     * @param result resultSet from database
+     * @return assembled account
+     * @throws SQLException if resultSet throws exception
+     */
     private iAccount assembleAccount(ResultSet result) throws SQLException {
         iAccount account = new Account();
         account.setID(result.getInt("ID"));
@@ -107,6 +130,12 @@ public class AccountDao {
         return account;
     }
 
+
+    /**
+     * get all users whose nickname contains search
+     * @param search substring for searching
+     * @return set of all users with substring search in nickname
+     */
     public Set<String> getUsersLike(String search){
         Set<String> accounts = new HashSet<>();
         try {
@@ -125,6 +154,13 @@ public class AccountDao {
         return accounts;
     }
 
+    /**
+     * get all users whose nickname contains search and who are on page pageNumber
+     * @param search substring for searching
+     * @param pageNumber index of page from which accounts will be returned
+     * @param accountsPerPage how much accounts are on single page
+     * @return set of all users with substring search in nickname
+     */
     public Set<String> getUsersLike(String search, int pageNumber, int accountsPerPage){
         Set<String> accounts = new HashSet<>();
         try {
@@ -149,6 +185,10 @@ public class AccountDao {
         return accounts;
     }
 
+    /**
+     *
+     * @return total number of users in database
+     */
     public int getUsersCount() {
         int res = 0;
         try {
@@ -165,7 +205,14 @@ public class AccountDao {
         return res;
     }
 
-    public List<String> getPlayersInterval(int pageNumber, int accountsPerPage) {
+    /**
+     *
+     * @param pageNumber index of page from which user will be returned
+     * @param accountsPerPage number of players on a single page
+     * @return users sorted by rating on pages user with lowest
+     * rating is on last index
+     */
+    public List<String> getUsersIntervalByRating(int pageNumber, int accountsPerPage) {
         List<String> accounts = new ArrayList<>();
         try {
             Connection connection = dataSource.getConnection();
