@@ -24,7 +24,7 @@ var Client = IgeClass.extend({
 		self.textures.circle = new IgeTexture('./assets/Circle.js');
 
 		self.textures[0] = new IgeTexture('./assets/water.png');
-		self.textures[1] = new IgeTexture('./assets/fire.png');
+		self.textures[1] = new IgeTexture('./assets/fire.js');
 		self.textures[2] = new IgeTexture('./assets/ground.png');
 		self.textures[3] = new IgeTexture('./assets/wind.png');
 

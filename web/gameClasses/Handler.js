@@ -269,11 +269,11 @@ var Handler = IgeEntity.extend({
 
 
     endGame: function() {
-        ige.client.objectScene.destroy();
+        //ige.client.objectScene.destroy();
         //self.textures.wall.destroy();
         //ige.stop();
 
-        //alert("GAME OVER");
+        alert("GAME OVER");
     }
 
 

@@ -10,7 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9e55fc6-ff33-4d8b-89ab-aab5f918ccf4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/gameClasses/Character.js" afterPath="$PROJECT_DIR$/web/gameClasses/Character.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/assets/fire.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/gameClasses/ClientWorld.js" afterPath="$PROJECT_DIR$/web/gameClasses/ClientWorld.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/gameClasses/Handler.js" afterPath="$PROJECT_DIR$/web/gameClasses/Handler.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/gameClasses/UI.js" afterPath="$PROJECT_DIR$/web/gameClasses/UI.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/client.js" afterPath="$PROJECT_DIR$/web/client.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -51,11 +53,11 @@
         <entry file="file://$PROJECT_DIR$/web/client.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding>
-                <element signature="e#2010#2050#0" expanded="false" />
+                <element signature="e#2009#2049#0" expanded="false" />
                 <element signature="n#!!block;n#getCookie#0" expanded="false" />
-                <element signature="e#2843#2981#0" expanded="false" />
+                <element signature="e#2842#2980#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -65,8 +67,20 @@
         <entry file="file://$PROJECT_DIR$/web/gameClasses/Handler.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+              <caret line="273" column="21" selection-start-line="273" selection-start-column="21" selection-end-line="273" selection-end-column="21" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fire.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/assets/fire.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+              <folding>
+                <element signature="e#0#38#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -74,8 +88,35 @@
       <file leaf-file-name="UI.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/gameClasses/UI.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.5396578">
-              <caret line="96" column="3" selection-start-line="96" selection-start-column="3" selection-end-line="96" selection-end-column="3" />
+            <state vertical-scroll-proportion="1.3437014">
+              <caret line="50" column="25" selection-start-line="50" selection-start-column="25" selection-end-line="50" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="agency_fb_20pt.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/assets/agency_fb_20pt.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IgeFontEntity.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/ige/engine/core/IgeFontEntity.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="133" column="14" selection-start-line="133" selection-start-column="4" selection-end-line="133" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClientWorld.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/gameClasses/ClientWorld.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="26" column="29" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -134,7 +175,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/MatchMaking/FixedRoomSizeMatcher.java" />
         <option value="$PROJECT_DIR$/src/MatchMaking/FixedRoomSizeMatcherFactory.java" />
         <option value="$PROJECT_DIR$/src/MatchMaking/MatchMaker.java" />
         <option value="$PROJECT_DIR$/src/MatchMaking/StartingGroup.java" />
@@ -177,13 +217,14 @@
         <option value="$PROJECT_DIR$/web/gameClasses/Maze.js" />
         <option value="$PROJECT_DIR$/web/assets/wall.js" />
         <option value="$PROJECT_DIR$/web/ige/engine/ui/IgeUiLabel.js" />
-        <option value="$PROJECT_DIR$/web/gameClasses/ClientWorld.js" />
         <option value="$PROJECT_DIR$/web/ClientConfig.js" />
         <option value="$PROJECT_DIR$/src/ConfigFile.properties" />
-        <option value="$PROJECT_DIR$/web/gameClasses/Handler.js" />
         <option value="$PROJECT_DIR$/web/gameClasses/Character.js" />
         <option value="$PROJECT_DIR$/web/ige/engine/core/IgeTexture.js" />
+        <option value="$PROJECT_DIR$/web/assets/fire.js" />
         <option value="$PROJECT_DIR$/web/client.js" />
+        <option value="$PROJECT_DIR$/web/gameClasses/ClientWorld.js" />
+        <option value="$PROJECT_DIR$/web/gameClasses/Handler.js" />
         <option value="$PROJECT_DIR$/web/gameClasses/UI.js" />
       </list>
     </option>
@@ -211,9 +252,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="65" />
-    <option name="y" value="24" />
+    <option name="y" value="-4" />
     <option name="width" value="1301" />
-    <option name="height" value="744" />
+    <option name="height" value="772" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -238,9 +279,9 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -578,6 +619,9 @@
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
+      <method />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -800,12 +844,13 @@
         </option>
       </method>
     </configuration>
-    <list size="5">
+    <list size="6">
       <item index="0" class="java.lang.String" itemvalue="JUnit.allTests" />
       <item index="1" class="java.lang.String" itemvalue="Tomcat Server.RUN" />
       <item index="2" class="java.lang.String" itemvalue="Tomcat Server.Unnamed" />
-      <item index="3" class="java.lang.String" itemvalue="Application.PlaneMazeTesterClassNotPartOfProject" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.GameWorldTest.testGetUpdate" />
+      <item index="3" class="java.lang.String" itemvalue="Node.js.client.js" />
+      <item index="4" class="java.lang.String" itemvalue="Application.PlaneMazeTesterClassNotPartOfProject" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.GameWorldTest.testGetUpdate" />
     </list>
     <recent_temporary>
       <list size="2">
@@ -866,7 +911,9 @@
       <workItem from="1435180199864" duration="5982000" />
       <workItem from="1435225726328" duration="10000" />
       <workItem from="1435225770100" duration="14000" />
-      <workItem from="1435226038084" duration="25497000" />
+      <workItem from="1435226038084" duration="25918000" />
+      <workItem from="1435311876616" duration="410000" />
+      <workItem from="1435312305074" duration="5093000" />
     </task>
     <task id="LOCAL-00001" summary="Added DDL statements">
       <created>1433434253476</created>
@@ -1030,11 +1077,17 @@
       <option name="project" value="LOCAL" />
       <updated>1435245317727</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="added player types and names on bottom panel">
+      <created>1435259689343</created>
+      <option name="number" value="00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1435259689343</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="371848000" />
+    <option name="totallyTimeSpent" value="377772000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -1046,7 +1099,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="24" width="1301" height="744" extended-state="6" />
+    <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1054,7 +1107,6 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3268945" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962178" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -1076,6 +1128,7 @@
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3268945" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39821693" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1117,7 +1170,8 @@
     <MESSAGE value="sheicvala vizuali da kidev sheicvleba male" />
     <MESSAGE value="potions in INIT. results displayed." />
     <MESSAGE value="added game over functional, &quot;return home&quot; button redirects to &quot;localhost:8080&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="added game over functional, &quot;return home&quot; button redirects to &quot;localhost:8080&quot;" />
+    <MESSAGE value="added player types and names on bottom panel" />
+    <option name="LAST_COMMIT_MESSAGE" value="added player types and names on bottom panel" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1149,49 +1203,29 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/web/gameClasses/UI.js</url>
-          <line>119</line>
+          <line>68</line>
           <option name="timeStamp" value="227" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/web/gameClasses/UI.js</url>
-          <line>188</line>
+          <line>137</line>
           <option name="timeStamp" value="228" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/web/gameClasses/UI.js</url>
-          <line>173</line>
+          <line>122</line>
           <option name="timeStamp" value="229" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/web/gameClasses/UI.js</url>
-          <line>62</line>
-          <option name="timeStamp" value="231" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/web/gameClasses/UI.js</url>
-          <line>58</line>
-          <option name="timeStamp" value="234" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/web/gameClasses/UI.js</url>
-          <line>65</line>
-          <option name="timeStamp" value="235" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/web/gameClasses/UI.js</url>
-          <line>63</line>
-          <option name="timeStamp" value="236" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/web/gameClasses/UI.js</url>
-          <line>69</line>
-          <option name="timeStamp" value="237" />
+          <line>138</line>
+          <option name="timeStamp" value="238" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="238" />
+      <option name="time" value="239" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
@@ -1219,27 +1253,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/ige/engine/ui/IgeUiTabPanel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/ige/engine/primitives/IgeCuboid.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/ige/engine/ui/IgeUiTogglePanel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.36391914">
-          <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/ige/engine/ui/IgeUiSlider.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1301,11 +1314,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/agency_fb_20pt.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/chars.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -1329,13 +1337,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="1" column="23" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/floor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="2" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
         </state>
       </provider>
     </entry>
@@ -1381,13 +1382,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/ige/engine/core/IgeUiElement.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="143" column="38" selection-start-line="143" selection-start-column="38" selection-end-line="143" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/ige/engine/CoreConfig.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1416,18 +1410,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/assets/home_63bf62_64.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/gameClasses/ClientWorld.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5520995">
-          <caret line="52" column="24" selection-start-line="52" selection-start-column="24" selection-end-line="52" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/gameClasses/Maze.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1443,7 +1425,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.44790047">
           <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1451,7 +1432,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.06341463">
           <caret line="27" column="20" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1459,7 +1439,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.3544714">
           <caret line="3630" column="8" selection-start-line="3630" selection-start-column="8" selection-end-line="3630" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1467,7 +1446,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.69430053">
           <caret line="85" column="17" selection-start-line="85" selection-start-column="17" selection-end-line="85" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1475,11 +1453,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3316062">
           <caret line="2001" column="16" selection-start-line="2001" selection-start-column="16" selection-end-line="2001" selection-end-column="16" />
-          <folding>
-            <marker date="1433453596345" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1433453596345" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1433453596345" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1487,7 +1460,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1495,7 +1467,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33281493">
           <caret line="564" column="364" selection-start-line="564" selection-start-column="364" selection-end-line="564" selection-end-column="364" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1503,7 +1474,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.47589424">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1511,9 +1481,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1521,9 +1488,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3919129">
           <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1531,7 +1495,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1539,8 +1502,46 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.16018662">
           <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/ige/engine/core/IgeSpriteSheet.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/ige/engine/core/IgeEntity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.75886524">
+          <caret line="2639" column="37" selection-start-line="2639" selection-start-column="37" selection-end-line="2639" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/ige/engine/core/IgeTexture.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7760498">
+          <caret line="667" column="7" selection-start-line="667" selection-start-column="7" selection-end-line="667" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/fire.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/floor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="12" selection-end-column="2" />
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/home_63bf62_64.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/gameClasses/Character.js">
@@ -1555,26 +1556,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/ige/engine/core/IgeSpriteSheet.js">
+    <entry file="file://$PROJECT_DIR$/web/ige/engine/core/IgeUiElement.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/ige/engine/core/IgeEntity.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.75886524">
-          <caret line="2639" column="37" selection-start-line="2639" selection-start-column="37" selection-end-line="2639" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/ige/engine/core/IgeTexture.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7760498">
-          <caret line="667" column="7" selection-start-line="667" selection-start-column="7" selection-end-line="667" selection-end-column="7" />
+        <state vertical-scroll-proportion="4.835148">
+          <caret line="211" column="39" selection-start-line="211" selection-start-column="38" selection-end-line="211" selection-end-column="39" />
           <folding />
         </state>
       </provider>
@@ -1582,27 +1567,58 @@
     <entry file="file://$PROJECT_DIR$/web/client.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding>
-            <element signature="e#2010#2050#0" expanded="false" />
+            <element signature="e#2009#2049#0" expanded="false" />
             <element signature="n#!!block;n#getCookie#0" expanded="false" />
-            <element signature="e#2843#2981#0" expanded="false" />
+            <element signature="e#2842#2980#0" expanded="false" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/gameClasses/ClientWorld.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="26" column="29" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/ige/engine/core/IgeFontEntity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="133" column="14" selection-start-line="133" selection-start-column="4" selection-end-line="133" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/agency_fb_20pt.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/gameClasses/Handler.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+          <caret line="273" column="21" selection-start-line="273" selection-start-column="21" selection-end-line="273" selection-end-column="21" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/fire.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#38#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/gameClasses/UI.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.5396578">
-          <caret line="96" column="3" selection-start-line="96" selection-start-column="3" selection-end-line="96" selection-end-column="3" />
+        <state vertical-scroll-proportion="1.3437014">
+          <caret line="50" column="25" selection-start-line="50" selection-start-column="25" selection-end-line="50" selection-end-column="25" />
           <folding />
         </state>
       </provider>

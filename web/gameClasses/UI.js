@@ -19,20 +19,6 @@ var UI = IgeUiElement.extend({
 
     createBackScene: function(){
 
-        ige.ui.style('#bottomNav', {
-            'backgroundColor': 'white',
-            'bottom': 5,
-            'left': 0,
-            'right': 0,
-            'height': 50
-
-        });
-
-
-        self.bottomNav = new IgeUiElement()
-            .id('bottomNav')
-            .mount(self.uiScene);
-
 
 
     },
@@ -41,73 +27,36 @@ var UI = IgeUiElement.extend({
 
     createStyles :  function(n){
 
-        var i ;
-        for(i = 0 ; i < n ;i ++ ) {
-            console.log("creating style")
-            ige.ui.style('.picStyle' + i, {
-                'backgroundImage': self.textures[i],
-                'backgroundRepeat': 'no-repeat',
-                'bottom': '50',
-                'width':100,
-                'height' : 100
-            });
-        }
-
     },
 
     addPlayers : function (playerTypes) {
-        ige.ui.style('.cont', {
-            'backgroundColor': '#000111',
-            'width': 200,
-            'height':45,
-            'bottom': '20'
-        });
 
-        var size = Object.keys(playerTypes).length ;
-        console.log(size)
-        this.createStyles(size);
+        var ind  = 0 ;
+        for(var statKey  in playerTypes){
+            var oneType = playerTypes[statKey]
+            new IgeUiElement()
+                .texture(self.textures[0])
+                .width(20)
+                .height(20)
+                .mount(self.graphicalUiScene)
+                .top(5+(ind*(30+60)))
+                .left(10);
 
-        ige.ui.style('.playerInfo', {
-            'color': 'blue',
-            'width': 100,
-            'height': 40
-
-        });
-
-        var startX = 0 ;
-
-        for(var typekey in playerTypes) {
-            if(playerTypes.hasOwnProperty(typekey)) {
-                //console.log("?????????/")
-
-                var cont = new IgeUiElement()
-                    .styleClass('cont')
-                    .left(startX)
-                    .mount(self.bottomNav);
+            new IgeFontEntity()
+                .texture(ige.client.textures.font)
+                .textAlignX(0)
+                .width(150)
+                .text(statKey)
+                .top(5+(ind*(30+60)))
+                .left(33)
+                .mount(self.graphicalUiScene);
 
 
-                var type = playerTypes[typekey];
-                new IgeUiLabel()
-                    .styleClass('playerInfo')
-                    .font(self.textures.font)
-                    .mount(cont)
-                    .left(3)
-                    .value(typekey.toString());
 
-                new IgeUiElement()
-                    .styleClass('picStyle'+type)
-                    //.scaleTo(70,70,0)
-                    .scaleTo(0.3,0.3,0)
-                    .mount(cont)
-
-                    .right(5);
-
-
-                startX+=200
-
-            }
+            ind ++ ;
 
         }
+
     },
 
     removePlayer : function (playerId) {
