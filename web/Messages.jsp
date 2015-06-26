@@ -16,6 +16,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+  <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
   <meta charset="UTF-8">
   <title>AdminLTE 2 | Dashboard</title>
   <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
@@ -167,7 +168,7 @@
   var profileTo =   $("#profileTo").val();
   function update(data){
 
-    var j =/* JSON.parse(data);*/ data ;
+    var j = JSON.parse(data);
     writeText(profileTo);
    var list  =  j[profileTo] ;
     var i ;
@@ -205,7 +206,7 @@
 
 </script>
 <!-- jQuery 2.1.4 -->
-<script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+
 <!-- jQuery UI 1.11.2 -->
 <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
