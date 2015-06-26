@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.*;
 
 /**
  * Created by gukam on 6/3/2015.
@@ -26,12 +27,10 @@ public class SentMessageServlet extends HttpServlet {
         AccountDao accountDao = (AccountDao) getServletContext().getAttribute(AccountDao.class.getName());
         MessageDao messageDao = (MessageDao) getServletContext().getAttribute(MessageDao.class.getName());
 
-
         iAccount account;
         try {
             account = accountDao.getUser(userName);
         } catch (Exception e) {
-            response.sendRedirect("Accont/register.jsp");
             return;
         }
 
@@ -39,7 +38,6 @@ public class SentMessageServlet extends HttpServlet {
 
         String message = request.getParameter("message");
         if (message==null || message.equals("")) {
-            response.sendRedirect(referer);
             return;
         }
 
@@ -49,15 +47,37 @@ public class SentMessageServlet extends HttpServlet {
         mes.setAccTo(toID);
         mes.setAccFrom(account.getID());
         mes.setType(Message.Type.SENT);
-        //TODO date
+        mes.setDate(new Date(System.currentTimeMillis()));
 
         try {
             messageDao.sendMessage(mes);
         } catch (Exception e) {
-            response.sendRedirect(referer);
             return;
         }
-        response.sendRedirect(referer);
+
+        Map<Integer, Map<String, List<Message>>> unreadMessages = (Map<Integer, Map<String, List<Message>>>)
+                getServletContext().getAttribute("unreadMessages");
+        if (unreadMessages == null) throw new RuntimeException("Unread Messages is NULL");
+
+        synchronized (unreadMessages) {
+            Map<String, List<Message>> accountMessages = unreadMessages.get(unreadMessages.get(toID));
+            if (accountMessages == null) {
+                accountMessages = Collections.synchronizedMap(new HashMap<>());
+                List<Message> messageList = Collections.synchronizedList(new ArrayList<>());
+                messageList.add(mes);
+                accountMessages.put(userName, messageList);
+                unreadMessages.put(toID, accountMessages);
+            } else {
+                List<Message> messageList = accountMessages.get(userName);
+                if (messageList == null) {
+                    messageList = Collections.synchronizedList(new ArrayList<>());
+                    messageList.add(mes);
+                    accountMessages.put(userName, messageList);
+                } else {
+                    accountMessages.put(userName, messageList);
+                }
+            }
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

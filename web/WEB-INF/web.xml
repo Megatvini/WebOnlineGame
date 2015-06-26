@@ -8,8 +8,4 @@
         <servlet-name>Register</servlet-name>
         <servlet-class>Core.Servlets.Register</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>nika</servlet-name>
-        <servlet-class>Core.Servlets.nika</servlet-class>
-    </servlet>
 </web-app>
