@@ -19,10 +19,11 @@ var Potion = IgeEntity.extend({
      */
     transTo : function(x,y,config){
         this.translateTo(x-config.width/2+config.potRadius,
-        y-config.height/2+config.potRadius,0);
+            y-config.height/2+config.potRadius,0);
         return this;
 
-    }
+    },
+
 });
 
 if (typeof(module) !== 'undefined' && typeof(module.exports) !== 'undefined') { module.exports = Potion; }

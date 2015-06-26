@@ -8,8 +8,10 @@ var characters = {}, // players in the world
     player1,
     connection,
     distanceR ;
+
 potNum  =  -1 ;
 removedPots = 0 ;
+
 var Handler = IgeEntity.extend({
     classId: 'Handler',
     lastUpdate:  null,
@@ -55,22 +57,22 @@ var Handler = IgeEntity.extend({
             if (differense >= this.interpolation) {
                 //console.log(" bufferSize  " +this.updateBuffer.length+ " diff  " +differense);
                 /*if(update.removePots.length>0)
-                    console.log("removed ");*/
+                 console.log("removed ");*/
                 this.handler(update);
                 this.lastUpdate2= JSON.parse(JSON.stringify(this.lastUpdate));
                 this.lastUpdate=update;
                 this.updateBuffer.shift();
 
             } else if (lastUpdate != null) { // inerpolating
-               /* if(update.removePots.length>0)
-                    console.log("removed ");*/
+                /* if(update.removePots.length>0)
+                 console.log("removed ");*/
                 this.handler(update,lastUpdate);
 
             }
         }
         else if (lastUpdate2 != null && lastUpdate != null) {   //  prediction
-           /* if(update.removePots.length>0)
-                console.log("removed ");*/
+            /* if(update.removePots.length>0)
+             console.log("removed ");*/
             this.handler(lastUpdate,lastUpdate,lastUpdate2);
         }
         return null;
@@ -155,6 +157,11 @@ var Handler = IgeEntity.extend({
                     if (name == self.myId) {
                         player1 = newPlayer;
                         player1.addComponent(PlayerComponent);
+                        self.vp1.camera.lookAt(player1);
+
+                        // Tell the camera to track our player character with some
+                        // tracking smoothing (set to 20)
+                        self.vp1.camera.trackTranslate(player1, 20);
                     }
                 } else {
                     if (!onePlayer.active) {
@@ -212,8 +219,37 @@ var Handler = IgeEntity.extend({
         for(i = 0 ; i < removePots.length; i ++){
             //console.log(removePots[i].id);
             id = removePots[i].toString();
-            console.log("potion parser remove id " + id);
+            //console.log("potion parser remove id " + id);
+
+            var potToRemove = potions[id],
+                potPosition = potToRemove.worldPosition();
+            var xy= {
+                x:potPosition.x,
+                y:potPosition.y
+            }
+
+            var type   = 0 ;
+
+            for(var potToCharKey in characters){
+
+                var character = characters[potToCharKey];
+                var xyp ={x:  character.worldPosition().x, y: character.worldPosition().y}
+
+                if(Math.abs(xyp.x)-Math.abs(xy.x)< 20&&Math.abs(xyp.y)-Math.abs(xy.y)< 20){
+
+                    type = self.playerTypes[potToCharKey];
+                    break;
+                }
+
+            }
+
+            if(typeof (self.sounds[type])=='undefined' )
+                type = 1 ;
+            self.sounds[type].play();
+
+
             potions[id].destroy();
+
         }
 
     },
@@ -241,18 +277,18 @@ var Handler = IgeEntity.extend({
             map[p.name] = {'active': p.active, 'position': p.position} ;
         }
         data.players=JSON.parse(JSON.stringify(map));
-/*
+        /*
 
-        if(data.removePots.length>0)
-            console.log("id ->> " +data.removePots[0]);
-*/
+         if(data.removePots.length>0)
+         console.log("id ->> " +data.removePots[0]);
+         */
 
         this.handler(data);
         var update = {
-         date:d,
-         snapShot:data
-         };
-         this.updateBuffer.push(update);
+            date:d,
+            snapShot:data
+        };
+        this.updateBuffer.push(update);
 
     },
 
@@ -262,13 +298,14 @@ var Handler = IgeEntity.extend({
      * @param results
      */
     showGameStats: function(results) {
-
+        self.loop.pause();
         self.UI.createStatscene(results)
 
     },
 
 
     endGame: function() {
+        //self.loop.pause();
         //ige.client.objectScene.destroy();
         //self.textures.wall.destroy();
         //ige.stop();

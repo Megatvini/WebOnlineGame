@@ -18,8 +18,38 @@ var UI = IgeUiElement.extend({
     },
 
     createBackScene: function(){
+        var backScene = this ;
+       var muter =  new IgeUiElement()
+            .texture(self.textures.soundON)
+            .width(15)
+            .height(15)
+            .mount(self.graphicalUiScene)
+            .top(80)
+            .right(10);
+        muter.togle = true;
+
+       muter.mouseUp(function(){
+           if(muter.togle){
+               backScene.switchSound(true,muter);
+               muter.texture(self.textures.soundOFF)
+           }
+           else{
+               backScene.switchSound(false,muter);
+               muter.texture(self.textures.soundON)
+           }
+       })
 
 
+
+    },
+    switchSound: function( b , muter ){
+        var soundIndex
+        for(soundIndex = 0 ; soundIndex < self.sounds.length; soundIndex++){
+            self.sounds[soundIndex].muted = b;
+        }
+        self.sounds.winSound.muted= b;
+        self.sounds.loop.muted= b;
+        muter.togle = !b;
 
     },
 
@@ -35,19 +65,21 @@ var UI = IgeUiElement.extend({
         for(var statKey  in playerTypes){
             var oneType = playerTypes[statKey]
             new IgeUiElement()
-                .texture(self.textures[0])
+                .texture(self.textures[oneType])
                 .width(20)
                 .height(20)
                 .mount(self.graphicalUiScene)
-                .top(5+(ind*(30+60)))
+                .top(5+(ind*(50)))
                 .left(10);
 
             new IgeFontEntity()
                 .texture(ige.client.textures.font)
                 .textAlignX(0)
+                .textAlignX(0)
                 .width(150)
+                .height(21)
                 .text(statKey)
-                .top(5+(ind*(30+60)))
+                .top(5+(ind*(50)))
                 .left(33)
                 .mount(self.graphicalUiScene);
 
@@ -70,9 +102,9 @@ var UI = IgeUiElement.extend({
             'backgroundColor': 'yellow',
             'borderColor': '#212121',
             'borderWidth': 1,
-            'width': 200,
+            'width': 180,
             'height': 50,
-            'left': 15
+            'left': 25
 
         });
 
@@ -82,6 +114,15 @@ var UI = IgeUiElement.extend({
             'height': 50,
             'left': 230
         });
+
+        ige.ui.style('.Rplace', {
+            'backgroundColor': 'white',
+            'color' : 'blue',
+            'width': 20,
+            'height': 50,
+            'left': 2
+        });
+
 
         ige.ui.style('.LstatSpot:hover', {
             'backgroundColor': '#000011'
@@ -134,42 +175,67 @@ var UI = IgeUiElement.extend({
             .id('main')
             .mount(self.uiScene);
 
+        var arr = Object.keys(results).map(function (key) {
+            results[key]['id'] =key;
+            return results[key];
+
+        });
+
+        arr.sort(function(a, b){
+            /** @namespace a.place */
+            return  -(b.place - a.place) ;
+        });
+
+        results=arr
 
         var startY = 10;
-        for (var statKey in results) {
-            if (results.hasOwnProperty(statKey)) {
-                console.log("/.//////////////..." + statKey);
-                var potNum = results[statKey].potNum;
 
-                var L = new IgeUiElement()
-                    .styleClass('LstatSpot')
-                    .top(startY)
-                    .mount(main);
+        for (var statKey  = 0 ; statKey < results.length ; statKey++  ) {
 
+            var potNum = results[statKey].potNum;
+            var place = results[statKey].place.toString();
+            var id = results[statKey].id.toString();
 
-                new IgeUiLabel()
-                    .styleClass('playerNames')
-                    .font(this.UITexture.nameFont)
-                    .mount(L)
-                    .value(statKey);
-
-                var R = new IgeUiElement()
-                    .styleClass('RstatSpot')
-                    .top(startY)
-                    .mount(main);
-
-                new IgeUiLabel()
-                    .styleClass('playerPots')
-                    .font(this.UITexture.potNumFont)
-                    .mount(R)
-                    .value(potNum.toString());
-
-
-                startY += 53;
+            if(statKey==0&&id==self.myId){
+                self.sounds.winSound.play();
             }
 
+            var L = new IgeUiElement()
+                .styleClass('LstatSpot')
+                .top(startY)
+                .mount(main);
 
+
+            new IgeUiLabel()
+                .styleClass('playerNames')
+                .font(this.UITexture.nameFont)
+                .mount(L)
+                .value(id);
+
+            new IgeUiLabel()
+                .styleClass('Rplace')
+                .font(this.UITexture.nameFont)
+                .mount(main)
+                .top(startY)
+                .value(place);
+
+            var R = new IgeUiElement()
+                .styleClass('RstatSpot')
+                .top(startY)
+                .mount(main);
+
+            new IgeUiLabel()
+                .styleClass('playerPots')
+                .font(this.UITexture.potNumFont)
+                .mount(R)
+                .value(potNum.toString());
+
+
+            startY += 53;
         }
+
+
+
 
         uiInstance.redirectHome = function () {
             window.location.assign("http://localhost:8080")

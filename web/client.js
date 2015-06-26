@@ -10,6 +10,8 @@ var Client = IgeClass.extend({
 		self.myId = getCookie("playerID");
 		self.playerNum = 0 ;
 		self.textures = {};
+		self.sounds = [] ;
+
 		ige.showStats(1);
 		ige.globalSmoothing(true);
 		self.implement(ClientWorld);
@@ -22,6 +24,20 @@ var Client = IgeClass.extend({
 		self.textures.potion = new IgeTexture('./assets/potion.png');
 		self.textures.wall= new IgeTexture('./assets/wall.js');
 		self.textures.circle = new IgeTexture('./assets/Circle.js');
+
+
+		self.textures.soundOFF = new IgeTexture('../assets/sound_mute.png');
+		self.textures.soundON = new IgeTexture('../assets/sound.png');
+
+		//potion remove sounds
+		self.sounds[0] = document.getElementById("p1");
+		self.sounds[1] = document.getElementById("p2");
+		self.sounds[2] = document.getElementById("p3");
+		self.sounds[3]= document.getElementById("p4");
+
+
+		self.sounds.winSound = document.getElementById("I_WON_SOUND");
+		self.sounds.loop = document.getElementById("loop");
 
 		self.textures[0] = new IgeTexture('./assets/water.png');
 		self.textures[1] = new IgeTexture('./assets/fire.js');
@@ -56,7 +72,7 @@ var Client = IgeClass.extend({
 });
 
 function gameOn() {
-
+	self.sounds.loop.play();
 	connection = initSocket();
 
 }
