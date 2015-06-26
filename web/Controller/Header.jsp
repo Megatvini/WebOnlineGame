@@ -41,8 +41,10 @@
 
         prof = userControl.getUser(nick); //TODO:
         }
-      else
+      else{
         prof = new Account();
+        return;
+      }
       Set<String> waitingFriends = friendControl.getFriendRequestsTo(nick);
     %>
     <div class="navbar-custom-menu">

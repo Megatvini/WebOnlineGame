@@ -1,3 +1,7 @@
+<%@ page import="Core.Controller.Achievements" %>
+<%@ page import="Interfaces.iProfile" %>
+<%@ page import="java.util.Set" %>
+<%@ page import="Core.Dao.AccountDao" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -50,7 +54,72 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
-    <h1>HELLO WORLD!</h1>
+    <%
+      AccountDao userControl = (AccountDao) application.getAttribute(AccountDao.class.getName());
+      Set<String> users = null;
+
+      String nickname = (String)session.getAttribute("nickname");
+
+      if (nickname == null) {
+        String redirectURL = "Accont/Login.jsp";
+        response.sendRedirect(redirectURL);
+        return;
+      }
+      else {
+        users = userControl.getUsersLike("");
+      }
+      int index = 1;
+    %>
+
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">Simple Full Width Table</h3>
+        <div class="box-tools">
+          <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="#">«</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">»</a></li>
+          </ul>
+        </div>
+      </div><!-- /.box-header -->
+      <div class="box-body no-padding">
+        <table class="table">
+          <tbody><tr>
+            <th style="width: 10px">#</th>
+            <th>სახელი</th>
+            <th>დამსახურება</th>
+            <th style="width: 40px">Label</th>
+          </tr>
+
+          <%  for (String userNick : users) {
+            iProfile shortProf = null;
+            try {
+              shortProf = userControl.getUser(userNick);
+            } catch (Exception e) {
+              continue;
+            }
+            double wid = ((users.size()-index+1) /(double) users.size()) * 100;
+          %>
+          <tr>
+            <td><%= index %>.</td>
+            <td><a href="Profile.jsp?nick=<%= shortProf.getNickname() %>"><%= shortProf.getNickname() %></a></td>
+            <td>
+
+              <div  style="width: 100%">
+                <%= Achievements.getName(shortProf.getRating()) %>
+              </div>
+
+            </td>
+            <td><span class="badge bg-red"> <%= shortProf.getRating() %></span></td>
+          </tr>
+          <% index++; } %>
+          </tbody></table>
+      </div><!-- /.box-body -->
+    </div><!-- /.box -->
+
+
   </div><!-- /.content-wrapper -->
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
