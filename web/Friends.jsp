@@ -93,10 +93,9 @@
             <%=shortProf.getNickname()%>
           </div>
           <form action="/AcceptFriend" method="post">
-            <input type="hidden" name="id1" value="<%= nickname %>">
             <input type="hidden" name="id2" value="<%= shortProf.getID() %>">
-            <div style="width:  120px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">დათანხმება</button></div>
-            <div style="width:  120px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">უარყოფა</button></div>
+            <div style="width:  120px; float: left; padding: 5px"> <button class="btn btn-block btn-primary" name="btn" value="ok">დათანხმება</button></div>
+            <div style="width:  120px; float: left; padding: 5px"> <button class="btn btn-block btn-primary" name="btn" value="not" >უარყოფა</button> </div>
           </form>
         </div>
       </div>
@@ -115,7 +114,10 @@
           <div style="font-size: 22px; text-align: left; padding-left: 110px">
             <%=shortProf.getNickname()%>
           </div>
-          <div style="width:  100px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">წაშლა</button></div>          
+          <form action="/RemoveFriend" method="post">
+            <input type="hidden" name="id2" value="<%= shortProf.getID() %>">
+            <div style="width:  100px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">წაშლა</button></div>
+          </form>
           <div style="width:  100px; float: left; padding: 5px"><a href="Messages.jsp?friend=<%=shortProf.getNickname()%>"><button class="btn btn-block btn-primary">მიწერა</button></a></div>
         </div>
       </div>

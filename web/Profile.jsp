@@ -1,12 +1,12 @@
 <%@ page import="Core.Dao.AccountDao" %>
-<%@ page import="java.util.Set" %>
 <%@ page import="Interfaces.iProfile" %>
-<%@ page import="Core.Controller.Achievements" %>
+<%@ page import="Core.Bean.Account" %>
+<%@ page import="Interfaces.iAccount" %>
 <%--
   Created by IntelliJ IDEA.
-  User: gukam
-  Date: 5/24/2015
-  Time: 3:31 AM
+  User: Annie
+  Date: 26-Jun-15
+  Time: 19:35
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -48,77 +48,93 @@
 </head>
 <body class="skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
+  <%
+    AccountDao userControl = (AccountDao)pageContext.getServletContext().getAttribute(AccountDao.class.getName());
 
+    String nickname = request.getParameter("nick");
+    iProfile profile;
+    if(nickname == null) {
+      String redirectURL = "Accont/Login.jsp";
+      response.sendRedirect(redirectURL);
+      profile = new Account();
+    }
+    else
+    {
+      profile = userControl.getUser(nickname);
+    }
+
+  %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
-    <%
-      AccountDao userControl = (AccountDao) application.getAttribute(AccountDao.class.getName());
-      Set<String> users = null;
-
-      String nickname = (String)session.getAttribute("nickname");
-
-      if (nickname == null) {
-        String redirectURL = "Accont/Login.jsp";
-        response.sendRedirect(redirectURL);
-        return;
-      }
-      else {
-          users = userControl.getUsersLike("");
-      }
-      int index = 1;
-    %>
-
-      <div class="box">
+    <div class="box box-primary" style="width: 96%; margin: 20px; min-width: 350px">
+      <form action="/ChangeAccount" method="post">
         <div class="box-header">
-          <h3 class="box-title">Simple Full Width Table</h3>
-          <div class="box-tools">
-            <ul class="pagination pagination-sm no-margin pull-right">
-              <li><a href="#">«</a></li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">»</a></li>
-            </ul>
+          <h3 class="box-title">პროფილი</h3>
+        </div>
+        <div class="box-body">
+          <div align="center">
+            <div class="form-group" style="width: 300px;">
+              <img src="<%= profile.getPicturePath() %>"  alt="Smiley face" style="border-radius: 50%" height="300" width="300">
+              <br/>
+              <input class="form-control" type="text" name="picture" value="<%= profile.getPicturePath() %>"  placeholder="Default input">
+            </div>
           </div>
-        </div><!-- /.box-header -->
-        <div class="box-body no-padding">
-          <table class="table">
-            <tbody><tr>
-              <th style="width: 10px">#</th>
-              <th>სახელი</th>
-              <th>დამსახურება</th>
-              <th style="width: 40px">Label</th>
-            </tr>
+          <div class="form-group">
+            <label>სახელი</label>
+            <input class="form-control" type="text" name="firstname" value="<%= profile.getFirstName() %>" placeholder="Default input">
+          </div>
+          <div class="form-group">
+            <label>გვარი</label>
+            <input class="form-control" type="text" name="lastname"  value="<%= profile.getLastName() %>" placeholder="Default input">
+          </div>
 
-            <%  for (String userNick : users) {
-              iProfile shortProf = null;
-              try {
-                shortProf = userControl.getUser(userNick);
-              } catch (Exception e) {
-                continue;
-              }
-              double wid = ((users.size()-index+1) /(double) users.size()) * 100;
-            %>
-            <tr>
-              <td><%= index %>.</td>
-              <td><a href="Profile.jsp?nick=<%= shortProf.getNickname() %>"><%= shortProf.getNickname() %></a></td>
-              <td>
+          <div class="form-group">
+            <label>მეილი</label>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+              <input type="email" class="form-control" name="mail"  value="<%= profile.getMail() %>" placeholder="Email">
+            </div>
+          </div>
 
-                  <div  style="width: 100%">
-                    <%= Achievements.getName(shortProf.getRating()) %>
-                  </div>
+          <div class="form-group">
+            <label>Date masks:</label>
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+              </div>
+              <input type="date" class="form-control" value="<%= profile.getBirthDate() %>" name="date" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
+            </div><!-- /.input group -->
+          </div><!-- /.form group -->
 
-              </td>
-              <td><span class="badge bg-red"> <%= shortProf.getRating() %></span></td>
-            </tr>
-            <% index++; } %>
-            </tbody></table>
+          <div class="form-group">
+            <label>არწერა</label>
+            <textarea class="form-control" rows="3" name="about" placeholder="Enter ..."><%= profile.getAbout() %></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>სქესი</label>
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" <%= profile.getGender() == iAccount.Gender.MALE ? "checked=\"\"" : "" %> >
+                კაცი
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" <%= profile.getGender() == iAccount.Gender.FEMALE ? "checked=\"\"" : "" %>>
+                ქალი
+              </label>
+            </div>
+
+          </div>
+
         </div><!-- /.box-body -->
-      </div><!-- /.box -->
-
+        <div align="center"  style=" padding-bottom: 20px;">   <button class="btn btn-block btn-primary" style="width: 250px;">შენახვა</button></div>
+      </form>
+    </div>
 
   </div><!-- /.content-wrapper -->
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>

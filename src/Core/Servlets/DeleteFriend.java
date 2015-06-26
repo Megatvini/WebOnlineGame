@@ -12,15 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by gukam on 6/3/2015.
+ * Created by Annie on 26-Jun-15.
  */
-@WebServlet("/AddFriend")
-public class AddToFriend extends HttpServlet {
+@WebServlet( "/RemoveFriend")
+public class DeleteFriend extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("AddFriend: " + request.getParameterMap());
-
+        System.out.println("DELETE FRIEND: " + request.getParameterMap());
         String userName = (String) request.getSession().getAttribute("nickname");
-        if (userName == null) return; //TODO gadamisamarteba login-ze
+
+        if (userName == null) return;
 
         AccountDao accountDao = (AccountDao) getServletContext().getAttribute(AccountDao.class.getName());
         FriendsDao friendsDao = (FriendsDao) getServletContext().getAttribute(FriendsDao.class.getName());
@@ -35,14 +35,14 @@ public class AddToFriend extends HttpServlet {
 
         int IDTo = Integer.parseInt(request.getParameter("id2"));
         int IDFrom = account.getID();
-        if (IDTo == IDFrom){  response.sendRedirect("Users.jsp"); return;}
 
-        friendsDao.addFriendRequest(IDFrom, IDTo);
+        //confirm friend request
+        friendsDao.removeFriend(IDFrom, IDTo);
 
-        response.sendRedirect("Users.jsp");
+        response.sendRedirect("Friends.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
+
     }
 }

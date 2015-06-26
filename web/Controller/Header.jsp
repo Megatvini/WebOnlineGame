@@ -4,6 +4,8 @@
 <%@ page import="Interfaces.iProfile" %>
 <%@ page import="java.util.HashSet" %>
 <%@ page import="java.util.Set" %>
+<%@ page import="Core.Dao.AccountDao" %>
+<%@ page import="Core.Dao.FriendsDao" %>
 <%--
   Created by IntelliJ IDEA.
   User: Annie
@@ -19,7 +21,7 @@
 <body>
 <header class="main-header">
   <!-- Logo -->
-  <a href="index2.html" class="logo">
+  <a href="index.jsp" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-mini"><b>A</b>LT</span>
     <!-- logo for regular state and mobile devices -->
@@ -29,17 +31,19 @@
   <nav class="navbar navbar-static-top" role="navigation">
 
     <%
-//      String nick = (String)session.getAttribute("nickname");
-//      iProfile prof ;
-//      if (nick != null) {
-//        UserControl userControl = (UserControl)pageContext.getServletContext().getAttribute("userControl");
-//        prof = userControl.getUser(nick); //TODO:
-//        }
-//      else
-//        prof = new Account();
-//
-//      Hashtable<String, iShorProfile> waitingFriends = prof.getWaitingFriends();
-      Set<iProfile> waitingFriends = new HashSet<>();
+      String nick = (String)session.getAttribute("nickname");
+
+      AccountDao userControl = (AccountDao)pageContext.getServletContext().getAttribute(AccountDao.class.getName());
+      FriendsDao friendControl = (FriendsDao)pageContext.getServletContext().getAttribute(FriendsDao.class.getName());
+
+      iProfile prof ;
+      if (nick != null) {
+
+        prof = userControl.getUser(nick); //TODO:
+        }
+      else
+        prof = new Account();
+      Set<String> waitingFriends = friendControl.getFriendRequestsTo(nick);
     %>
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
@@ -54,8 +58,8 @@
             <li>
               <!-- inner menu: contains the actual data -->
               <ul class="menu">
-                <% for (iProfile shortProf : waitingFriends) {
-
+                <% for (String waitingFriendNick : waitingFriends) {
+                  iProfile shortProf = userControl.getUser(waitingFriendNick);
                 %>
                 <li>
                   <a href="Friends.jsp">
@@ -78,7 +82,9 @@
             <span class="label label-success">69</span>
           </a>
           <ul class="dropdown-menu">
-            <li class="header">You have 4 messages</li>
+            <% for (String waitingFriendNick : waitingFriends) {
+              iProfile shortProf = userControl.getUser(waitingFriendNick);
+            %>
             <li>
               <!-- inner menu: contains the actual data -->
               <ul class="menu">
@@ -94,54 +100,8 @@
                     <p>Why not buy a new awesome theme?</p>
                   </a>
                 </li><!-- end message -->
-                <li>
-                  <a href="#">
-                    <div class="pull-left">
-                      <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="user image"/>
-                    </div>
-                    <h4>
-                      AdminLTE Design Team
-                      <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                    </h4>
-                    <p>Why not buy a new awesome theme?</p>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <div class="pull-left">
-                      <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="user image"/>
-                    </div>
-                    <h4>
-                      Developers
-                      <small><i class="fa fa-clock-o"></i> Today</small>
-                    </h4>
-                    <p>Why not buy a new awesome theme?</p>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <div class="pull-left">
-                      <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="user image"/>
-                    </div>
-                    <h4>
-                      Sales Department
-                      <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                    </h4>
-                    <p>Why not buy a new awesome theme?</p>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <div class="pull-left">
-                      <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="user image"/>
-                    </div>
-                    <h4>
-                      Reviewers
-                      <small><i class="fa fa-clock-o"></i> 2 days</small>
-                    </h4>
-                    <p>Why not buy a new awesome theme?</p>
-                  </a>
-                </li>
+                <% } %>
+
               </ul>
             </li>
             <li class="footer"><a href="#">See All Messages</a></li>

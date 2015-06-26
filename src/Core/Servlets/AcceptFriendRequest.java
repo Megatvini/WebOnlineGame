@@ -34,11 +34,16 @@ public class AcceptFriendRequest extends HttpServlet {
             return;
         }
 
+        String buttonClicked = request.getParameter("btn");
+
         int IDTo = Integer.parseInt(request.getParameter("id2"));
         int IDFrom = account.getID();
 
         //confirm friend request
-        friendsDao.confirmFriendRequest(IDFrom, IDTo);
+        if (buttonClicked.equals("ok"))
+             friendsDao.confirmFriendRequest(IDFrom, IDTo);
+        else
+           // friendsDao.rejectRequest(IDFrom, IDTo);
 
         response.sendRedirect("Friends.jsp");
     }
