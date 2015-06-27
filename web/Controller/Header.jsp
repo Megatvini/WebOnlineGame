@@ -59,7 +59,7 @@
             <li class="header">შენ გაქვს <%=waitingFriends.size()%> მეგობრობის თხოვნა. </li>
             <li>
               <!-- inner menu: contains the actual data -->
-              <ul class="menu">
+              <ul id="notFriends" class="menu">
                 <% for (String waitingFriendNick : waitingFriends) {
                   iProfile shortProf = userControl.getUser(waitingFriendNick);
                 %>
@@ -84,25 +84,11 @@
             <span class="label label-success">69</span>
           </a>
           <ul class="dropdown-menu">
-            <% for (String waitingFriendNick : waitingFriends) {
-              iProfile shortProf = userControl.getUser(waitingFriendNick);
-            %>
+            <li class="header">You have 4 messages</li>
             <li>
               <!-- inner menu: contains the actual data -->
-              <ul class="menu">
-                <li><!-- start message -->
-                  <a href="#">
-                    <div class="pull-left">
-                      <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
-                    </div>
-                    <h4>
-                      Support Team
-                      <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                    </h4>
-                    <p>Why not buy a new awesome theme?</p>
-                  </a>
-                </li><!-- end message -->
-                <% } %>
+              <ul class="menu" id="notMessages">
+
 
               </ul>
             </li>
@@ -196,5 +182,17 @@
     <!-- /.search form -->
   </nav>
 </header>
+
+<script src="../NotificationScripts.js"></script>
+<script>
+  console.log( "ready!" );
+  $( document ).ready(function() {
+    console.log( "ready!" );
+    addToFriends('shako', 'http://i0.wp.com/cvisioncentral.com/wp-content/themes/buddyboss/_inc/images/avatar-member.jpg');
+    addToMessages('shako', 'http://i0.wp.com/cvisioncentral.com/wp-content/themes/buddyboss/_inc/images/avatar-member.jpg', 'hu');
+    console.log( "ready!" );
+  });
+
+</script>
 </body>
 </html>

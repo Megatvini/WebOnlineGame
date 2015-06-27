@@ -290,7 +290,6 @@
         <input type="hidden" id="myPic" value="<%= profile.getPicturePath() %>">
         <input type="hidden" id="friendPic" value="<%= friendPic %>">
 
-        <script src="scripts.js"> </script>
 
       </div>
     </div>
@@ -300,6 +299,7 @@
 </div><!-- ./wrapper -->
 
 
+<script src="scripts.js"> </script>
 <!-- jQuery 2.1.4 -->
 
 <!-- jQuery UI 1.11.2 -->

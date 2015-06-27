@@ -64,7 +64,6 @@ function update(data){
             $("#"+m).text(oneM.length.toString());
         }
     }
-
 }
 
 function check() {
