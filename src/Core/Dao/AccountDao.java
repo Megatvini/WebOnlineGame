@@ -35,17 +35,19 @@ public class AccountDao {
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO accounts " +
-                    "(Nickname, LastName,  FirstName ,  Gender ,  Password ,  BirthDate ,  about ,  GameRating ,  Mail) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                    "(Nickname, LastName,  FirstName,  Gender,  Password,  BirthDate,  about,  GameRating,  Mail, Picture) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             stmt.setString(1, account.getNickname());
             stmt.setString(2, account.getLastName());
             stmt.setString(3, account.getFirstName());
             stmt.setString(4, account.getGender() == iProfile.Gender.FEMALE? "female":"male");
             stmt.setString(5, account.getPassword());
-            stmt.setDate(6, null);
+            java.sql.Date date = new java.sql.Date(account.getBirthDate().getTime());
+            stmt.setDate(6, date);
             stmt.setString(7, account.getAbout());
             stmt.setInt(8, account.getRating());
             stmt.setString(9, account.getMail());
+            stmt.setString(10, account.getPicturePath());
             System.out.println(stmt.toString());
             stmt.execute();
             stmt.close();
@@ -59,7 +61,7 @@ public class AccountDao {
 
     /**
      * updates user
-     * @param account
+     * @param account account which will be saved in database
      * @return true iff user was successfully updated
      */
     public boolean changeUser(iAccount account){
@@ -67,7 +69,7 @@ public class AccountDao {
             Connection connection = dataSource.getConnection();
             PreparedStatement stmt = connection.prepareStatement("UPDATE accounts SET " +
                     "LastName = ?, FirstName = ?, Gender = ?, Password = ?, " +
-                    "BirthDate = ?, about = ?, GameRating = ? WHERE ID = ?;");
+                    "BirthDate = ?, about = ?, GameRating = ?, Picture = ? WHERE ID = ?;");
             stmt.setString(1, account.getLastName());
             stmt.setString(2, account.getFirstName());
             stmt.setString(3, account.getGender() == iProfile.Gender.FEMALE ? "female" : "male");
@@ -75,8 +77,8 @@ public class AccountDao {
             stmt.setDate(5, new java.sql.Date(account.getBirthDate().getTime()));
             stmt.setString(6, account.getAbout());
             stmt.setInt(7, account.getRating());
-            stmt.setInt(8, account.getID());
-            System.out.println(stmt.toString());
+            stmt.setString(8, account.getPicturePath());
+            stmt.setInt(9, account.getID());
             stmt.execute();
 
             stmt.close();
@@ -95,7 +97,7 @@ public class AccountDao {
      * @throws Exception if user with nickname was not found
      */
     public iAccount getUser(String nickname) throws Exception {
-        iAccount res = null;
+        iAccount res;
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM accounts WHERE NickName = ?;");
@@ -130,6 +132,7 @@ public class AccountDao {
         account.setAbout(result.getString("about"));
         account.setRating(result.getInt("GameRating"));
         account.setMail(result.getString("Mail"));
+        account.setPicturePath(result.getString("Picture"));
         return account;
     }
 

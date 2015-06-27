@@ -34,9 +34,10 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Accounts` (
   `About` TEXT NULL,
   `GameRating` INT NOT NULL,
   `Mail` varchar(30) NOT NULL,
+  `Picture` varchar(100) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE INDEX `Nickname_UNIQUE` (`Nickname` ASC))
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -53,16 +54,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Friends` (
   INDEX `fk_Friends_Accounts_idx` (`AccIDFrom` ASC),
   INDEX `fk_Friends_Accounts1_idx` (`AccIDTo` ASC),
   CONSTRAINT `fk_Friends_Accounts`
-    FOREIGN KEY (`AccIDFrom`)
-    REFERENCES `mydb`.`Accounts` (`ID`)
+  FOREIGN KEY (`AccIDFrom`)
+  REFERENCES `mydb`.`Accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Friends_Accounts1`
-    FOREIGN KEY (`AccIDTo`)
-    REFERENCES `mydb`.`Accounts` (`ID`)
+  FOREIGN KEY (`AccIDTo`)
+  REFERENCES `mydb`.`Accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -78,16 +79,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`WaitingFriends` (
   INDEX `fk_WaitingFriends_Accounts1_idx` (`AccIDFrom` ASC),
   INDEX `fk_WaitingFriends_Accounts2_idx` (`AccIDTo` ASC),
   CONSTRAINT `fk_WaitingFriends_Accounts1`
-    FOREIGN KEY (`AccIDFrom`)
-    REFERENCES `mydb`.`Accounts` (`ID`)
+  FOREIGN KEY (`AccIDFrom`)
+  REFERENCES `mydb`.`Accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_WaitingFriends_Accounts2`
-    FOREIGN KEY (`AccIDTo`)
-    REFERENCES `mydb`.`Accounts` (`ID`)
+  FOREIGN KEY (`AccIDTo`)
+  REFERENCES `mydb`.`Accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -103,16 +104,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Conversations` (
   INDEX `fk_Conversations_Accounts1_idx` (`AccIDFrom` ASC),
   INDEX `fk_Conversations_Accounts2_idx` (`AccIDTo` ASC),
   CONSTRAINT `fk_Conversations_Accounts1`
-    FOREIGN KEY (`AccIDFrom`)
-    REFERENCES `mydb`.`Accounts` (`ID`)
+  FOREIGN KEY (`AccIDFrom`)
+  REFERENCES `mydb`.`Accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Conversations_Accounts2`
-    FOREIGN KEY (`AccIDTo`)
-    REFERENCES `mydb`.`Accounts` (`ID`)
+  FOREIGN KEY (`AccIDTo`)
+  REFERENCES `mydb`.`Accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -125,14 +126,15 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Messages` (
   `Text` TEXT NULL,
   `Sender` ENUM('1', '2') NOT NULL,
   `Conversations_ID` INT NOT NULL,
+  `Date` INT NOT NULL,
   PRIMARY KEY (`ID`),
   INDEX `fk_Messages_Conversations1_idx` (`Conversations_ID` ASC),
   CONSTRAINT `fk_Messages_Conversations1`
-    FOREIGN KEY (`Conversations_ID`)
-    REFERENCES `mydb`.`Conversations` (`ID`)
+  FOREIGN KEY (`Conversations_ID`)
+  REFERENCES `mydb`.`Conversations` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -144,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Games` (
   `ID` INT NOT NULL AUTO_INCREMENT,
   `Date` DATETIME NOT NULL,
   PRIMARY KEY (`ID`))
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -161,16 +163,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Participations` (
   INDEX `fk_Participations_Games1_idx` (`GameID` ASC),
   INDEX `fk_Participations_Accounts1_idx` (`AccID` ASC),
   CONSTRAINT `fk_Participations_Games1`
-    FOREIGN KEY (`GameID`)
-    REFERENCES `mydb`.`Games` (`ID`)
+  FOREIGN KEY (`GameID`)
+  REFERENCES `mydb`.`Games` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Participations_Accounts1`
-    FOREIGN KEY (`AccID`)
-    REFERENCES `mydb`.`Accounts` (`ID`)
+  FOREIGN KEY (`AccID`)
+  REFERENCES `mydb`.`Accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
