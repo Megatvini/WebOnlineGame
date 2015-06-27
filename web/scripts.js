@@ -22,7 +22,7 @@ function sendMessage(){
 }
 
 function update(data){
-    var j = JSON.parse(data);
+    var j = data ;
     if(j==null)
         return;
     var list  =  j[profileToNick] ;
@@ -45,7 +45,7 @@ function update(data){
 }
 
 function check() {
-    $.get("http://"+window.location.host + "/MessageUpdate?msgs="+profileToID, function(resp) {
+    $.get("http://"+window.location.host + "/MessageUpdate?msgsfrom="+profileToNick, function(resp) {
         console.log(resp);
         if (resp != null)
             update(resp)
@@ -53,11 +53,10 @@ function check() {
 }
 
 $(document).ready(function() {
-
     profileToID = $("#profileToID").val();
     profileToNick = $("#profileToNick").val();
 
     check();
-    setInterval(check, 5000);
+    setInterval(check, 500);
 });
 
