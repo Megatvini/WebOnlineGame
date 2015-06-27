@@ -23,6 +23,7 @@ import java.util.Date;
 @WebServlet("/ChangeAccount")
 public class Change extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         String userName = (String) session.getAttribute("nickname");
         if (userName == null) return;
