@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -186,5 +187,116 @@ public class AccountDaoTest {
 
         assertEquals(1, set.size());
         assertTrue(set.contains("nika"));
+    }
+
+    @Test
+    public void testGetUsersLike4() throws SQLException {
+        initAccount();
+        initMocks();
+
+        when(resultSetMock.next()).thenReturn(true).thenReturn(false);
+        when(resultSetMock.getString("Nickname")).thenReturn("nika");
+        AccountDao accountDao = new AccountDao(dataSourceMock);
+
+        accountDao.getUsersLike("na", 5, 6);
+
+        verify(dataSourceMock).getConnection();
+        verify(connectionMock).prepareStatement(anyString());
+        verify(preparedStatementMock).executeQuery();
+        verify(preparedStatementMock).setString(anyInt(), anyString());
+        verify(preparedStatementMock).setInt(anyInt(), eq(30));
+        verify(preparedStatementMock).setInt(anyInt(), eq(36));
+
+        verify(resultSetMock).getString("Nickname");
+        verify(preparedStatementMock).close();
+        verify(connectionMock).close();
+    }
+
+    @Test
+    public void testGetUsersLike5Exception() throws SQLException {
+        initAccount();
+        initMocks();
+
+        when(dataSourceMock.getConnection()).thenThrow(new SQLException());
+        AccountDao accountDao = new AccountDao(dataSourceMock);
+        assertEquals(null, accountDao.getUsersLike("nika", 11, 20));
+    }
+
+    @Test
+    public void testGetUsersCount() throws SQLException {
+        initAccount();
+        initMocks();
+        AccountDao accountDao = new AccountDao(dataSourceMock);
+
+        when(resultSetMock.next()).thenReturn(true);
+        when(resultSetMock.getInt(anyInt())).thenReturn(12);
+        int count = accountDao.getUsersCount();
+        assertEquals(12, count);
+
+        verify(preparedStatementMock).close();
+        verify(connectionMock).close();
+    }
+
+    @Test
+    public void testGetUsersCount1() throws SQLException {
+        initAccount();
+        initMocks();
+        AccountDao accountDao = new AccountDao(dataSourceMock);
+
+        when(resultSetMock.next()).thenReturn(false);
+        int count = accountDao.getUsersCount();
+        assertEquals(0, count);
+
+        verify(preparedStatementMock).close();
+        verify(connectionMock).close();
+    }
+
+    @Test
+    public void testGetUsersCount2() throws SQLException {
+        initAccount();
+        initMocks();
+
+        when(dataSourceMock.getConnection()).thenThrow(new SQLException());
+        when(resultSetMock.next()).thenReturn(true);
+        AccountDao accountDao = new AccountDao(dataSourceMock);
+
+        assertEquals(0, accountDao.getUsersCount());
+    }
+
+    @Test
+    public void testGetUsersIntervalByRating() throws SQLException {
+        initAccount();
+        initMocks();
+
+        when(resultSetMock.next()).thenReturn(true).thenReturn(true).thenReturn(false);
+        when(resultSetMock.getString("Nickname")).thenReturn("nika").thenReturn("guka");
+        AccountDao accountDao = new AccountDao(dataSourceMock);
+
+        List<String> list = accountDao.getUsersIntervalByRating(1, 20);
+
+        verify(dataSourceMock).getConnection();
+        verify(connectionMock).prepareStatement(anyString());
+        verify(preparedStatementMock).executeQuery();
+        verify(preparedStatementMock).setInt(anyInt(), eq(20));
+        verify(preparedStatementMock).setInt(anyInt(), eq(40));
+        verify(resultSetMock, times(3)).next();
+        verify(preparedStatementMock).close();
+        verify(connectionMock).close();
+
+        assertEquals(2, list.size());
+        assertTrue(list.get(0).equals("nika"));
+        assertTrue(list.get(1).equals("guka"));
+    }
+
+    @Test
+    public void testGetUsersIntervalByRatingException() throws SQLException {
+        initAccount();
+        initMocks();
+
+        when(connectionMock.prepareStatement(anyString())).thenThrow(new SQLException());
+        AccountDao accountDao = new AccountDao(dataSourceMock);
+
+        List<String> list = accountDao.getUsersIntervalByRating(1, 20);
+        assertEquals(null, list);
     }
 }

@@ -94,7 +94,7 @@ public class Game {
      *
      * @return ID-s if all participants who played game
      */
-    private Set<Integer> getParticipantIDs() {
+    public Set<Integer> getParticipantIDs() {
         return participantIDs;
     }
 }

@@ -51,6 +51,7 @@ public class AccountDao {
             stmt.close();
             connection.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -81,6 +82,7 @@ public class AccountDao {
             stmt.close();
             connection.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -104,6 +106,7 @@ public class AccountDao {
             stmt.close();
             connection.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
         return res;
@@ -149,6 +152,7 @@ public class AccountDao {
             stmt.close();
             connection.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
         return accounts;
@@ -180,6 +184,7 @@ public class AccountDao {
             stmt.close();
             connection.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
         return accounts;
