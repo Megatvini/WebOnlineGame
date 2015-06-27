@@ -47,11 +47,9 @@ function updateNots(data){
     if(j==null)
         return;
 
-    var messageNots = data[2];
-    var friendmessageNots = data[0];
-    var gameNots = data[1];
-
-
+    var friendRequests = data[0];
+    var messages = data[1];
+    var gameInvites = data[2];
 
 }
 
