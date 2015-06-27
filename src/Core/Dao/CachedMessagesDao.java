@@ -1,7 +1,6 @@
 package Core.Dao;
 
 import Core.Bean.Message;
-import com.sun.xml.internal.ws.api.model.MEP;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -23,9 +22,11 @@ public class CachedMessagesDao {
     }
 
     public boolean addMessages(int accID, Map<String, List<Message>> messageMap) {
+        Connection conn = null;
+        PreparedStatement pst = null;
         try {
-            Connection conn = dataSource.getConnection();
-            PreparedStatement pst = conn.prepareStatement(
+            conn = dataSource.getConnection();
+            pst = conn.prepareStatement(
                     "INSERT INTO unreadmessages (ReceiverID, SenderNickname, Text, Date)" +
                     " VALUES (?, ?, ?, ?)");
             for (String senderNickname : messageMap.keySet()) {
@@ -41,14 +42,21 @@ public class CachedMessagesDao {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            try {
+                if (conn != null) conn.close();
+                if (pst != null) pst.close();
+            } catch (SQLException ignored) {}
         }
         return true;
     }
 
     public boolean addSingleMessage(int accID, String senderNickName, String text, Date date) {
+        Connection conn = null;
+        PreparedStatement pst = null;
         try {
-            Connection conn = dataSource.getConnection();
-            PreparedStatement pst = conn.prepareStatement(
+            conn = dataSource.getConnection();
+            pst = conn.prepareStatement(
                     "INSERT INTO unreadmessages (ReceiverID, SenderNickname, Text, Date)" +
                     "VALUES (?, ?, ?, ?)");
             pst.setInt(1, accID);
@@ -58,15 +66,22 @@ public class CachedMessagesDao {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            try {
+                if (conn != null) conn.close();
+                if (pst != null) pst.close();
+            } catch (SQLException ignored) {}
         }
         return true;
     }
 
     public Map<String, List<Message>> takeMessages(int accID) {
         Map<String, List<Message>> res = new HashMap<>();
+        Connection conn = null;
+        PreparedStatement pst = null;
         try {
-            Connection conn = dataSource.getConnection();
-            PreparedStatement pst = conn.prepareStatement(
+            conn = dataSource.getConnection();
+            pst = conn.prepareStatement(
                     "SELECT * FROM unreadmessages WHERE ReceiverID = ?");
             pst.setInt(1, accID);
             ResultSet resultSet = pst.executeQuery();
@@ -74,6 +89,11 @@ public class CachedMessagesDao {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        } finally {
+            try {
+                if (conn != null) conn.close();
+                if (pst != null) pst.close();
+            } catch (SQLException ignored) {}
         }
         return res;
     }
