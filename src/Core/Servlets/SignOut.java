@@ -15,11 +15,7 @@ import java.util.Set;
 @WebServlet("/Logout")
 public class SignOut extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Set<String> onlineUsers = (Set<String>) getServletContext().getAttribute("onlineUsers");
-        String nickName = (String) session.getAttribute("nickname");
-        session.removeAttribute("nickname");
-        onlineUsers.remove(nickName);
+        request.getSession().invalidate();
         response.sendRedirect("Accont/Login.jsp");
     }
 
