@@ -19,7 +19,6 @@ public class Configuration {
 
     // final variables whose values read from configuration file
     private int maxPlayers;
-    private int startLifeNum;
     private int numRows;
     private int numCols;
     private double width;
@@ -99,7 +98,6 @@ public class Configuration {
      */
     private void readVariables() {
         maxPlayers = Integer.parseInt(prop.getProperty("maxPlayers"));
-        startLifeNum = Integer.parseInt(prop.getProperty("startLifeNum"));
         numRows = Integer.parseInt(prop.getProperty("numRows"));
         numCols = Integer.parseInt(prop.getProperty("numCols"));
         width = Double.parseDouble(prop.getProperty("width"));
@@ -148,10 +146,6 @@ public class Configuration {
 
     public int getMaxPlayers() {
         return maxPlayers;
-    }
-
-    public int getLifeNum() {
-        return startLifeNum;
     }
 
     public int getNumRows() {

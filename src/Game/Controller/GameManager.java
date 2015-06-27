@@ -91,7 +91,6 @@ public class GameManager {
             world.addPlayerAtCorner(playerName);
         }
         System.out.println(roomMates);
-        sendInit(playerName);
         checkIfRoomIsFull(playerName);
     }
 
@@ -118,6 +117,7 @@ public class GameManager {
         System.out.println("PLayers size " + players.size());
         if (players.size() == roomMates.get(playerName).size()) {
             System.out.println("Room is Full");
+            players.forEach(p->connector.sendMessageTo(p, world.getInit().toString()));
             scheduleUpdate(world);
             world.startGame();
         }

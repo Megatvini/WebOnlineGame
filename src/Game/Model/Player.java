@@ -15,8 +15,6 @@ public class Player {
 
     private String name;
 
-    private int lifeNum;
-
     private int potNum;
 
     private  double x;
@@ -33,78 +31,65 @@ public class Player {
     public Player(boolean active, String name, int lifeNum, int potNum, int type) {
         this.active = active;
         this.name = name;
-        this.lifeNum = lifeNum;
         this.potNum = potNum;
         this.type = type;
     }
 
-    public boolean getActive() {
+    public synchronized boolean getActive() {
         return active;
     }
 
-    public void setActive(boolean active){
+    public synchronized void setActive(boolean active){
         this.active = active;
     }
 
-    public String getName() {
+    public synchronized String getName() {
         return name;
     }
 
-    public int getLifeNum() {
-        return lifeNum;
-    }
-
-    public void decreaseLifeNum() {
-        setLifeNum(lifeNum - 1);
-    }
-
-    public void setLifeNum(int lifeNum) {
-        this.lifeNum = lifeNum;
-    }
-
-    public int getPotNum() {
+    public synchronized int getPotNum() {
         return potNum;
     }
 
-    public void potionPlus() {
+    public synchronized void potionPlus() {
         potNum++;
     }
 
     //@@ exception aris aq setPotNum-shi
-    public void setPotNum(int potNum) {
+    public synchronized void setPotNum(int potNum) {
         if (potNum < 0) {
             throw new RuntimeException("Potion number must be greater or equal to zero!");
         }
         this.potNum = potNum;
     }
 
-    public Point2D.Double getPosition() {
+    public synchronized Point2D.Double getPosition() {
         return new Point2D.Double(x, y);
     }
 
-    public void setPosition(double x, double y) {
+    public synchronized void setPosition(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public void setPosition(Point2D.Double loc) {
+    public synchronized void setPosition(Point2D.Double loc) {
         x = loc.x;
         y = loc.y;
     }
 
-    public int getType() {
+    public synchronized int getType() {
         return type;
     }
 
-    public void setPlace(int place) {
+    public synchronized void setPlace(int place) {
         this.place = place;
     }
 
-    public int getPlace() {
+    public synchronized int getPlace() {
         return place;
     }
 
-    public boolean isWinner(Player enemy) {
+    public synchronized boolean isWinner(Player enemy) {
         if (potNum > enemy.potNum) {
             return true;
         } else if (enemy.potNum > potNum) {
@@ -117,7 +102,7 @@ public class Player {
     }
 
     @Override
-    public boolean equals(Object player) {
+    public synchronized boolean equals(Object player) {
         Player p;
         if (player != null && player instanceof Player) {
             p = (Player)player;
@@ -130,7 +115,7 @@ public class Player {
         return name.equals(p.getName());
     }
 
-    public JsonObjectBuilder toJsonBuilder() {
+    public synchronized JsonObjectBuilder toJsonBuilder() {
         JsonObjectBuilder playerJson = Json.createObjectBuilder();
 
         playerJson.add("active", active);

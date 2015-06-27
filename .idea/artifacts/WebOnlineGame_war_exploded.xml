@@ -8,7 +8,7 @@
           <element id="module-output" name="WebOnlineGame" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="javax.json.processing-1.0" />
+          <element id="library" level="project" name="mockito-all-1.9.5" />
         </element>
       </element>
     </root>

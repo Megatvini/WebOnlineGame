@@ -90,7 +90,6 @@ public class GameWorld implements iWorld {
      */
     private void readConfig(Configuration config) {
         maxPlayers = config.getMaxPlayers();
-        startLifeNum = config.getLifeNum();
         plusDist = config.getPlusDist();
         plusDistDelay = config.getPlusDistDelay();
         startPotNum = config.getStartPotNum();
@@ -316,19 +315,13 @@ public class GameWorld implements iWorld {
     }
 
     private void kickPlayer(Player kicker, Player toKick) {
-        toKick.decreaseLifeNum();
-        if (toKick.getLifeNum() == 0) {
-            toKick.setActive(false);
-            gm.removePlayer(toKick.getName());
-            plPlaces.add(toKick.getName());
-            activePlNum--;
-        } else {
-            gm.resetPlace(toKick.getName());
-        }
+        toKick.setActive(false);
+        gm.removePlayer(toKick.getName());
+        plPlaces.add(toKick.getName());
         if (state == State.RUNNING) {
             kicker.setPotNum(kicker.getPotNum() + potForKick);
         }
-
+        activePlNum--;
     }
 
     @Override
@@ -391,7 +384,6 @@ public class GameWorld implements iWorld {
         JsonObjectBuilder configJson = gm.configJsonBuilder();
         initJson.add("configuration", configJson);
 
-
         return initJson.build();
     }
 
@@ -406,19 +398,14 @@ public class GameWorld implements iWorld {
 
         updateJson.add("finished", isFinished());
 
-        if (isFinished() == true) {
-            JsonObjectBuilder resultsJson = factory.createObjectBuilder();
+        if (isFinished()) {
+            JsonObjectBuilder placesJson = factory.createObjectBuilder();
             for (int i = 0; i < plPlaces.size(); i++) {
                 String name = plPlaces.get(i);
-                JsonObjectBuilder resultJson = factory.createObjectBuilder();
-                resultJson.add("place", i)
-                        .add("potNum", nameOnPlayer.get(name).getPotNum());
-                resultsJson.add(name, resultJson);
+                placesJson.add(name, i);
             }
-            updateJson.add("results", resultsJson);
+            updateJson.add("places", placesJson);
         }
-
-        updateJson.add("potNum", nameOnPlayer.get(playerName).getPotNum());
 
         // create and add json players' array
         JsonArrayBuilder playersJson = factory.createArrayBuilder();
@@ -458,6 +445,10 @@ public class GameWorld implements iWorld {
 
         // add json distance double
         updateJson.add("distance", gm.getDist());
+
+        System.out.println(updateJson.build());
+
+        System.out.println(updateJson.build());
 
         return updateJson.build();
     }
