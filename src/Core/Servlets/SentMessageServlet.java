@@ -19,7 +19,6 @@ import java.util.*;
 @WebServlet("/SendMessage")
 public class SentMessageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("profileTo");
         int toID = Integer.parseInt(request.getParameter("profileTo"));
 
         String userName = (String) request.getSession().getAttribute("nickname");
@@ -27,6 +26,7 @@ public class SentMessageServlet extends HttpServlet {
 
         AccountDao accountDao = (AccountDao) getServletContext().getAttribute(AccountDao.class.getName());
         MessageDao messageDao = (MessageDao) getServletContext().getAttribute(MessageDao.class.getName());
+        Set<String> onlineUsers = (Set<String>) getServletContext().getAttribute("onlineUsers");
 
         iAccount account;
         try {
@@ -34,8 +34,6 @@ public class SentMessageServlet extends HttpServlet {
         } catch (Exception e) {
             return;
         }
-
-        String referer = request.getHeader("Referer");
 
         String message = request.getParameter("message");
         if (message==null || message.equals("")) {
@@ -56,6 +54,12 @@ public class SentMessageServlet extends HttpServlet {
             return;
         }
 
+        if (onlineUsers.contains(account.getNickname())) {
+            saveMessage(mes, userName, toID);
+        }
+    }
+
+    private void saveMessage(Message mes, String userName, Integer toID) {
         Map<Integer, Map<String, List<Message>>> unreadMessages = (Map<Integer, Map<String, List<Message>>>)
                 getServletContext().getAttribute("unreadMessages");
         if (unreadMessages == null) throw new RuntimeException("Unread Messages is NULL");

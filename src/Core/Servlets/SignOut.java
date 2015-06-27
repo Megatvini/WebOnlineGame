@@ -18,7 +18,7 @@ public class SignOut extends HttpServlet {
         HttpSession session = request.getSession();
         Set<String> onlineUsers = (Set<String>) getServletContext().getAttribute("onlineUsers");
         String nickName = (String) session.getAttribute("nickname");
-        session.invalidate();
+        session.removeAttribute("nickname");
         onlineUsers.remove(nickName);
         response.sendRedirect("Accont/Login.jsp");
     }
