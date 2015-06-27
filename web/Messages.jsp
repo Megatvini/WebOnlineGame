@@ -133,7 +133,8 @@
         </div><!-- /.box-body -->
 
         <input type="hidden" name="profileFrom" value="<%= profile.getID() %>">
-        <input type="hidden" id="profileTo" value="<%= friendID %>">
+        <input type="hidden" id="profileToID" value="<%= friendID %>">
+        <input type="hidden" id="profileToNick" value="<%= friendNickname %>">
         <textarea  style="width: 100%; height:70px" id="messageText"  name="message"></textarea>
         <button class="btn btn-block btn-primary" onclick="sendMessage()">მიწერა</button>
 
@@ -143,60 +144,8 @@
   </div><!-- /.content-wrapper -->
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
-<script>
-  var profileTo =   $("#profileTo").val();
+<script src="scripts.js">
 
-  function writeText(text, date ){
-    $("#messages").append('<li style="background-color: rgb(186, 223, 255); font-size: 19px; text-align: right;" ' +
-            '">' + text + ' </li>');
-    $("#messageText").val("");
-  }
-
-  function sendMessage(){
-    var text = $("#messageText").val();
-    writeText(text);
-
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST","SendMessage",true);
-    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    xmlhttp.send("profileTo="+profileTo+"&message="+text);
-  }
-
-  function update(data){
-    var j = JSON.parse(data);
-    writeText(profileTo);
-    if(j==null)
-      return ;
-    var list  =  j[profileTo] ;
-    if(list==null)
-      return ;
-    var i ;
-    for(i = 0 ; i < list.length; i ++ ){
-      var oneMessage = list[i] ;
-      writeText(oneMessage.text, oneMessage.date);
-    }
-
-    for(var m in j ){
-      if(j.hasOwnProperty(m)) {
-        var oneM = j[m];
-        $("#"+m).text(oneM.length.toString());
-      }
-    }
-
-  }
-
-  function check() {
-    $.get("http://"+window.location.host + "/MessageUpdate?msgs="+profileTo, function(resp) {
-      console.log(resp);
-      if (resp != null)
-        update(resp)
-    });
-  }
-
-  $(document).ready(function() {
-    check();
-    setInterval(check, 5000);
-  });
 
 </script>
 <!-- jQuery 2.1.4 -->
