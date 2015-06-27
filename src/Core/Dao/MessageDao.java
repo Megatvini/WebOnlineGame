@@ -3,10 +3,7 @@ package Core.Dao;
 import Core.Bean.Message;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,11 +41,12 @@ public class MessageDao {
             pst.close();
 
             pst = connection.prepareStatement(
-                    "INSERT INTO messages (Text, Sender, Conversations_ID) " +
-                    "VALUES (?, ?, ?)");
+                    "INSERT INTO messages (Text, Sender, Conversations_ID, Date) " +
+                    "VALUES (?, ?, ?, ?)");
             pst.setString(1, message.getText());
             pst.setInt(2, b? 1:2);
             pst.setInt(3, conversationIDFrom);
+            pst.setDate(4, new Date(message.getDate().getTime()));
             pst.execute();
 
             pst.setString(1, message.getText());
@@ -80,11 +78,11 @@ public class MessageDao {
             while (result.next()) {
                 Message message = new Message();
                 message.setText(result.getString("Text"));
+                message.setDate(result.getDate("Date"));
                 message.setAccFrom(userID);
                 message.setAccTo(friendID);
                 message.setType((result.getInt("Sender"))== 1 ? Message.Type.SENT: Message.Type.GOTTEN  );
                 messages.add(message);
-                //TODO date
             }
             pst.close();
             conn.close();

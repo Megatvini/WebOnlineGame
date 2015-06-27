@@ -39,7 +39,6 @@ public class MessageUpdate extends HttpServlet {
             return;
         }
 
-
         Map<String, List<Message>> messages = unreadMessages.get(account.getID());
 
         response.setContentType("application/json");
@@ -47,7 +46,6 @@ public class MessageUpdate extends HttpServlet {
                 excludeFieldsWithoutExposeAnnotation()
                 .create().toJson(messages);
         PrintWriter writer = response.getWriter();
-        System.out.println(jsonString);
         writer.print(jsonString);
         writer.close();
 

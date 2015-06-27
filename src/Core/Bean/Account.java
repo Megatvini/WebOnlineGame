@@ -29,6 +29,7 @@ public class Account implements iAccount {
         about = "";
         rating = GameManager.DEFAULT_RATING;
         gender = Gender.MALE;
+        birthDate = new Date(0);
     }
 
     @Override
