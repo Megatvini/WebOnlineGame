@@ -35,7 +35,7 @@ function addToGames(text, date){
 }
 
 function checkNots() {
-    $.get("http://"+window.location.host + "/MessageUpdate", function(resp) {
+    $.get("http://"+window.location.host + "/NotificationsUpdate", function(resp) {
         console.log(resp);
         if (resp != null)
             updateNots(resp)
@@ -47,9 +47,11 @@ function updateNots(data){
     if(j==null)
         return;
 
-    var messageNots = data[0];
+    var messageNots = data[2];
     var friendmessageNots = data[0];
-    var gameNots = data[0];
+    var gameNots = data[1];
+
+
 
 }
 
