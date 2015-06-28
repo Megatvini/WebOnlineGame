@@ -82,11 +82,11 @@
         <h3 class="box-title">Simple Full Width Table</h3>
         <div class="box-tools">
           <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="#">«</a></li>
+            <li><a href="Raiting.jsp?page=<%=pagID == 0 ? 1 : pagID %>">«</a></li>
             <% for(int i=1; i< PageCount + 1; i++){%>
             <li><a href="Raiting.jsp?page=<%=i%>"><%=i%></a></li>
             <% } %>
-            <li><a href="#">»</a></li>
+            <li><a href="Raiting.jsp?page=<%=pagID == PageCount ? PageCount : pagID+2 %>">»</a></li>
           </ul>
         </div>
       </div><!-- /.box-header -->
@@ -114,7 +114,7 @@
             <td>
 
               <div  style="width: 100%">
-                <img style="width: 100px" src="dist/img/coollogo_com-246613016.png"/>
+                <img style="width: 100px" height="40px" src="dist/img/<%= Achievements.getName(shortProf.getRating()) %>"/>
 
               </div>
 
