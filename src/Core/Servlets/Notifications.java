@@ -15,10 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Nika on 19:38, 6/27/2015.
@@ -46,7 +43,8 @@ public class Notifications extends HttpServlet {
         Map<String, List<Message>> unreadMessagesFrom = unreadMessages.get(userAccount.getID());
         Map<String, Integer> inviteGamesFrom = new HashMap<>(); //TODO get it from servletContext
 
-        Notification notification = new Notification(friendRequestsFrom, inviteGamesFrom, unreadMessagesFrom);
+        Notification notification = new Notification(getRequestAccs(friendRequestsFrom, accountDao),
+                getInviteAccs(inviteGamesFrom, accountDao), getMessageAccs(unreadMessagesFrom, accountDao));
 
         response.setContentType("application/json");
         String jsonString = new GsonBuilder().
@@ -55,6 +53,45 @@ public class Notifications extends HttpServlet {
         PrintWriter writer = response.getWriter();
         writer.print(jsonString);
         writer.close();
+    }
+
+    private Map<iAccount, List<Message>> getMessageAccs(Map<String, List<Message>> unreadMessagesFrom, AccountDao accountDao) {
+        Map<iAccount, List<Message>> result = new HashMap<>();
+        if (unreadMessagesFrom == null) return result;
+        unreadMessagesFrom.keySet().forEach(name -> {
+            try {
+                result.put(accountDao.getUser(name), unreadMessagesFrom.get(name));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        return result;
+    }
+
+    private Map<iAccount, Integer> getInviteAccs(Map<String, Integer> inviteGamesFrom, AccountDao accountDao) {
+        Map<iAccount, Integer> result = new HashMap<>();
+        if (inviteGamesFrom == null) return result;
+        inviteGamesFrom.keySet().forEach(name -> {
+            try {
+                result.put(accountDao.getUser(name), inviteGamesFrom.get(name));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        return result;
+    }
+
+    private Set<iAccount> getRequestAccs(Set<String> friendRequestsFrom, AccountDao accountDao) {
+        Set<iAccount> result = new HashSet<>();
+        if (friendRequestsFrom == null) return result;
+        friendRequestsFrom.forEach(name -> {
+            try {
+                result.add(accountDao.getUser(name));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        return result;
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

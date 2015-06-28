@@ -27,17 +27,29 @@ public class GameDao {
     public int addNewGame(Date date) {
         int gameID = 0;
         try (Connection conn = dataSource.getConnection()) {
+            conn.setAutoCommit(false);
             try (PreparedStatement pst = conn.prepareStatement("" +
                     "INSERT INTO games " +
                     "(Date) VALUES (?)")) {
-                pst.setDate(1, new java.sql.Date(date.getTime()));
+                pst.setTimestamp(1, new java.sql.Timestamp(date.getTime()));
+            } catch (SQLException e) {
+                //System.out.println("addNewGame with Date " + date + " failed");
+                //e.printStackTrace();
+                conn.rollback();
+                throw new SQLException();
             }
 
             try (PreparedStatement pst = conn.prepareStatement(
                     "SELECT LAST_INSERT_ID()")) {
                 ResultSet result = pst.executeQuery();
                 if (result.next()) gameID = result.getInt(1);
+            } catch (SQLException e) {
+                //System.out.println("addNewGame with Date " + date + " failed");
+                //e.printStackTrace();
+                conn.rollback();
+                throw new SQLException();
             }
+            conn.commit();
         } catch (SQLException e) {
             //System.out.println("addNewGame with Date " + date + " failed");
             //e.printStackTrace();
@@ -76,7 +88,7 @@ public class GameDao {
                     int gameID = resultSet.getInt("GameID");
                     int accID = resultSet.getInt("AccID");
                     int ratingChange = resultSet.getInt("ratingChange");
-                    Date date = resultSet.getDate("Date");
+                    Date date = resultSet.getTimestamp("Date");
 
                     if (games.size() != 0 && games.get(games.size()-1).getGameID() == gameID) {
                         games.get(gameID).addParticipant(accID);
@@ -86,6 +98,10 @@ public class GameDao {
                         games.add(game);
                     }
                 }
+            }  catch (SQLException e) {
+                //System.out.println("getUserGames userName " + userName + " failed");
+                //e.printStackTrace();
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //System.out.println("getUserGames userName " + userName + " failed");
@@ -123,7 +139,7 @@ public class GameDao {
                     int gameID = resultSet.getInt("GameID");
                     int accID = resultSet.getInt("AccID");
                     int ratingChange = resultSet.getInt("ratingChange");
-                    Date date = resultSet.getDate("Date");
+                    Date date = resultSet.getTimestamp("Date");
 
                     if (games.size() != 0 && games.get(games.size()-1).getGameID() == gameID) {
                         games.get(gameID).addParticipant(accID);
@@ -133,6 +149,11 @@ public class GameDao {
                         games.add(game);
                     }
                 }
+            }  catch (SQLException e) {
+                //System.out.println("getUserGamesByID width userID, limit " +
+                //        userID + ", " + limit + " failed");
+                //e.printStackTrace();
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //System.out.println("getUserGamesByID width userID, limit " +
@@ -156,6 +177,11 @@ public class GameDao {
                 pst.setInt(1, gameID);
                 pst.setInt(2, accountID);
                 pst.setInt(3, ratingChange);
+            }  catch (SQLException e) {
+                //System.out.println("addParticipation gameID, accountID, ratingChange " +
+                //                accountID + ", " + accountID + ", " + ratingChange + " failed");
+                //e.printStackTrace();
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //System.out.println("addParticipation gameID, accountID, ratingChange " +
@@ -176,6 +202,10 @@ public class GameDao {
                     "FROM games")) {
                 ResultSet resultSet = pst.executeQuery();
                 if (resultSet.next()) res = resultSet.getInt(1);
+            }  catch (SQLException e) {
+                //System.out.println("getGamesCount failed");
+                //e.printStackTrace();
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //System.out.println("getGamesCount failed");

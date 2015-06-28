@@ -36,6 +36,10 @@ public class FriendsDao {
                 pst.setInt(1, id2);
                 pst.setInt(2, id1);
                 pst.execute();
+            } catch (SQLException e) {
+                //System.out.println("addFriend id1, id2 " + id1 + ", " + id2 + " failed");
+                //e.printStackTrace();
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //System.out.println("addFriend id1, id2 " + id1 + ", " + id2 + " failed");
@@ -63,6 +67,10 @@ public class FriendsDao {
                 pst.setInt(1, id2);
                 pst.setInt(2, id1);
                 pst.execute();
+            } catch (SQLException e) {
+                //System.out.println("removeFriend id1, id2 " + id1 + ", " + id2 + " failed");
+                //e.printStackTrace();
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //System.out.println("removeFriend id1, id2 " + id1 + ", " + id2 + " failed");
@@ -86,6 +94,11 @@ public class FriendsDao {
                 pst.setInt(1, requestFromID);
                 pst.setInt(2, requestToID);
                 pst.execute();
+            } catch (SQLException e) {
+                //System.out.println("addFriendRequest requestFromID, requestToID "
+                //                    + requestFromID + ", " + requestFromID + " failed");
+                //e.printStackTrace();
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //System.out.println("addFriendRequest requestFromID, requestToID "
@@ -104,12 +117,19 @@ public class FriendsDao {
      */
     public boolean confirmFriendRequest(int idFrom, int idTo){
         try (Connection conn = dataSource.getConnection()) {
+            conn.setAutoCommit(false);
             try (PreparedStatement pst = conn.prepareStatement(
                     "DELETE FROM waitingFriends " +
                     "WHERE AccIDFrom = ? AND AccIDTo = ?")) {
                 pst.setInt(1, idTo);
                 pst.setInt(2, idFrom);
                 pst.execute();
+            } catch (SQLException e) {
+                //System.out.println("ConfirmFriendRequest idFrom, idTo " +
+                //        idFrom + ", " + idTo + " failed");
+                //e.printStackTrace();
+                conn.rollback();
+                throw new SQLException();
             }
 
             try (PreparedStatement pst = conn.prepareStatement(
@@ -118,6 +138,16 @@ public class FriendsDao {
                 pst.setInt(1, idFrom);
                 pst.setInt(2, idTo);
                 pst.execute();
+
+                pst.setInt(1, idTo);
+                pst.setInt(2, idFrom);
+                pst.execute();
+            } catch (SQLException e) {
+                //System.out.println("ConfirmFriendRequest idFrom, idTo " +
+                //        idFrom + ", " + idTo + " failed");
+                //e.printStackTrace();
+                conn.rollback();
+                throw new SQLException();
             }
 
             try (PreparedStatement pst = conn.prepareStatement(
@@ -130,8 +160,14 @@ public class FriendsDao {
                 pst.setInt(1, idTo);
                 pst.setInt(2, idFrom);
                 pst.execute();
+            } catch (SQLException e) {
+                //System.out.println("ConfirmFriendRequest idFrom, idTo " +
+                //        idFrom + ", " + idTo + " failed");
+                //e.printStackTrace();
+                conn.rollback();
+                throw new SQLException();
             }
-
+            conn.commit();
         } catch (SQLException e) {
             //System.out.println("ConfirmFriendRequest idFrom, idTo " +
             //        idFrom + ", " + idTo + " failed");
@@ -154,6 +190,11 @@ public class FriendsDao {
                     "WHERE AccIDTo = ? AND AccIDFrom = ?")) {
                 pst.setInt(1, idFrom);
                 pst.setInt(2, idTo);
+            } catch (SQLException e) {
+                //System.out.println("ConfirmFriendRequest idFrom, idTo " +
+                //        idFrom + ", " + idTo + " failed");
+                //e.printStackTrace();
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //System.out.println("ConfirmFriendRequest idFrom, idTo " +
@@ -185,6 +226,10 @@ public class FriendsDao {
                 while (result.next()) {
                     requestsFrom.add(result.getString("Nickname"));
                 }
+            } catch (SQLException e) {
+                //System.out.println("getFriendRequestsFrom with name " + accountName + " failed");
+                //e.printStackTrace();
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //System.out.println("getFriendRequestsFrom with name " + accountName + " failed");
@@ -213,6 +258,10 @@ public class FriendsDao {
                 while (result.next()) {
                     requestsFrom.add(result.getString("Nickname"));
                 }
+            }  catch (SQLException e) {
+                //System.out.println("getFriendRequestsFrom with ID" + accID + " failed");
+                //e.printStackTrace();
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //System.out.println("getFriendRequestsFrom with ID" + accID + " failed");
@@ -245,6 +294,10 @@ public class FriendsDao {
                 while (result.next()) {
                     requestsTo.add(result.getString("Nickname"));
                 }
+            } catch (SQLException e) {
+                //System.out.println("getFriendRequestsTo with ID" + accID + " failed");
+                //e.printStackTrace();
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //System.out.println("getFriendRequestsTo with ID" + accID + " failed");
@@ -268,6 +321,10 @@ public class FriendsDao {
                 while (result.next()) {
                     requestsTo.add(result.getString("Nickname"));
                 }
+            } catch (SQLException e) {
+                //System.out.println("getFriendRequestsTo with ID" + accID + " failed");
+                //e.printStackTrace();
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //System.out.println("getFriendRequestsTo with ID" + accID + " failed");
@@ -299,6 +356,10 @@ public class FriendsDao {
                 while (result.next()) {
                     friends.add(result.getString("Nickname"));
                 }
+            }  catch (SQLException e) {
+                //System.out.println("getFieldNames with name"+ accountName + " failed");
+                //e.printStackTrace();
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //System.out.println("getFieldNames with name"+ accountName + " failed");
@@ -327,6 +388,10 @@ public class FriendsDao {
                 while (result.next()) {
                     friends.add(result.getString("Nickname"));
                 }
+            }  catch (SQLException e) {
+                //System.out.println("getFieldNames with ID" + id + " failed");
+                //e.printStackTrace();
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //System.out.println("getFieldNames with ID" + id + " failed");

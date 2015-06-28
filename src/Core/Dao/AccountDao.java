@@ -48,10 +48,14 @@ public class AccountDao {
                 stmt.setString(9, account.getMail());
                 stmt.setString(10, account.getPicturePath());
                 stmt.execute();
+            } catch (SQLException e) {
+                //e.printStackTrace();
+                //System.out.println("register user named :" + account.getNickname()+" failed");
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //e.printStackTrace();
-            System.out.println("register user named :" + account.getNickname()+" failed");
+            //System.out.println("register user named :" + account.getNickname()+" failed");
             return false;
         }
         return true;
@@ -78,6 +82,10 @@ public class AccountDao {
                 stmt.setString(8, account.getPicturePath());
                 stmt.setInt(9, account.getID());
                 stmt.execute();
+            } catch (SQLException e) {
+                //e.printStackTrace();
+                //System.out.println("changeUser named "+ account.getNickname() + " failed");
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //e.printStackTrace();
@@ -102,6 +110,10 @@ public class AccountDao {
                 ResultSet result = stmt.executeQuery();
                 if (!result.next()) throw new Exception("notRegistered");
                 res = assembleAccount(result);
+            } catch (SQLException e) {
+                //e.printStackTrace();
+                //System.out.println("getUser named " + nickname + " failed");
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //e.printStackTrace();
@@ -126,6 +138,10 @@ public class AccountDao {
                 ResultSet result = stmt.executeQuery();
                 if (!result.next()) throw new Exception("notRegistered");
                 res = assembleAccount(result);
+            } catch (SQLException e) {
+                //e.printStackTrace();
+                //System.out.println("getUser ID " + accID + " failed");
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //e.printStackTrace();
@@ -173,6 +189,10 @@ public class AccountDao {
                 while (result.next()) {
                     accounts.add(result.getString("Nickname"));
                 }
+            } catch (SQLException e) {
+                //e.printStackTrace();
+                //System.out.println("getUsersLike witch search " + search + " failed");
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //e.printStackTrace();
@@ -202,6 +222,11 @@ public class AccountDao {
                 while (result.next()) {
                     accounts.add(result.getString("Nickname"));
                 }
+            } catch (SQLException e) {
+                //e.printStackTrace();
+                //System.out.println("getUsersLike witch search, pageNumber, accountsPerPage " +
+                //        search + ", " + pageNumber + ", "+accountsPerPage+" failed");
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //e.printStackTrace();
@@ -222,6 +247,10 @@ public class AccountDao {
                     "SELECT Count(*) FROM accounts")) {
                 ResultSet resultSet = pst.executeQuery();
                 if (resultSet.next()) res = resultSet.getInt(1);
+            } catch (SQLException e) {
+                //e.printStackTrace();
+                //System.out.println("getUserCount failed");
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //e.printStackTrace();
@@ -250,6 +279,11 @@ public class AccountDao {
                 while (result.next()) {
                     accounts.add(result.getString("Nickname"));
                 }
+            } catch (SQLException e) {
+                //e.printStackTrace();
+                //System.out.println("getUsersIntervalByRating pageNumber, accountsPerPage "
+                //        + pageNumber + ", " + accountsPerPage + " failed");
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //e.printStackTrace();
