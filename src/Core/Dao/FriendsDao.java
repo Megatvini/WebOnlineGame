@@ -191,6 +191,7 @@ public class FriendsDao {
                     "WHERE AccIDTo = ? AND AccIDFrom = ?")) {
                 pst.setInt(1, idFrom);
                 pst.setInt(2, idTo);
+                pst.execute();
             } catch (SQLException e) {
                 //System.out.println("ConfirmFriendRequest idFrom, idTo " +
                 //        idFrom + ", " + idTo + " failed");

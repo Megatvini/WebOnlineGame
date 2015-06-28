@@ -2,7 +2,9 @@ package Core.Bean;
 
 import Interfaces.iAccount;
 import com.google.gson.annotations.Expose;
+import com.mysql.fabric.xmlrpc.base.Data;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,6 +19,8 @@ public class Notification {
     private List<GameInvitation> inviteGamesFrom;
     @Expose
     private List<NotificationMessage> newMessages;
+    @Expose
+    private Date serverTime;
 
     public Notification(List<iAccount> friendRequestsFrom,
                         List<GameInvitation> inviteGamesFrom,
@@ -24,6 +28,7 @@ public class Notification {
         this.friendRequestsFrom = friendRequestsFrom;
         this.inviteGamesFrom = inviteGamesFrom;
         this.newMessages = newMessages;
+        this.serverTime = new Date(System.currentTimeMillis());
     }
 
 
