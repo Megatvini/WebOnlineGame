@@ -14,16 +14,16 @@ public class Notification {
     @Expose
     private Set<iAccount> friendRequestsFrom;
     @Expose
-    private Map<iAccount, Integer> inviteGamesFrom;
+    private Map<String, GameInvitation> inviteGamesFrom;
     @Expose
-    private Map<iAccount, List<Message>> newMessages;
+    private Map<String, NotificationMessage> newMessages;
 
-    public Notification(Set<iAccount> friendRequestsFrom, Map<iAccount, Integer> inviteGamesFrom, Map<iAccount, List<Message>> newMessages) {
+    public Notification(Set<iAccount> friendRequestsFrom, Map<String, GameInvitation> inviteGamesFrom,
+                        Map<String, NotificationMessage> newMessages) {
         this.friendRequestsFrom = friendRequestsFrom;
         this.inviteGamesFrom = inviteGamesFrom;
         this.newMessages = newMessages;
     }
-
 
     public Set<iAccount> getFriendRequestsFrom() {
         return friendRequestsFrom;
@@ -33,19 +33,19 @@ public class Notification {
         this.friendRequestsFrom = friendRequestsFrom;
     }
 
-    public Map<iAccount, Integer> getInviteGamesFrom() {
+    public Map<String, GameInvitation> getInviteGamesFrom() {
         return inviteGamesFrom;
     }
 
-    public void setInviteGamesFrom(Map<iAccount, Integer> inviteGamesFrom) {
+    public void setInviteGamesFrom(Map<String, GameInvitation> inviteGamesFrom) {
         this.inviteGamesFrom = inviteGamesFrom;
     }
 
-    public Map<iAccount, List<Message>> getNewMessages() {
+    public Map<String, NotificationMessage> getNewMessages() {
         return newMessages;
     }
 
-    public void setNewMessages(Map<iAccount, List<Message>> newMessages) {
+    public void setNewMessages(Map<String, NotificationMessage> newMessages) {
         this.newMessages = newMessages;
     }
 }
