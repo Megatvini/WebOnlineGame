@@ -40,6 +40,7 @@ public class MessageUpdate extends HttpServlet {
         }
 
         Map<String, List<Message>> messages = unreadMessages.get(account.getID());
+        if (messages == null) return;
 
         response.setContentType("application/json");
         String jsonString = new GsonBuilder().
