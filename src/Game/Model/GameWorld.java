@@ -90,7 +90,6 @@ public class GameWorld implements iWorld {
      */
     private void readConfig(Configuration config) {
         maxPlayers = config.getMaxPlayers();
-        startLifeNum = config.getLifeNum();
         plusDist = config.getPlusDist();
         plusDistDelay = config.getPlusDistDelay();
         startPotNum = config.getStartPotNum();
@@ -316,19 +315,12 @@ public class GameWorld implements iWorld {
     }
 
     private void kickPlayer(Player kicker, Player toKick) {
-        toKick.decreaseLifeNum();
-        if (toKick.getLifeNum() == 0) {
-            toKick.setActive(false);
-            gm.removePlayer(toKick.getName());
-            plPlaces.add(toKick.getName());
-            activePlNum--;
-        } else {
-            gm.resetPlace(toKick.getName());
-        }
-        if (state == State.RUNNING) {
-            kicker.setPotNum(kicker.getPotNum() + potForKick);
-        }
-
+        toKick.setActive(false);
+        gm.removePlayer(toKick.getName());
+        plPlaces.add(0, toKick.getName());
+        if (plPlaces.size() == nameOnPlayer.size() - 1) { plPlaces.add(0, kicker.getName()); }
+        if (state == State.RUNNING) { kicker.setPotNum(kicker.getPotNum() + potForKick); }
+        activePlNum--;
     }
 
     @Override
@@ -391,7 +383,6 @@ public class GameWorld implements iWorld {
         JsonObjectBuilder configJson = gm.configJsonBuilder();
         initJson.add("configuration", configJson);
 
-
         return initJson.build();
     }
 
@@ -406,12 +397,12 @@ public class GameWorld implements iWorld {
 
         updateJson.add("finished", isFinished());
 
-        if (isFinished()) {
+        if (isFinished() == true) {
             JsonObjectBuilder resultsJson = factory.createObjectBuilder();
             for (int i = 0; i < plPlaces.size(); i++) {
                 String name = plPlaces.get(i);
                 JsonObjectBuilder resultJson = factory.createObjectBuilder();
-                resultJson.add("place", i)
+                resultJson.add("place", i + 1)
                         .add("potNum", nameOnPlayer.get(name).getPotNum());
                 resultsJson.add(name, resultJson);
             }

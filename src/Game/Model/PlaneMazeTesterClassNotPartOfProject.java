@@ -192,10 +192,22 @@ public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
 //            }
 //        });
 //
-//
 //        PlaneMaze pm = new PlaneMaze(14, 24);
 //        pm.makePerfect();
 //
+//
+//        GameWorld gw = new GameWorld(pm);
+//
+//        gw.addPlayer("shako");
+//        gw.addPlayer("nika");
+//        gw.addPlayer("killera");
+//
+//        gw.startGame();
+//
+//        System.out.println(gw.getInit());
+//        System.out.println(gw.getUpdate("shako"));
+//
+//        gw.setPlayerCoordinates("shako", 4, 4);
 //
 //        JApplet applet = new PlaneMazeTesterClassNotPartOfProject(pm);
 //        f.getContentPane().add("Center", applet);

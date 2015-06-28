@@ -44,7 +44,7 @@ public class PlaneMazeTest {
 
     @Test
     public void testMakePerfect() throws Exception {
-        int testCount = 1000;
+        int testCount = 10;
 
         for (int i = 0; i < testCount; i++) {
             pm = new PlaneMaze(numRows, numCols);

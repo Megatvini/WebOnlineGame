@@ -23,6 +23,14 @@ var ClientWorld = {
             .mount(this.mainScene)
             .depth(6);
 
+
+        this.graphicalUiScene = new IgeScene2d()
+            .id('graphicalUiScene')
+            .ignoreCamera(true)
+            .mount(this.mainScene)
+            .depth(7);
+
+
         // Create UI elements
         new IgeFontEntity()
             .texture(ige.client.textures.font)
