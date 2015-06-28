@@ -18,6 +18,7 @@ public class GameMaze extends PlaneMaze {
     // number of corners of game maze
     private static final int CORNER_NUM = 4;
 
+    // instance to generate pseudo random things(int, double, boolean ...)
     private static Random rand = new Random();
 
     private double width;

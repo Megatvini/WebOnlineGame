@@ -406,7 +406,7 @@ public class GameWorld implements iWorld {
 
         updateJson.add("finished", isFinished());
 
-        if (isFinished() == true) {
+        if (isFinished()) {
             JsonObjectBuilder resultsJson = factory.createObjectBuilder();
             for (int i = 0; i < plPlaces.size(); i++) {
                 String name = plPlaces.get(i);
