@@ -108,7 +108,8 @@
             <td>
 
               <div  style="width: 100%">
-                <%= Achievements.getName(shortProf.getRating()) %>
+                <img style="width: 100px" src="dist/img/coollogo_com-246613016.png"/>
+
               </div>
 
             </td>

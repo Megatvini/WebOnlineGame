@@ -53,25 +53,14 @@
         <li class="dropdown notifications-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-bell-o"></i>
-            <span class="label label-warning"><%=waitingFriends.size()%></span>
+            <span class="label label-warning" id="requestsSpan"></span>
           </a>
           <ul class="dropdown-menu">
             <li class="header">შენ გაქვს <%=waitingFriends.size()%> მეგობრობის თხოვნა. </li>
             <li>
               <!-- inner menu: contains the actual data -->
               <ul id="notFriends" class="menu">
-                <% for (String waitingFriendNick : waitingFriends) {
-                  iProfile shortProf = userControl.getUser(waitingFriendNick);
-                %>
-                <li>
-                  <a href="Friends.jsp">
-                    <i ></i>
-                    <img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 50px; height: 50px; border-radius: 50%;">
-                      <%=shortProf.getNickname()%>
 
-                  </a>
-                </li>
-                <% } %>
               </ul>
             </li>
             <li class="footer"><a href="#">View all</a></li>
@@ -81,7 +70,7 @@
         <li class="dropdown messages-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-envelope-o"></i>
-            <span class="label label-success">69</span>
+            <span class="label label-success" id="messagesSpan"></span>
           </a>
           <ul class="dropdown-menu">
             <li class="header">You have 4 messages</li>

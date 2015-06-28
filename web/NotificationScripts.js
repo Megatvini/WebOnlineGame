@@ -2,12 +2,11 @@
  * Created by Annie on 27-Jun-15.
  */
 function addToFriends(nickname, pic){
-    $('.addedF').remove();
     var val =   '<li class="addedF">' +
                 '<a href="Friends.jsp">' +
                 '<i ></i>' +
                 '<img src="'+ pic +'"  alt="Smiley face" style="width: 50px; height: 50px; border-radius: 50%;">' +
-                'nickname' +
+                nickname +
                 '</a>' +
                 '</li>';
 
@@ -36,6 +35,11 @@ function addToGames(text, date){
 
 }
 
+function notificationCounts(requestsCount, messagesCount, invatesCount){
+    $("#requestsSpan").append('<div class="deletable" >' + requestsCount + '</div>');
+    $("#messagesSpan").append('<div class="deletable" >' + messagesCount + '</div>');
+}
+
 function checkNots() {
     $.get("http://"+window.location.host + "/NotificationsUpdate", function(resp) {
         console.log(resp);
@@ -51,10 +55,14 @@ function updateNots(data){
 
     var friendRequests = data.friendRequestsFrom;
     var messages = data.newMessages;
+
+    $('.deletable').remove();
+    notificationCounts(friendRequests.length, messages.length);
     //var gameInvites = data[2];
 
+    $('.addedF').remove();
     for(var friend in friendRequests){
-        addToFriends(friend);
+        addToFriends(friendRequests[friend].nickname, friendRequests[friend].picPath);
     }
 
     for(var message in messages){
@@ -63,6 +71,7 @@ function updateNots(data){
         var lastIndex = list.length - 1;
         addToMessages(message,' ', list[lastIndex].text);
     }
+
 }
 
 $(document).ready(function() {
