@@ -17,7 +17,6 @@ public class GameWorld implements iWorld {
 
     // configuration variables
     private int maxPlayers;
-    private int startLifeNum;
     private double plusDist;
     private long plusDistDelay;
     private int startPotNum;
@@ -114,7 +113,7 @@ public class GameWorld implements iWorld {
     public synchronized boolean addPlayerAtCorner(String name) {
         if (!canAddPlayer(name)) { return false; }
         if (gm.addPlayerAtCorner(name)){
-            addPlayer(new Player(name, startLifeNum, nameOnPlayer.size()));
+            addPlayer(new Player(name, nameOnPlayer.size()));
             return true;
         }
         return false;
@@ -134,7 +133,7 @@ public class GameWorld implements iWorld {
     public synchronized boolean addPlayerAtRandom(String name) {
         if (!canAddPlayer(name)) { return false; }
         if (gm.addPlayerAtRandom(name)){
-            addPlayer(new Player(name, startLifeNum, nameOnPlayer.size()));
+            addPlayer(new Player(name, nameOnPlayer.size()));
             return true;
         }
         return false;
@@ -154,7 +153,7 @@ public class GameWorld implements iWorld {
     public synchronized boolean addPlayerInCell(String name, Cell c) {
         if (!canAddPlayer(name)) { return false; }
         if (gm.addPlayerInCell(name, c)){
-            addPlayer(new Player(name, startLifeNum, nameOnPlayer.size()));
+            addPlayer(new Player(name, nameOnPlayer.size()));
             return true;
         }
         return false;

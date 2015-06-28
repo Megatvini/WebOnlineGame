@@ -9,6 +9,8 @@ package Game.Model;
  * Created by SHAKO on 03-Jun-15.
  */
 public class Player {
+
+    // instance to generate pseudo random things(int, double, boolean ...)
     private static Random rand = new Random();
 
     private boolean active;
@@ -24,11 +26,11 @@ public class Player {
 
     int place;
 
-    public Player(String name, int lifeNum, int type){
-        this(true, name, lifeNum, 0, type);
+    public Player(String name, int type){
+        this(true, name, 0, type);
     }
 
-    public Player(boolean active, String name, int lifeNum, int potNum, int type) {
+    public Player(boolean active, String name, int potNum, int type) {
         this.active = active;
         this.name = name;
         this.potNum = potNum;
