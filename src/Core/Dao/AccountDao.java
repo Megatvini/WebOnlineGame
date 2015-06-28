@@ -88,8 +88,6 @@ public class AccountDao {
             stmt.setInt(9, account.getID());
             stmt.execute();
 
-            stmt.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -171,8 +169,7 @@ public class AccountDao {
             while (result.next()) {
                 accounts.add(result.getString("Nickname"));
             }
-            stmt.close();
-            connection.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -194,9 +191,11 @@ public class AccountDao {
      */
     public Set<String> getUsersLike(String search, int pageNumber, int accountsPerPage){
         Set<String> accounts = new HashSet<>();
+        Connection connection = null;
+        PreparedStatement stmt = null;
         try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement stmt = connection.prepareStatement(
+             connection = dataSource.getConnection();
+             stmt = connection.prepareStatement(
                     "SELECT Nickname FROM accounts " +
                     "WHERE NickName LIKE ? " +
                     "ORDER BY Nickname LIMIT ?, ?;");
@@ -208,12 +207,17 @@ public class AccountDao {
             while (result.next()) {
                 accounts.add(result.getString("Nickname"));
             }
-            stmt.close();
-            connection.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
-        }
+        }  finally {
+        try {
+            if (stmt != null) stmt.close();
+            if(connection != null)  connection.close();
+        } catch (SQLException ignored) {}
+    }
+
         return accounts;
     }
 
@@ -267,8 +271,6 @@ public class AccountDao {
             while (result.next()) {
                 accounts.add(result.getString("Nickname"));
             }
-            stmt.close();
-            connection.close();
         } catch (SQLException e) {
             return null;
         }  finally {

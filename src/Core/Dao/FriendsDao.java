@@ -34,6 +34,7 @@ public class FriendsDao {
             pst.close();
             conn.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -54,6 +55,7 @@ public class FriendsDao {
             pst.close();
             conn.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -70,6 +72,7 @@ public class FriendsDao {
             pst.close();
             conn.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -106,6 +109,7 @@ public class FriendsDao {
             pst.close();
             conn.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -121,6 +125,7 @@ public class FriendsDao {
             pst.close();
             conn.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -146,6 +151,7 @@ public class FriendsDao {
             pst.close();
             conn.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
         return requestsFrom;
@@ -169,6 +175,7 @@ public class FriendsDao {
             pst.close();
             conn.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
         return requestsFrom;
@@ -195,6 +202,7 @@ public class FriendsDao {
             pst.close();
             conn.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
         return requestsTo;
@@ -218,6 +226,7 @@ public class FriendsDao {
             pst.close();
             conn.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
         return requestsTo;
@@ -244,6 +253,7 @@ public class FriendsDao {
             pst.close();
             conn.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
         return friends;
@@ -267,6 +277,7 @@ public class FriendsDao {
             pst.close();
             conn.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
         return friends;

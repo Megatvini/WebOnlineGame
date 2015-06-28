@@ -18,8 +18,7 @@ public class MessageDao {
     }
 
     public boolean sendMessage(Message message) throws Exception {
-        try {
-            Connection connection = dataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();){
             PreparedStatement pst = connection.prepareStatement(
                     "SELECT * FROM conversations " +
                     "WHERE AccIDFrom = ? AND AccIDTo = ?");
@@ -52,11 +51,12 @@ public class MessageDao {
             pst.setString(1, message.getText());
             pst.setInt(2, b? 2:1);
             pst.setInt(3, conversationIDTo);
+            pst.setDate(4, new Date(message.getDate().getTime()));
             pst.execute();
 
             pst.close();
-            connection.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -87,6 +87,7 @@ public class MessageDao {
             pst.close();
             conn.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
         return messages;
