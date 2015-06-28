@@ -41,10 +41,9 @@ public class AcceptFriendRequest extends HttpServlet {
 
         //confirm friend request
         if (buttonClicked.equals("ok"))
-             friendsDao.confirmFriendRequest(IDFrom, IDTo);
+            friendsDao.confirmFriendRequest(IDFrom, IDTo);
         else
-           // friendsDao.rejectRequest(IDFrom, IDTo);
-
+            friendsDao.rejectFriendRequest(IDFrom, IDTo);
         response.sendRedirect("Friends.jsp");
     }
 

@@ -2,6 +2,7 @@ package Core.Servlets;
 
 import Core.Bean.Message;
 import Core.Dao.AccountDao;
+import Core.Dao.CachedMessagesDao;
 import Core.Dao.MessageDao;
 import Interfaces.iAccount;
 
@@ -28,9 +29,11 @@ public class SentMessageServlet extends HttpServlet {
         MessageDao messageDao = (MessageDao) getServletContext().getAttribute(MessageDao.class.getName());
         Set<String> onlineUsers = (Set<String>) getServletContext().getAttribute("onlineUsers");
 
-        iAccount account;
+        iAccount accountFrom;
+        iAccount accountTo;
         try {
-            account = accountDao.getUser(userName);
+            accountFrom = accountDao.getUser(userName);
+            accountTo = accountDao.getUser(toID);
         } catch (Exception e) {
             return;
         }
@@ -43,8 +46,8 @@ public class SentMessageServlet extends HttpServlet {
 
         Message mes = new Message();
         mes.setText(message);
-        mes.setAccTo(toID);
-        mes.setAccFrom(account.getID());
+        mes.setAccTo(accountTo.getID());
+        mes.setAccFrom(accountFrom.getID());
         mes.setType(Message.Type.SENT);
         mes.setDate(new Date(System.currentTimeMillis()));
 
@@ -54,9 +57,18 @@ public class SentMessageServlet extends HttpServlet {
             return;
         }
 
-        if (onlineUsers.contains(account.getNickname())) {
-            saveMessage(mes, userName, toID);
+        if (onlineUsers.contains(accountTo.getNickname())) {
+            saveMessage(mes, userName, accountTo.getID());
+        } else {
+            saveToDatabase(accountFrom, accountTo, mes);
         }
+    }
+
+    private void saveToDatabase(iAccount accountFrom, iAccount accountTo, Message mes) {
+        CachedMessagesDao cachedMessagesDao = (CachedMessagesDao)
+                getServletContext().getAttribute(CachedMessagesDao.class.getName());
+        if (cachedMessagesDao == null) throw new RuntimeException("CachedMessagesDao is NULL");
+        cachedMessagesDao.addSingleMessage(accountTo.getID(), accountFrom.getNickname(), mes.getText(), mes.getDate());
     }
 
     private void saveMessage(Message mes, String userName, Integer toID) {

@@ -73,7 +73,7 @@ public class MessageDaoTest {
         verify(preparedStatementMock, atLeastOnce()).setInt(anyInt(), eq(message.getAccFrom()));
         verify(preparedStatementMock, atLeastOnce()).setInt(anyInt(), eq(message.getAccTo()));
         java.sql.Date date = new java.sql.Date(message.getDate().getTime());
-        verify(preparedStatementMock, atLeastOnce()).setDate(anyInt(), eq(date));
+        verify(preparedStatementMock, atLeastOnce()).setTimestamp(anyInt(), anyObject());
         verify(preparedStatementMock, atLeastOnce()).execute();
         verify(preparedStatementMock, atLeastOnce()).close();
         verify(connectionMock).close();

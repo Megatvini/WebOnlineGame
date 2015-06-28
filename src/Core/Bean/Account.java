@@ -2,6 +2,7 @@ package Core.Bean;
 
 import Core.Controller.GameManager;
 import Interfaces.iAccount;
+import com.google.gson.annotations.Expose;
 
 import java.util.Date;
 
@@ -9,12 +10,17 @@ import java.util.Date;
  * Created by gukam on 5/29/2015.
  */
 public class Account implements iAccount {
+    @Expose
     private String nickname;
     private String password;
+    @Expose
     private String picPath;
+    @Expose
     private String firstName;
+    @Expose
     private String lastName;
     private String mail;
+    @Expose
     private int rating;
     private int ID;
     private Date birthDate;
