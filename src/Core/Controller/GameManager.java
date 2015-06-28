@@ -13,6 +13,7 @@ import java.util.List;
 
 public class GameManager {
     public static final int DEFAULT_RATING = 1200;
+    public static final int K_RATING_VALUE = 15;
     private AccountDao accountDao;
     private GameDao gameDao;
 
@@ -32,19 +33,27 @@ public class GameManager {
         //give each account new rating and save it to database;
 
         int gameID = gameDao.addNewGame(new Date(System.currentTimeMillis()));
-        List<Integer> ratingChanges = calculateRatingChanges(playerPositions);
+        List<iAccount> accountPositions = getAccountPositions(playerPositions);
+        List<Integer> ratingChanges = calculateRatingChanges(accountPositions);
+        for (int i=0; i < accountPositions.size(); i++) {
+            iAccount account = accountPositions.get(i);
+            int ratingChange = ratingChanges.get(i);
+            gameDao.addParticipation(gameID, account.getID(), ratingChange);
+            account.setRating(account.getRating() + ratingChange);
+            accountDao.changeUser(account);
+        }
+    }
 
-        for (int i=0; i < playerPositions.size(); i++) {
+    private List<iAccount> getAccountPositions(List<String> playerPositions) {
+        List<iAccount> accounts = new ArrayList<>();
+        for (String playerPosition : playerPositions) {
             try {
-                iAccount account = accountDao.getUser(playerPositions.get(i));
-                int ratingChange = ratingChanges.get(i);
-                gameDao.addParticipation(gameID, account.getID(), ratingChange);
-                account.setRating(account.getRating() + ratingChange);
-                accountDao.changeUser(account);
+                accounts.add(accountDao.getUser(playerPosition));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        return accounts;
     }
 
 
@@ -54,11 +63,28 @@ public class GameManager {
      * @param playerPositions positions of player after game
      * @return rating changes accordingly
      */
-    private List<Integer> calculateRatingChanges(List<String> playerPositions) {
+    private List<Integer> calculateRatingChanges(List<iAccount> playerPositions) {
         List<Integer> result = new ArrayList<>();
         for (int i=0; i<playerPositions.size(); i++) {
-            result.add(0);
+            result.add(calculateRatingChange(playerPositions, i));
         }
         return result;
     }
+
+    private Integer calculateRatingChange(List<iAccount> playerPositions, int index) {
+        double change = 0;
+        for (int i=0; i<playerPositions.size(); i++) {
+            if (i==index) continue;
+            change += calculateChange(playerPositions.get(index), playerPositions.get(i), index < i);
+        }
+        return (int) change;
+    }
+
+    private double calculateChange(iAccount player, iAccount opponent, boolean won) {
+        int Sa = won?1:0;
+        double power = (opponent.getRating() - player.getRating())/400;
+        double Ea = 1/(1 + Math.pow(10, power));
+        return K_RATING_VALUE*(Sa-Ea);
+    }
+
 }
