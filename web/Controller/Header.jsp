@@ -16,6 +16,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+  <meta charset="UTF-8">
     <title></title>
 </head>
 <body>
@@ -172,7 +173,7 @@
   </nav>
 </header>
 
-<script src="../NotificationScripts.js"></script>
+<script src="../NotificationScripts.js" charset="UTF-8"></script>
 <script>
 
 

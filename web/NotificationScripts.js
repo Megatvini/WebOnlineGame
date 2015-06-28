@@ -68,8 +68,11 @@ function updateNots(data){
     for(var id in messages){
         var obj = messages[id];
         var lastIndex = obj['messages'].length - 1;
-        var secs =  Math.abs(new Date() - new Date(obj['messages'][lastIndex]['date']));
-        addToMessages(obj['sender']['nickname'],obj['sender']['picPath'], obj['messages'][lastIndex]['text'], diff);
+        var dateText = obj['messages'][lastIndex]['date'];
+        var date1 =  new Date(dateText);
+        var date2 = new Date();
+        var dif = messageDate(date1, date2);
+        addToMessages(obj['sender']['nickname'],obj['sender']['picPath'], obj['messages'][lastIndex]['text'], dif);
     }
 }
 
@@ -77,6 +80,43 @@ $(document).ready(function() {
     checkNots();
     setInterval(checkNots, 5000);
 });
-
-
-
+var months = ["იანვარი", "თებერვალი", "მარტი", "აპრილი", "მაისი", "ივნისი", "ივლისი", "აგვისტო", "სექტემბერი", "ოქტომბერი", "ნომბერი", "დეკემბერი"];
+ 
+var days = ["ორშაბათი", "სამშაბათი", "ოთხშაბათი", "ხუთშაბათი", "პარასკევი", "შაბათი", "კვირა"];
+ 
+function messageDate(sentDate, now) {
+   if (sentDate > now) {
+      return "საიტზე მოხდა შეცდომა!"
+   }
+ 
+   var readableDate = getReadableDate(sentDate);
+ 
+   var daysDifference = Math.floor((now - sentDate) / 1000 / 60 / 60 / 24);
+   if (daysDifference >= 365
+         || now.getMonth() != sentDate.getMonth()) {
+       return readableDate;
+   }
+   
+   if (daysDifference > 0) {
+      return daysDifference + " დღის წინ";
+   }
+ 
+   var hoursDifference = Math.floor((now - sentDate) / 1000 / 60 / 60);
+   if (hoursDifference > 0) {
+      return hoursDifference + " საათის წინ";
+   }
+ 
+   var minutesDifference = Math.floor((now - sentDate) / 1000 / 60);
+   if (minutesDifference > 0) {
+      return minutesDifference + " წუთის წინ";
+   }
+ 
+   return "რამდენიმე წამის წინ";
+}
+function getReadableDate(date) {
+   var hours = date.getHours();
+   if (hours < 10) hours = "0" + hours;
+   var minutes = date.getMinutes();
+   if (minutes < 10) minutes = "0" + minutes;
+   return days[date.getDay()] + " " + months[date.getMonth()] + " " + date.getDate() + " " + date.getFullYear() + ", " + hours + ":" + minutes;
+}

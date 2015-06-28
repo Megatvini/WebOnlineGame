@@ -36,7 +36,8 @@
       </div>
       <div class="pull-left info">
         <p><%= prof.getNickname() %></p>
-        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        <div class="fa fa-fw fa-line-chart" ></div>
+         <%= prof.getRating() %> </a>
       </div>
     </div>
 <% String uri = request.getRequestURI();
@@ -46,47 +47,47 @@
       <li class="header">ნავიგაცია</li>
       <li class="<%= pageName.equals("index.jsp") ? "active" : "" %>">
         <a href="../index.jsp">
-          <i class="fa fa-th"></i> <span>ჩემი გვერდი</span>
+          <i class="fa fa-home"></i> <span>ჩემი გვერდი</span>
         </a>
       </li>
       <li class="<%= pageName.equals("StartGame.jsp") ? "active" : "" %>">
         <a href="../StartGame.jsp">
-          <i class="fa fa-th"></i> <span>თამაშის დაწყება</span>
+          <i class="fa fa-gamepad"></i> <span>თამაშის დაწყება</span>
         </a>
       </li>
       <li class="<%= pageName.equals("Friends.jsp") ? "active" : "" %>">
         <a href="../Friends.jsp">
-          <i class="fa fa-th"></i> <span>მეგობრები</span>
+          <i class="fa  fa-users"></i> <span>მეგობრები</span>
         </a>
       </li>
       <li class="<%= pageName.equals("Users.jsp") ? "active" : "" %>">
         <a href="../Users.jsp">
-          <i class="fa fa-th"></i> <span>ონლაინში</span>
+          <i class="fa  fa-cloud"></i> <span>ონლაინში</span>
         </a>
       </li>
       <li class="<%= pageName.equals("Raiting.jsp") ? "active" : "" %>">
       <a href="../Raiting.jsp">
-        <i class="fa fa-th"></i> <span>რეიტინგი</span>
+        <i class="fa fa-signal"></i> <span>რეიტინგი</span>
       </a>
     </li>
       <li class="<%= pageName.equals("Messages.jsp") ? "active" : "" %>">
       <a href="../Messages.jsp">
-        <i class="fa fa-th"></i> <span>წერილები</span>
+        <i class="fa  fa-envelope-o"></i> <span>წერილები</span>
       </a>
     </li>
       <li class="<%= pageName.equals("GameInfo.jsp") ? "active" : "" %>">
       <a href="../GameInfo.jsp">
-        <i class="fa fa-th"></i> <span>თამაშის შესახებ</span>
+        <i class="fa fa-info-circle"></i> <span>თამაშის შესახებ</span>
       </a>
     </li>
       <li class="<%= pageName.equals("Statistics.jsp") ? "active" : "" %>">
       <a href="../Statistics.jsp">
-        <i class="fa fa-th"></i> <span>სტატისტიკა</span>
+        <i class="fa  fa-bar-chart-o"></i> <span>სტატისტიკა</span>
       </a>
     </li>
       <li>
       <a href="/Logout">
-        <i class="fa fa-th"></i> <span>გამოსვლა</span>
+        <i class="fa fa-sign-out"></i> <span>გამოსვლა</span>
       </a>
     </li>
 
