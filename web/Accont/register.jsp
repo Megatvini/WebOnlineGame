@@ -82,27 +82,6 @@
 <!-- iCheck -->
 <script src="../../plugins/iCheck/icheck.min.js" type="text/javascript"></script>
 <script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' // optional
-    });
-  });
-
-  window.onload = function () {
-    document.getElementById("password1").onchange = validatePassword;
-    document.getElementById("password2").onchange = validatePassword;
-  }
-  function validatePassword(){
-    var pass2=document.getElementById("password2").value;
-    var pass1=document.getElementById("password1").value;
-    if(pass1!=pass2)
-      document.getElementById("password2").setCustomValidity("Passwords Don't Match");
-    else
-      document.getElementById("password2").setCustomValidity('');
-//empty string means no validation error
-  }
 </script>
 </body>
 </html>
