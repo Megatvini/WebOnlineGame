@@ -28,6 +28,7 @@ public class CachedMessagesDao {
      * @return true iff data was added successfully
      */
     public boolean addMessages(int accID, Map<String, List<Message>> messageMap) {
+        if (messageMap == null || messageMap.size() == 0) return true;
         try (Connection conn = dataSource.getConnection()) {
             try (PreparedStatement pst = conn.prepareStatement(
                     "INSERT INTO unreadmessages " +

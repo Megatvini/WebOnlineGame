@@ -68,7 +68,7 @@ public class CachedMessagesDaoTest {
         initMocks();
         initMessageMap();
         CachedMessagesDao cachedMessagesDao = new CachedMessagesDao(dataSourceMock);
-        cachedMessagesDao.addMessages(75, messageMap);
+        assertTrue(cachedMessagesDao.addMessages(75, messageMap));
 
         verify(dataSourceMock, atLeastOnce()).getConnection();
         verify(connectionMock, atLeastOnce()).prepareStatement(anyString());
@@ -76,16 +76,108 @@ public class CachedMessagesDaoTest {
         verify(preparedStatementMock, atLeastOnce()).setString(anyInt(), eq("user1"));
         verify(preparedStatementMock, atLeastOnce()).setString(anyInt(), eq("user2"));
 
+        verify(connectionMock, atLeastOnce()).close();
+        verify(preparedStatementMock, atLeastOnce()).close();
+    }
 
+    @Test
+    public void testAddMessagesConnException() throws Exception {
+        initMocks();
+        initMessageMap();
+        CachedMessagesDao cachedMessagesDao = new CachedMessagesDao(dataSourceMock);
+        when(dataSourceMock.getConnection()).thenThrow(new SQLException());
+        assertFalse(cachedMessagesDao.addMessages(75, messageMap));
+    }
+
+    @Test
+    public void testAddMessagesStException() throws Exception {
+        initMocks();
+        initMessageMap();
+        CachedMessagesDao cachedMessagesDao = new CachedMessagesDao(dataSourceMock);
+        when(connectionMock.prepareStatement(anyString())).thenThrow(new SQLException());
+        assertFalse(cachedMessagesDao.addMessages(75, messageMap));
+        verify(connectionMock, atLeastOnce()).close();
     }
 
     @Test
     public void testAddSingleMessage() throws Exception {
+        initMocks();
+        initMessageMap();
+        CachedMessagesDao cachedMessagesDao = new CachedMessagesDao(dataSourceMock);
+        assertTrue(cachedMessagesDao.addSingleMessage(12, "nika", "text", new Date()));
 
+        verify(dataSourceMock, atLeastOnce()).getConnection();
+        verify(connectionMock, atLeastOnce()).prepareStatement(anyString());
+        verify(preparedStatementMock, atLeastOnce()).setInt(anyInt(), eq(12));
+        verify(preparedStatementMock, atLeastOnce()).setString(anyInt(), eq("nika"));
+        verify(preparedStatementMock, atLeastOnce()).setString(anyInt(), eq("text"));
+        verify(preparedStatementMock, atLeastOnce()).close();
+        verify(connectionMock, atLeastOnce()).close();
+    }
+
+    @Test
+    public void testAddSingleMessageConnException() throws Exception {
+        initMocks();
+        initMessageMap();
+        CachedMessagesDao cachedMessagesDao = new CachedMessagesDao(dataSourceMock);
+        when(dataSourceMock.getConnection()).thenThrow(new SQLException());
+        assertFalse(cachedMessagesDao.addSingleMessage(12, "nika", "text", new Date()));
+    }
+
+
+    @Test
+    public void testAddSingleMessageStException() throws Exception {
+        initMocks();
+        initMessageMap();
+        CachedMessagesDao cachedMessagesDao = new CachedMessagesDao(dataSourceMock);
+        when(connectionMock.prepareStatement(anyString())).thenThrow(new SQLException());
+        assertFalse(cachedMessagesDao.addSingleMessage(12, "nika", "text", new Date()));
+        verify(connectionMock, atLeastOnce()).close();
     }
 
     @Test
     public void testTakeMessages() throws Exception {
+        initMocks();
+        initMessageMap();
+        CachedMessagesDao cachedMessagesDao = new CachedMessagesDao(dataSourceMock);
+        when(resultSetMock.next()).thenReturn(true).thenReturn(true).thenReturn(false);
+        Map<String, List<Message>> res = cachedMessagesDao.takeMessages(12);
+        assertEquals(1, res.size());
 
+        verify(connectionMock, atLeastOnce()).close();
+        verify(preparedStatementMock, atLeastOnce()).close();
+        verify(connectionMock, atLeastOnce()).commit();
+    }
+
+    @Test
+    public void testTakeMessagesConnException() throws Exception {
+        initMocks();
+        initMessageMap();
+        CachedMessagesDao cachedMessagesDao = new CachedMessagesDao(dataSourceMock);
+        when(dataSourceMock.getConnection()).thenThrow(new SQLException());
+        assertEquals(null, cachedMessagesDao.takeMessages(12));
+    }
+
+    @Test
+    public void testTakeMessagesFirstSTException() throws Exception {
+        initMocks();
+        initMessageMap();
+        CachedMessagesDao cachedMessagesDao = new CachedMessagesDao(dataSourceMock);
+        when(connectionMock.prepareStatement(anyString())).thenThrow(new SQLException());
+        assertEquals(null, cachedMessagesDao.takeMessages(12));
+        verify(connectionMock, atLeastOnce()).close();
+        verify(connectionMock, atLeastOnce()).rollback();
+    }
+
+    @Test
+    public void testTakeMessagesSecondSTException() throws Exception {
+        initMocks();
+        initMessageMap();
+        CachedMessagesDao cachedMessagesDao = new CachedMessagesDao(dataSourceMock);
+        when(connectionMock.prepareStatement(anyString())).
+                thenReturn(preparedStatementMock).thenThrow(new SQLException());
+        assertEquals(null, cachedMessagesDao.takeMessages(12));
+        verify(connectionMock, atLeastOnce()).close();
+        verify(connectionMock, atLeastOnce()).rollback();
     }
 }

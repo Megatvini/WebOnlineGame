@@ -102,7 +102,7 @@ public class AccountDao {
      * @throws Exception if user with nickname was not found
      */
     public iAccount getUser(String nickname) throws Exception {
-        iAccount res = null;
+        iAccount res;
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement stmt = connection.prepareStatement(
                     "SELECT * FROM accounts WHERE NickName = ?;")) {
@@ -130,7 +130,7 @@ public class AccountDao {
      * @throws Exception if user with nickname was not found
      */
     public iAccount getUser(int accID) throws Exception {
-        iAccount res = null;
+        iAccount res;
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement stmt = connection.prepareStatement(
                     "SELECT * FROM accounts WHERE ID = ?;")) {
