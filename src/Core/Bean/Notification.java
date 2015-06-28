@@ -12,40 +12,42 @@ import java.util.Set;
  */
 public class Notification {
     @Expose
-    private Set<iAccount> friendRequestsFrom;
+    private List<iAccount> friendRequestsFrom;
     @Expose
-    private Map<String, GameInvitation> inviteGamesFrom;
+    private List<GameInvitation> inviteGamesFrom;
     @Expose
-    private Map<String, NotificationMessage> newMessages;
+    private List<NotificationMessage> newMessages;
 
-    public Notification(Set<iAccount> friendRequestsFrom, Map<String, GameInvitation> inviteGamesFrom,
-                        Map<String, NotificationMessage> newMessages) {
+    public Notification(List<iAccount> friendRequestsFrom,
+                        List<GameInvitation> inviteGamesFrom,
+                        List<NotificationMessage> newMessages) {
         this.friendRequestsFrom = friendRequestsFrom;
         this.inviteGamesFrom = inviteGamesFrom;
         this.newMessages = newMessages;
     }
 
-    public Set<iAccount> getFriendRequestsFrom() {
+
+    public List<iAccount> getFriendRequestsFrom() {
         return friendRequestsFrom;
     }
 
-    public void setFriendRequestsFrom(Set<iAccount> friendRequestsFrom) {
+    public void setFriendRequestsFrom(List<iAccount> friendRequestsFrom) {
         this.friendRequestsFrom = friendRequestsFrom;
     }
 
-    public Map<String, GameInvitation> getInviteGamesFrom() {
+    public List<GameInvitation> getInviteGamesFrom() {
         return inviteGamesFrom;
     }
 
-    public void setInviteGamesFrom(Map<String, GameInvitation> inviteGamesFrom) {
+    public void setInviteGamesFrom(List<GameInvitation> inviteGamesFrom) {
         this.inviteGamesFrom = inviteGamesFrom;
     }
 
-    public Map<String, NotificationMessage> getNewMessages() {
+    public List<NotificationMessage> getNewMessages() {
         return newMessages;
     }
 
-    public void setNewMessages(Map<String, NotificationMessage> newMessages) {
+    public void setNewMessages(List<NotificationMessage> newMessages) {
         this.newMessages = newMessages;
     }
 }

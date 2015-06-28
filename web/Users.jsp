@@ -63,7 +63,6 @@
         String search = request.getParameter("search");
         if (search == null) {
           users = (Set<String>) application.getAttribute("onlineUsers");
-          users.remove(nickname);
         } else {
           users = userControl.getUsersLike(search);
         }

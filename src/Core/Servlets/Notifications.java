@@ -55,19 +55,19 @@ public class Notifications extends HttpServlet {
     private Notification makeNotification(Set<String> friendRequestsFrom,
                                           Map<String, List<Message>> unreadMessagesFrom,
                                           Map<String, Integer> inviteGamesFrom, AccountDao accountDao) {
-        Set<iAccount> accountSet = getAccountSet(friendRequestsFrom, accountDao);
-        Map<String, GameInvitation> gameInvitations = getGameInvitationsMap(inviteGamesFrom, accountDao);
-        Map<String, NotificationMessage> notificationMessageMap = getNotificationMessagesMap(unreadMessagesFrom, accountDao);
+        List<iAccount> accountSet = getAccountSet(friendRequestsFrom, accountDao);
+        List<GameInvitation> gameInvitations = getGameInvitationsMap(inviteGamesFrom, accountDao);
+        List<NotificationMessage> notificationMessageMap = getNotificationMessagesMap(unreadMessagesFrom, accountDao);
         return new Notification(accountSet, gameInvitations, notificationMessageMap);
     }
 
-    private Map<String, NotificationMessage> getNotificationMessagesMap(Map<String, List<Message>>
+    private List<NotificationMessage> getNotificationMessagesMap(Map<String, List<Message>>
                                                                                 unreadMessagesFrom, AccountDao accountDao) {
-        Map<String, NotificationMessage> res = new HashMap<>();
+        List<NotificationMessage> res = new ArrayList<>();
         if (unreadMessagesFrom == null) return res;
         unreadMessagesFrom.forEach((name, list)->{
             try {
-                res.put(name, new NotificationMessage(accountDao.getUser(name), list));
+                res.add(new NotificationMessage(accountDao.getUser(name), list));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -75,12 +75,12 @@ public class Notifications extends HttpServlet {
         return res;
     }
 
-    private Map<String, GameInvitation> getGameInvitationsMap(Map<String, Integer> inviteGamesFrom, AccountDao accountDao) {
-        Map<String, GameInvitation> res = new HashMap<>();
+    private List<GameInvitation> getGameInvitationsMap(Map<String, Integer> inviteGamesFrom, AccountDao accountDao) {
+        List <GameInvitation> res = new ArrayList<>();
         if (inviteGamesFrom == null) return res;
         inviteGamesFrom.forEach((inviteFrom, roomSize) -> {
             try {
-                res.put(inviteFrom, new GameInvitation(accountDao.getUser(inviteFrom), roomSize));
+                res.add(new GameInvitation(accountDao.getUser(inviteFrom), roomSize));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -88,8 +88,8 @@ public class Notifications extends HttpServlet {
         return res;
     }
 
-    private Set<iAccount> getAccountSet(Set<String> friendRequestsFrom, AccountDao accountDao) {
-        Set<iAccount> result = new HashSet<>();
+    private List<iAccount> getAccountSet(Set<String> friendRequestsFrom, AccountDao accountDao) {
+        List<iAccount> result = new ArrayList<>();
         if (friendRequestsFrom == null) return result;
         friendRequestsFrom.forEach(name -> {
             try {
