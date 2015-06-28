@@ -57,6 +57,29 @@ public class MessageDaoTest {
         assertEquals(false, messageDao.sendMessage(message));
     }
 
+    @Test
+    public void testSendMessageException1() throws Exception {
+        initMocks();
+        initMessage();
+        MessageDao messageDao = new MessageDao(dataSourceMock);
+        when(connectionMock.prepareStatement(anyString())).thenThrow(new SQLException());
+        assertEquals(false, messageDao.sendMessage(message));
+        verify(connectionMock).close();
+    }
+
+    @Test
+    public void testSendMessageException2() throws Exception {
+        initMocks();
+        initMessage();
+        MessageDao messageDao = new MessageDao(dataSourceMock);
+        when(resultSetMock.next()).thenReturn(true);
+        when(connectionMock.prepareStatement(anyString()))
+                .thenReturn(preparedStatementMock)
+                .thenThrow(new SQLException());
+        assertEquals(false, messageDao.sendMessage(message));
+        verify(connectionMock).close();
+    }
+
 
     @Test
     public void testSendMessage() throws Exception {
@@ -105,5 +128,15 @@ public class MessageDaoTest {
         MessageDao messageDao = new MessageDao(dataSourceMock);
         when(dataSourceMock.getConnection()).thenThrow(new SQLException());
         assertEquals(null, messageDao.getMessages(5, 12));
+    }
+
+    @Test
+    public void testGetMessagesException1() throws Exception {
+        initMocks();
+        initMessage();
+        MessageDao messageDao = new MessageDao(dataSourceMock);
+        when(connectionMock.prepareStatement(anyString())).thenThrow(new SQLException());
+        assertEquals(null, messageDao.getMessages(5, 12));
+        verify(connectionMock).close();
     }
 }
