@@ -2,7 +2,8 @@
  * Created by Annie on 27-Jun-15.
  */
 function addToFriends(nickname, pic){
-    var val =   '<li>' +
+    $('.addedF').remove();
+    var val =   '<li class="addedF">' +
                 '<a href="Friends.jsp">' +
                 '<i ></i>' +
                 '<img src="'+ pic +'"  alt="Smiley face" style="width: 50px; height: 50px; border-radius: 50%;">' +
@@ -14,7 +15,8 @@ function addToFriends(nickname, pic){
 }
 
 function addToMessages(nickname, pic, lastMessage){
-var val = '<li>'+
+    $('.addedM').remove();
+var val = '<li class="addedM">'+
         '<a href="Messages.jsp?friend='+ nickname + '">'+
         '<div class="pull-left">'+
         '<img src="'+pic+'" class="img-circle" alt="User Image"/>'+
@@ -47,13 +49,23 @@ function updateNots(data){
     if(j==null)
         return;
 
-    var friendRequests = data[0];
-    var messages = data[1];
-    var gameInvites = data[2];
+    var friendRequests = data.friendRequestsFrom;
+    var messages = data.newMessages;
+    //var gameInvites = data[2];
 
+    for(var friend in friendRequests){
+        addToFriends(friend);
+    }
+
+    for(var message in messages){
+        var list = messages[message];
+
+        var lastIndex = list.length - 1;
+        addToMessages(message,' ', list[lastIndex].text);
+    }
 }
 
 $(document).ready(function() {
     checkNots();
-    setInterval(checkNots, 2000);
+    setInterval(checkNots, 5000);
 });
