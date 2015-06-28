@@ -11,6 +11,7 @@ import java.util.List;
  * Created by Nika on 02:20, 6/25/2015.
  */
 public class MessageDao {
+    private static final int DEFAULT_MAX_MESSAGES = 50;
     private DataSource dataSource;
 
     public MessageDao(DataSource dataSource) {
@@ -81,15 +82,29 @@ public class MessageDao {
      * @return list of messages between two users
      */
     public List<Message> getMessages(int userID, int friendID){
+        return getMessages(userID, friendID, DEFAULT_MAX_MESSAGES);
+    }
+
+    /**
+     * get all messages between user and its friend
+     * @param userID ID for a user
+     * @param friendID database ID for friend
+     * @param limit maxmimum number of limits
+     * @return list of messages between two users
+     */
+    public List<Message> getMessages(int userID, int friendID, int limit){
         ArrayList<Message> messages = new ArrayList<>();
         try (Connection conn = dataSource.getConnection()) {
             try (PreparedStatement pst = conn.prepareStatement(
                     "SELECT * FROM messages " +
-                    "INNER JOIN conversations " +
-                    "ON conversations.ID = messages.Conversations_ID " +
-                    "WHERE conversations.AccIDFrom = ? AND conversations.AccIDTo = ?");) {
+                            "INNER JOIN conversations " +
+                            "ON conversations.ID = messages.Conversations_ID " +
+                            "WHERE conversations.AccIDFrom = ? AND conversations.AccIDTo = ?" +
+                            "ORDER BY DATE DESC " +
+                            "LIMIT ?")) {
                 pst.setInt(1, userID);
                 pst.setInt(2, friendID);
+                pst.setInt(3, limit);
                 ResultSet result = pst.executeQuery();
                 while (result.next()) {
                     Message message = new Message();
