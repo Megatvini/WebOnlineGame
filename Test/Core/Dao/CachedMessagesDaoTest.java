@@ -8,10 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyString;
@@ -60,6 +57,8 @@ public class CachedMessagesDaoTest {
         messageList = new ArrayList<>();
         messageList.add(message1);
         messageList.add(message2);
+
+        messageMap = new HashMap<>();
         messageMap.put("user1",messageList);
         messageMap.put("user2",messageList);
     }
@@ -69,13 +68,13 @@ public class CachedMessagesDaoTest {
         initMocks();
         initMessageMap();
         CachedMessagesDao cachedMessagesDao = new CachedMessagesDao(dataSourceMock);
-        cachedMessagesDao.addMessages(2, messageMap);
+        cachedMessagesDao.addMessages(75, messageMap);
 
         verify(dataSourceMock, atLeastOnce()).getConnection();
         verify(connectionMock, atLeastOnce()).prepareStatement(anyString());
-        verify(preparedStatementMock).setInt(anyInt(), eq(2));
-        verify(preparedStatementMock).setString(anyInt(), eq("user1"));
-        verify(preparedStatementMock).setString(anyInt(), eq("user2"));
+        verify(preparedStatementMock, atLeastOnce()).setInt(anyInt(), eq(75));
+        verify(preparedStatementMock, atLeastOnce()).setString(anyInt(), eq("user1"));
+        verify(preparedStatementMock, atLeastOnce()).setString(anyInt(), eq("user2"));
 
 
     }

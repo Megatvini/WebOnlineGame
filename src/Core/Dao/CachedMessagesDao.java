@@ -39,10 +39,15 @@ public class CachedMessagesDao {
                         pst.setInt(1, accID);
                         pst.setString(2, senderNickname);
                         pst.setString(3, mes.getText());
-                        pst.setDate(4, new java.sql.Date(mes.getDate().getTime()));
+                        pst.setTimestamp(4, new java.sql.Timestamp(mes.getDate().getTime()));
                         pst.execute();
                     }
                 }
+            } catch (SQLException e) {
+                //e.printStackTrace();
+                //System.out.println("addMessages with accID" +
+                //        accID + " size " + messageMap.size() + " failed");
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //e.printStackTrace();
@@ -70,8 +75,13 @@ public class CachedMessagesDao {
                 pst.setInt(1, accID);
                 pst.setString(2, senderNickName);
                 pst.setString(3, text);
-                pst.setDate(4, new java.sql.Date(date.getTime()));
+                pst.setTimestamp(4, new java.sql.Timestamp(date.getTime()));
                 pst.execute();
+            } catch (SQLException e) {
+                //e.printStackTrace();
+                //System.out.println("addSingleMessage accID, senderNickname, text, date "
+                //        + accID + ", " + senderNickName + ", " + text + ", " + date + "failed");
+                throw new SQLException();
             }
         } catch (SQLException e) {
             //e.printStackTrace();
@@ -90,38 +100,38 @@ public class CachedMessagesDao {
     public Map<String, List<Message>> takeMessages(int accID) {
         Map<String, List<Message>> res = new HashMap<>();
         try (Connection conn = dataSource.getConnection()) {
+            conn.setAutoCommit(false);
             try (PreparedStatement pst = conn.prepareStatement(
                     "SELECT * FROM unreadmessages " +
                     "WHERE ReceiverID = ?")) {
                 pst.setInt(1, accID);
                 ResultSet resultSet = pst.executeQuery();
                 assembleResult(res, resultSet);
-                removeMessages(accID);
+            } catch (SQLException e) {
+                //e.printStackTrace();
+                //System.out.println("takeMessages with accID " + accID + " failed");
+                conn.rollback();
+                throw new SQLException();
             }
+
+            try (PreparedStatement pst = conn.prepareStatement(
+                    "DELETE FROM unreadmessages " +
+                    "WHERE ReceiverID = ?")) {
+                pst.setInt(1, accID);
+                pst.execute();
+            } catch (SQLException e) {
+                //e.printStackTrace();
+                //System.out.println("removeMessages with accID " + accID + " failed");
+                conn.rollback();
+                throw new SQLException();
+            }
+            conn.commit();
         } catch (SQLException e) {
             //e.printStackTrace();
             //System.out.println("takeMessages with accID " + accID + " failed");
             return null;
         }
         return res;
-    }
-
-    /**
-     * removes cached messages of account
-     * @param accID id of the account
-     */
-    private void removeMessages(int accID) {
-        try (Connection conn = dataSource.getConnection()) {
-            try (PreparedStatement pst = conn.prepareStatement(
-                    "DELETE FROM unreadmessages " +
-                    "WHERE ReceiverID = ?")) {
-                pst.setInt(1, accID);
-                pst.execute();
-            }
-        } catch (SQLException e) {
-            //e.printStackTrace();
-            //System.out.println("removeMessages with accID " + accID + " failed");
-        }
     }
 
 
@@ -135,7 +145,7 @@ public class CachedMessagesDao {
         while (resultSet.next()) {
             String senderName = resultSet.getString("SenderNickname");
             String text = resultSet.getString("Text");
-            Date date = resultSet.getDate("Date");
+            Date date = resultSet.getTimestamp("Date");
             Message message = new Message();
             message.setDate(date);
             message.setText(text);
