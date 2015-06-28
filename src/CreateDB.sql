@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`accounts` (
   `Picture` VARCHAR(400) NOT NULL COMMENT '',
   PRIMARY KEY (`ID`)  COMMENT '',
   UNIQUE INDEX `Nickname_UNIQUE` (`Nickname` ASC)  COMMENT '')
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = InnoDB
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -50,17 +50,17 @@ CREATE TABLE IF NOT EXISTS `mydb`.`conversations` (
   INDEX `fk_Conversations_Accounts1_idx` (`AccIDFrom` ASC)  COMMENT '',
   INDEX `fk_Conversations_Accounts2_idx` (`AccIDTo` ASC)  COMMENT '',
   CONSTRAINT `fk_Conversations_Accounts1`
-    FOREIGN KEY (`AccIDFrom`)
-    REFERENCES `mydb`.`accounts` (`ID`)
+  FOREIGN KEY (`AccIDFrom`)
+  REFERENCES `mydb`.`accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Conversations_Accounts2`
-    FOREIGN KEY (`AccIDTo`)
-    REFERENCES `mydb`.`accounts` (`ID`)
+  FOREIGN KEY (`AccIDTo`)
+  REFERENCES `mydb`.`accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = InnoDB
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -75,17 +75,17 @@ CREATE TABLE IF NOT EXISTS `mydb`.`friends` (
   INDEX `fk_Friends_Accounts_idx` (`AccIDFrom` ASC)  COMMENT '',
   INDEX `fk_Friends_Accounts1_idx` (`AccIDTo` ASC)  COMMENT '',
   CONSTRAINT `fk_Friends_Accounts`
-    FOREIGN KEY (`AccIDFrom`)
-    REFERENCES `mydb`.`accounts` (`ID`)
+  FOREIGN KEY (`AccIDFrom`)
+  REFERENCES `mydb`.`accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Friends_Accounts1`
-    FOREIGN KEY (`AccIDTo`)
-    REFERENCES `mydb`.`accounts` (`ID`)
+  FOREIGN KEY (`AccIDTo`)
+  REFERENCES `mydb`.`accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = InnoDB
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -95,8 +95,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`games` (
   `ID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `Date` DATETIME NOT NULL COMMENT '',
   PRIMARY KEY (`ID`)  COMMENT '')
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = InnoDB
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -107,16 +107,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`messages` (
   `Text` TEXT NULL DEFAULT NULL COMMENT '',
   `Sender` ENUM('1','2') NOT NULL COMMENT '',
   `Conversations_ID` INT(11) NOT NULL COMMENT '',
-  `Date` INT(11) NOT NULL COMMENT '',
+  `Date` DATETIME NOT NULL COMMENT '',
   PRIMARY KEY (`ID`)  COMMENT '',
   INDEX `fk_Messages_Conversations1_idx` (`Conversations_ID` ASC)  COMMENT '',
   CONSTRAINT `fk_Messages_Conversations1`
-    FOREIGN KEY (`Conversations_ID`)
-    REFERENCES `mydb`.`conversations` (`ID`)
+  FOREIGN KEY (`Conversations_ID`)
+  REFERENCES `mydb`.`conversations` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = InnoDB
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -131,17 +131,17 @@ CREATE TABLE IF NOT EXISTS `mydb`.`participations` (
   INDEX `fk_Participations_Games1_idx` (`GameID` ASC)  COMMENT '',
   INDEX `fk_Participations_Accounts1_idx` (`AccID` ASC)  COMMENT '',
   CONSTRAINT `fk_Participations_Accounts1`
-    FOREIGN KEY (`AccID`)
-    REFERENCES `mydb`.`accounts` (`ID`)
+  FOREIGN KEY (`AccID`)
+  REFERENCES `mydb`.`accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Participations_Games1`
-    FOREIGN KEY (`GameID`)
-    REFERENCES `mydb`.`games` (`ID`)
+  FOREIGN KEY (`GameID`)
+  REFERENCES `mydb`.`games` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = InnoDB
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -155,17 +155,17 @@ CREATE TABLE IF NOT EXISTS `mydb`.`waitingfriends` (
   INDEX `fk_WaitingFriends_Accounts1_idx` (`AccIDFrom` ASC)  COMMENT '',
   INDEX `fk_WaitingFriends_Accounts2_idx` (`AccIDTo` ASC)  COMMENT '',
   CONSTRAINT `fk_WaitingFriends_Accounts1`
-    FOREIGN KEY (`AccIDFrom`)
-    REFERENCES `mydb`.`accounts` (`ID`)
+  FOREIGN KEY (`AccIDFrom`)
+  REFERENCES `mydb`.`accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_WaitingFriends_Accounts2`
-    FOREIGN KEY (`AccIDTo`)
-    REFERENCES `mydb`.`accounts` (`ID`)
+  FOREIGN KEY (`AccIDTo`)
+  REFERENCES `mydb`.`accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+  ENGINE = InnoDB
+  DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -176,15 +176,15 @@ CREATE TABLE IF NOT EXISTS `mydb`.`UnreadMessages` (
   `ReceiverID` INT(11) NOT NULL COMMENT '',
   `SenderNickname` VARCHAR(45) NOT NULL COMMENT '',
   `Text` TEXT NOT NULL COMMENT '',
-  `Date` DATE NOT NULL COMMENT '',
+  `Date` DATETIME NOT NULL COMMENT '',
   PRIMARY KEY (`ID`)  COMMENT '',
   INDEX `fk_UnreadMessages_accounts1_idx` (`ReceiverID` ASC)  COMMENT '',
   CONSTRAINT `fk_UnreadMessages_accounts1`
-    FOREIGN KEY (`ReceiverID`)
-    REFERENCES `mydb`.`accounts` (`ID`)
+  FOREIGN KEY (`ReceiverID`)
+  REFERENCES `mydb`.`accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

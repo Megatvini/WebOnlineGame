@@ -21,83 +21,116 @@ public class CachedMessagesDao {
         this.dataSource = dataSource;
     }
 
+    /**
+     * store messages into database
+     * @param accID account who is receiver of messages
+     * @param messageMap map of accountName who send message -> messages sent from
+     * @return true iff data was added successfully
+     */
     public boolean addMessages(int accID, Map<String, List<Message>> messageMap) {
-        Connection conn = null;
-        PreparedStatement pst = null;
-        try {
-            conn = dataSource.getConnection();
-            pst = conn.prepareStatement(
-                    "INSERT INTO unreadmessages (ReceiverID, SenderNickname, Text, Date)" +
-                    " VALUES (?, ?, ?, ?)");
-            for (String senderNickname : messageMap.keySet()) {
-                List<Message> messages = messageMap.get(senderNickname);
-                for (Message mes : messages) {
-                    pst.setInt(1, accID);
-                    pst.setString(2, senderNickname);
-                    pst.setString(3, mes.getText());
-                    pst.setDate(4, new java.sql.Date(mes.getDate().getTime()));
-                    pst.execute();
+        try (Connection conn = dataSource.getConnection()) {
+            try (PreparedStatement pst = conn.prepareStatement(
+                    "INSERT INTO unreadmessages " +
+                    "(ReceiverID, SenderNickname, Text, Date)" +
+                    " VALUES (?, ?, ?, ?)")) {
+                for (String senderNickname : messageMap.keySet()) {
+                    List<Message> messages = messageMap.get(senderNickname);
+                    for (Message mes : messages) {
+                        pst.setInt(1, accID);
+                        pst.setString(2, senderNickname);
+                        pst.setString(3, mes.getText());
+                        pst.setDate(4, new java.sql.Date(mes.getDate().getTime()));
+                        pst.execute();
+                    }
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            //System.out.println("addMessages with accID" +
+            //        accID + " size " + messageMap.size() + " failed");
             return false;
-        } finally {
-            try {
-                if (conn != null) conn.close();
-                if (pst != null) pst.close();
-            } catch (SQLException ignored) {}
         }
         return true;
     }
 
+    /**
+     * adds single message to database
+     * @param accID account it who must receive the message
+     * @param senderNickName name of sender account
+     * @param text of the message
+     * @param date when message was sent
+     * @return true if data was added successfully
+     */
     public boolean addSingleMessage(int accID, String senderNickName, String text, Date date) {
-        Connection conn = null;
-        PreparedStatement pst = null;
-        try {
-            conn = dataSource.getConnection();
-            pst = conn.prepareStatement(
-                    "INSERT INTO unreadmessages (ReceiverID, SenderNickname, Text, Date)" +
-                    "VALUES (?, ?, ?, ?)");
-            pst.setInt(1, accID);
-            pst.setString(2, senderNickName);
-            pst.setString(3, text);
-            pst.setDate(4, new java.sql.Date(date.getTime()));
+        try (Connection conn = dataSource.getConnection()) {
+            try (PreparedStatement pst = conn.prepareStatement(
+                    "INSERT INTO unreadmessages " +
+                    "(ReceiverID, SenderNickname, Text, Date)" +
+                    "VALUES (?, ?, ?, ?)")) {
+                pst.setInt(1, accID);
+                pst.setString(2, senderNickName);
+                pst.setString(3, text);
+                pst.setDate(4, new java.sql.Date(date.getTime()));
+                pst.execute();
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            //System.out.println("addSingleMessage accID, senderNickname, text, date "
+            //        + accID + ", " + senderNickName + ", " + text + ", " + date + "failed");
             return false;
-        } finally {
-            try {
-                if (conn != null) conn.close();
-                if (pst != null) pst.close();
-            } catch (SQLException ignored) {}
         }
         return true;
     }
 
+    /**
+     * reads and deletes cached messages from database
+     * @param accID id of the account whose messages will be read
+     * @return map of sender -> list of messages sent
+     */
     public Map<String, List<Message>> takeMessages(int accID) {
         Map<String, List<Message>> res = new HashMap<>();
-        Connection conn = null;
-        PreparedStatement pst = null;
-        try {
-            conn = dataSource.getConnection();
-            pst = conn.prepareStatement(
-                    "SELECT * FROM unreadmessages WHERE ReceiverID = ?");
-            pst.setInt(1, accID);
-            ResultSet resultSet = pst.executeQuery();
-            assembleResult(res, resultSet);
+        try (Connection conn = dataSource.getConnection()) {
+            try (PreparedStatement pst = conn.prepareStatement(
+                    "SELECT * FROM unreadmessages " +
+                    "WHERE ReceiverID = ?")) {
+                pst.setInt(1, accID);
+                ResultSet resultSet = pst.executeQuery();
+                assembleResult(res, resultSet);
+                removeMessages(accID);
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            //System.out.println("takeMessages with accID " + accID + " failed");
             return null;
-        } finally {
-            try {
-                if (conn != null) conn.close();
-                if (pst != null) pst.close();
-            } catch (SQLException ignored) {}
         }
         return res;
     }
 
+    /**
+     * removes cached messages of account
+     * @param accID id of the account
+     */
+    private void removeMessages(int accID) {
+        try (Connection conn = dataSource.getConnection()) {
+            try (PreparedStatement pst = conn.prepareStatement(
+                    "DELETE FROM unreadmessages " +
+                    "WHERE ReceiverID = ?")) {
+                pst.setInt(1, accID);
+                pst.execute();
+            }
+        } catch (SQLException e) {
+            //e.printStackTrace();
+            //System.out.println("removeMessages with accID " + accID + " failed");
+        }
+    }
+
+
+    /**
+     * take maps and puts info to it from resultSet
+     * @param map map of sender -> list sent messages
+     * @param resultSet set of result from mysql database
+     * @throws SQLException if resultSet throws
+     */
     private void assembleResult(Map<String, List<Message>> map, ResultSet resultSet) throws SQLException {
         while (resultSet.next()) {
             String senderName = resultSet.getString("SenderNickname");
