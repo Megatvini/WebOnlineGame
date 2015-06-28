@@ -3,7 +3,6 @@ package Core.Dao;
 import Core.Bean.Account;
 import Interfaces.iAccount;
 import Interfaces.iProfile;
-import org.junit.Before;
 import org.junit.Test;
 
 import javax.sql.DataSource;
@@ -50,7 +49,7 @@ public class AccountDaoTest {
         account.setAbout("text");
         account.setPicturePath("c:\\path\\picture.jpg");
         account.setRating(1554);
-        Date date = new Date();
+        Date date = new Date(System.currentTimeMillis());
         account.setBirthDate(date);
     }
 
@@ -61,12 +60,22 @@ public class AccountDaoTest {
         AccountDao accountDao = new AccountDao(dataSourceMock);
         assertTrue(accountDao.registerUser(account));
 
-        verify(dataSourceMock).getConnection();
+        verify(dataSourceMock, atLeastOnce()).getConnection();
         verify(connectionMock).prepareStatement(anyString());
 
-        verify(preparedStatementMock, times(7)).setString(anyInt(), anyString());
-        verify(preparedStatementMock).setInt(anyInt(), anyInt());
-        verify(preparedStatementMock).setDate(anyInt(), any());
+        verify(preparedStatementMock).setString(anyInt(), eq(account.getNickname()));
+        verify(preparedStatementMock).setString(anyInt(), eq(account.getPassword()));
+        verify(preparedStatementMock).setString(anyInt(), eq(account.getPicturePath()));
+        verify(preparedStatementMock).setInt(anyInt(), eq(account.getRating()));
+        verify(preparedStatementMock).setString(anyInt(), eq(account.getFirstName()));
+        verify(preparedStatementMock).setString(anyInt(), eq(account.getLastName()));
+        verify(preparedStatementMock).setString(anyInt(), eq(account.getAbout()));
+        verify(preparedStatementMock).setString(anyInt(), eq(account.getMail()));
+        verify(preparedStatementMock).setString(anyInt(), eq(account.getGender() == iProfile.Gender.FEMALE ? "female" : "male"));
+        java.sql.Date date = new java.sql.Date(account.getBirthDate().getTime());
+        verify(preparedStatementMock).setDate(anyInt(), eq(date));
+        verify(preparedStatementMock).execute();
+
         verify(preparedStatementMock).close();
         verify(connectionMock).close();
     }
@@ -86,12 +95,20 @@ public class AccountDaoTest {
         initAccount();
         AccountDao accountDao = new AccountDao(dataSourceMock);
         accountDao.changeUser(account);
-        verify(dataSourceMock).getConnection();
+        verify(dataSourceMock, atLeastOnce()).getConnection();
         verify(connectionMock).prepareStatement(anyString());
 
-        verify(preparedStatementMock, times(5)).setString(anyInt(), anyString());
-        verify(preparedStatementMock, times(2)).setInt(anyInt(), anyInt());
-        verify(preparedStatementMock).setDate(anyInt(), any());
+        verify(preparedStatementMock).setString(anyInt(), eq(account.getPassword()));
+        verify(preparedStatementMock).setInt(anyInt(), eq(account.getRating()));
+        verify(preparedStatementMock).setString(anyInt(), eq(account.getFirstName()));
+        verify(preparedStatementMock).setString(anyInt(), eq(account.getLastName()));
+        verify(preparedStatementMock).setString(anyInt(), eq(account.getAbout()));
+        verify(preparedStatementMock).setString(anyInt(), eq(account.getPicturePath()));
+        verify(preparedStatementMock).setString(anyInt(), eq(account.getGender() == iProfile.Gender.FEMALE ? "female" : "male"));
+        java.sql.Date date = new java.sql.Date(account.getBirthDate().getTime());
+        verify(preparedStatementMock).setDate(anyInt(), eq(date));
+        verify(preparedStatementMock).execute();
+
         verify(preparedStatementMock).close();
         verify(connectionMock).close();
     }
@@ -124,12 +141,14 @@ public class AccountDaoTest {
         AccountDao accountDao = new AccountDao(dataSourceMock);
         accountDao.getUser("nika");
 
-        verify(dataSourceMock).getConnection();
+        verify(dataSourceMock, atLeastOnce()).getConnection();
         verify(connectionMock).prepareStatement(anyString());
+        verify(preparedStatementMock).setString(anyInt(), eq("nika"));
         verify(preparedStatementMock).executeQuery();
         verify(resultSetMock).next();
 
-        verify(resultSetMock, times(7)).getString(anyString());
+        //must get all parameters from database
+        verify(resultSetMock, times(8)).getString(anyString());
         verify(resultSetMock, times(2)).getInt(anyString());
         verify(resultSetMock).getDate(anyString());
 
@@ -154,7 +173,7 @@ public class AccountDaoTest {
         AccountDao accountDao = new AccountDao(dataSourceMock);
         accountDao.getUsersLike("nika");
 
-        verify(dataSourceMock).getConnection();
+        verify(dataSourceMock, atLeastOnce()).getConnection();
         verify(connectionMock).prepareStatement(anyString());
         verify(preparedStatementMock).executeQuery();
         verify(resultSetMock).next();
@@ -200,7 +219,7 @@ public class AccountDaoTest {
 
         accountDao.getUsersLike("na", 5, 6);
 
-        verify(dataSourceMock).getConnection();
+        verify(dataSourceMock, atLeastOnce()).getConnection();
         verify(connectionMock).prepareStatement(anyString());
         verify(preparedStatementMock).executeQuery();
         verify(preparedStatementMock).setString(anyInt(), anyString());
@@ -274,7 +293,7 @@ public class AccountDaoTest {
 
         List<String> list = accountDao.getUsersIntervalByRating(1, 20);
 
-        verify(dataSourceMock).getConnection();
+        verify(dataSourceMock, atLeastOnce()).getConnection();
         verify(connectionMock).prepareStatement(anyString());
         verify(preparedStatementMock).executeQuery();
         verify(preparedStatementMock).setInt(anyInt(), eq(20));

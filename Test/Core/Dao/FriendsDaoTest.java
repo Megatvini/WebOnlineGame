@@ -3,12 +3,15 @@ package Core.Dao;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by Nika on 04:55, 6/26/2015.
  */
 public class FriendsDaoTest {
-
     @Test
     public void testAddFriend() throws Exception {
 

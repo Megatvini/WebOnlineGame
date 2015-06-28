@@ -80,16 +80,27 @@
     String friendNickname = request.getParameter("friend");
     if(friendNickname == null)
       friendNickname = friends.isEmpty()? "0" : friends.iterator().next().toString();
+    if (friendNickname.equals("0")){
+      String redirectURL = "MessageRed.jsp";
+      response.sendRedirect(redirectURL);
+      return;
+    }
+
+    int friendID = userControl.getUser(friendNickname).getID();
+    String friendPic = userControl.getUser(friendNickname).getPicturePath();
+    String myPic = profile.getPicturePath();
+    List<Message> messages = messageControl.getMessages(profile.getID(), friendID);
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
+
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
 
     <div style="width: 300px; float: left">
       <div class="box box-solid">
-        <div class="box-header with-border">
+        <div class="box-header with-border" >
           <h3 class="box-title">მეგობრები</h3>
           <div class="box-tools">
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -113,29 +124,172 @@
     </div>
 
     <div style=" padding-left: 310px">
-      <div class="box box-solid">
-        <div class="box-body no-padding">
-          <ul id="messages" class="nav nav-pills nav-stacked">
-            <%
-              int friendID = userControl.getUser(friendNickname).getID();
-              List<Message> messages = messageControl.getMessages(profile.getID(), friendID);
 
-              for (int i = 0; i<messages.size(); i++ ) {
-                String mess = messages.get(i).getText();
-                String style = messages.get(i).getType() == Message.Type.SENT ?
-                        "background-color: rgb(186, 223, 255);\n" +
-                                "    text-align: right;" :
-                        "background-color: rgb(140, 179, 213)";
+
+
+      <div class="box box-warning direct-chat direct-chat-warning" style="height: 85%">
+        <div class="box-header with-border" style="height: 50px;">
+          <h3 class="box-title">მესიჯები</h3>
+          <div class="box-tools pull-right">
+            <span data-toggle="tooltip" title="3 New Messages" class="badge bg-yellow">3</span>
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle"><i class="fa fa-comments"></i></button>
+            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+          </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+
+          <!-- Conversations are loaded here -->
+          <div id="messages" style="height: 85%" class="direct-chat-messages">
+
+            <% for (int i = 0; i<messages.size(); i++ ) {
+                Message mess = messages.get(i);
+              if(mess.getType() == Message.Type.SENT){
             %>
-            <li style="<%= style %> ; font-size: 19px"> <%= mess %></li>
-            <% } %>
-          </ul>
+
+            <!-- Message. Default to the left -->
+            <div class="direct-chat-msg right">
+              <div class="direct-chat-info clearfix">
+                <span class="direct-chat-name pull-right"><%= nickname %></span>
+                <span class="direct-chat-timestamp pull-left"><%= mess.getDate() %></span>
+              </div><!-- /.direct-chat-info -->
+              <img class="direct-chat-img" src="<%= myPic %>" alt="message user image"><!-- /.direct-chat-img -->
+              <div class="direct-chat-text">
+                 <%= mess.getText() %>
+              </div><!-- /.direct-chat-text -->
+            </div><!-- /.direc            t-chat-msg -->
+
+
+            <% }
+            else
+            {
+            %>
+
+            <!-- Message. Default to the left -->
+            <div class="direct-chat-msg ">
+              <div class="direct-chat-info clearfix">
+                <span class="direct-chat-name pull-left"><%= friendNickname %></span>
+                <span class="direct-chat-timestamp pull-right"><%= mess.getDate() %></span>
+              </div><!-- /.direct-chat-info -->
+              <img class="direct-chat-img" src="<%= friendPic %>" alt="message user image"><!-- /.direct-chat-img -->
+              <div class="direct-chat-text">
+                 <%= mess.getText() %>
+              </div><!-- /.direct-chat-text -->
+            </div><!-- /.direc            t-chat-msg -->
+
+
+            <% }} %>
+
+            <!-- Message to the right -->
+            <div class="direct-chat-msg">
+              <div class="direct-chat-info clearfix">
+                <span class="direct-chat-name pull-left">Sarah Bullock</span>
+                <span class="direct-chat-timestamp pull-right">23 Jan 2:05 pm</span>
+              </div><!-- /.direct-chat-info -->
+              <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image"><!-- /.direct-chat-img -->
+              <div class="direct-chat-text">
+                You better believe it!
+              </div><!-- /.direct-chat-text -->
+            </div><!-- /.direct-chat-msg -->
+
+          </div><!--/.direct-chat-messages-->
+          <!-- Contacts are loaded here -->
+          <div class="direct-chat-contacts">
+            <ul class="contacts-list">
+              <li>
+                <a href="#">
+                  <img class="contacts-list-img" src="dist/img/user1-128x128.jpg">
+                  <div class="contacts-list-info">
+                                <span class="contacts-list-name">
+                                  Count Dracula
+                                  <small class="contacts-list-date pull-right">2/28/2015</small>
+                                </span>
+                    <span class="contacts-list-msg">How have you been? I was...</span>
+                  </div><!-- /.contacts-list-info -->
+                </a>
+              </li><!-- End Contact Item -->
+              <li>
+                <a href="#">
+                  <img class="contacts-list-img" src="dist/img/user7-128x128.jpg">
+                  <div class="contacts-list-info">
+                                <span class="contacts-list-name">
+                                  Sarah Doe
+                                  <small class="contacts-list-date pull-right">2/23/2015</small>
+                                </span>
+                    <span class="contacts-list-msg">I will be waiting for...</span>
+                  </div><!-- /.contacts-list-info -->
+                </a>
+              </li><!-- End Contact Item -->
+              <li>
+                <a href="#">
+                  <img class="contacts-list-img" src="dist/img/user3-128x128.jpg">
+                  <div class="contacts-list-info">
+                                <span class="contacts-list-name">
+                                  Nadia Jolie
+                                  <small class="contacts-list-date pull-right">2/20/2015</small>
+                                </span>
+                    <span class="contacts-list-msg">I'll call you back at...</span>
+                  </div><!-- /.contacts-list-info -->
+                </a>
+              </li><!-- End Contact Item -->
+              <li>
+                <a href="#">
+                  <img class="contacts-list-img" src="dist/img/user5-128x128.jpg">
+                  <div class="contacts-list-info">
+                                <span class="contacts-list-name">
+                                  Nora S. Vans
+                                  <small class="contacts-list-date pull-right">2/10/2015</small>
+                                </span>
+                    <span class="contacts-list-msg">Where is your new...</span>
+                  </div><!-- /.contacts-list-info -->
+                </a>
+              </li><!-- End Contact Item -->
+              <li>
+                <a href="#">
+                  <img class="contacts-list-img" src="dist/img/user6-128x128.jpg">
+                  <div class="contacts-list-info">
+                                <span class="contacts-list-name">
+                                  John K.
+                                  <small class="contacts-list-date pull-right">1/27/2015</small>
+                                </span>
+                    <span class="contacts-list-msg">Can I take a look at...</span>
+                  </div><!-- /.contacts-list-info -->
+                </a>
+              </li><!-- End Contact Item -->
+              <li>
+                <a href="#">
+                  <img class="contacts-list-img" src="dist/img/user8-128x128.jpg">
+                  <div class="contacts-list-info">
+                                <span class="contacts-list-name">
+                                  Kenneth M.
+                                  <small class="contacts-list-date pull-right">1/4/2015</small>
+                                </span>
+                    <span class="contacts-list-msg">Never mind I found...</span>
+                  </div><!-- /.contacts-list-info -->
+                </a>
+              </li><!-- End Contact Item -->
+            </ul><!-- /.contatcts-list -->
+          </div><!-- /.direct-chat-pane -->
         </div><!-- /.box-body -->
+        <div class="box-footer">
+
+            <div class="input-group">
+              <input type="text" name="message" id="messageText" placeholder="Type Message ..." onkeydown="if (event.keyCode == 13) { sendMessage(); }" class="form-control">
+                          <span class="input-group-btn">
+                            <button type="button" onclick="sendMessage()" class="btn btn-warning btn-flat">Send</button>
+                          </span>
+            </div>
+
+        </div>
+      </div>
 
         <input type="hidden" name="profileFrom" value="<%= profile.getID() %>">
-        <input type="hidden" id="profileTo" value="<%= friendID %>">
-        <textarea  style="width: 100%; height:70px" id="messageText"  name="message"></textarea>
-        <button class="btn btn-block btn-primary" onclick="sendMessage()">მიწერა</button>
+        <input type="hidden" name="myNick" value="<%= nickname %>">
+        <input type="hidden" id="profileToID" value="<%= friendID %>">
+        <input type="hidden" id="profileToNick" value="<%= friendNickname %>">
+        <input type="hidden" id="myPic" value="<%= profile.getPicturePath() %>">
+        <input type="hidden" id="friendPic" value="<%= friendPic %>">
+
 
       </div>
     </div>
@@ -143,62 +297,9 @@
   </div><!-- /.content-wrapper -->
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
-<script>
-  var profileTo =   $("#profileTo").val();
 
-  function writeText(text, date ){
-    $("#messages").append('<li style="background-color: rgb(186, 223, 255); font-size: 19px; text-align: right;" ' +
-            '">' + text + ' </li>');
-    $("#messageText").val("");
-  }
 
-  function sendMessage(){
-    var text = $("#messageText").val();
-    writeText(text);
-
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST","SendMessage",true);
-    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    xmlhttp.send("profileTo="+profileTo+"&message="+text);
-  }
-
-  function update(data){
-    var j = JSON.parse(data);
-    writeText(profileTo);
-    if(j==null)
-      return ;
-    var list  =  j[profileTo] ;
-    if(list==null)
-      return ;
-    var i ;
-    for(i = 0 ; i < list.length; i ++ ){
-      var oneMessage = list[i] ;
-      writeText(oneMessage.text, oneMessage.date);
-    }
-
-    for(var m in j ){
-      if(j.hasOwnProperty(m)) {
-        var oneM = j[m];
-        $("#"+m).text(oneM.length.toString());
-      }
-    }
-
-  }
-
-  function check() {
-    $.get("http://"+window.location.host + "/MessageUpdate?msgs="+profileTo, function(resp) {
-      console.log(resp);
-      if (resp != null)
-        update(resp)
-    });
-  }
-
-  $(document).ready(function() {
-    check();
-    setInterval(check, 5000);
-  });
-
-</script>
+<script src="scripts.js"> </script>
 <!-- jQuery 2.1.4 -->
 
 <!-- jQuery UI 1.11.2 -->

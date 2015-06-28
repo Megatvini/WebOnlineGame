@@ -1692,6 +1692,7 @@ a:focus {
 }
 .box-header.with-border {
   border-bottom: 1px solid #f4f4f4;
+  height: 50px;
 }
 .collapsed-box .box-header.with-border {
   border-bottom: none;
@@ -2634,7 +2635,7 @@ table.text-center th {
   background: #d2d6de;
   border: 1px solid #d2d6de;
   margin: 5px 0 0 50px;
-  color: #444444;
+  color: #d2d6de;
 }
 .direct-chat-text:after,
 .direct-chat-text:before {
@@ -2642,7 +2643,7 @@ table.text-center th {
   right: 100%;
   top: 15px;
   border: solid transparent;
-  border-right-color: #d2d6de;
+  border-right-color: #3c8dbc;
   content: ' ';
   height: 0;
   width: 0;

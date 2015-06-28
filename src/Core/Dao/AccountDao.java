@@ -32,42 +32,51 @@ public class AccountDao {
      * @return return true iif account was successfully created
      */
     public boolean registerUser(iAccount account){
+        Connection connection = null;
+        PreparedStatement stmt = null;
         try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO accounts " +
-                    "(Nickname, LastName,  FirstName ,  Gender ,  Password ,  BirthDate ,  about ,  GameRating ,  Mail) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            connection = dataSource.getConnection();
+            stmt = connection.prepareStatement("INSERT INTO accounts " +
+                    "(Nickname, LastName,  FirstName,  Gender,  Password,  BirthDate,  about,  GameRating,  Mail, Picture) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             stmt.setString(1, account.getNickname());
             stmt.setString(2, account.getLastName());
             stmt.setString(3, account.getFirstName());
             stmt.setString(4, account.getGender() == iProfile.Gender.FEMALE? "female":"male");
             stmt.setString(5, account.getPassword());
-            stmt.setDate(6, null);
+            java.sql.Date date = new java.sql.Date(account.getBirthDate().getTime());
+            stmt.setDate(6, date);
             stmt.setString(7, account.getAbout());
             stmt.setInt(8, account.getRating());
             stmt.setString(9, account.getMail());
+            stmt.setString(10, account.getPicturePath());
             System.out.println(stmt.toString());
             stmt.execute();
-            stmt.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if(connection != null) connection.close();
+            } catch (SQLException ignored) {}
         }
         return true;
     }
 
     /**
      * updates user
-     * @param account
+     * @param account account which will be saved in database
      * @return true iff user was successfully updated
      */
     public boolean changeUser(iAccount account){
+        Connection connection = null;
+        PreparedStatement stmt = null;
         try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement stmt = connection.prepareStatement("UPDATE accounts SET " +
+            connection = dataSource.getConnection();
+            stmt = connection.prepareStatement("UPDATE accounts SET " +
                     "LastName = ?, FirstName = ?, Gender = ?, Password = ?, " +
-                    "BirthDate = ?, about = ?, GameRating = ? WHERE ID = ?;");
+                    "BirthDate = ?, about = ?, GameRating = ?, Picture = ? WHERE ID = ?;");
             stmt.setString(1, account.getLastName());
             stmt.setString(2, account.getFirstName());
             stmt.setString(3, account.getGender() == iProfile.Gender.FEMALE ? "female" : "male");
@@ -75,8 +84,8 @@ public class AccountDao {
             stmt.setDate(5, new java.sql.Date(account.getBirthDate().getTime()));
             stmt.setString(6, account.getAbout());
             stmt.setInt(7, account.getRating());
-            stmt.setInt(8, account.getID());
-            System.out.println(stmt.toString());
+            stmt.setString(8, account.getPicturePath());
+            stmt.setInt(9, account.getID());
             stmt.execute();
 
             stmt.close();
@@ -84,6 +93,11 @@ public class AccountDao {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        }  finally {
+            try {
+                if (stmt != null) stmt.close();
+                if(connection != null) connection.close();
+            } catch (SQLException ignored) {}
         }
         return true;
     }
@@ -95,19 +109,24 @@ public class AccountDao {
      * @throws Exception if user with nickname was not found
      */
     public iAccount getUser(String nickname) throws Exception {
-        iAccount res = null;
+        iAccount res;
+        Connection connection = null;
+        PreparedStatement stmt = null;
         try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM accounts WHERE NickName = ?;");
+            connection = dataSource.getConnection();
+            stmt = connection.prepareStatement("SELECT * FROM accounts WHERE NickName = ?;");
             stmt.setString(1, nickname);
             ResultSet result = stmt.executeQuery();
             if (!result.next()) throw new Exception("notRegistered");
             res = assembleAccount(result);
-            stmt.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if(connection != null) connection.close();
+            } catch (SQLException ignored) {}
         }
         return res;
     }
@@ -130,6 +149,7 @@ public class AccountDao {
         account.setAbout(result.getString("about"));
         account.setRating(result.getInt("GameRating"));
         account.setMail(result.getString("Mail"));
+        account.setPicturePath(result.getString("Picture"));
         return account;
     }
 
@@ -141,9 +161,11 @@ public class AccountDao {
      */
     public Set<String> getUsersLike(String search){
         Set<String> accounts = new HashSet<>();
+        Connection connection = null;
+        PreparedStatement stmt = null;
         try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement stmt = connection.prepareStatement("SELECT Nickname FROM accounts WHERE NickName LIKE ?;");
+            connection = dataSource.getConnection();
+            stmt = connection.prepareStatement("SELECT Nickname FROM accounts WHERE NickName LIKE ?;");
             stmt.setString(1, "%"+search+"%");
             ResultSet result = stmt.executeQuery();
             while (result.next()) {
@@ -154,6 +176,11 @@ public class AccountDao {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if(connection != null) connection.close();
+            } catch (SQLException ignored) {}
         }
         return accounts;
     }
@@ -196,9 +223,11 @@ public class AccountDao {
      */
     public int getUsersCount() {
         int res = 0;
+        Connection conn = null;
+        PreparedStatement pst = null;
         try {
-            Connection conn = dataSource.getConnection();
-            PreparedStatement pst = conn.prepareStatement(
+            conn = dataSource.getConnection();
+            pst = conn.prepareStatement(
                     "SELECT Count(*) FROM accounts");
             ResultSet resultSet = pst.executeQuery();
             if (resultSet.next()) res = resultSet.getInt(1);
@@ -206,6 +235,11 @@ public class AccountDao {
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        }  finally {
+            try {
+                if (pst != null) pst.close();
+                if(conn != null) conn.close();
+            } catch (SQLException ignored) {}
         }
         return res;
     }
@@ -219,9 +253,11 @@ public class AccountDao {
      */
     public List<String> getUsersIntervalByRating(int pageNumber, int accountsPerPage) {
         List<String> accounts = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement stmt = null;
         try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement stmt = connection.prepareStatement(
+            connection = dataSource.getConnection();
+            stmt = connection.prepareStatement(
                     "SELECT Nickname, GameRating FROM accounts " +
                     "ORDER BY GameRating DESC " +
                     "LIMIT ?, ?");
@@ -235,6 +271,11 @@ public class AccountDao {
             connection.close();
         } catch (SQLException e) {
             return null;
+        }  finally {
+            try {
+                if (stmt != null) stmt.close();
+                if(connection != null) connection.close();
+            } catch (SQLException ignored) {}
         }
         return accounts;
     }

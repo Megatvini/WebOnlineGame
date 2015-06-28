@@ -1,16 +1,8 @@
-
-<%@ page import="Interfaces.iProfile" %>
-<%@ page import="Core.Bean.Account" %>
-<%@ page import="Interfaces.iAccount" %>
-<%@ page import="Core.Bean.Message" %>
-<%@ page import="java.util.Date" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="Core.Dao.AccountDao" %>
 <%--
   Created by IntelliJ IDEA.
-  User: gukam
-  Date: 5/24/2015
-  Time: 3:31 AM
+  User: Annie
+  Date: 27-Jun-15
+  Time: 16:26
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -48,109 +40,25 @@
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-
-  <!-- jQuery 2.1.4 -->
-  <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
-  <!-- jQuery UI 1.11.2 -->
-  <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
   <![endif]-->
 </head>
 <body class="skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
-  <%
-    AccountDao userControl = (AccountDao)pageContext.getServletContext().getAttribute(AccountDao.class.getName());
-
-    String nickname = (String)session.getAttribute("nickname");
-    iProfile profile;
-    if(nickname == null) {
-      String redirectURL = "Accont/Login.jsp";
-      response.sendRedirect(redirectURL);
-      profile = new Account();
-    }
-    else
-    {
-      profile = userControl.getUser(nickname);
-    }
-
-  %>
 
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
-    <div class="box box-primary" style="width: 96%; margin: 20px; min-width: 350px">
-      <form action="/ChangeAccount" method="post" accept-charset="UTF-8">
-        <div class="box-header">
-          <h3 class="box-title">პროფილი</h3>
-        </div>
-        <div class="box-body">
-          <div align="center">
-            <div class="form-group" style="width: 300px;">
-              <img src="<%= profile.getPicturePath() %>"  alt="Smiley face" style="border-radius: 50%" height="300" width="300">
-              <br/>
-              <input class="form-control" type="text" name="picture" value="<%= profile.getPicturePath() %>"  placeholder="Default input">
-            </div>
-          </div>
-          <div class="form-group">
-            <label>სახელი</label>
-            <input class="form-control" type="text" name="firstname" value="<%= profile.getFirstName() %>" placeholder="Default input">
-          </div>
-          <div class="form-group">
-            <label>გვარი</label>
-            <input class="form-control" type="text" name="lastname"  value="<%= profile.getLastName() %>" placeholder="Default input">
-          </div>
-
-          <div class="form-group">
-            <label>მეილი</label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-              <input type="email" class="form-control" name="mail"  value="<%= profile.getMail() %>" placeholder="Email">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>Date masks:</label>
-            <div class="input-group">
-              <div class="input-group-addon">
-                <i class="fa fa-calendar"></i>
-              </div>
-              <input type="date" class="form-control" value="<%= profile.getBirthDate() %>" name="date" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
-            </div><!-- /.input group -->
-          </div><!-- /.form group -->
-
-          <div class="form-group">
-            <label>არწერა</label>
-            <textarea class="form-control" rows="3" name="about" placeholder="Enter ..."><%= profile.getAbout() %></textarea>
-          </div>
-
-          <div class="form-group">
-            <label>სქესი</label>
-            <div class="radio">
-              <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" <%= profile.getGender() == iAccount.Gender.MALE ? "checked=\"\"" : "" %> >
-                კაცი
-              </label>
-            </div>
-            <div class="radio">
-              <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" <%= profile.getGender() == iAccount.Gender.FEMALE ? "checked=\"\"" : "" %>>
-                ქალი
-              </label>
-            </div>
-
-          </div>
-
-        </div><!-- /.box-body -->
-        <div align="center"  style=" padding-bottom: 20px;">   <button class="btn btn-block btn-primary" style="width: 250px;">შენახვა</button></div>
-      </form>
-    </div>
-
+    <h1>დაამატე მეგობრები!</h1>
   </div><!-- /.content-wrapper -->
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
 
-
+<!-- jQuery 2.1.4 -->
+<script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<!-- jQuery UI 1.11.2 -->
+<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);

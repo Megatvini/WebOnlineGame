@@ -8,21 +8,21 @@ import java.util.Date;
  * Created by Annie on 22-Jun-15.
  */
 public class Message {
-    private int _accFrom;
-    private int _accTo;
-    private String _header;
+    private int accFrom;
+    private int accTo;
+    private String header;
     @Expose
-    private String _text;
+    private String text;
     @Expose
-    private Date _date;
+    private Date date;
     public enum Type{SENT, GOTTEN}
 
     public Message(int accFrom, int accTo, String text, String header, Date date){
-        _accFrom = accFrom;
-        _accTo = accTo;
-        _text = text;
-        _header = header;
-        _date = date;
+        this.accFrom = accFrom;
+        this.accTo = accTo;
+        this.text = text;
+        this.header = header;
+        this.date = date;
     }
 
     public Message(){
@@ -30,41 +30,41 @@ public class Message {
     }
 
     public Message(int accFrom,int accTo){
-       _accFrom = accFrom;
-        _accTo = accTo;
+       this.accFrom = accFrom;
+        this.accTo = accTo;
     }
 
     public String getText(){
-        return _text;
+        return text;
     }
     public void setText(String newText){
-        _text = newText;
+        text = newText;
     }
 
     public Date getDate(){
-        return _date;
+        return date;
     }
     public void setDate(Date newDate){
-        _date = newDate;
+        date = newDate;
     }
 
     public int getAccTo(){
-        return  _accTo;
+        return accTo;
     }
     public void setAccTo(int accTo){
-        _accTo = accTo;
+        this.accTo = accTo;
     }
 
-    public int getAccFrom(){ return  _accFrom; }
+    public int getAccFrom(){ return accFrom; }
     public void setAccFrom(int accFrom){
-        _accFrom = accFrom;
+        this.accFrom = accFrom;
     }
 
     public String getHeader() {
-        return _header;
+        return header;
     }
     public void setHeader(String header) {
-        _header = header;
+        this.header = header;
     }
 
     Type _type;
