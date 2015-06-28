@@ -13,8 +13,7 @@ function addToFriends(nickname, pic){
     $("#notFriends").append(val);
 }
 
-function addToMessages(nickname, pic, lastMessage){
-    $('.addedM').remove();
+function addToMessages(nickname, pic, lastMessage, date){
 var val = '<li class="addedM">'+
         '<a href="Messages.jsp?friend='+ nickname + '">'+
         '<div class="pull-left">'+
@@ -22,7 +21,7 @@ var val = '<li class="addedM">'+
         '</div>'+
         '<h4>'+
     nickname+
-    '<small><i class="fa fa-clock-o"></i> 5 mins</small>'+
+    '<small><i class="fa fa-clock-o"></i>' + date + '</small>'+
     '</h4>'+
     '<p>'+lastMessage+'</p>'+
     '</a>'+
@@ -61,20 +60,23 @@ function updateNots(data){
     //var gameInvites = data[2];
 
     $('.addedF').remove();
-    for(var friend in friendRequests){
-        addToFriends(friendRequests[friend].nickname, friendRequests[friend].picPath);
+    for(var id in friendRequests){
+        addToFriends(friendRequests[id].nickname, friendRequests[id].picPath);
     }
 
-    for(var message in messages){
-        var list = messages[message];
-
-        var lastIndex = list.length - 1;
-        addToMessages(message,' ', list[lastIndex].text);
+    $('.addedM').remove();
+    for(var id in messages){
+        var obj = messages[id];
+        var lastIndex = obj['messages'].length - 1;
+        var secs =  Math.abs(new Date() - new Date(obj['messages'][lastIndex]['date']));
+        addToMessages(obj['sender']['nickname'],obj['sender']['picPath'], obj['messages'][lastIndex]['text'], diff);
     }
-
 }
 
 $(document).ready(function() {
     checkNots();
     setInterval(checkNots, 5000);
 });
+
+
+

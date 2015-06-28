@@ -2,6 +2,7 @@
 <%@ page import="Interfaces.iProfile" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="Core.Dao.AccountDao" %>
+<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -56,9 +57,14 @@
   <div class="content-wrapper" style="padding: 1px;">
     <%
       AccountDao userControl = (AccountDao) application.getAttribute(AccountDao.class.getName());
-      Set<String> users = null;
+      List<String> users = null;
 
       String nickname = (String)session.getAttribute("nickname");
+      String pag =  request.getParameter("page");
+      int pagID = 0;
+
+      if(pag != null) pagID = Integer.parseInt(pag) - 1;
+      int PageCount = (userControl.getUsersCount() + 5) / 5;
 
       if (nickname == null) {
         String redirectURL = "Accont/Login.jsp";
@@ -66,7 +72,7 @@
         return;
       }
       else {
-        users = userControl.getUsersLike("");
+        users =  userControl.getUsersIntervalByRating(pagID,5);
       }
       int index = 1;
     %>
@@ -77,9 +83,9 @@
         <div class="box-tools">
           <ul class="pagination pagination-sm no-margin pull-right">
             <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
+            <% for(int i=1; i< PageCount + 1; i++){%>
+            <li><a href="Raiting.jsp?page=<%=i%>"><%=i%></a></li>
+            <% } %>
             <li><a href="#">»</a></li>
           </ul>
         </div>

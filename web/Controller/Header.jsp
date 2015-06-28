@@ -73,7 +73,7 @@
             <span class="label label-success" id="messagesSpan"></span>
           </a>
           <ul class="dropdown-menu">
-            <li class="header">You have 4 messages</li>
+            <li class="header">მესიჯები</li>
             <li>
               <!-- inner menu: contains the actual data -->
               <ul class="menu" id="notMessages">
@@ -81,7 +81,7 @@
 
               </ul>
             </li>
-            <li class="footer"><a href="#">See All Messages</a></li>
+            <li class="footer"><a href="../Messages.jsp">ყველას ნახვა</a></li>
           </ul>
         </li>
         <!-- Tasks: style can be found in dropdown.less -->
@@ -174,13 +174,7 @@
 
 <script src="../NotificationScripts.js"></script>
 <script>
-  console.log( "ready!" );
-  $( document ).ready(function() {
-    console.log( "ready!" );
-    addToFriends('shako', 'http://i0.wp.com/cvisioncentral.com/wp-content/themes/buddyboss/_inc/images/avatar-member.jpg');
-    addToMessages('shako', 'http://i0.wp.com/cvisioncentral.com/wp-content/themes/buddyboss/_inc/images/avatar-member.jpg', 'hu');
-    console.log( "ready!" );
-  });
+
 
 </script>
 </body>
