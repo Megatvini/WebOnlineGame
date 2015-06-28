@@ -2,26 +2,26 @@
  * Created by Annie on 27-Jun-15.
  */
 function addToFriends(nickname, pic){
-    var val =   '<li>' +
+    var val =   '<li class="addedF">' +
                 '<a href="Friends.jsp">' +
                 '<i ></i>' +
                 '<img src="'+ pic +'"  alt="Smiley face" style="width: 50px; height: 50px; border-radius: 50%;">' +
-                'nickname' +
+                nickname +
                 '</a>' +
                 '</li>';
 
     $("#notFriends").append(val);
 }
 
-function addToMessages(nickname, pic, lastMessage){
-var val = '<li>'+
+function addToMessages(nickname, pic, lastMessage, date){
+var val = '<li class="addedM">'+
         '<a href="Messages.jsp?friend='+ nickname + '">'+
         '<div class="pull-left">'+
         '<img src="'+pic+'" class="img-circle" alt="User Image"/>'+
         '</div>'+
         '<h4>'+
     nickname+
-    '<small><i class="fa fa-clock-o"></i> 5 mins</small>'+
+    '<small><i class="fa fa-clock-o"></i>' + date + '</small>'+
     '</h4>'+
     '<p>'+lastMessage+'</p>'+
     '</a>'+
@@ -32,6 +32,11 @@ var val = '<li>'+
 
 function addToGames(text, date){
 
+}
+
+function notificationCounts(requestsCount, messagesCount, invatesCount){
+    $("#requestsSpan").append('<div class="deletable" >' + requestsCount + '</div>');
+    $("#messagesSpan").append('<div class="deletable" >' + messagesCount + '</div>');
 }
 
 function checkNots() {
@@ -47,13 +52,71 @@ function updateNots(data){
     if(j==null)
         return;
 
-    var friendRequests = data[0];
-    var messages = data[1];
-    var gameInvites = data[2];
+    var friendRequests = data.friendRequestsFrom;
+    var messages = data.newMessages;
 
+    $('.deletable').remove();
+    notificationCounts(friendRequests.length, messages.length);
+    //var gameInvites = data[2];
+
+    $('.addedF').remove();
+    for(var id in friendRequests){
+        addToFriends(friendRequests[id].nickname, friendRequests[id].picPath);
+    }
+
+    $('.addedM').remove();
+    for(var id in messages){
+        var obj = messages[id];
+        var lastIndex = obj['messages'].length - 1;
+        var dateText = obj['messages'][lastIndex]['date'];
+        var date1 =  new Date(dateText);
+        var date2 = new Date();
+        var dif = messageDate(date1, date2);
+        addToMessages(obj['sender']['nickname'],obj['sender']['picPath'], obj['messages'][lastIndex]['text'], dif);
+    }
 }
 
 $(document).ready(function() {
     checkNots();
-    setInterval(checkNots, 2000);
+    setInterval(checkNots, 5000);
 });
+var months = ["იანვარი", "თებერვალი", "მარტი", "აპრილი", "მაისი", "ივნისი", "ივლისი", "აგვისტო", "სექტემბერი", "ოქტომბერი", "ნომბერი", "დეკემბერი"];
+ 
+var days = ["ორშაბათი", "სამშაბათი", "ოთხშაბათი", "ხუთშაბათი", "პარასკევი", "შაბათი", "კვირა"];
+ 
+function messageDate(sentDate, now) {
+   if (sentDate > now) {
+      return "საიტზე მოხდა შეცდომა!"
+   }
+ 
+   var readableDate = getReadableDate(sentDate);
+ 
+   var daysDifference = Math.floor((now - sentDate) / 1000 / 60 / 60 / 24);
+   if (daysDifference >= 365
+         || now.getMonth() != sentDate.getMonth()) {
+       return readableDate;
+   }
+   
+   if (daysDifference > 0) {
+      return daysDifference + " დღის წინ";
+   }
+ 
+   var hoursDifference = Math.floor((now - sentDate) / 1000 / 60 / 60);
+   if (hoursDifference > 0) {
+      return hoursDifference + " საათის წინ";
+   }
+ 
+   var minutesDifference = Math.floor((now - sentDate) / 1000 / 60);
+   if (minutesDifference > 0) {
+      return minutesDifference + " წუთის წინ";
+   }
+ 
+   return "რამდენიმე წამის წინ";
+}
+function getReadableDate(date) {
+   var hours = date.getHours();
+   if (hours < 10) hours = "0" + hours;
+   var minutes = date.getMinutes();
+   if (minutes < 10) minutes = "0" + minutes;
+   return days[date.getDay()] + " " + months[date.getMonth()] + " " + date.getDate() + " " + date.getFullYear() + ", " + hours + ":" + minutes;
+}

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by Nika on 02:56, 6/25/2015.
@@ -190,6 +191,7 @@ public class FriendsDao {
                     "WHERE AccIDTo = ? AND AccIDFrom = ?")) {
                 pst.setInt(1, idFrom);
                 pst.setInt(2, idTo);
+                pst.execute();
             } catch (SQLException e) {
                 //System.out.println("ConfirmFriendRequest idFrom, idTo " +
                 //        idFrom + ", " + idTo + " failed");
@@ -212,7 +214,7 @@ public class FriendsDao {
      * @return set of accountNames  or null if no accountName was found
      */
     public Set<String> getFriendRequestsFrom(String accountName) {
-        Set<String> requestsFrom = new HashSet<>();
+        Set<String> requestsFrom = new TreeSet<>();
         try (Connection conn = dataSource.getConnection()) {
             try (PreparedStatement pst = conn.prepareStatement(
                     "SELECT Nickname FROM " +

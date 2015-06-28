@@ -1,8 +1,6 @@
 package Core.Servlets;
 
-import Core.Bean.Account;
-import Core.Bean.Message;
-import Core.Bean.Notification;
+import Core.Bean.*;
 import Core.Dao.AccountDao;
 import Core.Dao.FriendsDao;
 import Interfaces.iAccount;
@@ -43,8 +41,7 @@ public class Notifications extends HttpServlet {
         Map<String, List<Message>> unreadMessagesFrom = unreadMessages.get(userAccount.getID());
         Map<String, Integer> inviteGamesFrom = new HashMap<>(); //TODO get it from servletContext
 
-        Notification notification = new Notification(getRequestAccs(friendRequestsFrom, accountDao),
-                getInviteAccs(inviteGamesFrom, accountDao), getMessageAccs(unreadMessagesFrom, accountDao));
+        Notification notification = makeNotification(friendRequestsFrom, unreadMessagesFrom, inviteGamesFrom, accountDao);
 
         response.setContentType("application/json");
         String jsonString = new GsonBuilder().
@@ -55,34 +52,44 @@ public class Notifications extends HttpServlet {
         writer.close();
     }
 
-    private Map<iAccount, List<Message>> getMessageAccs(Map<String, List<Message>> unreadMessagesFrom, AccountDao accountDao) {
-        Map<iAccount, List<Message>> result = new HashMap<>();
-        if (unreadMessagesFrom == null) return result;
-        unreadMessagesFrom.keySet().forEach(name -> {
+    private Notification makeNotification(Set<String> friendRequestsFrom,
+                                          Map<String, List<Message>> unreadMessagesFrom,
+                                          Map<String, Integer> inviteGamesFrom, AccountDao accountDao) {
+        List<iAccount> accountSet = getAccountSet(friendRequestsFrom, accountDao);
+        List<GameInvitation> gameInvitations = getGameInvitationsMap(inviteGamesFrom, accountDao);
+        List<NotificationMessage> notificationMessageMap = getNotificationMessagesMap(unreadMessagesFrom, accountDao);
+        return new Notification(accountSet, gameInvitations, notificationMessageMap);
+    }
+
+    private List<NotificationMessage> getNotificationMessagesMap(Map<String, List<Message>>
+                                                                                unreadMessagesFrom, AccountDao accountDao) {
+        List<NotificationMessage> res = new ArrayList<>();
+        if (unreadMessagesFrom == null) return res;
+        unreadMessagesFrom.forEach((name, list)->{
             try {
-                result.put(accountDao.getUser(name), unreadMessagesFrom.get(name));
+                res.add(new NotificationMessage(accountDao.getUser(name), list));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
-        return result;
+        return res;
     }
 
-    private Map<iAccount, Integer> getInviteAccs(Map<String, Integer> inviteGamesFrom, AccountDao accountDao) {
-        Map<iAccount, Integer> result = new HashMap<>();
-        if (inviteGamesFrom == null) return result;
-        inviteGamesFrom.keySet().forEach(name -> {
+    private List<GameInvitation> getGameInvitationsMap(Map<String, Integer> inviteGamesFrom, AccountDao accountDao) {
+        List <GameInvitation> res = new ArrayList<>();
+        if (inviteGamesFrom == null) return res;
+        inviteGamesFrom.forEach((inviteFrom, roomSize) -> {
             try {
-                result.put(accountDao.getUser(name), inviteGamesFrom.get(name));
+                res.add(new GameInvitation(accountDao.getUser(inviteFrom), roomSize));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
-        return result;
+        return res;
     }
 
-    private Set<iAccount> getRequestAccs(Set<String> friendRequestsFrom, AccountDao accountDao) {
-        Set<iAccount> result = new HashSet<>();
+    private List<iAccount> getAccountSet(Set<String> friendRequestsFrom, AccountDao accountDao) {
+        List<iAccount> result = new ArrayList<>();
         if (friendRequestsFrom == null) return result;
         friendRequestsFrom.forEach(name -> {
             try {

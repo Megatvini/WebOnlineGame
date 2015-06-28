@@ -2,7 +2,9 @@ package Core.Bean;
 
 import Interfaces.iAccount;
 import com.google.gson.annotations.Expose;
+import com.mysql.fabric.xmlrpc.base.Data;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,40 +14,45 @@ import java.util.Set;
  */
 public class Notification {
     @Expose
-    private Set<iAccount> friendRequestsFrom;
+    private List<iAccount> friendRequestsFrom;
     @Expose
-    private Map<iAccount, Integer> inviteGamesFrom;
+    private List<GameInvitation> inviteGamesFrom;
     @Expose
-    private Map<iAccount, List<Message>> newMessages;
+    private List<NotificationMessage> newMessages;
+    @Expose
+    private Date serverTime;
 
-    public Notification(Set<iAccount> friendRequestsFrom, Map<iAccount, Integer> inviteGamesFrom, Map<iAccount, List<Message>> newMessages) {
+    public Notification(List<iAccount> friendRequestsFrom,
+                        List<GameInvitation> inviteGamesFrom,
+                        List<NotificationMessage> newMessages) {
         this.friendRequestsFrom = friendRequestsFrom;
         this.inviteGamesFrom = inviteGamesFrom;
         this.newMessages = newMessages;
+        this.serverTime = new Date(System.currentTimeMillis());
     }
 
 
-    public Set<iAccount> getFriendRequestsFrom() {
+    public List<iAccount> getFriendRequestsFrom() {
         return friendRequestsFrom;
     }
 
-    public void setFriendRequestsFrom(Set<iAccount> friendRequestsFrom) {
+    public void setFriendRequestsFrom(List<iAccount> friendRequestsFrom) {
         this.friendRequestsFrom = friendRequestsFrom;
     }
 
-    public Map<iAccount, Integer> getInviteGamesFrom() {
+    public List<GameInvitation> getInviteGamesFrom() {
         return inviteGamesFrom;
     }
 
-    public void setInviteGamesFrom(Map<iAccount, Integer> inviteGamesFrom) {
+    public void setInviteGamesFrom(List<GameInvitation> inviteGamesFrom) {
         this.inviteGamesFrom = inviteGamesFrom;
     }
 
-    public Map<iAccount, List<Message>> getNewMessages() {
+    public List<NotificationMessage> getNewMessages() {
         return newMessages;
     }
 
-    public void setNewMessages(Map<iAccount, List<Message>> newMessages) {
+    public void setNewMessages(List<NotificationMessage> newMessages) {
         this.newMessages = newMessages;
     }
 }

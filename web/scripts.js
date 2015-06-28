@@ -12,6 +12,9 @@ function writeText(text, date){
         ' <img class="direct-chat-img"  src="' + friendPic + '"" alt="message user image">' +
         '<div class="direct-chat-text">' +
         text + ' </div> </div>');
+
+    $("#messages").animate({ scrollTop: $('#messages')[0].scrollHeight}, 10);
+
     $("#messageText").val("");
 }
 
@@ -25,6 +28,7 @@ function writeTextFrom(text, date){
         ' <img class="direct-chat-img" src="' + myPic + '" alt="message user image">' +
         '<div class="direct-chat-text">' +
         text + ' </div> </div>');
+    $("#messages").animate({ scrollTop: $('#messages')[0].scrollHeight}, 10);
 }
 
 var profileToNick;
@@ -36,6 +40,7 @@ var myNick;
 function sendMessage(){
     var text = $("#messageText").val();
     writeText(text);
+
     if(!profileToID)
         return;
     var xmlhttp = new XMLHttpRequest();
