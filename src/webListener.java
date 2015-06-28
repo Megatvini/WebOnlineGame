@@ -8,6 +8,7 @@ import Core.Dao.AccountDao;
 import Core.Dao.FriendsDao;
 import Core.Dao.MessageDao;
 import org.apache.commons.dbcp2.BasicDataSource;
+import test.FileManager;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -44,6 +45,10 @@ public class webListener implements ServletContextListener,
         MessageDao messageDao = new MessageDao(ds);
         Set<String> onlineUsers = Collections.synchronizedSet(new HashSet<>());
         Map<Integer, Map<String, List<Message>>> unreadMessages = Collections.synchronizedMap(new HashMap<>());
+
+        //file manager
+        FileManager fileManager = new FileManager("pics/");
+        sc.setAttribute(FileManager.class.getName(), fileManager);
 
 
         sc.setAttribute(AccountDao.class.getName(), accountDao);

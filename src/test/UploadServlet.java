@@ -8,14 +8,13 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 
-import javax.imageio.ImageIO;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
 import java.io.*;
 import java.util.List;
 import java.util.UUID;
@@ -24,21 +23,20 @@ import java.util.UUID;
 @WebServlet(urlPatterns = "/upload")
 public class UploadServlet extends HttpServlet {
 
-
-    public String directoryPathToPics = "pics/";
     public static final String NO_PROFILE_PIC_NAME = "no_profile" ;
 
-    public String testPick = directoryPathToPics+NO_PROFILE_PIC_NAME;
-
-    public static final int maxSize = 40000*4;
+    public static final int maxSize = 100000*4;
     public static final int MAX_NUM_PICS = 4000;
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
 
-            DiskFileItemFactory factory = new DiskFileItemFactory();
+            FileManager fileManager = (FileManager) request.getServletContext().getAttribute(FileManager.class.getName());
 
+
+            DiskFileItemFactory factory = new DiskFileItemFactory();
 
             factory.setSizeThreshold(maxSize * MAX_NUM_PICS);
 
@@ -49,13 +47,14 @@ public class UploadServlet extends HttpServlet {
 
             List<FileItem> items = fileUpload.parseRequest(request);
 
-            UUID idOne = UUID.randomUUID();
+            UUID  idOne = UUID.randomUUID() ;
 
 
             String picFileName = (idOne + "");
-            String filepath = directoryPathToPics + (picFileName);
+
 
             for (FileItem item : items) {
+
                 if (item.isFormField()) {
                     // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
                     String fieldName = item.getFieldName();
@@ -70,20 +69,24 @@ public class UploadServlet extends HttpServlet {
                     byte[] buffer = new byte[fileContent.available()];
                     fileContent.read(buffer);
 
-                    File targetFile = new File(filepath);
+                    File targetFile = fileManager.createFile(fileManager.createFilePath(picFileName));
+
+
                     OutputStream outStream = new FileOutputStream(targetFile);
                     outStream.write(buffer);
 
 
-                    if (validatePic(filepath)) {
+                    if (fileManager.validatePic(picFileName)) {
+                        response.setContentType("text/plain");
+                        response.setCharacterEncoding("UTF-8");
+                        response.getOutputStream().println("load successful");
 
-                        setPicPath(request, filepath);
+                       // setPicPath(request, picFileName);
                     } else {
                         handlePicUploadError(request, response);
                     }
 
-                    response.setContentType("text/plain");
-                    response.setCharacterEncoding("UTF-8");
+
 
                     // ... (do your job here)
                 }
@@ -95,6 +98,8 @@ public class UploadServlet extends HttpServlet {
         }
     }
 
+
+
     private void handlePicUploadError(HttpServletRequest request, HttpServletResponse response) {
 
         try {
@@ -105,7 +110,7 @@ public class UploadServlet extends HttpServlet {
 
     }
 
-    private void setPicPath(HttpServletRequest request, String filepath) {
+    public void setPicPath(HttpServletRequest request, String filepath) {
         String nickname = (String) request.getSession().getAttribute("nickname");
         AccountDao userControl = (AccountDao) getServletContext().getAttribute(AccountDao.class.getName());
         iAccount profile;
@@ -120,30 +125,8 @@ public class UploadServlet extends HttpServlet {
 
     }
 
-    private boolean validatePic( String filepath) {
-        File imageFile = new File(filepath);
-
-        Image image= null;
-        try {
-            image = ImageIO.read(imageFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (image == null) {
-            deletePicFIle(imageFile.getName());
-            return false;
-
-        }
-        return true;
-    }
-
-    private void deletePicFIle(String imageFilename) {
-        String filepath = directoryPathToPics+imageFilename;
-        File imageFile = new File(filepath);
-       boolean deleted =  imageFile.delete();
 
 
-    }
 
 
 }

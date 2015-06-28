@@ -19,11 +19,11 @@ CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 COLLATE utf8_gener
 USE `mydb` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`Accounts`
+-- Table `mydb`.`accounts`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`Accounts` ;
+DROP TABLE IF EXISTS `mydb`.`accounts` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`Accounts` (
+CREATE TABLE IF NOT EXISTS `mydb`.`accounts` (
   `ID` INT NOT NULL AUTO_INCREMENT,
   `Nickname` VARCHAR(45) NOT NULL,
   `LastName` VARCHAR(45) NULL,
@@ -50,16 +50,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Friends` (
   `AccIDTo` INT NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE INDEX `ID_UNIQUE` (`ID` ASC),
-  INDEX `fk_Friends_Accounts_idx` (`AccIDFrom` ASC),
-  INDEX `fk_Friends_Accounts1_idx` (`AccIDTo` ASC),
-  CONSTRAINT `fk_Friends_Accounts`
+  INDEX `fk_Friends_accounts_idx` (`AccIDFrom` ASC),
+  INDEX `fk_Friends_accounts1_idx` (`AccIDTo` ASC),
+  CONSTRAINT `fk_Friends_accounts`
     FOREIGN KEY (`AccIDFrom`)
-    REFERENCES `mydb`.`Accounts` (`ID`)
+    REFERENCES `mydb`.`accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Friends_Accounts1`
+  CONSTRAINT `fk_Friends_accounts1`
     FOREIGN KEY (`AccIDTo`)
-    REFERENCES `mydb`.`Accounts` (`ID`)
+    REFERENCES `mydb`.`accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -75,16 +75,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`WaitingFriends` (
   `AccIDFrom` INT NOT NULL,
   `AccIDTo` INT NOT NULL,
   PRIMARY KEY (`ID`),
-  INDEX `fk_WaitingFriends_Accounts1_idx` (`AccIDFrom` ASC),
-  INDEX `fk_WaitingFriends_Accounts2_idx` (`AccIDTo` ASC),
-  CONSTRAINT `fk_WaitingFriends_Accounts1`
+  INDEX `fk_WaitingFriends_accounts1_idx` (`AccIDFrom` ASC),
+  INDEX `fk_WaitingFriends_accounts2_idx` (`AccIDTo` ASC),
+  CONSTRAINT `fk_WaitingFriends_accounts1`
     FOREIGN KEY (`AccIDFrom`)
-    REFERENCES `mydb`.`Accounts` (`ID`)
+    REFERENCES `mydb`.`accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_WaitingFriends_Accounts2`
+  CONSTRAINT `fk_WaitingFriends_accounts2`
     FOREIGN KEY (`AccIDTo`)
-    REFERENCES `mydb`.`Accounts` (`ID`)
+    REFERENCES `mydb`.`accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -100,16 +100,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Conversations` (
   `AccIDFrom` INT NOT NULL,
   `AccIDTo` INT NOT NULL,
   PRIMARY KEY (`ID`),
-  INDEX `fk_Conversations_Accounts1_idx` (`AccIDFrom` ASC),
-  INDEX `fk_Conversations_Accounts2_idx` (`AccIDTo` ASC),
-  CONSTRAINT `fk_Conversations_Accounts1`
+  INDEX `fk_Conversations_accounts1_idx` (`AccIDFrom` ASC),
+  INDEX `fk_Conversations_accounts2_idx` (`AccIDTo` ASC),
+  CONSTRAINT `fk_Conversations_accounts1`
     FOREIGN KEY (`AccIDFrom`)
-    REFERENCES `mydb`.`Accounts` (`ID`)
+    REFERENCES `mydb`.`accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Conversations_Accounts2`
+  CONSTRAINT `fk_Conversations_accounts2`
     FOREIGN KEY (`AccIDTo`)
-    REFERENCES `mydb`.`Accounts` (`ID`)
+    REFERENCES `mydb`.`accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -159,15 +159,15 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Participations` (
   `RatingChange` INT NOT NULL,
   PRIMARY KEY (`ID`),
   INDEX `fk_Participations_Games1_idx` (`GameID` ASC),
-  INDEX `fk_Participations_Accounts1_idx` (`AccID` ASC),
+  INDEX `fk_Participations_accounts1_idx` (`AccID` ASC),
   CONSTRAINT `fk_Participations_Games1`
     FOREIGN KEY (`GameID`)
     REFERENCES `mydb`.`Games` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Participations_Accounts1`
+  CONSTRAINT `fk_Participations_accounts1`
     FOREIGN KEY (`AccID`)
-    REFERENCES `mydb`.`Accounts` (`ID`)
+    REFERENCES `mydb`.`accounts` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

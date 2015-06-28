@@ -8,4 +8,11 @@
         <servlet-name>Register</servlet-name>
         <servlet-class>Core.Servlets.Register</servlet-class>
     </servlet>
+
+    <context-param>
+        <description>The email address of the administrator, used to send error reports.</description>
+        <param-name>url</param-name>
+        <param-value>address@somedomain.com</param-value>
+    </context-param>
+
 </web-app>
