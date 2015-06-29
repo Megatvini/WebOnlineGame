@@ -8,6 +8,7 @@ import Interfaces.iAccount;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,6 +45,9 @@ public class SignIn extends HttpServlet {
             request.getSession().setAttribute("nickname", nickname);
             onlineUsers.add(nickname);
             takeCachedMessages(account.getID());
+
+            Cookie cookie = new Cookie("playerID", nickname);
+            response.addCookie(cookie);
             response.sendRedirect("index.jsp");
         } else {
             response.sendRedirect("Accont/Login.jsp?error=2");

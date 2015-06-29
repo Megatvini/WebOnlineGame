@@ -46,7 +46,7 @@ public class GameServerTest {
 
         when(configMock.getUserProperties()).thenReturn(userPropertiesMock);
         when(userPropertiesMock.get(HttpSession.class.getName())).thenReturn(httpSessionMock);
-        when(httpSessionMock.getAttribute("userName")).thenReturn("rezo");
+        when(httpSessionMock.getAttribute("nickname")).thenReturn("rezo");
         when(httpSessionMock.getServletContext()).thenReturn(servletContextMock);
         when(servletContextMock.getAttribute(GameManager.class.getName())).thenReturn(gameManagerMock);
     }

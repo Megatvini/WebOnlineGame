@@ -31,7 +31,7 @@ public class GameServer {
     public void open(Session session, EndpointConfig config) {
         //read name of a user from its httpSession
         HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
-        String userName = (String) httpSession.getAttribute("userName");
+        String userName = (String) httpSession.getAttribute("nickname");
         playerName = userName;
 
         //initialize gameManager

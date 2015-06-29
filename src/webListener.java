@@ -9,6 +9,14 @@ import Core.Dao.AccountDao;
 import Core.Dao.CachedMessagesDao;
 import Core.Dao.FriendsDao;
 import Core.Dao.MessageDao;
+import Game.Controller.GameFactory;
+import Game.Controller.GameManager;
+import Game.Controller.GameServer;
+import Game.Controller.UserConnector;
+import MatchMaking.FixedRoomSizeMatcherFactory;
+import MatchMaking.MatchingManager;
+import MatchMaking.StartingGroup;
+import Servlets.MatchMaker;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.accessibility.AccessibleAction;
@@ -18,6 +26,8 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.*;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 @WebListener()
 public class webListener implements ServletContextListener,
@@ -54,6 +64,17 @@ public class webListener implements ServletContextListener,
         sc.setAttribute(CachedMessagesDao.class.getName(), cachedMessagesDao);
         sc.setAttribute("onlineUsers", onlineUsers);
         sc.setAttribute("unreadMessages", unreadMessages);
+
+
+        Map<String, Collection<String>> roomMates = new ConcurrentHashMap<>();
+        GameManager gameManager = new GameManager(roomMates, new GameFactory(), new UserConnector(),
+                new ScheduledThreadPoolExecutor(GameServer.WORKING_THREAD_NUMBER));
+
+        sce.getServletContext().setAttribute("roomMates", roomMates);
+        sce.getServletContext().setAttribute(MatchMaker.class.getName(),
+                new MatchingManager(roomMates, new FixedRoomSizeMatcherFactory()));
+        sce.getServletContext().setAttribute(StartingGroup.class.getName(), new ConcurrentHashMap<>());
+        sce.getServletContext().setAttribute(GameManager.class.getName(), gameManager);
     }
 
     public void contextDestroyed(ServletContextEvent sce) {

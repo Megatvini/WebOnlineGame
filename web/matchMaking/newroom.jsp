@@ -51,7 +51,7 @@
         </fieldset>
         <br>
         <%
-            String userName = (String) session.getAttribute("userName");
+            String userName = (String) session.getAttribute("nickname");
             Map<String, StartingGroup> groupMap = (Map<String, StartingGroup>)
                     session.getServletContext().getAttribute(StartingGroup.class.getName());
             StartingGroup group = groupMap.get(userName);

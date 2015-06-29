@@ -18,7 +18,7 @@ public class MatchMaker extends HttpServlet {
         System.out.println("playerName was " + playerID);
         Cookie cookie = new Cookie("playerID", playerID);
         response.addCookie(cookie);
-        request.getSession().setAttribute("userName", playerID);
+        request.getSession().setAttribute("nickname", playerID);
         //getServletContext().getRequestDispatcher("/matchMaking/play.jsp").forward(request, response);
         response.sendRedirect("/matchMaking/play.jsp");
     }

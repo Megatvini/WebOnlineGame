@@ -26,8 +26,8 @@ public class Loader extends HttpServlet {
 
     //users call loader to know if their match has been found
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String userName = (String) request.getSession().getAttribute("userName");
-        if (userName == null) throw new RuntimeException("userName was null");
+        String userName = (String) request.getSession().getAttribute("nickname");
+        if (userName == null) throw new RuntimeException("nickname was null");
 
         Map<String, Collection<String>> roomMates = (Map<String, Collection<String>>) getServletContext().getAttribute("roomMates");
         if (roomMates == null) throw new RuntimeException("roomMates is null");

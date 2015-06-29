@@ -31,9 +31,9 @@ public class CreateRoom extends HttpServlet {
         Map<String, StartingGroup> groupMap = (Map<String, StartingGroup>)
                 getServletContext().getAttribute(StartingGroup.class.getName());
         if (groupMap == null) throw new RuntimeException("GroupMap is null");
-        String userName = (String) userSession.getAttribute("userName");
+        String userName = (String) userSession.getAttribute("nickname");
 
-        if (userName == null) throw new RuntimeException("userName is null");
+        if (userName == null) throw new RuntimeException("nickname is null");
         groupMap.put(userName, new StartingGroup(userName));
         request.getRequestDispatcher("matchMaking/newroom.jsp").forward(request, response);
     }

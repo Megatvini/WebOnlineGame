@@ -7,6 +7,7 @@ import Interfaces.iAccount;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,6 +44,9 @@ public class Register extends HttpServlet {
 
         request.getSession().setAttribute("nickname", account.getNickname());
         onlineUsers.add(account.getNickname());
+
+        Cookie cookie = new Cookie("playerID", nickName);
+        response.addCookie(cookie);
         response.sendRedirect("index.jsp");
     }
 

@@ -28,8 +28,8 @@ public class QuickPlay extends HttpServlet {
 
     //processes requests from users who choose QuickPlay and submitted roomSize options
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userName = (String) request.getSession().getAttribute("userName");
-        if (userName == null) throw new RuntimeException("userName was null");
+        String userName = (String) request.getSession().getAttribute("nickname");
+        if (userName == null) throw new RuntimeException("nickname was null");
 
         List<Integer> list = new ArrayList<>();
         for (int i=2; i<=4; i++) {

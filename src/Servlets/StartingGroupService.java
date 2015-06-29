@@ -35,8 +35,8 @@ public class StartingGroupService extends HttpServlet {
                 getServletContext().getAttribute(StartingGroup.class.getName());
         if (groupMap == null) throw new RuntimeException("groupMap is null");
 
-        String userName = (String) request.getSession().getAttribute("userName");
-        if (userName == null) throw new RuntimeException("userName was null");
+        String userName = (String) request.getSession().getAttribute("nickname");
+        if (userName == null) throw new RuntimeException("nickname was null");
 
         StartingGroup group = groupMap.get(userName);
         if (group == null) request.getRequestDispatcher("matchMaking/play.jsp").forward(request, response); //
