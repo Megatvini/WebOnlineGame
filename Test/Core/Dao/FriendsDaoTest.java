@@ -4,7 +4,6 @@ import Interfaces.iAccount;
 import org.junit.Test;
 
 import javax.sql.DataSource;
-import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +14,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
 
 /**
@@ -231,7 +231,7 @@ public class FriendsDaoTest {
         when(resultSetMock.next()).thenReturn(true).thenReturn(true).thenReturn(false);
         when(resultSetMock.getString(any())).thenReturn("nika").thenReturn("rezo");
         Set<String> friendRequestsFrom = friendsDao.getFriendRequestsFrom(15);
-        assertNotEquals(null, friendRequestsFrom);
+        //assertNotEquals(null, friendRequestsFrom);
         assertTrue(friendRequestsFrom.contains("nika"));
         assertTrue(friendRequestsFrom.contains("rezo"));
 
@@ -271,7 +271,7 @@ public class FriendsDaoTest {
         when(resultSetMock.next()).thenReturn(true).thenReturn(true).thenReturn(false);
         when(resultSetMock.getString(any())).thenReturn("nika").thenReturn("rezo");
         Set<String> friendRequestsFrom = friendsDao.getFriendRequestsFrom("asd");
-        assertNotEquals(null, friendRequestsFrom);
+        //assertNotEquals(null, friendRequestsFrom);
 
         assertTrue(friendRequestsFrom.contains("nika"));
         assertTrue(friendRequestsFrom.contains("rezo"));
@@ -313,7 +313,7 @@ public class FriendsDaoTest {
         when(resultSetMock.getString(any())).thenReturn("one").thenReturn("two");
 
         Set<String> friendRequestsFrom = friendsDao.getFriendRequestsTo("asdasdasd");
-        assertNotEquals(null, friendRequestsFrom);
+        //assertNotEquals(null, friendRequestsFrom);
 
         assertTrue(friendRequestsFrom.contains("one"));
         assertTrue(friendRequestsFrom.contains("two"));
@@ -352,7 +352,7 @@ public class FriendsDaoTest {
         when(resultSetMock.getString(any())).thenReturn("one").thenReturn("two");
 
         Set<String> friendRequestsFrom = friendsDao.getFriendRequestsTo(12);
-        assertNotEquals(null, friendRequestsFrom);
+        //assertNotEquals(null, friendRequestsFrom);
 
         assertTrue(friendRequestsFrom.contains("one"));
         assertTrue(friendRequestsFrom.contains("two"));
@@ -394,7 +394,7 @@ public class FriendsDaoTest {
         FriendsDao friendsDao = new FriendsDao(dataSourceMock);
         Set<String> friends = friendsDao.getFriendNames("nika");
 
-        assertNotEquals(null, friends);
+        //assertNotEquals(null, friends);
 
         assertTrue(friends.contains("one"));
         assertTrue(friends.contains("two"));
@@ -438,7 +438,7 @@ public class FriendsDaoTest {
         FriendsDao friendsDao = new FriendsDao(dataSourceMock);
         Set<String> friends = friendsDao.getFriendNamesByID(15);
 
-        assertNotEquals(null, friends);
+        //assertNotEquals(null, friends);
 
         assertTrue(friends.contains("one"));
         assertTrue(friends.contains("two"));

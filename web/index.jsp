@@ -51,12 +51,8 @@
 
   <!-- jQuery 2.1.4 -->
   <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
-
   <!-- jQuery UI 1.11.2 -->
   <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
-
-
-  <script src="upload_script.js" ></script>
   <![endif]-->
 </head>
 <body class="skin-blue sidebar-mini">
@@ -82,7 +78,6 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
-    <div class="box box-primary" style="width: 96%; margin: 20px; min-width: 350px">
 
       <input type="hidden" id = "nickname" value="<%=nickname%>" />
 
@@ -104,71 +99,152 @@
       </div>
 
 
+    <div class="box box-primary" style="width: 96%; margin: 20px; min-width: 350px">
       <form action="/ChangeAccount" method="post" accept-charset="UTF-8">
         <div class="box-header">
           <h3 class="box-title">პროფილი</h3>
         </div>
-        <div class="box-body">
-          <div align="center">
 
-          </div>
-          <div class="form-group">
-            <label>სახელი</label>
-            <input class="form-control" type="text" name="firstname" value="<%= profile.getFirstName() %>" placeholder="Default input">
-          </div>
-          <div class="form-group">
-            <label>გვარი</label>
-            <input class="form-control" type="text" name="lastname"  value="<%= profile.getLastName() %>" placeholder="Default input">
-          </div>
+        <style type="text/css">
+          .form-group
+          {
+            margin-right: 100px;
+          }
+          .tg  {border-collapse:collapse;border-spacing:0;}
+          .tg td{font-family:Arial, sans-serif;font-size:14px;padding:5px 5px; border-width:0;overflow:hidden;word-break:normal;}
+          .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:5px 5px; border-width:0;overflow:hidden;word-break:normal; width: 450px; vertical-align: top;}
+          #blanket {
+            background-color:#111;
+            opacity: 0.65;
+            *background:none;
+            position:absolute;
+            z-index: 9001;
+            top:0px;
+            left:0px;
+            width:100%;
+          }
 
-          <div class="form-group">
-            <label>მეილი</label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-              <input type="email" class="form-control" name="mail"  value="<%= profile.getMail() %>" placeholder="Email">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>Date masks:</label>
-            <div class="input-group">
-              <div class="input-group-addon">
-                <i class="fa fa-calendar"></i>
+          #popUpDiv {
+            position:absolute;
+            width:400px;
+            height:450px;
+             z-index: 9002;
+          }
+        </style>
+        <table class="tg">
+          <tr>
+            <th class="tg-031e" rowspan="6"> <div align="center">
+              <div class="form-group" style="width: 300px;">
+                <img src="<%= profile.getPicturePath() %>"  alt="Smiley face" style="  margin-top: 30px;  margin-bottom: 40px;" height="300" width="300">
+                <br/>
+                <input class="form-control" type="text" name="picture" value="<%= profile.getPicturePath() %>"  >
               </div>
-              <input type="date" class="form-control" value="<%= profile.getBirthDate() %>" name="date" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
-            </div><!-- /.input group -->
-          </div><!-- /.form group -->
+            </div></th>
+            <th class="tg-031e"> <div class="form-group">
+              <label>სახელი</label>
+              <input class="form-control" type="text" name="firstname" value="<%= profile.getFirstName() %>" >
+            </div></th>
+          </tr>
+          <tr>
+            <td class="tg-031e">   <div class="form-group">
+              <label>გვარი</label>
+              <input class="form-control" type="text" name="lastname"  value="<%= profile.getLastName() %>">
+            </div></td>
+          </tr>
+          <tr>
+            <td class="tg-031e">  <div class="form-group" style="width: 100%; margin-right: 25px">
+              <label>მეილი</label>
+              <div class="input-group" style="margin-right: 100px">
+                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                <input type="email"  class="form-control" name="mail"  value="<%= profile.getMail() %>" >
+              </div>
+            </div></td>
+          </tr>
+          <tr>
+            <td class="tg-031e">  <div class="form-group">
+              <label>Date masks:</label>
+              <div class="input-group" style="width: 100%">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <input type="date" class="form-control" value="<%= profile.getBirthDate() %>" name="date" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
+              </div><!-- /.input group -->
+            </div><!-- /.form group --></td>
+          </tr>
+          <tr>
+            <td class="tg-031e">
+              <div class="form-group" style="width: 70px; float: left">
+              <label>სქესი</label>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" <%= profile.getGender() == iAccount.Gender.MALE ? "checked=\"\"" : "" %> >
+                  კაცი
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" <%= profile.getGender() == iAccount.Gender.FEMALE ? "checked=\"\"" : "" %>>
+                  ქალი
+                </label>
+              </div>
+                <div style="width: 200px; float: left">
+                  <button onclick="popup('popUpDiv')" type="button" class="btn btn-block btn-primary">პაროლის შეცვლა</button>
+                </div>
+            </div>
+            </td>
 
-          <div class="form-group">
-            <label>არწერა</label>
+          </tr>
+
+        </table>
+        <div class="form-group" style="margin: 25px;">
+            <label>აღწერა</label>
             <textarea class="form-control" rows="3" name="about" placeholder="Enter ..."><%= profile.getAbout() %></textarea>
           </div>
-
-          <div class="form-group">
-            <label>სქესი</label>
-            <div class="radio">
-              <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" <%= profile.getGender() == iAccount.Gender.MALE ? "checked=\"\"" : "" %> >
-                კაცი
-              </label>
-            </div>
-            <div class="radio">
-              <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" <%= profile.getGender() == iAccount.Gender.FEMALE ? "checked=\"\"" : "" %>>
-                ქალი
-              </label>
-            </div>
-
-          </div>
-
-        </div><!-- /.box-body -->
-        <div align="center"  style=" padding-bottom: 20px;">   <button class="btn btn-block btn-primary" style="width: 250px;">შენახვა</button></div>
+        <div align="center"  style=" padding-bottom: 40px;">   <button class="btn btn-block btn-primary" style="width: 250px;">შენახვა</button></div>
       </form>
+
+      <div id="blanket" style="display:none">
+
+      </div>
+
+
+        <div class="modal-content" id="popUpDiv" style="display:none" >
+          <div class="modal-header">
+            <button onclick="popup('popUpDiv')" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">Modal Primary</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group" style="width: 100%">
+              <label>შეიყვანეთ პაროლი</label>
+              <input class="form-control" type="password" name="lastname"  value="<%= profile.getLastName() %>" >
+            </div>
+            <div class="form-group" style="width: 100%">
+              <label>ახალი პაროლი</label>
+              <input class="form-control" type="password" name="lastname"  value="<%= profile.getLastName() %>" >
+            </div>
+            <div class="form-group" style="width: 100%">
+              <label>გაიმეორეთ ახალი პაროლი</label>
+              <input class="form-control" type="password" name="lastname"  value="<%= profile.getLastName() %>" >
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" onclick="popup('popUpDiv')" data-dismiss="modal">დახურვა</button>
+            <button type="button" class="btn btn-default">შენახვა</button>
+          </div>
+        </div>
+
+      <div>
+
+      </div>
+
     </div>
+
 
   </div><!-- /.content-wrapper -->
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
+
+
 
 
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -206,5 +282,7 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js" type="text/javascript"></script>
+<script src="dist/js/popup.js" type="text/javascript"></script>
+
 </body>
 </html>

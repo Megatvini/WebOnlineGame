@@ -35,6 +35,6 @@ public class CreateRoom extends HttpServlet {
 
         if (userName == null) throw new RuntimeException("nickname is null");
         groupMap.put(userName, new StartingGroup(userName));
-        response.sendRedirect("matchMaking/newroom.jsp");
+        response.sendRedirect("StartGame.jsp");
     }
 }

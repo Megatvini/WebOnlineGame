@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -29,7 +28,7 @@ public class StartingGroupService extends HttpServlet {
     //tells user the array of userNames who are in the same creating room
     //it is called when user gets to the Create New Room Page
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("StartingGroupService:" + request.getSession().getId());
+        //System.out.println("StartingGroupService:" + request.getSession().getId());
 
         Map<String, StartingGroup> groupMap = (Map<String, StartingGroup>)
                 getServletContext().getAttribute(StartingGroup.class.getName());
