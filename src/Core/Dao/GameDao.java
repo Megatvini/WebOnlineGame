@@ -91,7 +91,7 @@ public class GameDao {
                     Date date = resultSet.getTimestamp("Date");
 
                     if (games.size() != 0 && games.get(games.size()-1).getGameID() == gameID) {
-                        games.get(gameID).addParticipant(accID);
+                        games.get(games.size()-1).addParticipant(accID);
                     } else {
                         Game game = new Game(date, gameID, ratingChange);
                         game.addParticipant(accID);
@@ -142,7 +142,7 @@ public class GameDao {
                     Date date = resultSet.getTimestamp("Date");
 
                     if (games.size() != 0 && games.get(games.size()-1).getGameID() == gameID) {
-                        games.get(gameID).addParticipant(accID);
+                        games.get(games.size()-1).addParticipant(accID);
                     } else {
                         Game game = new Game(date, gameID, ratingChange);
                         game.addParticipant(accID);

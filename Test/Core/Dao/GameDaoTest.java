@@ -115,17 +115,158 @@ public class GameDaoTest {
     }
 
     @Test
+    public void testGetUserGamesNotZero1() throws Exception {
+        initMocks();
+        GameDao gameDao = new GameDao(dataSourceMock);
+        when(resultSetMock.next()).thenReturn(true).thenReturn(true).thenReturn(false);
+        when(resultSetMock.getInt("GameID")).thenReturn(1).thenReturn(1);
+        when(resultSetMock.getInt("AccID")).thenReturn(3).thenReturn(4);
+        when(resultSetMock.getInt("ratingChange")).thenReturn(5).thenReturn(6);
+        java.sql.Date date1 = new java.sql.Date(0);
+        java.sql.Date date2 = new java.sql.Date(0);
+        when(resultSetMock.getDate(anyObject())).thenReturn(date1).thenReturn(date2);
+
+        List<Game> list = gameDao.getUserGames("nika", 10);
+        assertEquals(1, list.size());
+
+        assertEquals(1, list.get(0).getGameID());
+        assertEquals(2, list.get(0).getParticipantIDs().size());
+
+        assertEquals(5, list.get(0).getRatingChange());
+
+        verify(dataSourceMock, atLeastOnce()).getConnection();
+        verify(connectionMock, atLeastOnce()).prepareStatement(anyString());
+        verify(connectionMock).close();
+        verify(preparedStatementMock, atLeastOnce()).close();
+    }
+
+    @Test
+    public void testGetUserGamesException() throws Exception {
+        initMocks();
+        GameDao gameDao = new GameDao(dataSourceMock);
+        when(connectionMock.prepareStatement(anyString()))
+                .thenThrow(new SQLException());
+        assertEquals(0, gameDao.getUserGames("nika", 20).size());
+    }
+
+    ///
+
+    @Test
     public void testGetUserGamesByID() throws Exception {
-
+        initMocks();
+        GameDao gameDao = new GameDao(dataSourceMock);
+        assertEquals(0, gameDao.getUserGamesByID(15, 20).size());
+        verify(preparedStatementMock, atLeastOnce()).setInt(anyInt(), eq(20));
+        verify(preparedStatementMock, atLeastOnce()).setInt(anyInt(), eq(15));
+        verify(connectionMock).close();
+        verify(preparedStatementMock, atLeastOnce()).close();
     }
 
     @Test
-    public void testAddParticipation() throws Exception {
+    public void testGetUserGamesByIDNotZero() throws Exception {
+        initMocks();
+        GameDao gameDao = new GameDao(dataSourceMock);
+        when(resultSetMock.next()).thenReturn(true).thenReturn(true).thenReturn(false);
+        when(resultSetMock.getInt("GameID")).thenReturn(1).thenReturn(2);
+        when(resultSetMock.getInt("AccID")).thenReturn(3).thenReturn(4);
+        when(resultSetMock.getInt("ratingChange")).thenReturn(5).thenReturn(6);
+        java.sql.Date date1 = new java.sql.Date(0);
+        java.sql.Date date2 = new java.sql.Date(0);
+        when(resultSetMock.getDate(anyObject())).thenReturn(date1).thenReturn(date2);
 
+        List<Game> list = gameDao.getUserGamesByID(15, 2);
+        assertEquals(2, list.size());
+
+        assertEquals(1, list.get(0).getGameID());
+
+        assertEquals(5, list.get(0).getRatingChange());
+
+        verify(dataSourceMock, atLeastOnce()).getConnection();
+        verify(connectionMock, atLeastOnce()).prepareStatement(anyString());
+        verify(connectionMock).close();
+        verify(preparedStatementMock, atLeastOnce()).close();
     }
 
     @Test
-    public void testGetGamesCount() throws Exception {
+    public void testGetUserGamesByIDNotZero1() throws Exception {
+        initMocks();
+        GameDao gameDao = new GameDao(dataSourceMock);
+        when(resultSetMock.next()).thenReturn(true).thenReturn(true).thenReturn(false);
+        when(resultSetMock.getInt("GameID")).thenReturn(1).thenReturn(1);
+        when(resultSetMock.getInt("AccID")).thenReturn(3).thenReturn(4);
+        when(resultSetMock.getInt("ratingChange")).thenReturn(5).thenReturn(6);
+        java.sql.Date date1 = new java.sql.Date(0);
+        java.sql.Date date2 = new java.sql.Date(0);
+        when(resultSetMock.getDate(anyObject())).thenReturn(date1).thenReturn(date2);
 
+        List<Game> list = gameDao.getUserGamesByID(12, 10);
+        assertEquals(1, list.size());
+
+        assertEquals(1, list.get(0).getGameID());
+        assertEquals(2, list.get(0).getParticipantIDs().size());
+
+        assertEquals(5, list.get(0).getRatingChange());
+
+        verify(preparedStatementMock, atLeastOnce()).setInt(anyInt(), eq(12));
+        verify(preparedStatementMock, atLeastOnce()).setInt(anyInt(), eq(10));
+
+        verify(dataSourceMock, atLeastOnce()).getConnection();
+        verify(connectionMock, atLeastOnce()).prepareStatement(anyString());
+        verify(connectionMock).close();
+        verify(preparedStatementMock, atLeastOnce()).close();
+    }
+
+    @Test
+    public void testGetUserGamesByIDException() throws Exception {
+        initMocks();
+        GameDao gameDao = new GameDao(dataSourceMock);
+        when(connectionMock.prepareStatement(anyString()))
+                .thenThrow(new SQLException());
+        assertEquals(0, gameDao.getUserGamesByID(10, 20).size());
+    }
+
+    @Test
+    public void testAddParticipations() throws SQLException {
+        initMocks();
+        GameDao gameDao = new GameDao(dataSourceMock);
+        gameDao.addParticipation(1, 2, 3);
+        verify(preparedStatementMock).setInt(anyInt(), eq(1));
+        verify(preparedStatementMock).setInt(anyInt(), eq(2));
+        verify(preparedStatementMock).setInt(anyInt(), eq(3));
+
+        verify(preparedStatementMock, atLeastOnce()).close();
+        verify(connectionMock).close();
+    }
+
+    @Test
+    public void testAddParticipationsException() throws SQLException {
+        initMocks();
+        GameDao gameDao = new GameDao(dataSourceMock);
+        when(connectionMock.prepareStatement(anyString())).thenThrow(new SQLException());
+        gameDao.addParticipation(1, 2, 3);
+        verify(connectionMock).close();
+    }
+
+    @Test
+    public void testTotalGamesCount() throws SQLException {
+        initMocks();
+        GameDao gameDao = new GameDao(dataSourceMock);
+        when(resultSetMock.next()).thenReturn(true);
+        when(resultSetMock.getInt(anyInt())).thenReturn(2);
+        assertEquals(2, gameDao.getGamesCount());
+
+        verify(preparedStatementMock).executeQuery();
+        verify(connectionMock).close();
+        verify(preparedStatementMock, atLeastOnce()).close();
+    }
+
+    @Test
+    public void testTotalGamesCountException() throws SQLException {
+        initMocks();
+        GameDao gameDao = new GameDao(dataSourceMock);
+        when(connectionMock.prepareStatement(anyString())).thenThrow(new SQLException());
+        assertEquals(0, gameDao.getGamesCount());
+
+        verify(connectionMock).close();
     }
 }
