@@ -9,11 +9,11 @@ var UI = IgeUiElement.extend({
     classId: 'UI',
     init: function () {
         this.UITexture = { };
-        var self = this;
+
         IgeUiElement.prototype.init.call(this);
-        this.UITexture.nameFont = new IgeFontSheet('../assets/agency_fb_20pt.png', 0);
-        this.UITexture.potNumFont = new IgeFontSheet('../assets/agency_fb_20pt.png', 0);
-        this.UITexture.home = new IgeTexture('../assets/home.png');
+        this.UITexture.nameFont = self.nameFont ;
+        this.UITexture.potNumFont = self.potNumFont;
+        this.UITexture.home = self.homePic;
 
     },
 
@@ -43,7 +43,7 @@ var UI = IgeUiElement.extend({
 
     },
     switchSound: function( b , muter ){
-        var soundIndex
+        var soundIndex;
         for(soundIndex = 0 ; soundIndex < self.sounds.length; soundIndex++){
             self.sounds[soundIndex].muted = b;
         }
@@ -186,7 +186,7 @@ var UI = IgeUiElement.extend({
             return  -(b.place - a.place) ;
         });
 
-        results=arr
+        results=arr;
 
         var startY = 10;
 
@@ -240,7 +240,7 @@ var UI = IgeUiElement.extend({
         uiInstance.redirectHome = function () {
             window.location.assign("http://localhost:8080")
 
-        }
+        };
 
         var homeIcon = new IgeUiElement()
             .id('home')
@@ -249,7 +249,7 @@ var UI = IgeUiElement.extend({
 
         homeIcon.mouseOver(function () {
             uiInstance.UITexture.home.applyFilter(IgeFilters.brighten, {value: 100});
-        })
+        });
 
 
         homeIcon.mouseDown(function () {

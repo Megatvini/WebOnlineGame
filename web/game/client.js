@@ -26,8 +26,8 @@ var Client = IgeClass.extend({
 		self.textures.circle = new IgeTexture('./assets/Circle.js');
 
 
-		self.textures.soundOFF = new IgeTexture('../assets/sound_mute.png');
-		self.textures.soundON = new IgeTexture('../assets/sound.png');
+		self.textures.soundOFF = new IgeTexture('./assets/sound_mute.png');
+		self.textures.soundON = new IgeTexture('./assets/sound.png');
 
 		//potion remove sounds
 		self.sounds[0] = document.getElementById("p1");
@@ -46,6 +46,11 @@ var Client = IgeClass.extend({
 
 		self.textures.font = new IgeFontSheet('./assets/agency_fb_20pt.png',3);
 
+		self.nameFont = new IgeFontSheet('./assets/agency_fb_20pt.png', 0);
+		self.potNumFont = new IgeFontSheet('./assets/agency_fb_20pt.png', 0);
+		self.homePic = new IgeTexture('./assets/home.png');
+
+		self.floorTexture = 	new IgeTexture('./assets/floor.js');
 
 		ige.on('texturesLoaded', function (){
 			// Create the HTML canvas
@@ -78,7 +83,7 @@ function gameOn() {
 }
 
 function initSocket() {
-	var connection = new WebSocket("ws://"+ window.location.host + "/game");
+	var connection = new WebSocket("ws://"+ window.location.host + "/gameServer");
 	connection.onopen = function () {
 		console.log("connection opened");
 		connection.send(JSON.stringify({

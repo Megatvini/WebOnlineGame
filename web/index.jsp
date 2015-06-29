@@ -1,13 +1,17 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: rezo
+  Date: 6/29/15
+  Time: 6:33 AM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!doctype html>
 <html>
 <head>
-  <title>Enter Your Name</title>
+    <title></title>
 </head>
 <body>
-<form action="/MatchMaker" method="get">
-  <input type="text" name="playerName">
-  <input type="submit"> EnterName
-</form>
+
+<%response.sendRedirect("game/index.jsp");%>
 </body>
 </html>

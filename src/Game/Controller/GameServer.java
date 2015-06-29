@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
-@ServerEndpoint(value="/game", configurator=ServerConfig.class)
+@ServerEndpoint(value="/gameServer", configurator=ServerConfig.class)
 public class GameServer {
     public static final int WORKING_THREAD_NUMBER = 10;
     private GameManager gameManager;

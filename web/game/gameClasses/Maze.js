@@ -24,7 +24,7 @@ var Maze = IgeEntityBox2d.extend({
             .mount(this.creator.mainScene)
             .depth(0)
            // .translateTo(-ige.client.gameConfig.width/2,-ige.client.gameConfig.height/2,0)
-            .texture(new IgeTexture('../assets/floor.js'))
+            .texture(self.floorTexture)
     },
     /*createGoodMaze: function(){
      var maze,

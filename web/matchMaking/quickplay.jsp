@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Choose Number Of Players</title>
     <link href="css/buttons.css" rel="stylesheet">
-    <script src="/jquery-1.9.1.js"></script>
+    <script src="/game/jquery-1.9.1.js"></script>
     <%@include file="userInGame.jsp" %>
 </head>
 <body>
