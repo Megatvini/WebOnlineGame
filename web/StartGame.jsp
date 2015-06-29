@@ -1,3 +1,5 @@
+<%@ page import="MatchMaking.StartingGroup" %>
+<%@ page import="java.util.Map" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -48,9 +50,65 @@
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
 
+  <%@include file="matchMaking/userInGame.jsp" %>
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
-    <h1>HELLO WORLD!</h1>
+    <form action="/StartGame" method="get">
+      <fieldset>
+        <legend>Choose Room Size</legend>
+
+        <label for="checkBox1">
+          <input type="checkbox" name="roomsize2" id="checkBox1" onclick="updateButton()"><span>2 Player Room</span>
+        </label>
+
+        <label for="checkBox2">
+          <input type="checkbox" name="roomsize3" id="checkBox2" onclick="updateButton()"><span>3 Player Room</span>
+        </label>
+
+        <label for="checkBox3">
+          <input type="checkbox" name="roomsize4" id="checkBox3" onclick="updateButton()"><span>4 Player Room</span>
+        </label>
+        <br>
+
+        <fieldset>
+          <legend>Player 1</legend>
+          <input name="p1" id="p1" value="Empty" style="border:none" readonly>
+        </fieldset>
+        <br>
+
+        <fieldset>
+          <legend>Player 2</legend>
+          <input name="p2" id="p2" value="Empty" style="border:none" readonly>
+        </fieldset>
+        <br>
+
+        <fieldset>
+          <legend>Player 3</legend>
+          <input name="p3" id="p3" value="Empty" style="border:none" readonly>
+        </fieldset>
+        <br>
+
+        <fieldset>
+          <legend>Player 4</legend>
+          <input name="p4" id="p4" value="Empty" style="border:none" readonly>
+        </fieldset>
+        <br>
+        <%
+          String userName = (String) session.getAttribute("nickname");
+          Map<String, StartingGroup> groupMap = (Map<String, StartingGroup>)
+                  session.getServletContext().getAttribute(StartingGroup.class.getName());
+          StartingGroup group = groupMap.get(userName);
+          if (group == null) response.sendRedirect("index.jsp");
+          else {
+            if (group.getCreator().equals(userName))
+              out.print("        <button style=\"margin-left:20%; margin-right:20%; width:60%;\" " +
+                      "type=\"submit\" " +
+                      "class=\"xlarge blue button\" id = \"button\" disabled>START GAME</button>\n");
+          }
+        %>
+      </fieldset>
+    </form>
   </div><!-- /.content-wrapper -->
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
@@ -94,5 +152,62 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js" type="text/javascript"></script>
+
+<script>
+  function check() {
+    $.get('StartingGroupService', function(resp) {
+      //console.log(resp);
+      var arr = resp.replace("[","").replace("]","").split(',');
+      var i=0;
+      for (; i<arr.length; i++) {
+        var s = "#p".concat(i+1);
+        $(s).val(arr[i]);
+      }
+
+      for (; i<4; i++) {
+        var s = "#p".concat(i+1);
+        $(s).val("Empty");
+      }
+      onChange();
+    });
+  }
+
+  function onChange() {
+    var count = 0;
+    var i = 1;
+    for (; i<=4; i++) {
+      if ($("#p"+i).val() == "Empty") count++;
+    }
+
+    i = 1;
+    for (; i<4; i++) {
+      $( "#checkBox"+i).prop( "disabled", false);
+    }
+
+    switch (count) {
+      case 0:
+        $( "#checkBox1").prop( "disabled", true);
+        $( "#checkBox1").prop( "checked", false);
+        $( "#checkBox2").prop( "disabled", true);
+        $( "#checkBox2").prop( "checked", false);
+        break;
+      case 1:
+        $( "#checkBox").prop( "disabled", true);
+        $( "#checkBox").prop( "checked", false);
+        break;
+    }
+
+    //console.log(count);
+  }
+  setInterval(check, 1000);
+
+  function updateButton() {
+    if ($("#button")) {
+      var count = $("[type='checkbox']:checked").length;
+      if (count == 0) $("#button").prop("disabled", true);
+      else $("#button").prop("disabled", false);
+    }
+  }
+</script>
 </body>
 </html>

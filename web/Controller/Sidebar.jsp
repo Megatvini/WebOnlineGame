@@ -51,7 +51,7 @@
         </a>
       </li>
       <li class="<%= pageName.equals("StartGame.jsp") ? "active" : "" %>">
-        <a href="../StartGame.jsp">
+        <a href="../CreateRoom">
           <i class="fa fa-gamepad"></i> <span>თამაშის დაწყება</span>
         </a>
       </li>
