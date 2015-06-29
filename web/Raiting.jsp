@@ -64,7 +64,7 @@
       int pagID = 0;
 
       if(pag != null) pagID = Integer.parseInt(pag) - 1;
-      int PageCount = (userControl.getUsersCount() + 5) / 5;
+      int PageCount = (userControl.getUsersCount() + 4) / 5;
 
       if (nickname == null) {
         String redirectURL = "Accont/Login.jsp";

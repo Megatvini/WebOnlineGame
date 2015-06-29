@@ -24,13 +24,15 @@
   <!-- Logo -->
   <a href="index.jsp" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><b>A</b>LT</span>
+    <span class="logo-mini"><b>4</b>C</span>
     <!-- logo for regular state and mobile devices -->
     <span class="logo-lg"><b>4</b>Color</span>
   </a>
   <!-- Header Navbar: style can be found in header.less -->
   <nav class="navbar navbar-static-top" role="navigation">
-
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+      <span class="sr-only">Toggle navigation</span>
+    </a>
     <%
       String nick = (String)session.getAttribute("nickname");
 
