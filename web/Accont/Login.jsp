@@ -11,6 +11,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <link href="../dist/css/LoginStyle.css" rel="stylesheet" type="text/css">
     <title>ავტორიზაცია</title>
+    <% String error = request.getParameter("error");%>
 </head>
 <body>
 <div class="login-box">
@@ -52,13 +53,17 @@
                     title="პაროლი უნდა შედგებოდეს ლათინური ასოების, ციფრების, სასვენი ნიშნებისგან და უნდა შეიცავდეს მინიმუმ 5 სიმბოლოს"/>
         </div>
         <div class="u-form-group">
-            <input type="password" placeholder="გაიმეორეთ პაროლი" id="password2"/>
+            <input type="password" placeholder="გაიმეორეთ პაროლი" id="password2" maxlength="12"/>
         </div>
         <div class="u-form-group">
             <button type="submit">რეგისტრაცია</button>
         </div>
     </form>
+    <div>
+        <p align="center" id="message" style="color: white"></p>
+    </div>
 </div>
+<input type="hidden" id="error" value="<%=error%>">
 <script>
     $(".email-signup").hide();
     $("#signup-box-link").click(function(){
@@ -67,25 +72,37 @@
         $("#login-box-link").removeClass("active");
         $("#signup-box-link").addClass("active");
     });
+
     $("#login-box-link").click(function(){
-        $(".email-login").delay(100).fadeIn(100);;
+        $(".email-login").delay(100).fadeIn(100);
         $(".email-signup").fadeOut(100);
         $("#login-box-link").addClass("active");
         $("#signup-box-link").removeClass("active");
     });
 
-    $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' // optional
-        });
+    $( document ).ready(function() {
+        var mes = $("#message");
+        switch ($("#error").val()) {
+            case "1":
+                mes.append("<b>ასეთი მომხმარებელი არ არსებობს</b>");
+                break;
+            case "2":
+                mes.html("<b>პაროლი არასწორია</b>");
+                break;
+            case "3":
+                $(".email-login").fadeOut(100);
+                $(".email-signup").delay(100).fadeIn(100);
+                $("#login-box-link").removeClass("active");
+                $("#signup-box-link").addClass("active");
+                mes.html("<b>სახელი ან მეილი უკვე დაკავებულია</b>");
+                break;
+        }
     });
 
     window.onload = function () {
         document.getElementById("password1").onchange = validatePassword;
         document.getElementById("password2").onchange = validatePassword;
-    }
+    };
     function validatePassword(){
         var pass2=document.getElementById("password2").value;
         var pass1=document.getElementById("password1").value;

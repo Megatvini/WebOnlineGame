@@ -31,7 +31,7 @@ public class Register extends HttpServlet {
         String mail = request.getParameter("mail");
 
         if (!isValid(nickName, password, mail, accountDao)) {
-            response.sendRedirect("Accont/register.jsp");
+            response.sendRedirect("Accont/Login.jsp?error=3");
             return;
         }
 

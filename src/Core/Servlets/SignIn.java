@@ -24,6 +24,10 @@ public class SignIn extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nickname = request.getParameter("nickname");
         String password = request.getParameter("password");
+        if (nickname == null || password == null) {
+            response.sendRedirect("Accont/Login.jsp?error=1");
+            return;
+        }
 
         AccountDao accountDao = (AccountDao) getServletContext().getAttribute(AccountDao.class.getName());
         Set<String> onlineUsers = (Set<String>) getServletContext().getAttribute("onlineUsers");
@@ -32,7 +36,7 @@ public class SignIn extends HttpServlet {
         try {
             account = accountDao.getUser(nickname);
         } catch (Exception e) {
-            response.sendRedirect("Accont/Login.jsp?error=2");
+            response.sendRedirect("Accont/Login.jsp?error=1");
             return;
         }
 

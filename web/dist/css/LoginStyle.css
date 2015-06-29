@@ -1,12 +1,13 @@
 body{
-    background-color: #a201ff;
+    background-image: url("../img/patara.jpg");
+    background-size: 100% 100%;
 }
 .login-box{
     position:relative;
     margin: 10px auto;
     width: 500px;
-    height: 430px;
-    background-color: #fff;
+    height: 530px;
+    background-color: rgba(0, 0, 0, 0.6);
     padding: 10px;
     border-radius: 3px;
     -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33);
