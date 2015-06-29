@@ -17,13 +17,12 @@ var Potion = IgeEntity.extend({
      * @param config sizes, radius . needed for calculations
      * @returns {Potion}
      */
-    transTo : function(x,y,config) {
-        this.translateTo(x - config.width / 2 + config.potRadius,
-            y - config.height / 2 + config.potRadius, 0);
+    transTo : function(x,y,config){
+        this.translateTo(x-config.width/2+config.potRadius,
+        y-config.height/2+config.potRadius,0);
         return this;
 
     }
-
 });
 
 if (typeof(module) !== 'undefined' && typeof(module.exports) !== 'undefined') { module.exports = Potion; }
