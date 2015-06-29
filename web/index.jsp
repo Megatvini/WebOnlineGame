@@ -87,18 +87,20 @@
       <input type="hidden" id = "nickname" value="<%=nickname%>" />
 
       <div class="form-group" style="width: 300px;" >
-        <img  id = "profPic" src="http://localhost:8080/images?nickname=<%=nickname%>" alt="Smiley face" style="border-radius: 50%" height="300" width="300">
+        <img  id = "profPic" src="default.png" alt="Smiley face" style="border-radius: 50%" height="300" width="300">
+        <script>
+          var host = "http://"+window.location.host+"/images?nickname=<%=nickname%>";
+          $("#profPic").attr("src",host)
+        </script>
+
         <div id="status"></div>
         <form id = "imageForm"  enctype="multipart/form-data" >
           <div >
-
-            <br/>
             <input class="form-control" type="text" name="picture" value="<%= profile.getPicturePath() %>"  placeholder="Default input">
           </div>
           <input type="file" name="file" />
           <input type="button" onclick="javascript:upload(this)"  class="fc-button"/>
         </form>
-
       </div>
 
 

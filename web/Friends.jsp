@@ -44,6 +44,13 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
 
+  <!-- jQuery 2.1.4 -->
+  <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+
+  <!-- jQuery UI 1.11.2 -->
+  <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
+
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -87,7 +94,8 @@
         iProfile shortProf = userControl.getUser(friendNick);
       %>
       <div style="background-color: #B0EDFF; width: 49%; float: left; padding: 5px 5px 5px 20px; border: groove #010046 thin">
-        <img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 100px; height: 100px; border-radius: 50%; float: left">
+        <img src="default.png" data-path = "<%=shortProf.getNickname()%>" alt="Smiley face" style="width: 100px; height: 100px; border-radius: 50%; float: left">
+
         <div style="padding: 20px 5px 5px 5px; ">
           <div style="font-size: 22px; text-align: left; padding-left: 110px">
             <%=shortProf.getNickname()%>
@@ -109,7 +117,7 @@
 
       %>
       <div style="background-color: #B0EDFF; width: 49%; float: left; padding: 5px 5px 5px 20px; border: groove #010046 thin">
-        <img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 100px; height: 100px; border-radius: 50%; float: left">
+        <img src="default.png" data-path ="<%=nickname%>" alt="Smiley face" style="width: 100px; height: 100px; border-radius: 50%; float: left">
         <div style="padding: 20px 5px 5px 5px; ">
           <div style="font-size: 22px; text-align: left; padding-left: 110px">
             <%=shortProf.getNickname()%>
@@ -128,6 +136,10 @@
   </div><!-- /.content-wrapper -->
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
+
+
+<script src="../assignPath.js"></script>
+
 
 <!-- jQuery 2.1.4 -->
 <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>

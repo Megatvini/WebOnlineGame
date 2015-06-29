@@ -77,7 +77,7 @@
         <div class="box-body">
           <div align="center">
             <div class="form-group" style="width: 300px;">
-              <img src="<%= profile.getPicturePath() %>"  alt="Smiley face" style="border-radius: 50%" height="300" width="300">
+              <img data-path="<%=nickname%>" src="default.png" alt="Smiley face" style="border-radius: 50%" height="300" width="300">
               <br/>
               <input class="form-control" type="text" name="picture" value="<%= profile.getPicturePath() %>"  placeholder="Default input">
             </div>
@@ -139,6 +139,8 @@
   </div><!-- /.content-wrapper -->
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
+
+<script src="assignPath.js"></script>
 
 <!-- jQuery 2.1.4 -->
 <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>

@@ -11,7 +11,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+  <!-- jQuery 2.1.4 -->
+  <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+
+  <!-- jQuery UI 1.11.2 -->
+  <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
+
+  <title></title>
 </head>
 <body>
 <%
@@ -32,7 +38,8 @@
     <!-- Sidebar user panela -->
     <div class="user-panel">
       <div class="pull-left image">
-        <img src="<%= prof.getPicturePath() %>" class="img-circle" alt="User Image" />
+        <img data-path="<%=prof.getNickname()%>"  src="/default.png" class="img-circle" alt="User Image" />
+
       </div>
       <div class="pull-left info">
         <p><%= prof.getNickname() %></p>
@@ -95,5 +102,6 @@
   </section>
   <!-- /.sidebar -->
 </aside>
+<script src="../assignPath.js"></script>
 </body>
 </html>
