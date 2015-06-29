@@ -117,7 +117,7 @@ public class GameManager {
         System.out.println("PLayers size " + players.size());
         if (players.size() == roomMates.get(playerName).size()) {
             System.out.println("Room is Full");
-            players.forEach(p->connector.sendMessageTo(p, world.getInit().toString()));
+            players.forEach(this::sendInit);
             scheduleUpdate(world);
             world.startGame();
         }
@@ -133,7 +133,7 @@ public class GameManager {
             world.getPlayers().forEach(x -> connector.sendMessageTo(x, world.getUpdate(x).toString()));
            // System.out.println("sent update");
         }, INITIAL_UPDATE_DELAY, UPDATE_INTERVAL, TimeUnit.MILLISECONDS);
-        runningServices.put(world, scheduledFuture);
+        if (scheduledFuture != null) runningServices.put(world, scheduledFuture);
     }
 
     /**
