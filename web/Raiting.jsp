@@ -47,7 +47,7 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="skin-blue sidebar-mini layout-boxed">
+<body class="skin-blue sidebar-mini">
 <div class="wrapper">
 
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>

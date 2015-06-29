@@ -55,7 +55,7 @@
   <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
   <![endif]-->
 </head>
-<body class="skin-blue sidebar-mini layout-boxed">
+<body class="skin-blue sidebar-mini">
 <div class="wrapper">
   <%
     AccountDao userControl = (AccountDao)pageContext.getServletContext().getAttribute(AccountDao.class.getName());
