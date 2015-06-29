@@ -134,7 +134,7 @@ public class GameMaze extends PlaneMaze {
         return distance(plPos.x, plPos.y, x, y) > maxMove;
     }
 
-    public synchronized boolean collideWall(String name, double x, double y) {
+    public boolean collideWall(String name, double x, double y) {
 //        if (x < 0 || x + 2 * pRadius > width || y < 0 || y + 2 * pRadius > height) { return true; }
 //
 //        double cX = x + pRadius;
