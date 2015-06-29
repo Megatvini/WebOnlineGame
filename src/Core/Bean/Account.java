@@ -14,7 +14,7 @@ public class Account implements iAccount {
     private String nickname;
     private String password;
     @Expose
-    private String picPath;
+    private String picPath ;
     @Expose
     private String firstName;
     @Expose
@@ -29,12 +29,13 @@ public class Account implements iAccount {
 
 
     public Account() {
-        picPath = "http://a3.files.biography.com/image/upload/c_fill,cs_srgb,dpr_1.0,g_face,h_300,q_80,w_300/MTIwNjA4NjM0MjAzODMzODY4.jpg";
+        picPath = "";
         firstName = "";
         lastName = "";
         about = "";
         rating = GameManager.DEFAULT_RATING;
         gender = Gender.MALE;
+
         birthDate = new Date(0);
     }
 

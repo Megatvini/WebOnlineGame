@@ -4,7 +4,6 @@ import Interfaces.iAccount;
 import org.junit.Test;
 
 import javax.sql.DataSource;
-import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +14,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
 
 /**
