@@ -51,8 +51,12 @@
 
   <!-- jQuery 2.1.4 -->
   <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+
   <!-- jQuery UI 1.11.2 -->
   <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
+
+
+  <script src="upload_script.js" ></script>
   <![endif]-->
 </head>
 <body class="skin-blue sidebar-mini layout-boxed">
@@ -79,17 +83,32 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
     <div class="box box-primary" style="width: 96%; margin: 20px; min-width: 350px">
+
+      <input type="hidden" id = "nickname" value="<%=nickname%>" />
+
+      <div class="form-group" style="width: 300px;" >
+        <img  id = "profPic" src="http://localhost:8080/images?nickname=<%=nickname%>" alt="Smiley face" style="border-radius: 50%" height="300" width="300">
+        <div id="status"></div>
+        <form id = "imageForm"  enctype="multipart/form-data" >
+          <div >
+
+            <br/>
+            <input class="form-control" type="text" name="picture" value="<%= profile.getPicturePath() %>"  placeholder="Default input">
+          </div>
+          <input type="file" name="file" />
+          <input type="button" onclick="javascript:upload(this)"  class="fc-button"/>
+        </form>
+
+      </div>
+
+
       <form action="/ChangeAccount" method="post" accept-charset="UTF-8">
         <div class="box-header">
           <h3 class="box-title">პროფილი</h3>
         </div>
         <div class="box-body">
           <div align="center">
-            <div class="form-group" style="width: 300px;">
-              <img src="<%= profile.getPicturePath() %>"  alt="Smiley face" style="border-radius: 50%" height="300" width="300">
-              <br/>
-              <input class="form-control" type="text" name="picture" value="<%= profile.getPicturePath() %>"  placeholder="Default input">
-            </div>
+
           </div>
           <div class="form-group">
             <label>სახელი</label>
