@@ -9,6 +9,7 @@ import Core.Dao.AccountDao;
 import Core.Dao.CachedMessagesDao;
 import Core.Dao.FriendsDao;
 import Core.Dao.MessageDao;
+import Core.FileUploading.FileManager;
 import Game.Controller.GameFactory;
 import Game.Controller.GameManager;
 import Game.Controller.GameServer;
@@ -64,6 +65,12 @@ public class webListener implements ServletContextListener,
         sc.setAttribute(CachedMessagesDao.class.getName(), cachedMessagesDao);
         sc.setAttribute("onlineUsers", onlineUsers);
         sc.setAttribute("unreadMessages", unreadMessages);
+
+
+        FileManager fileManager = new FileManager("pics/");
+        sc.setAttribute(FileManager.class.getName(),fileManager);
+
+
 
 
         Map<String, Collection<String>> roomMates = new ConcurrentHashMap<>();
