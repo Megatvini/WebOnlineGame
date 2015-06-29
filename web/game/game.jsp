@@ -20,60 +20,25 @@
       var ctx = canvas.getContext("2d");
       var WIDTH = 300;
       var HEIGHT = 200;
-      var playerID = getCookie("playerID")
+      var playerID = getCookie("playerID");
+
       var socket = new WebSocket("ws://"+ window.location.host + "/game");
 
       socket.onopen = function() {
         console.log("connection is open!");
-        socket.send(playerID + ":" + "init");
-        window.addEventListener('keydown',doKeyDown,true);
+        socket.onmessage = function(msg) {
+          console.log("received : " + msg.data);
+        };
+
+        socket.onclose = function(arg) {
+          console.log("connection error");
+        };
+
+        socket.onerror = function (arg) {
+          console.log("connection error");
+        };
       };
 
-      socket.onmessage = function(msg) {
-        console.log("received : " + msg.data);
-        clear();
-        var points = msg.data.split("#");
-        var i=0;
-        for (; i<points.length; i++) {
-          var ar = points[i].split(":");
-          circle(Number(ar[0]), Number(ar[1]), 10);
-        }
-      };
-
-      socket.onclose = function(arg) {
-        console.log("connection error");
-      };
-
-      socket.onerror = function (arg) {
-        console.log("connection error");
-      };
-
-      function circle(x,y,r) {
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI*2, true);
-        ctx.fill();
-      }
-
-      function clear() {
-        ctx.clearRect(0, 0, WIDTH, HEIGHT);
-      }
-
-      function doKeyDown(evt){
-        if (socket.readyState != WebSocket.OPEN) {
-          console.log("socket is not ready: " + socket.readyState);
-          return;
-        }
-        var keyCode = evt.keyCode;
-        if (keyCode >=37 && keyCode <=40) {
-          try {
-            var toSend = playerID + ":" + "update";
-            console.log("trying to send: " + toSend);
-            socket.send(toSend);
-          } catch (e) {
-            console.log("Could not send data :" + e.data);
-          }
-        }
-      }
 
       function getCookie(cname) {
         var name = cname + "=";

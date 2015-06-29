@@ -59,7 +59,7 @@
   <script src="upload_script.js" ></script>
   <![endif]-->
 </head>
-<body class="skin-blue sidebar-mini layout-boxed">
+<body class="skin-blue sidebar-mini">
 <div class="wrapper">
   <%
     AccountDao userControl = (AccountDao)pageContext.getServletContext().getAttribute(AccountDao.class.getName());
