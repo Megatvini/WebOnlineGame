@@ -134,12 +134,7 @@
       <div class="box box-warning direct-chat direct-chat-warning" style="height: 85%">
         <div class="box-header with-border" style="height: 50px;">
           <h3 class="box-title">მესიჯები</h3>
-          <div class="box-tools pull-right">
-            <span data-toggle="tooltip" title="3 New Messages" class="badge bg-yellow">3</span>
-            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle"><i class="fa fa-comments"></i></button>
-            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-          </div>
+
         </div><!-- /.box-header -->
         <div class="box-body">
 
