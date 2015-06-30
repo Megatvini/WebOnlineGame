@@ -41,7 +41,8 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-
+  <!-- jQuery 2.1.4 -->
+  <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
   <style>
     .hover-group .image-wrapper {
       /* We need this to make the .hover-toggle div relative to .image-wrapper */
@@ -70,29 +71,13 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
-    <h1>HELLO WORLD!</h1>
-    <ul class="thumbnails">
-      <li class="span3">
-        <div class="hover-group thumbnail">
-          <div class="image-wrapper">
-            <img src="http://placehold.it/260x180" alt="">
-            <div style="background-color: red; width: 100%" class="hover-toggle btn-group">
-              <button style="width: 50%" class="btn">damateba</button>
-              <button style="width: 50%" class="btn">miwera</button>
-            </div>
-          </div>
-          <h5>Thumbnail label</h5>
-          <p>Thumbnail caption right here...</p>
-        </div>
-      </li>
-      ...
-    </ul>
+    <h1>აქ აღწერილია თამაში</h1>
+
   </div><!-- /.content-wrapper -->
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
 
-<!-- jQuery 2.1.4 -->
-<script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+
 <!-- jQuery UI 1.11.2 -->
 <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->

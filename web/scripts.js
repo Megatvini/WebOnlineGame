@@ -3,13 +3,15 @@
  */
 
 function writeText(text, date){
+    text = text.replace(':D', '<img src="dist/img/smiles/smile.gif" />');
+    text = text.replace('(.Y.)', '<img src="dist/img/smiles/boob.gif" />');
     var newDate = new Date();
     if (text == "") return;
     $("#messages").append(
         '<div class="direct-chat-msg right">' +
         '<div class="direct-chat-info clearfix">' +
         ' <span class="direct-chat-name pull-right">' + myNick + '</span>'+
-        ' <span class="direct-chat-timestamp pull-left">' + newDate.getMonth() + '-' + newDate.getDay() + ' ' + newDate.getHours() +
+        ' <span class="direct-chat-timestamp pull-left">' +  newDate.getHours() +
         ':' + newDate.getMinutes() + ':' + newDate.getSeconds() + '</span>'+
         '</div>'+
         ' <img class="direct-chat-img"  src="' + myPic + '"" alt="message user image">' +
@@ -22,12 +24,14 @@ function writeText(text, date){
 }
 
 function writeTextFrom(text, date){
+    text = text.replace(':D', '<img src="dist/img/smiles/smile.gif" />');
+    text = text.replace('(.Y.)', '<img src="dist/img/smiles/boob.gif" />');
     var newDate = new Date(date);
     $("#messages").append(
         '<div class="direct-chat-msg">' +
         '<div class="direct-chat-info clearfix">' +
         ' <span class="direct-chat-name pull-left">' + profileToNick + '</span>'+
-        ' <span class="direct-chat-timestamp pull-right">' + newDate.getMonth() + '-' + newDate.getDay() + ' ' + newDate.getHours() +
+        ' <span class="direct-chat-timestamp pull-right">' + newDate.getHours() +
         ':' + newDate.getMinutes() + ':' + newDate.getSeconds() + '</span>'+
         '</div>'+
         ' <img class="direct-chat-img" src="' + friendPic + '" alt="message user image">' +
@@ -115,13 +119,13 @@ $(document).ready(function() {
     checkNots();
     setInterval(checkNots, 5000);
 });
-var months = ["ი�?ნვ�?რი", "თებერვ�?ლი", "მ�?რტი", "�?პრილი", "მ�?ისი", "ივნისი", "ივლისი", "�?გვისტ�?", "სექტემბერი", "�?ქტ�?მბერი", "ნ�?მბერი", "დეკემბერი"];
+var months = ["ი�?ნვ�?რი", "თებერვ�?ლი", "მ�?რტი", "�?პრილი", "მ�?ისი", "ივნისი", "ივლისი", "�?გვისტ�?", "სექტემბერი", "�?ქტ�?მბერი", "ნ�?მბერი", "დეკემბერი"];
 
-var days = ["�?რშ�?ბ�?თი", "ს�?მშ�?ბ�?თი", "�?თხშ�?ბ�?თი", "ხუთშ�?ბ�?თი", "პ�?რ�?სკევი", "შ�?ბ�?თი", "კვირ�?"];
+var days = ["�?რშ�?ბ�?თი", "ს�?მშ�?ბ�?თი", "�?თხშ�?ბ�?თი", "ხუთშ�?ბ�?თი", "პ�?რ�?სკევი", "შ�?ბ�?თი", "კვირ�?"];
 
 function messageDate(sentDate, now) {
     if (sentDate > now) {
-        return "ს�?იტზე მ�?ხდ�? შეცდ�?მ�?!"
+        return "ს�?იტზე მ�?ხდ�? შეცდ�?მ�?!"
     }
 
     var readableDate = getReadableDate(sentDate);
@@ -138,7 +142,7 @@ function messageDate(sentDate, now) {
 
     var hoursDifference = Math.floor((now - sentDate) / 1000 / 60 / 60);
     if (hoursDifference > 0) {
-        return hoursDifference + " ს�?�?თის წინ";
+        return hoursDifference + " ს�?�?თის წინ";
     }
 
     var minutesDifference = Math.floor((now - sentDate) / 1000 / 60);
@@ -146,7 +150,7 @@ function messageDate(sentDate, now) {
         return minutesDifference + " წუთის წინ";
     }
 
-    return "რ�?მდენიმე წ�?მის წინ";
+    return "რ�?მდენიმე წ�?მის წინ";
 }
 function getReadableDate(date) {
     var hours = date.getHours();
