@@ -3,11 +3,13 @@
  */
 
 function writeText(text, date){
+    var newDate = new Date();
     $("#messages").append(
         '<div class="direct-chat-msg right">' +
         '<div class="direct-chat-info clearfix">' +
         ' <span class="direct-chat-name pull-right">' + myNick + '</span>'+
-        ' <span class="direct-chat-timestamp pull-left">' + "todo" + '</span>'+
+        ' <span class="direct-chat-timestamp pull-left">' + newDate.getMonth() + '-' + newDate.getDay() + ' ' + newDate.getHours() +
+        ':' + newDate.getMinutes() + ':' + newDate.getSeconds() + '</span>'+
         '</div>'+
         ' <img class="direct-chat-img"  src="' + friendPic + '"" alt="message user image">' +
         '<div class="direct-chat-text">' +
@@ -19,11 +21,13 @@ function writeText(text, date){
 }
 
 function writeTextFrom(text, date){
+    var newDate = new Date(date);
     $("#messages").append(
         '<div class="direct-chat-msg">' +
         '<div class="direct-chat-info clearfix">' +
         ' <span class="direct-chat-name pull-left">' + profileToNick + '</span>'+
-        ' <span class="direct-chat-timestamp pull-right">' + date + '</span>'+
+        ' <span class="direct-chat-timestamp pull-right">' + newDate.getMonth() + '-' + newDate.getDay() + ' ' + newDate.getHours() +
+        ':' + newDate.getMinutes() + ':' + newDate.getSeconds() + '</span>'+
         '</div>'+
         ' <img class="direct-chat-img" src="' + myPic + '" alt="message user image">' +
         '<div class="direct-chat-text">' +
@@ -98,4 +102,50 @@ $(document).ready(function() {
         }
     });
 });
+
+
+$(document).ready(function() {
+    checkNots();
+    setInterval(checkNots, 5000);
+});
+var months = ["იანვარი", "თებერვალი", "მარტი", "აპრილი", "მაისი", "ივნისი", "ივლისი", "აგვისტო", "სექტემბერი", "ოქტომბერი", "ნომბერი", "დეკემბერი"];
+
+var days = ["ორშაბათი", "სამშაბათი", "ოთხშაბათი", "ხუთშაბათი", "პარასკევი", "შაბათი", "კვირა"];
+
+function messageDate(sentDate, now) {
+    if (sentDate > now) {
+        return "საიტზე მოხდა შეცდომა!"
+    }
+
+    var readableDate = getReadableDate(sentDate);
+
+    var daysDifference = Math.floor((now - sentDate) / 1000 / 60 / 60 / 24);
+    if (daysDifference >= 365
+        || now.getMonth() != sentDate.getMonth()) {
+        return readableDate;
+    }
+
+    if (daysDifference > 0) {
+        return daysDifference + " დღის წინ";
+    }
+
+    var hoursDifference = Math.floor((now - sentDate) / 1000 / 60 / 60);
+    if (hoursDifference > 0) {
+        return hoursDifference + " საათის წინ";
+    }
+
+    var minutesDifference = Math.floor((now - sentDate) / 1000 / 60);
+    if (minutesDifference > 0) {
+        return minutesDifference + " წუთის წინ";
+    }
+
+    return "რამდენიმე წამის წინ";
+}
+function getReadableDate(date) {
+    var hours = date.getHours();
+    if (hours < 10) hours = "0" + hours;
+    var minutes = date.getMinutes();
+    if (minutes < 10) minutes = "0" + minutes;
+    return days[date.getDay()] + " " + months[date.getMonth()] + " " + date.getDate() + " " + date.getFullYear() + ", " + hours + ":" + minutes;
+}
 
