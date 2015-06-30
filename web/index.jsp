@@ -85,7 +85,7 @@
 
 
     <div class="box box-primary" style="width: 96%; margin: 20px; min-width: 350px">
-      <form action="/ChangeAccount" method="post" accept-charset="UTF-8">
+      <form action="/ChangeAccount" method="get" accept-charset="UTF-8">
         <div class="box-header">
           <h3 class="box-title">პროფილი</h3>
         </div>
@@ -122,16 +122,16 @@
               <div class="form-group" style="width: 300px;">
                 <input type="hidden" id = "nickname" value="<%=nickname%>" />
                 <div class="form-group" style="width: 300px;" >
-                  <img  id = "profPic" src="default.png" alt="Smiley face" style="border-radius: 50%" height="300" width="300">
+                  <img  id = "profPic" src="default.png" alt="Smiley face"  height="300" width="300">
                   <script>
                     var host = "http://"+window.location.host+"/images?nickname=<%=nickname%>";
                     $("#profPic").attr("src",host)
                   </script>
 
                   <div id="status"></div>
-                  <div id = "imageForm"  >
+                  <div id = "imageForm">
                     <input type="file" id="inputFile" />
-                    <input type="button" onclick="upload()"  class="fc-button"/>
+                    <input type="button" onclick="upload()" value="ატვირთე" class="btn btn-default"/>
                   </div>
                 </div>
 
@@ -197,7 +197,9 @@
             <label>აღწერა</label>
             <textarea class="form-control" rows="3" name="about" placeholder="Enter ..."><%= profile.getAbout() %></textarea>
           </div>
-        <div align="center"  style=" padding-bottom: 40px;">   <button class="btn btn-block btn-primary" style="width: 250px;">შენახვა</button></div>
+        <div align="center"  style=" padding-bottom: 40px;">
+          <button class="btn btn-block btn-primary btn-lg" style="width: 250px;">შენახვა</button>
+        </div>
       </form>
 
       <div id="blanket" style="display:none">
@@ -240,9 +242,6 @@
   </div><!-- /.content-wrapper -->
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
-
-
-
 
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>

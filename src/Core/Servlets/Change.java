@@ -40,7 +40,6 @@ public class Change extends HttpServlet {
 
         account.setFirstName(request.getParameter("firstname"));
         account.setLastName(request.getParameter("lastname"));
-        account.setPicturePath(request.getParameter("picture"));
         account.setAbout(request.getParameter("about"));
         account.setGender((request.getParameter("optionsRadios")).equals("option1") ? iAccount.Gender.MALE : iAccount.Gender.FEMALE  );
         try {
@@ -48,7 +47,6 @@ public class Change extends HttpServlet {
         } catch (ParseException e) {
 
         }
-        //TODO BirthDate and Gender
 
         accountDao.changeUser(account);
 

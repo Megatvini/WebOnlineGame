@@ -50,8 +50,6 @@
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
 
-  <%@include file="matchMaking/userInGame.jsp" %>
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
     <form action="/StartGame" method="get">
