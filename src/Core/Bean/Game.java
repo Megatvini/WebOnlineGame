@@ -12,17 +12,19 @@ public class Game {
     private int gameID;
     private int ratingChange;
     private Set<Integer> participantIDs;
+    private int place;
 
     /**
-     *
-     * @param date when game was Finished
+     *  @param date when game was Finished
      * @param gameID Id of the game in database
      * @param ratingChange ratingChange of a player who played this game
+     * @param place of player
      */
-    public Game(Date date, int gameID, int ratingChange) {
+    public Game(Date date, int gameID, int ratingChange, int place) {
         this.date = date;
         this.gameID = gameID;
         this.ratingChange = ratingChange;
+        this.place = place;
         this.participantIDs = new HashSet<>();
     }
 
@@ -96,5 +98,13 @@ public class Game {
      */
     public Set<Integer> getParticipantIDs() {
         return participantIDs;
+    }
+
+    public int getPlace() {
+        return place;
+    }
+
+    public void setPlace(int place) {
+        this.place = place;
     }
 }

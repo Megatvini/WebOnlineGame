@@ -34,8 +34,8 @@ public class GameDao {
                 pst.setTimestamp(1, new java.sql.Timestamp(date.getTime()));
                 pst.execute();
             } catch (SQLException e) {
-                //System.out.println("addNewGame with Date " + date + " failed");
-                //e.printStackTrace();
+                System.out.println("addNewGame with Date " + date + " failed");
+                e.printStackTrace();
                 conn.rollback();
                 throw new SQLException();
             }
@@ -45,15 +45,15 @@ public class GameDao {
                 ResultSet result = pst.executeQuery();
                 if (result.next()) gameID = result.getInt(1);
             } catch (SQLException e) {
-                //System.out.println("addNewGame with Date " + date + " failed");
-                //e.printStackTrace();
+                System.out.println("addNewGame with Date " + date + " failed");
+                e.printStackTrace();
                 conn.rollback();
                 throw new SQLException();
             }
             conn.commit();
         } catch (SQLException e) {
-            //System.out.println("addNewGame with Date " + date + " failed");
-            //e.printStackTrace();
+            System.out.println("addNewGame with Date " + date + " failed");
+            e.printStackTrace();
         }
         return gameID;
     }
@@ -69,7 +69,7 @@ public class GameDao {
         List<Game> games = new ArrayList<>();
         try (Connection conn = dataSource.getConnection()) {
             try (PreparedStatement pst = conn.prepareStatement(
-                    "SELECT PA.GameID, AccID, participations.RatingChange, Date From" +
+                    "SELECT PA.GameID, AccID, participations.RatingChange, Date, Place From" +
                             "(SELECT GameID, NickName, RatingChange, Date FROM participations " +
                             "LEFT JOIN accounts " +
                             "ON participations.AccID = accounts.ID " +
@@ -90,23 +90,24 @@ public class GameDao {
                     int accID = resultSet.getInt("AccID");
                     int ratingChange = resultSet.getInt("ratingChange");
                     Date date = resultSet.getTimestamp("Date");
+                    int place = resultSet.getInt("Place");
 
                     if (games.size() != 0 && games.get(games.size()-1).getGameID() == gameID) {
                         games.get(games.size()-1).addParticipant(accID);
                     } else {
-                        Game game = new Game(date, gameID, ratingChange);
+                        Game game = new Game(date, gameID, ratingChange, place);
                         game.addParticipant(accID);
                         games.add(game);
                     }
                 }
             }  catch (SQLException e) {
-                //System.out.println("getUserGames userName " + userName + " failed");
-                //e.printStackTrace();
+                System.out.println("getUserGames userName " + userName + " failed");
+                e.printStackTrace();
                 throw new SQLException();
             }
         } catch (SQLException e) {
-            //System.out.println("getUserGames userName " + userName + " failed");
-            //e.printStackTrace();
+            System.out.println("getUserGames userName " + userName + " failed");
+            e.printStackTrace();
         }
         return games;
     }
@@ -122,7 +123,7 @@ public class GameDao {
         List<Game> games = new ArrayList<>();
         try (Connection conn = dataSource.getConnection()) {
             try (PreparedStatement pst = conn.prepareStatement(
-                    "select PA.GameID, AccID, participations.RatingChange, Date FROM " +
+                    "select PA.GameID, AccID, participations.RatingChange, Date, Place FROM " +
                             "(SELECT GameID, RatingChange, Date FROM participations " +
                             "LEFT JOIN Games " +
                             "ON GameID = Games.ID " +
@@ -141,25 +142,30 @@ public class GameDao {
                     int accID = resultSet.getInt("AccID");
                     int ratingChange = resultSet.getInt("ratingChange");
                     Date date = resultSet.getTimestamp("Date");
+                    int place = resultSet.getInt("Place");
 
                     if (games.size() != 0 && games.get(games.size()-1).getGameID() == gameID) {
                         games.get(games.size()-1).addParticipant(accID);
                     } else {
-                        Game game = new Game(date, gameID, ratingChange);
+                        Game game = new Game(date, gameID, ratingChange, place);
                         game.addParticipant(accID);
                         games.add(game);
                     }
+                    if (accID == userID) {
+                        games.get(games.size()-1).setPlace(place);
+                        games.get(games.size()-1).setRatingChange(ratingChange);
+                    }
                 }
             }  catch (SQLException e) {
-                //System.out.println("getUserGamesByID width userID, limit " +
-                //        userID + ", " + limit + " failed");
-                //e.printStackTrace();
+                System.out.println("getUserGamesByID width userID, limit " +
+                        userID + ", " + limit + " failed");
+                e.printStackTrace();
                 throw new SQLException();
             }
         } catch (SQLException e) {
-            //System.out.println("getUserGamesByID width userID, limit " +
-            //        userID + ", " + limit + " failed");
-            //e.printStackTrace();
+            System.out.println("getUserGamesByID width userID, limit " +
+                    userID + ", " + limit + " failed");
+            e.printStackTrace();
         }
         return games;
     }
@@ -170,25 +176,26 @@ public class GameDao {
      * @param accountID ID of the account
      * @param ratingChange change in account rating after that game
      */
-    public void addParticipation(int gameID, int accountID, int ratingChange) {
+    public void addParticipation(int gameID, int accountID, int ratingChange, int place) {
         try (Connection conn = dataSource.getConnection()) {
             try (PreparedStatement pst = conn.prepareStatement(
                     "INSERT INTO participations " +
-                    "(GameID, AccID, RatingChange) VALUES (?, ?, ?)")) {
+                    "(GameID, AccID, RatingChange, Place) VALUES (?, ?, ?, ?)")) {
                 pst.setInt(1, gameID);
                 pst.setInt(2, accountID);
                 pst.setInt(3, ratingChange);
+                pst.setInt(4, place);
                 pst.execute();
             }  catch (SQLException e) {
-                //System.out.println("addParticipation gameID, accountID, ratingChange " +
-                //                accountID + ", " + accountID + ", " + ratingChange + " failed");
-                //e.printStackTrace();
+                System.out.println("addParticipation gameID, accountID, ratingChange " +
+                                accountID + ", " + accountID + ", " + ratingChange + " failed");
+                e.printStackTrace();
                 throw new SQLException();
             }
         } catch (SQLException e) {
-            //System.out.println("addParticipation gameID, accountID, ratingChange " +
-            //                accountID + ", " + accountID + ", " + ratingChange + " failed");
-            //e.printStackTrace();
+            System.out.println("addParticipation gameID, accountID, ratingChange " +
+                            accountID + ", " + accountID + ", " + ratingChange + " failed");
+            e.printStackTrace();
         }
     }
 
@@ -205,13 +212,13 @@ public class GameDao {
                 ResultSet resultSet = pst.executeQuery();
                 if (resultSet.next()) res = resultSet.getInt(1);
             }  catch (SQLException e) {
-                //System.out.println("getGamesCount failed");
-                //e.printStackTrace();
+                System.out.println("getGamesCount failed");
+                e.printStackTrace();
                 throw new SQLException();
             }
         } catch (SQLException e) {
-            //System.out.println("getGamesCount failed");
-            //e.printStackTrace();
+            System.out.println("getGamesCount failed");
+            e.printStackTrace();
         }
         return res;
     }

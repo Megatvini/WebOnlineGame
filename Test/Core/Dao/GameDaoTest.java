@@ -229,10 +229,11 @@ public class GameDaoTest {
     public void testAddParticipations() throws SQLException {
         initMocks();
         GameDao gameDao = new GameDao(dataSourceMock);
-        gameDao.addParticipation(1, 2, 3);
+        gameDao.addParticipation(1, 2, 3, 4);
         verify(preparedStatementMock).setInt(anyInt(), eq(1));
         verify(preparedStatementMock).setInt(anyInt(), eq(2));
         verify(preparedStatementMock).setInt(anyInt(), eq(3));
+        verify(preparedStatementMock).setInt(anyInt(), eq(4));
 
         verify(preparedStatementMock, atLeastOnce()).close();
         verify(connectionMock).close();
@@ -243,7 +244,7 @@ public class GameDaoTest {
         initMocks();
         GameDao gameDao = new GameDao(dataSourceMock);
         when(connectionMock.prepareStatement(anyString())).thenThrow(new SQLException());
-        gameDao.addParticipation(1, 2, 3);
+        gameDao.addParticipation(1, 2, 3, 4);
         verify(connectionMock).close();
     }
 

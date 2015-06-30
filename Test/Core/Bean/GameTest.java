@@ -15,7 +15,7 @@ public class GameTest {
     @Test
     public void testGetDate() throws Exception {
         Date date = new Date(System.currentTimeMillis());
-        Game game = new Game(date, 10, 20);
+        Game game = new Game(date, 10, 20, 4);
         assertEquals(date, game.getDate());
         Date date2 = new Date(System.currentTimeMillis());
         game.setDate(date2);
@@ -25,7 +25,7 @@ public class GameTest {
     @Test
     public void testGameID() throws Exception {
         Date date = new Date(System.currentTimeMillis());
-        Game game = new Game(date, 10, 20);
+        Game game = new Game(date, 10, 20, 4);
         assertEquals(10, game.getGameID());
         game.setGameID(12);
         assertEquals(12, game.getGameID());
@@ -34,7 +34,7 @@ public class GameTest {
     @Test
     public void testRatingChange() throws Exception {
         Date date = new Date(System.currentTimeMillis());
-        Game game = new Game(date, 10, 20);
+        Game game = new Game(date, 10, 20, 4);
         assertEquals(20, game.getRatingChange());
         game.setRatingChange(50);
         assertEquals(50, game.getRatingChange());
@@ -43,7 +43,7 @@ public class GameTest {
     @Test
     public void testAddParticipant() throws Exception {
         Date date = new Date(System.currentTimeMillis());
-        Game game = new Game(date, 10, 20);
+        Game game = new Game(date, 10, 20, 4);
         game.addParticipant(1);
         game.addParticipant(2);
         assertEquals(2, game.getParticipantIDs().size());
@@ -55,7 +55,7 @@ public class GameTest {
     @Test
     public void testRemoveParticipant() throws Exception {
         Date date = new Date(System.currentTimeMillis());
-        Game game = new Game(date, 10, 20);
+        Game game = new Game(date, 10, 20, 1);
         game.addParticipant(1);
         game.addParticipant(2);
         game.addParticipant(2);

@@ -269,13 +269,13 @@
                 </tr>
                 <% int index = 1;
                   for(Game game : gamesList){
-                    int ragaca = 1;
-                    String cssClass =  ragaca == 1 ? "label-success" : ragaca == 2 ? "label-warning" : ragaca == 3 ? "label-primary" : "label-danger";
+                    int place = game.getPlace();
+                    String cssClass =  place == 1 ? "label-success" : place == 2 ? "label-warning" : place == 3 ? "label-primary" : "label-danger";
                 %>
                 <tr>
                   <td><%= index++ %></td>
                   <td><%= formatter.format(game.getDate()) %></td>
-                  <td style=" padding-left: 27px;"><span class="label <%= cssClass %>"><%= ragaca %></span></td>
+                  <td style=" padding-left: 27px;"><span class="label <%= cssClass %>"><%= place %></span></td>
                   <td style=" padding-left: 95px;"><%= game.getParticipantIDs().size() %></td>
                   <td style=" padding-left: 90px;"><%= game.getRatingChange() %></td>
                 </tr>
