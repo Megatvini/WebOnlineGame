@@ -21,6 +21,7 @@ import java.util.Map;
 @WebServlet(name = "MessageUpdate", urlPatterns = {"/MessageUpdate"})
 public class MessageUpdate extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String userName = (String) request.getSession().getAttribute("nickname");
         String messagesFrom = request.getParameter("msgsfrom");
 
@@ -42,6 +43,7 @@ public class MessageUpdate extends HttpServlet {
         Map<String, List<Message>> messages = unreadMessages.get(account.getID());
         if (messages == null) return;
 
+        response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         String jsonString = new GsonBuilder().
                 excludeFieldsWithoutExposeAnnotation()
