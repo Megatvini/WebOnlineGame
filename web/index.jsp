@@ -9,6 +9,8 @@
 <%@ page import="Core.Dao.GameDao" %>
 <%@ page import="Core.Bean.Game" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.text.Format" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -68,6 +70,7 @@
 <body class="skin-blue sidebar-mini">
 <div class="wrapper">
   <%
+    Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     AccountDao userControl = (AccountDao)pageContext.getServletContext().getAttribute(AccountDao.class.getName());
 
     String nickname = (String)session.getAttribute("nickname");
@@ -266,13 +269,15 @@
                 </tr>
                 <% int index = 1;
                   for(Game game : gamesList){
+                    int ragaca = 1;
+                    String cssClass =  ragaca == 1 ? "label-success" : ragaca == 2 ? "label-warning" : ragaca == 3 ? "label-primary" : "label-danger";
                 %>
                 <tr>
                   <td><%= index++ %></td>
-                  <td><%= game.getDate() %></td>
-                  <td><%= 1 %></td>
-                  <td><span class="label label-success"><%= game.getParticipantIDs().size() %></span></td>
-                  <td><%= game.getRatingChange() %></td>
+                  <td><%= formatter.format(game.getDate()) %></td>
+                  <td style=" padding-left: 27px;"><span class="label <%= cssClass %>"><%= ragaca %></span></td>
+                  <td style=" padding-left: 95px;"><%= game.getParticipantIDs().size() %></td>
+                  <td style=" padding-left: 90px;"><%= game.getRatingChange() %></td>
                 </tr>
                 <% }%>
                 </tbody></table>
