@@ -58,6 +58,9 @@
     AccountDao userControl = (AccountDao)pageContext.getServletContext().getAttribute(AccountDao.class.getName());
     FriendsDao friendControl = (FriendsDao)pageContext.getServletContext().getAttribute(FriendsDao.class.getName());
     MessageDao messageControl = (MessageDao)pageContext.getServletContext().getAttribute(MessageDao.class.getName());
+    Map<Integer, Map<String, List<Message>>> unreadMessages =
+            ( Map<Integer, Map<String, List<Message>>>)application.getAttribute("unreadMessages");
+
 
     String nickname = (String)session.getAttribute("nickname");
 
@@ -79,6 +82,7 @@
         String k = ex.getMessage();
       }
     }
+
     String friendNickname = request.getParameter("friend");
     if(friendNickname == null)
       friendNickname = friends.isEmpty()? "0" : friends.iterator().next().toString();
@@ -88,11 +92,15 @@
       return;
     }
 
+    if(unreadMessages.get(profile.getID()) != null)
+     unreadMessages.get(profile.getID()).remove(friendNickname);
+
     int friendID = userControl.getUser(friendNickname).getID();
     String friendPic = friendNickname;
     String myPic = profile.getNickname();
     List<Message> messages = messageControl.getMessages(profile.getID(), friendID);
     Format formatter = new SimpleDateFormat("MM-dd HH:mm:ss");
+
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
