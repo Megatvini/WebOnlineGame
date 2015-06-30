@@ -53,6 +53,8 @@
   <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
   <!-- jQuery UI 1.11.2 -->
   <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
+
+  <script src="upload_script.js"></script>
   <![endif]-->
 </head>
 <body class="skin-blue sidebar-mini">
@@ -79,24 +81,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
 
-      <input type="hidden" id = "nickname" value="<%=nickname%>" />
 
-      <div class="form-group" style="width: 300px;" >
-        <img  id = "profPic" src="default.png" alt="Smiley face" style="border-radius: 50%" height="300" width="300">
-        <script>
-          var host = "http://"+window.location.host+"/images?nickname=<%=nickname%>";
-          $("#profPic").attr("src",host)
-        </script>
-
-        <div id="status"></div>
-        <form id = "imageForm"  enctype="multipart/form-data" >
-          <div >
-            <input class="form-control" type="text" name="picture" value="<%= profile.getPicturePath() %>"  placeholder="Default input">
-          </div>
-          <input type="file" name="file" />
-          <input type="button" onclick="javascript:upload(this)"  class="fc-button"/>
-        </form>
-      </div>
 
 
     <div class="box box-primary" style="width: 96%; margin: 20px; min-width: 350px">
@@ -135,9 +120,21 @@
           <tr>
             <th class="tg-031e" rowspan="6"> <div align="center">
               <div class="form-group" style="width: 300px;">
-                <img src="<%= profile.getPicturePath() %>"  alt="Smiley face" style="  margin-top: 30px;  margin-bottom: 40px;" height="300" width="300">
-                <br/>
-                <input class="form-control" type="text" name="picture" value="<%= profile.getPicturePath() %>"  >
+                <input type="hidden" id = "nickname" value="<%=nickname%>" />
+                <div class="form-group" style="width: 300px;" >
+                  <img  id = "profPic" src="default.png" alt="Smiley face" style="border-radius: 50%" height="300" width="300">
+                  <script>
+                    var host = "http://"+window.location.host+"/images?nickname=<%=nickname%>";
+                    $("#profPic").attr("src",host)
+                  </script>
+
+                  <div id="status"></div>
+                  <div id = "imageForm"  >
+                    <input type="file" id="inputFile" />
+                    <input type="button" onclick="upload()"  class="fc-button"/>
+                  </div>
+                </div>
+
               </div>
             </div></th>
             <th class="tg-031e"> <div class="form-group">
