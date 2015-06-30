@@ -12,8 +12,8 @@ import java.util.List;
  */
 
 public class RatingManager {
-    public static final int DEFAULT_RATING = 1200;
-    public static final int K_RATING_VALUE = 15;
+    public static final int DEFAULT_RATING = 1000;
+    public static final int K_RATING_VALUE = 70;
     private AccountDao accountDao;
     private GameDao gameDao;
 

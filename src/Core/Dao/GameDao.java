@@ -151,6 +151,10 @@ public class GameDao {
                         game.addParticipant(accID);
                         games.add(game);
                     }
+                    if (accID == userID) {
+                        games.get(games.size()-1).setPlace(place);
+                        games.get(games.size()-1).setRatingChange(ratingChange);
+                    }
                 }
             }  catch (SQLException e) {
                 System.out.println("getUserGamesByID width userID, limit " +
