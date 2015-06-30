@@ -5,19 +5,31 @@ function addToFriends(nickname, pic){
     var val =   '<li class="addedF">' +
                 '<a href="Friends.jsp">' +
                 '<i ></i>' +
-                '<img src="'+ pic +'"  alt="Smiley face" style="width: 50px; height: 50px; border-radius: 50%;">' +
+                '<img src="/default.png"  data-path="'+nickname+'" alt="Smiley face" style="width: 50px; height: 50px; border-radius: 50%;">' +
                 nickname +
                 '</a>' +
                 '</li>';
 
     $("#notFriends").append(val);
+
+
+    $('img').each(function() {
+        var self = $(this),
+            nickname =  $(this).attr('data-path'),
+            fullPath;
+        if(self.attr("src")=='default.png'||self.attr("src")=='/default.png') {
+            fullPath = 'http://' + window.location.host + '/images?nickname=' + nickname;
+        }
+        self.attr("src",fullPath);
+
+    });
 }
 
 function addToMessages(nickname, pic, lastMessage, date){
 var val = '<li class="addedM">'+
         '<a href="Messages.jsp?friend='+ nickname + '">'+
         '<div class="pull-left">'+
-        '<img src="'+pic+'" class="img-circle" alt="User Image"/>'+
+    '<img src="/default.png"  data-path="'+nickname+'" alt="Smiley face" style="width: 50px; height: 50px; border-radius: 50%;">'+
         '</div>'+
         '<h4>'+
     nickname+
@@ -28,6 +40,17 @@ var val = '<li class="addedM">'+
     '</li>';
 
     $("#notMessages").append(val);
+
+    $('img').each(function() {
+        var self = $(this),
+            nickname =  $(this).attr('data-path'),
+            fullPath;
+        if(self.attr("src")=='default.png'||self.attr("src")=='/default.png') {
+            fullPath = 'http://' + window.location.host + '/images?nickname=' + nickname;
+        }
+        self.attr("src",fullPath);
+
+    });
 }
 
 function addToGames(text, date){

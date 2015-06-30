@@ -87,8 +87,8 @@
     }
 
     int friendID = userControl.getUser(friendNickname).getID();
-    String friendPic = userControl.getUser(friendNickname).getPicturePath();
-    String myPic = profile.getPicturePath();
+    String friendPic = friendNickname;
+    String myPic = profile.getNickname();
     List<Message> messages = messageControl.getMessages(profile.getID(), friendID);
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
@@ -113,7 +113,8 @@
             %>
             <li class="<%= friendNickname.equals(nick) ? "active" : "" %>">
               <a href="Messages.jsp?friend=<%=nick%>">
-                <img src="<%= shortProf.getPicturePath() %>"  alt="Smiley face" style="width: 60px; border-radius: 50%; ">  <%=shortProf.getNickname()%>
+                <img data-path="<%= shortProf.getNickname()%>"  src="default.png" alt="Smiley face" style="width: 60px; border-radius: 50%; ">  <%=shortProf.getNickname()%>
+
               </a>
               <div id="<%= nick %>" style="width:30px; float:right;"></div>
             </li>
@@ -153,7 +154,8 @@
                 <span class="direct-chat-name pull-right"><%= nickname %></span>
                 <span class="direct-chat-timestamp pull-left"><%= mess.getDate() %></span>
               </div><!-- /.direct-chat-info -->
-              <img class="direct-chat-img" src="<%= myPic %>" alt="message user image"><!-- /.direct-chat-img -->
+              <img class="direct-chat-img" src="default.png" data-path= "<%=nickname%>" alt="message user image"><!-- /.direct-chat-img -->
+
               <div class="direct-chat-text">
                  <%= mess.getText() %>
               </div><!-- /.direct-chat-text -->
@@ -171,7 +173,8 @@
                 <span class="direct-chat-name pull-left"><%= friendNickname %></span>
                 <span class="direct-chat-timestamp pull-right"><%= mess.getDate() %></span>
               </div><!-- /.direct-chat-info -->
-              <img class="direct-chat-img" src="<%= friendPic %>" alt="message user image"><!-- /.direct-chat-img -->
+              <img class="direct-chat-img" src="default.png" data-path = "<%=friendPic%>" alt="message user image"><!-- /.direct-chat-img -->
+
               <div class="direct-chat-text">
                  <%= mess.getText() %>
               </div><!-- /.direct-chat-text -->
@@ -298,6 +301,7 @@
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
 
+<script src="/assignPath.js"></script>
 
 <script src="scripts.js"> </script>
 <!-- jQuery 2.1.4 -->

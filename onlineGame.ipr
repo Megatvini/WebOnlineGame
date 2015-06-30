@@ -33,6 +33,22 @@
     </annotationProcessing>
   </component>
   <component name="CopyrightManager" default="" />
+  <component name="DataSourceManagerImpl" format="xml" hash="612595957">
+    <data-source source="LOCAL" name="MySQL - mydb@localhost" uuid="ef7ea0e1-13b9-4c82-a3a1-08fc3da7f845">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/mydb</jdbc-url>
+      <driver-properties>
+        <property name="zeroDateTimeBehavior" value="convertToNull" />
+        <property name="tinyInt1isBit" value="false" />
+        <property name="characterEncoding" value="utf8" />
+        <property name="characterSetResults" value="utf8" />
+        <property name="yearIsDateType" value="false" />
+      </driver-properties>
+      <libraries />
+    </data-source>
+  </component>
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
@@ -179,6 +195,9 @@
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/CreateDB.sql" dialect="MySQL" />
+  </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
@@ -188,6 +207,14 @@
         <entry key="file://$PROJECT_DIR$/web/index.jsp" value="file://$PROJECT_DIR$/web" />
       </map>
     </option>
+  </component>
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - mydb@localhost" uuid="ef7ea0e1-13b9-4c82-a3a1-08fc3da7f845">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>mydb.*</schema-pattern>
+      <default-schemas>mydb.*</default-schemas>
+    </data-source>
   </component>
   <component name="libraryTable">
     <library name="lib">

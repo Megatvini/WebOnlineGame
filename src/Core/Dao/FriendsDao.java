@@ -90,7 +90,7 @@ public class FriendsDao {
     public boolean addFriendRequest(int requestFromID, int requestToID) {
         try (Connection conn = dataSource.getConnection()) {
             try(PreparedStatement pst = conn.prepareStatement(
-                    "INSERT INTO waitingFriends " +
+                    "INSERT INTO waitingfriends " +
                     "(accIDFrom, AccIDTo) VALUES (?, ?)")) {
                 pst.setInt(1, requestFromID);
                 pst.setInt(2, requestToID);

@@ -26,7 +26,7 @@ public class UploadServlet extends HttpServlet {
     public static final int maxSize = 100000*4;
     public static final int MAX_NUM_PICS = 4000;
 
-
+    FileManager fileManager  = null;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         gandleUpload(request, response);
@@ -34,7 +34,7 @@ public class UploadServlet extends HttpServlet {
     }
 
     private void gandleUpload(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        FileManager fileManager  = null;
+
         String picFileName = "" ;
         try {
 
@@ -128,6 +128,9 @@ public class UploadServlet extends HttpServlet {
         iAccount profile;
         try {
             profile = userControl.getUser(nickname);
+            if(!profile.getPicturePath().equals("")){
+                fileManager.deletePicFIle(profile.getPicturePath());
+            }
             profile.setPicturePath(filepath);
             userControl.changeUser(profile);
         } catch (Exception e) {
