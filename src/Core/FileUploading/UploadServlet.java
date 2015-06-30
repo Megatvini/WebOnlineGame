@@ -23,7 +23,7 @@ import java.util.UUID;
 @WebServlet(urlPatterns = "/uploadPic")
 public class UploadServlet extends HttpServlet {
 
-    public static final int maxSize = 100000*4;
+    public static final int maxSize = 3000000;
     public static final int MAX_NUM_PICS = 4000;
 
     FileManager fileManager  = null;
