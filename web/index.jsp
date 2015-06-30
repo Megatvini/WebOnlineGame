@@ -43,6 +43,9 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
 
+
+
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -55,6 +58,8 @@
   <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
 
   <script src="upload_script.js"></script>
+
+  <script src="passValidate.js"></script>
   <![endif]-->
 </head>
 <body class="skin-blue sidebar-mini">
@@ -212,23 +217,28 @@
             <button onclick="popup('popUpDiv')" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             <h4 class="modal-title">Modal Primary</h4>
           </div>
-          <div class="modal-body">
+          <div class="modal-body"  id = "passwordChange">
+
             <div class="form-group" style="width: 100%">
               <label>შეიყვანეთ პაროლი</label>
-              <input class="form-control" type="password" name="lastname"  value="<%= profile.getLastName() %>" >
+              <input class="form-control" type="password" id="oldPassword" name="oldPass" value="" >
             </div>
             <div class="form-group" style="width: 100%">
               <label>ახალი პაროლი</label>
-              <input class="form-control" type="password" name="lastname"  value="<%= profile.getLastName() %>" >
+              <input class="form-control" type="password" id="newPassword" name="newPass" value="" >
             </div>
             <div class="form-group" style="width: 100%">
               <label>გაიმეორეთ ახალი პაროლი</label>
-              <input class="form-control" type="password" name="lastname"  value="<%= profile.getLastName() %>" >
+              <input class="form-control" type="password" id="passAgain"  name="passRep" value="">
             </div>
           </div>
+
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" onclick="popup('popUpDiv')" data-dismiss="modal">დახურვა</button>
-            <button type="button" class="btn btn-default">შენახვა</button>
+            <button type="button" class="btn btn-default" onclick="javascript:savePassword()">შენახვა</button>
+          </div>
+          <div align="center">
+          <label class="text-center" id ="validationInfo" >   </label>
           </div>
         </div>
 

@@ -66,7 +66,7 @@ public class Register extends HttpServlet {
         return m.matches();
     }
 
-    private boolean isValidPassword(String password) {
+    public static boolean isValidPassword(String password) {
         if (password.length()<MIN_PASSWORD_LENGTH) return false;
         Pattern p = Pattern.compile("((\\p{Punct})*([a-zA-Z])*([0-9])*)*");
         Matcher m = p.matcher(password);

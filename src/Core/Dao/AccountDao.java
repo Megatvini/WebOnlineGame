@@ -34,7 +34,7 @@ public class AccountDao {
     public boolean registerUser(iAccount account){
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement stmt = connection.prepareStatement("INSERT INTO accounts " +
-                    "(Nickname, LastName,  FirstName,  Gender,  Password,  BirthDate,  about,  GameRating,  Mail, Picture) " +
+                    "(Nickname, LastName,  FirstName,  Gender,  Password,  BirthDate,  About,  GameRating,  Mail, Picture) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);")) {
                 stmt.setString(1, account.getNickname());
                 stmt.setString(2, account.getLastName());
@@ -71,7 +71,7 @@ public class AccountDao {
             try (PreparedStatement stmt = connection.prepareStatement(
                     "UPDATE accounts SET " +
                         "LastName = ?, FirstName = ?, Gender = ?, Password = ?, " +
-                        "BirthDate = ?, about = ?, GameRating = ?, Picture = ? WHERE ID = ?;")) {
+                        "BirthDate = ?, About = ?, GameRating = ?, Picture = ? WHERE ID = ?;")) {
                 stmt.setString(1, account.getLastName());
                 stmt.setString(2, account.getFirstName());
                 stmt.setString(3, account.getGender() == iProfile.Gender.FEMALE ? "female" : "male");
@@ -213,7 +213,7 @@ public class AccountDao {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement stmt = connection.prepareStatement(
                     "SELECT Nickname FROM accounts " +
-                    "WHERE NickName LIKE ? " +
+                    "WHERE Nickname LIKE ? " +
                     "ORDER BY Nickname LIMIT ?, ?;")) {
                 stmt.setString(1, "%"+search+"%");
                 stmt.setInt(2, pageNumber*accountsPerPage);

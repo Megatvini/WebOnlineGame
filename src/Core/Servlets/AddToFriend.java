@@ -20,8 +20,10 @@ public class AddToFriend extends HttpServlet {
         System.out.println("AddFriend: " + request.getParameterMap());
 
         String userName = (String) request.getSession().getAttribute("nickname");
-        if (userName == null) return; //TODO gadamisamarteba login-ze
-
+        if (userName == null) {
+           response.sendRedirect("Accont/Login.jsp");
+            return;
+        }
         AccountDao accountDao = (AccountDao) getServletContext().getAttribute(AccountDao.class.getName());
         FriendsDao friendsDao = (FriendsDao) getServletContext().getAttribute(FriendsDao.class.getName());
 
