@@ -38,7 +38,7 @@ public class RatingManager {
         for (int i=0; i < accountPositions.size(); i++) {
             iAccount account = accountPositions.get(i);
             int ratingChange = ratingChanges.get(i);
-            gameDao.addParticipation(gameID, account.getID(), ratingChange);
+            gameDao.addParticipation(gameID, account.getID(), ratingChange, i+1);
             account.setRating(account.getRating() + ratingChange);
             accountDao.changeUser(account);
         }
