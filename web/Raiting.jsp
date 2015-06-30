@@ -72,7 +72,7 @@
         return;
       }
       else {
-        users =  userControl.getUsersIntervalByRating(pagID,5);
+        users =  userControl.getUsersIntervalByRating(0, userControl.getUsersCount());
       }
       int index = 1;
     %>
