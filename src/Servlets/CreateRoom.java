@@ -44,7 +44,8 @@ public class CreateRoom extends HttpServlet {
         if (roomMates.containsKey(userName)) {
             response.sendRedirect("/matchMaking/loading.jsp");
         } else {
-            groupMap.put(userName, new StartingGroup(userName));
+            if (!groupMap.containsKey(userName))
+                groupMap.put(userName, new StartingGroup(userName));
             response.sendRedirect("StartGame.jsp");
         }
     }

@@ -28,10 +28,11 @@ public class GameDao {
         int gameID = 0;
         try (Connection conn = dataSource.getConnection()) {
             conn.setAutoCommit(false);
-            try (PreparedStatement pst = conn.prepareStatement("" +
+            try (PreparedStatement pst = conn.prepareStatement(
                     "INSERT INTO games " +
                     "(Date) VALUES (?)")) {
                 pst.setTimestamp(1, new java.sql.Timestamp(date.getTime()));
+                pst.execute();
             } catch (SQLException e) {
                 //System.out.println("addNewGame with Date " + date + " failed");
                 //e.printStackTrace();
@@ -177,6 +178,7 @@ public class GameDao {
                 pst.setInt(1, gameID);
                 pst.setInt(2, accountID);
                 pst.setInt(3, ratingChange);
+                pst.execute();
             }  catch (SQLException e) {
                 //System.out.println("addParticipation gameID, accountID, ratingChange " +
                 //                accountID + ", " + accountID + ", " + ratingChange + " failed");

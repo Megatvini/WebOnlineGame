@@ -11,13 +11,13 @@ import java.util.List;
  * Created by Nika on 16:38, 6/26/2015.
  */
 
-public class GameManager {
+public class RatingManager {
     public static final int DEFAULT_RATING = 1200;
     public static final int K_RATING_VALUE = 15;
     private AccountDao accountDao;
     private GameDao gameDao;
 
-    public GameManager(AccountDao accountDao, GameDao gameDao) {
+    public RatingManager(AccountDao accountDao, GameDao gameDao) {
         this.accountDao = accountDao;
         this.gameDao = gameDao;
     }

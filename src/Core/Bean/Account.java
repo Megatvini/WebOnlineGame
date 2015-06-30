@@ -1,6 +1,6 @@
 package Core.Bean;
 
-import Core.Controller.GameManager;
+import Core.Controller.RatingManager;
 import Interfaces.iAccount;
 import com.google.gson.annotations.Expose;
 
@@ -33,7 +33,7 @@ public class Account implements iAccount {
         firstName = "";
         lastName = "";
         about = "";
-        rating = GameManager.DEFAULT_RATING;
+        rating = RatingManager.DEFAULT_RATING;
         gender = Gender.MALE;
 
         birthDate = new Date(0);

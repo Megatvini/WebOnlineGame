@@ -80,10 +80,6 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
-
-
-
-
     <div class="box box-primary" style="width: 96%; margin: 20px; min-width: 350px">
       <form action="/ChangeAccount" method="get" accept-charset="UTF-8">
         <div class="box-header">
@@ -237,9 +233,8 @@
       </div>
 
     </div>
-
-
   </div><!-- /.content-wrapper -->
+
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
 
