@@ -77,28 +77,23 @@
       int index = 1;
     %>
 
+
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">Simple Full Width Table</h3>
-        <div class="box-tools">
-          <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="Raiting.jsp?page=<%=pagID == 0 ? 1 : pagID %>">«</a></li>
-            <% for(int i=1; i< PageCount + 1; i++){%>
-            <li><a href="Raiting.jsp?page=<%=i%>"><%=i%></a></li>
-            <% } %>
-            <li><a href="Raiting.jsp?page=<%=pagID == PageCount ? PageCount : pagID+2 %>">»</a></li>
-          </ul>
-        </div>
+        <h3 class="box-title">რეიტინგი</h3>
       </div><!-- /.box-header -->
-      <div class="box-body no-padding">
-        <table class="table">
-          <tbody><tr>
-            <th style="width: 10px">#</th>
-            <th>სახელი</th>
-            <th>დამსახურება</th>
-            <th style="width: 40px">Label</th>
+      <div class="box-body">
+        <table id="example1" class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th>ექაუნთი</th>
+            <th>სახელი და გვარი</th>
+            <th>სქესი</th>
+            <th>წოდება</th>
+            <th>რეიტინგი</th>
           </tr>
-
+          </thead>
+          <tbody>
           <%  for (String userNick : users) {
             iProfile shortProf = null;
             try {
@@ -109,22 +104,23 @@
             double wid = ((users.size()-index+1) /(double) users.size()) * 100;
           %>
           <tr>
-            <td><%= index %>.</td>
-            <td><a href="Profile.jsp?nick=<%= shortProf.getNickname() %>"><%= shortProf.getNickname() %></a></td>
-            <td>
-
-              <div  style="width: 100%">
-                <img style="width: 100px" height="40px" src="dist/img/<%= Achievements.getName(shortProf.getRating()) %>"/>
-
-              </div>
-
-            </td>
-            <td><span class="badge bg-red"> <%= shortProf.getRating() %></span></td>
+            <td><%=shortProf.getNickname()%></td>
+            <td><%=shortProf.getFirstName() + " " + shortProf.getLastName()%></td>
+            <td><%=shortProf.getGender()%></td>
+            <td> <%= "mdzletamdzle"%></td>
+            <td><%=shortProf.getRating()%></td>
           </tr>
           <% index++; } %>
-          </tbody></table>
+
+          </tfoot>
+        </table>
       </div><!-- /.box-body -->
     </div><!-- /.box -->
+
+
+
+
+
 
 
   </div><!-- /.content-wrapper -->
@@ -139,36 +135,34 @@
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
+<!-- jQuery 2.1.4 -->
+<script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <!-- Bootstrap 3.3.2 JS -->
-<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<!-- Morris.js charts -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="plugins/morris/morris.min.js" type="text/javascript"></script>
-<!-- Sparkline -->
-<script src="plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
-<!-- jvectormap -->
-<script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js" type="text/javascript"></script>
-<script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
-<!-- jQuery Knob Chart -->
-<script src="plugins/knob/jquery.knob.js" type="text/javascript"></script>
-<!-- daterangepicker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js" type="text/javascript"></script>
-<script src="plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
-<!-- datepicker -->
-<script src="plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
-<!-- Slimscroll -->
-<script src="plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<!-- DATA TABES SCRIPT -->
+<script src="../../plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="../../plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+<!-- SlimScroll -->
+<script src="../../plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
 <!-- FastClick -->
-<script src='plugins/fastclick/fastclick.min.js'></script>
+<script src='../../plugins/fastclick/fastclick.min.js'></script>
 <!-- AdminLTE App -->
-<script src="dist/js/app.min.js" type="text/javascript"></script>
-
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard.js" type="text/javascript"></script>
-
+<script src="../../dist/js/app.min.js" type="text/javascript"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js" type="text/javascript"></script>
+<script src="../../dist/js/demo.js" type="text/javascript"></script>
+<!-- page script -->
+<script type="text/javascript">
+  $(function () {
+    $("#example1").dataTable();
+    $('#example2').dataTable({
+      "bPaginate": true,
+      "bLengthChange": false,
+      "bFilter": false,
+      "bSort": true,
+      "bInfo": true,
+      "bAutoWidth": false
+    });
+  });
+</script>
 </body>
 </html>
