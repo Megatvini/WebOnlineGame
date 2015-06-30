@@ -117,7 +117,7 @@
 
       %>
       <div style="background-color: #B0EDFF; width: 49%; float: left; padding: 5px 5px 5px 20px; border: groove #010046 thin">
-        <img src="default.png" data-path ="<%=nickname%>" alt="Smiley face" style="width: 100px; height: 100px; border-radius: 50%; float: left">
+        <img src="default.png" data-path ="<%=shortProf.getNickname()%>" alt="Smiley face" style="width: 100px; height: 100px; border-radius: 50%; float: left">
         <div style="padding: 20px 5px 5px 5px; ">
           <div style="font-size: 22px; text-align: left; padding-left: 110px">
             <%=shortProf.getNickname()%>
