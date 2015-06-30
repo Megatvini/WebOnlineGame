@@ -20,7 +20,7 @@ var Handler = IgeEntity.extend({
     extrapolation: 100,
 
     init: function () {
-        this. updateBuffer = []
+        this. updateBuffer = [];
         var self = this;
         IgeEntity.prototype.init.call(this);
         self.mount(ige)
@@ -64,15 +64,13 @@ var Handler = IgeEntity.extend({
                 this.updateBuffer.shift();
 
             } else if (lastUpdate != null) { // inerpolating
-                /* if(update.removePots.length>0)
-                 console.log("removed ");*/
+
                 this.handler(update,lastUpdate);
 
             }
         }
         else if (lastUpdate2 != null && lastUpdate != null) {   //  prediction
-            /* if(update.removePots.length>0)
-             console.log("removed ");*/
+
             this.handler(lastUpdate,lastUpdate,lastUpdate2);
         }
         return null;
@@ -100,6 +98,7 @@ var Handler = IgeEntity.extend({
     } ,
 
 
+
     handler: function(snapShot, interpolated,extrapolated){
 
         /** @namespace snapShot.removePots */
@@ -111,7 +110,7 @@ var Handler = IgeEntity.extend({
         if(snapShot.finished){
             if(!ige.isOFF) {
 
-                console.log(">>>>>>>>>>>>>>>>>>>>>>>");
+
 
                 ige.isOFF = true;
                 this.showGameStats(snapShot.results);
@@ -131,7 +130,9 @@ var Handler = IgeEntity.extend({
             /** @namespace snapShot.players */
             this.parsePlayers(snapShot.players,interpolated,extrapolated);
             this.parsePotions(addPots,removePots);
-            if (snapShot.distance != distanceR) {
+            if (snapShot.distance != distanceR ){
+
+                //this.zoomUot(snapShot.distance,distanceR);
                 distanceR = snapShot.distance;
                 this.mountCircles();
             }
@@ -210,7 +211,7 @@ var Handler = IgeEntity.extend({
             var x = onePotion.x,
                 y = onePotion.y,
                 id= onePotion.id.toString();
-            console.log("potion parser add id " + id);
+           // console.log("potion parser add id " + id);
             if(typeof (potions[id]) == 'undefined')
                 potions[id]=new Potion()
                     .texture(self.textures.potion)
@@ -229,7 +230,7 @@ var Handler = IgeEntity.extend({
             var xy= {
                 x:potPosition.x,
                 y:potPosition.y
-            }
+            };
 
             var type   = 0 ;
 

@@ -1,5 +1,8 @@
 var self = this,
 	gameConfig = {},
+	distanceR1,
+	firstDist,
+	limit = 1.3,
 	connection;
 
 var Client = IgeClass.extend({
@@ -125,8 +128,18 @@ function handler(snapShot){
 	var pots = snapShot.potions;
 
 	if(snapShot.type&&snapShot.type=="UPDATE"){
+		//console.log(snapShot.distance);
 		self.updateHandler.addUpdate(snapShot);
-
+		if (snapShot.distance != distanceR1){
+			if(!this.was){
+				this.was=true;
+				firstDist=snapShot.distance;
+			}
+			//self.vp1.camera.scaleTo(0.3,0.3, 0);
+			//this.zoomUot(snapShot.distance,distanceR);
+			zoonOut(snapShot.distance,distanceR1);
+			distanceR1 = snapShot.distance;
+		}
 
 	}
 	if(snapShot.type&&snapShot.type=="INIT") {
@@ -138,6 +151,19 @@ function handler(snapShot){
 		self.updateHandler.parsePotions(pots,[]);
 
 	}
+}
+
+function zoonOut (distanceR,distansRold) {
+	if(distanceR>distansRold){
+		if(distanceR/firstDist<=limit) {
+			var dif = distansRold / distanceR;
+			var dif1 = 1 - dif;
+			console.log(dif);
+			self.vp1.camera.scaleBy(-dif1, -dif1, 0);
+		}
+	}
+
+
 }
 
 /**

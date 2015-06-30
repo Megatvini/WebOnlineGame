@@ -57,7 +57,7 @@ var ClientWorld = {
         // created above
         this.vp1 = new IgeViewport()
             .id('vp1')
-            .autoSize(true)
+           // .autoSize(true)
             .scene(this.mainScene)
             .drawBounds(false)
             .drawBoundsData(true)
