@@ -6,6 +6,9 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="Core.Dao.AccountDao" %>
+<%@ page import="Core.Dao.GameDao" %>
+<%@ page import="Core.Bean.Game" %>
+<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -78,6 +81,10 @@
     {
       profile = userControl.getUser(nickname);
     }
+
+    GameDao gameDao = (GameDao) application.getAttribute(GameDao.class.getName());
+    List<Game> gamesList = gameDao.getUserGamesByID(profile.getID(),10);
+
 
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
@@ -241,8 +248,41 @@
       <div>
 
       </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">თამაშების ისტორია</h3>
 
+            </div><!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <tbody><tr>
+                  <th>#</th>
+                  <th>თარიღი</th>
+                  <th>ადგილი</th>
+                  <th>მოთამაშეების რაოდენობა</th>
+                  <th>რეიტინგის ცვლილება</th>
+                </tr>
+                <% int index = 1;
+                  for(Game game : gamesList){
+                %>
+                <tr>
+                  <td><%= index++ %></td>
+                  <td><%= game.getDate() %></td>
+                  <td><%= 1 %></td>
+                  <td><span class="label label-success"><%= game.getParticipantIDs().size() %></span></td>
+                  <td><%= game.getRatingChange() %></td>
+                </tr>
+                <% }%>
+                </tbody></table>
+            </div><!-- /.box-body -->
+          </div><!-- /.box -->
+        </div>
+      </div>
     </div>
+
+
   </div><!-- /.content-wrapper -->
 
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>

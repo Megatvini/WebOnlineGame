@@ -257,5 +257,10 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js" type="text/javascript"></script>
+<script>
+  $( document ).ready(function() {
+    $("#messages").animate({ scrollTop: $('#messages')[0].scrollHeight}, 10);
+  });
+</script>
 </body>
 </html>
