@@ -275,9 +275,9 @@
                 <tr>
                   <td><%= index++ %></td>
                   <td><%= formatter.format(game.getDate()) %></td>
-                  <td><span class="label <%= cssClass %>"><%= ragaca %></span></td>
-                  <td><%= game.getParticipantIDs().size() %></td>
-                  <td><%= game.getRatingChange() %></td>
+                  <td style=" padding-left: 27px;"><span class="label <%= cssClass %>"><%= ragaca %></span></td>
+                  <td style=" padding-left: 95px;"><%= game.getParticipantIDs().size() %></td>
+                  <td style=" padding-left: 90px;"><%= game.getRatingChange() %></td>
                 </tr>
                 <% }%>
                 </tbody></table>
