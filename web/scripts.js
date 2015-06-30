@@ -3,8 +3,8 @@
  */
 
 function writeText(text, date){
-    text = text.replace(':D', '<img src="dist/img/smiles/smile.gif" />');
-    text = text.replace('(.Y.)', '<img src="dist/img/smiles/boob.gif" />');
+    text = replaceAll(':D', '<img src="dist/img/smiles/smile.gif" />',  text );
+    text = replaceAll('(.Y.)', '<img src="dist/img/smiles/boob.gif" />',  text );
     var newDate = new Date();
     if (text == "") return;
     $("#messages").append(
@@ -24,8 +24,8 @@ function writeText(text, date){
 }
 
 function writeTextFrom(text, date){
-    text = text.replace(':D', '<img src="dist/img/smiles/smile.gif" />');
-    text = text.replace('(.Y.)', '<img src="dist/img/smiles/boob.gif" />');
+    text = replaceAll(':D', '<img src="dist/img/smiles/smile.gif" />',  text );
+    text = replaceAll('(.Y.)', '<img src="dist/img/smiles/boob.gif" />',  text );
     var newDate = new Date(date);
     $("#messages").append(
         '<div class="direct-chat-msg">' +
@@ -160,3 +160,6 @@ function getReadableDate(date) {
     return days[date.getDay()] + " " + months[date.getMonth()] + " " + date.getDate() + " " + date.getFullYear() + ", " + hours + ":" + minutes;
 }
 
+function replaceAll(find, replace, str) {
+    return str.replace(new RegExp(find, 'g'), replace);
+}
