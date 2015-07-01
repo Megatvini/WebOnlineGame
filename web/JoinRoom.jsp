@@ -85,8 +85,8 @@
       <div class="box-header"><h3 class="box-title">თამაშის დაწყება</h3></div>
       <div>
 
+
         <form action="/StartGame" method="get">
-          <%@include  file="matchMaking/submitroom.jsp" %>
 
           <div class="col-md-4">
             <div class="info-box bg-yellow">
@@ -167,6 +167,31 @@
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);
+</script>
+<script>
+
+  function check() {
+    $.get('StartingGroupService', function (arr) {
+      console.log(arr);
+      if (arr.length == 0) {
+        window.location.replace("/game/fourColors.html");
+      } else{
+        var i = 0;
+        for (; i < arr.length; i++) {
+          var s = "#p".concat(i + 1);
+          $(s).val(arr[i]);
+          $("#pic".concat(i + 1)).attr("src", 'http://' + window.location.host + '/images?nickname=' + arr[i]);
+          $("#pic".concat(i + 1)).attr("data-path", arr[i]);
+        }
+
+        for (; i < 4; i++) {
+          var s = "#p".concat(i + 1);
+          $(s).val("Empty");
+        }
+      }
+    });
+  }
+  setInterval(check, 1000);
 </script>
 <!-- Bootstrap 3.3.2 JS -->
 <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>

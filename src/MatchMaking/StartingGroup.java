@@ -9,6 +9,7 @@ import java.util.HashSet;
 public class StartingGroup {
     private String creator;
     private Collection<String> group;
+    private boolean gameStarted;
 
     /**
      * this is simple set but
@@ -20,6 +21,7 @@ public class StartingGroup {
         this.creator = creator;
         group = new HashSet<>();
         group.add(creator);
+        gameStarted = false;
     }
 
     /**
@@ -45,5 +47,13 @@ public class StartingGroup {
      */
     public void addUser(String userName) {
         group.add(userName);
+    }
+
+    public boolean isGameStarted() {
+        return gameStarted;
+    }
+
+    public void setGameStarted(boolean gameStarted) {
+        this.gameStarted = gameStarted;
     }
 }

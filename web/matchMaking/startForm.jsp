@@ -14,6 +14,7 @@
         return;
     }
     Set<String> friends = friendsDao.getFriendNamesByID(account.getID());
+    Set<String> onlineUsers = (Set<String>) application.getAttribute("onlineUsers");
 %>
 <fieldset class="innerFieldset" style="width: 325px; float: left; margin-left: 15px;">
     <legend>მონიშნე ოთახის ზომები</legend>
@@ -40,6 +41,7 @@
             <ul class="users-list clearfix">
                 <%
                     for (String friend : friends) {
+                        if (!onlineUsers.contains(friend)) continue;
                 %>
                 <li>
                     <img src="default.png" data-path ="<%=friend%>" alt="User Image"  onclick="inviteFriend('<%=friend%>')" id="friendPic<%=friend%>">
@@ -72,14 +74,13 @@
     }
 
     function check() {
-        $.get('StartingGroupService', function(resp) {
-            //console.log(resp);
-            var arr = resp.replace("[","").replace("]","").split(',');
+        $.get('StartingGroupService', function(arr) {
+            console.log(arr);
             var i=0;
             for (; i<arr.length; i++) {
                 var s = "#p".concat(i+1);
                 $(s).val(arr[i]);
-                $("#pic".concat(i+1)).attr("src", 'http://' + window.location.host + '/images?nickname=' + arr[i]);
+                $("#pic".concat(i+1)).attr("src", 'http://' + window.location.host + '/images?nickname='+arr[i]);
             }
 
             for (; i<4; i++) {
@@ -121,8 +122,8 @@
 
     function updateButton() {
         if ($("#button")) {
-            var count = $("[type='checkbox']:checked").length;
-            console.log(count);
+            var count = $("[type='checkbox']:checked").length-1;
+            console.log(count-1);
             if (count == 0) $("#button").prop("disabled", true);
             else $("#button").prop("disabled", false);
         }

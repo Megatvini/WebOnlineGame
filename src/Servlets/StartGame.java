@@ -1,5 +1,7 @@
 package Servlets;
 
+import MatchMaking.StartingGroup;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,6 +27,11 @@ public class StartGame extends HttpServlet {
     //process request from new room creator to start the game
     private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         MatchMaking.MatchMaker matchMaker = (MatchMaking.MatchMaker) getServletContext().getAttribute(MatchMaker.class.getName());
+        Map<String, StartingGroup> groupMap = (Map<String, StartingGroup>)
+                getServletContext().getAttribute(StartingGroup.class.getName());
+        if (groupMap == null) throw new RuntimeException("groupMap is null");
+        String userName = (String) request.getSession().getAttribute("nickname");
+
 
         Set<Integer> roomSizes = new HashSet<>();
         Set<String> arbitraryRoomMates = new HashSet<>();
@@ -39,6 +46,7 @@ public class StartGame extends HttpServlet {
             response.sendRedirect("play.jsp");
         } else {
             matchMaker.addParticipants(arbitraryRoomMates, roomSizes);
+            groupMap.get(userName).setGameStarted(true);
             response.sendRedirect("matchMaking/loading.jsp");
         }
     }

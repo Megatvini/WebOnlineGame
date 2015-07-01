@@ -1,6 +1,7 @@
 package Servlets;
 
 import MatchMaking.StartingGroup;
+import com.google.gson.GsonBuilder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -41,7 +43,15 @@ public class StartingGroupService extends HttpServlet {
         if (group == null) response.sendRedirect("matchMaking/play.jsp");
         PrintWriter writer = response.getWriter();
         ArrayList<String> arr = new ArrayList<>();
-        group.getGroup().forEach(arr::add);
-        writer.print(arr);
+        if (!group.isGameStarted()) {
+            group.getGroup().forEach(arr::add);
+        }
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        String jsonString = new GsonBuilder().
+                excludeFieldsWithoutExposeAnnotation()
+                .create().toJson(arr);
+        writer.print(jsonString);
+        writer.close();
     }
 }
