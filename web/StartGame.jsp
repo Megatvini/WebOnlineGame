@@ -39,6 +39,9 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
 
+  <link href="plugins/iCheck/all.css" rel="stylesheet" type="text/css">
+
+  <link href="plugins/select2/select2.min.css" rel="stylesheet" type="text/css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -71,51 +74,93 @@
       profile = userControl.getUser(nickname);
     }
 
+
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
-    <div class="box box-primary" style="width: 96%; margin: 20px; min-width: 350px">
+    <div class="box box-primary" style="width: 96%; height: 700px; margin: 20px; min-width: 350px">
       <div class="box-header"><h3 class="box-title">თამაშის დაწყება</h3></div>
       <div>
+
+        <%@include  file="matchMaking/submitroom.jsp" %>
         <form action="/StartGame" method="get">
-          <fieldset>
-            <legend>აირჩიე მოთამაშეები</legend>
-            <fieldset class="innerFieldset">
-              <legend>Player 1</legend>
-              <input name="p1" id="p1" value="Empty" style="border:none" readonly>
-            </fieldset>
-            <br>
 
-            <fieldset class="innerFieldset">
-              <legend>Player 2</legend>
-              <input name="p2" id="p2" value="Empty" style="border:none" readonly>
-            </fieldset>
-            <br>
+          <div class="col-md-4">
+            <div class="info-box bg-yellow">
+              <span class="info-box-icon"><i ><div class="pull-left" style="padding: 10px">
+                <img id="pic1" data-path="<%=profile.getNickname()%>"  width="70px" height="70px"  src="/default.png" class="img-circle" alt="User Image" />
+              </div></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">მოთამაშე 1</span>
+                <span class="info-box-number">
+                  <input name="p1" id="p1" value="Empty" style="border:none; background: rgba(255, 255, 255, 0);" readonly></span>
 
-            <fieldset class="innerFieldset">
-              <legend>Player 3</legend>
-              <input name="p3" id="p3" value="Empty" style="border:none" readonly>
-            </fieldset>
-            <br>
+              </div><!-- /.info-box-content -->
+            </div>
 
-            <fieldset class="innerFieldset">
-              <legend>Player 4</legend>
-              <input name="p4" id="p4" value="Empty" style="border:none" readonly>
-            </fieldset>
-            <br>
-            <%@include  file="matchMaking/submitroom.jsp" %>
+            <div class="info-box bg-green">
+              <span class="info-box-icon"><i ><div class="pull-left" style="padding: 10px">
+                <img id="pic2" data-path="<%=profile.getNickname()%>"  width="70px" height="70px"  src="/default.png" class="img-circle" alt="User Image" />
+              </div></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">მოთამაშე 2</span>
+                <span class="info-box-number">
+                  <input name="p2" id="p2" value="Empty" style="border:none; background: rgba(255, 255, 255, 0);" readonly></span>
+
+              </div><!-- /.info-box-content -->
+            </div>
+
+            <div class="info-box bg-red">
+              <span class="info-box-icon"><i >
+                <div class="pull-left" style="padding: 10px">
+                  <img id="pic3" data-path="<%=profile.getNickname()%>"  width="70px" height="70px"  src="/default.png" width="80px" height="80px" class="img-circle" alt="User Image" />
+                </div>
+              </i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">მოთამაშე 3</span>
+                <span class="info-box-number">
+                  <input name="p3" id="p3" value="Empty" style="border:none; background: rgba(255, 255, 255, 0);" readonly></span>
+
+              </div><!-- /.info-box-content -->
+            </div>
+
+            <div class="info-box bg-aqua">
+              <span class="info-box-icon"><i ><div class="pull-left" style="padding: 10px">
+                <img id="pic4" data-path="<%=profile.getNickname()%>"  width="70px" height="70px"  src="/default.png" class="img-circle" alt="User Image" />
+              </div></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">მოთამაშე 4</span>
+                <span class="info-box-number">
+                  <input name="p4" id="p4" value="Empty" style="border:none; background: rgba(255, 255, 255, 0);" readonly></span>
+
+              </div><!-- /.info-box-content -->
+            </div>
+          </div>
+
+
           </fieldset>
         </form>
       </div>
       <div align="left">
-        <p>megobrebis mowveva</p>
+
       </div>
     </div>
   </div><!-- /.content-wrapper -->
-
+  <div class="form-group">
+    <label class="hover">
+      <div class="icheckbox_flat-green checked hover" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" class="flat-red" checked="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+    </label>
+    <label class="">
+      <div class="icheckbox_flat-green" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" class="flat-red" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+    </label>
+    <label>
+      <div class="icheckbox_flat-green disabled" aria-checked="false" aria-disabled="true" style="position: relative;"><input type="checkbox" class="flat-red" disabled="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+      Flat green skin checkbox
+    </label>
+  </div>
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
 
@@ -155,62 +200,5 @@
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js" type="text/javascript"></script>
 <script src="dist/js/popup.js" type="text/javascript"></script>
-<script>
-  function check() {
-    $.get('StartingGroupService', function(resp) {
-      //console.log(resp);
-      var arr = resp.replace("[","").replace("]","").split(',');
-      var i=0;
-      for (; i<arr.length; i++) {
-        var s = "#p".concat(i+1);
-        $(s).val(arr[i]);
-      }
-
-      for (; i<4; i++) {
-        var s = "#p".concat(i+1);
-        $(s).val("Empty");
-      }
-      onChange();
-    });
-  }
-
-  function onChange() {
-    var count = 0;
-    var i = 1;
-    for (; i<=4; i++) {
-      if ($("#p"+i).val() == "Empty") count++;
-    }
-
-    i = 1;
-    for (; i<4; i++) {
-      $( "#checkBox"+i).prop( "disabled", false);
-    }
-
-    switch (count) {
-      case 0:
-        $( "#checkBox1").prop( "disabled", true);
-        $( "#checkBox1").prop( "checked", false);
-        $( "#checkBox2").prop( "disabled", true);
-        $( "#checkBox2").prop( "checked", false);
-        break;
-      case 1:
-        $( "#checkBox").prop( "disabled", true);
-        $( "#checkBox").prop( "checked", false);
-        break;
-    }
-
-    //console.log(count);
-  }
-  setInterval(check, 1000);
-
-  function updateButton() {
-    if ($("#button")) {
-      var count = $("[type='checkbox']:checked").length;
-      console.log(count);
-      if (count == 0) $("#button").prop("disabled", true);
-      else $("#button").prop("disabled", false);
-    }
-  }
-</script>
 </body>
 </html>
