@@ -110,9 +110,6 @@ var Handler = IgeEntity.extend({
         /** @namespace snapShot.finished */
         if(snapShot.finished){
             if(!ige.isOFF) {
-
-
-
                 ige.isOFF = true;
                 this.showGameStats(snapShot.results);
                 var self = this ;
@@ -159,6 +156,7 @@ var Handler = IgeEntity.extend({
                         .setType(self.playerTypes[name])
                         .mount(self.objectScene)
                         .depth(2);
+
                     if (name == self.myId) {
                         player1 = newPlayer;
                         player1.addComponent(PlayerComponent);
@@ -166,7 +164,7 @@ var Handler = IgeEntity.extend({
 
                         // Tell the camera to track our player character with some
                         // tracking smoothing (set to 20)
-                        self.vp1.camera.trackTranslate(player1, 20);
+                        self.vp1.camera.trackTranslate(player1, 60);
                     }
                 } else {
                     if (!onePlayer.active) {
@@ -175,14 +173,15 @@ var Handler = IgeEntity.extend({
                             characters[name].destroy();
                             characters[name].destroed = true;
                             if(name==self.myId){
-                                self.vp1.camera.lookAt(self.mainScene);
-                                self.vp1.camera.trackTranslate(self.mainScene);
-                                self.vp1.scaleTo(0.6,0.6)
+                                self.vp1.camera.lookAt(new IgePoint(0,0,0).mount(self.objectScene));
+                                self.vp1.scaleTo(0.6,0.6,0)
 
 
                             }
                         }
                     } else {
+                        characters[name].potinsNum=onePlayer.potNum1+"";
+                        self[name+'Pots'].text(characters[name].potinsNum);
                         if (name != self.myId) {
                             if (lastUpdate) {
                                 if (lastUpdate2)
@@ -287,7 +286,7 @@ var Handler = IgeEntity.extend({
         var i, p  ;
         for(i = 0 ; i < data.players.length; i ++){
             p = data.players[i] ;
-            map[p.name] = {'active': p.active, 'position': p.position} ;
+            map[p.name] = {'active': p.active, 'position': p.position, 'potNum1': p.potNum, 'name': p.name} ;
         }
         data.players=JSON.parse(JSON.stringify(map));
         /*
@@ -323,7 +322,7 @@ var Handler = IgeEntity.extend({
         //self.textures.wall.destroy();
         //ige.stop();
 
-        alert("GAME OVER");
+        //alert("GAME OVER");
     },
 
     _keyUp: function (event, keyCode) {

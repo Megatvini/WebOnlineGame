@@ -128,6 +128,7 @@ function handler(snapShot){
 	var pots = snapShot.potions;
 
 	if(snapShot.type&&snapShot.type=="UPDATE"){
+
 		//console.log(snapShot.distance);
 		self.updateHandler.addUpdate(snapShot);
 		if (snapShot.distance != distanceR1){
@@ -135,9 +136,8 @@ function handler(snapShot){
 				this.was=true;
 				firstDist=snapShot.distance;
 			}
-			//self.vp1.camera.scaleTo(0.3,0.3, 0);
-			//this.zoomUot(snapShot.distance,distanceR);
-			zoonOut(snapShot.distance,distanceR1);
+
+			zoomOut(snapShot.distance,distanceR1);
 			distanceR1 = snapShot.distance;
 		}
 
@@ -153,7 +153,7 @@ function handler(snapShot){
 	}
 }
 
-function zoonOut (distanceR,distansRold) {
+function zoomOut (distanceR,distansRold) {
 	if(distanceR>distansRold){
 		if(distanceR/firstDist<=limit) {
 			var dif = distansRold / distanceR;

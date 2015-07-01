@@ -52,6 +52,7 @@ var ClientWorld = {
 
 
 
+
         // Create the main viewport and set the scene
         // it will "look" at as the new scene1 we just
         // created above
