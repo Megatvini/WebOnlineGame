@@ -69,7 +69,7 @@
 </head>
 <body class="skin-blue sidebar-mini">
 <div class="wrapper">
-  <%
+  <% //aitvirte bozo
     Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     AccountDao userControl = (AccountDao)pageContext.getServletContext().getAttribute(AccountDao.class.getName());
 
