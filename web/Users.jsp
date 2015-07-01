@@ -2,6 +2,8 @@
 <%@ page import="java.util.Set" %>
 <%@ page import="Interfaces.iProfile" %>
 <%@ page import="Core.Dao.AccountDao" %>
+<%@ page import="Core.Dao.FriendsDao" %>
+<%@ page import="java.util.HashSet" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -58,6 +60,9 @@
 <div class="wrapper">
   <%
     AccountDao userControl = (AccountDao) application.getAttribute(AccountDao.class.getName());
+    FriendsDao friendControl = (FriendsDao)pageContext.getServletContext().getAttribute(FriendsDao.class.getName());
+
+
     Set<String> users = null;
 
     String nickname = (String)session.getAttribute("nickname");
@@ -75,6 +80,9 @@
           users = userControl.getUsersLike(search);
         }
     }
+    Set<String> friends = friendControl.getFriendNames(nickname);
+    Set<String> wFriendsFrom = friendControl.getFriendRequestsFrom(nickname);
+    Set<String> wFriendsTo = friendControl.getFriendRequestsTo(nickname);
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
@@ -91,6 +99,10 @@
           } catch (Exception e) {
             continue;
           }
+          if(userNick.equals(nickname)) continue;
+          if(friends.contains(userNick)) continue;
+          if(wFriendsFrom.contains(userNick)) continue;
+          if(wFriendsTo.contains(userNick)) continue;
         %>
         <div style="background-color: #B0EDFF; width: 49%; float: left; padding: 5px 5px 5px 20px; border: groove #010046 thin">
           <img src="default.png" data-path = "<%=shortProf.getNickname()%>" alt="Smiley face" style="width: 100px; height: 100px; border-radius: 50%; float: left">

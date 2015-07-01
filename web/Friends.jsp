@@ -123,7 +123,7 @@
           </div>
           <form action="/RemoveFriend" method="post">
             <input type="hidden" name="id2" value="<%= shortProf.getID() %>">
-            <div style="width:  100px; float: left; padding: 5px"> <button class="btn btn-block btn-primary">წაშლა</button></div>
+            <div style="width:  100px; float: left; padding: 5px; padding-top: 19px;"> <button class="btn btn-block btn-primary">წაშლა</button></div>
           </form>
           <div style="width:  100px; float: left; padding: 5px"><a href="Messages.jsp?friend=<%=shortProf.getNickname()%>"><button class="btn btn-block btn-primary">მიწერა</button></a></div>
         </div>
