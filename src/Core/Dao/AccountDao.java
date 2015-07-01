@@ -49,12 +49,12 @@ public class AccountDao {
                 stmt.setString(10, account.getPicturePath());
                 stmt.execute();
             } catch (SQLException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
                 //System.out.println("register user named :" + account.getNickname()+" failed");
                 throw new SQLException();
             }
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             //System.out.println("register user named :" + account.getNickname()+" failed");
             return false;
         }
@@ -83,12 +83,12 @@ public class AccountDao {
                 stmt.setInt(9, account.getID());
                 stmt.execute();
             } catch (SQLException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
                 //System.out.println("changeUser named "+ account.getNickname() + " failed");
                 throw new SQLException();
             }
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             //System.out.println("changeUser named "+ account.getNickname() + " failed");
             return false;
         }
@@ -105,18 +105,18 @@ public class AccountDao {
         iAccount res;
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement stmt = connection.prepareStatement(
-                    "SELECT * FROM accounts WHERE NickName = ?;")) {
+                    "SELECT * FROM accounts WHERE Nickname = ?;")) {
                 stmt.setString(1, nickname);
                 ResultSet result = stmt.executeQuery();
                 if (!result.next()) throw new Exception("notRegistered");
                 res = assembleAccount(result);
             } catch (SQLException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
                 //System.out.println("getUser named " + nickname + " failed");
                 throw new SQLException();
             }
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             //System.out.println("getUser named " + nickname + " failed");
             return null;
         }
@@ -139,12 +139,12 @@ public class AccountDao {
                 if (!result.next()) throw new Exception("notRegistered");
                 res = assembleAccount(result);
             } catch (SQLException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
                 //System.out.println("getUser ID " + accID + " failed");
                 throw new SQLException();
             }
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             //System.out.println("getUser ID " + accID + " failed");
             return null;
         }
@@ -183,19 +183,19 @@ public class AccountDao {
         Set<String> accounts = new HashSet<>();
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement stmt = connection.prepareStatement(
-                    "SELECT Nickname FROM accounts WHERE NickName LIKE ?;")) {
+                    "SELECT Nickname FROM accounts WHERE Nickname LIKE ?;")) {
                 stmt.setString(1, "%"+search+"%");
                 ResultSet result = stmt.executeQuery();
                 while (result.next()) {
                     accounts.add(result.getString("Nickname"));
                 }
             } catch (SQLException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
                 //System.out.println("getUsersLike witch search " + search + " failed");
                 throw new SQLException();
             }
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             //System.out.println("getUsersLike witch search " + search + " failed");
         }
         return accounts;
@@ -223,13 +223,13 @@ public class AccountDao {
                     accounts.add(result.getString("Nickname"));
                 }
             } catch (SQLException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
                 //System.out.println("getUsersLike witch search, pageNumber, accountsPerPage " +
                 //        search + ", " + pageNumber + ", "+accountsPerPage+" failed");
                 throw new SQLException();
             }
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             //System.out.println("getUsersLike witch search, pageNumber, accountsPerPage " +
             //        search + ", " + pageNumber + ", "+accountsPerPage+" failed");
         }
@@ -248,12 +248,12 @@ public class AccountDao {
                 ResultSet resultSet = pst.executeQuery();
                 if (resultSet.next()) res = resultSet.getInt(1);
             } catch (SQLException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
                 //System.out.println("getUserCount failed");
                 throw new SQLException();
             }
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             //System.out.println("getUserCount failed");
         }
         return res;
@@ -280,13 +280,13 @@ public class AccountDao {
                     accounts.add(result.getString("Nickname"));
                 }
             } catch (SQLException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
                 //System.out.println("getUsersIntervalByRating pageNumber, accountsPerPage "
                 //        + pageNumber + ", " + accountsPerPage + " failed");
                 throw new SQLException();
             }
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             //System.out.println("getUsersIntervalByRating pageNumber, accountsPerPage "
             //        + pageNumber + ", " + accountsPerPage + " failed");
         }

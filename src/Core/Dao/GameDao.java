@@ -70,11 +70,11 @@ public class GameDao {
         try (Connection conn = dataSource.getConnection()) {
             try (PreparedStatement pst = conn.prepareStatement(
                     "SELECT PA.GameID, AccID, participations.RatingChange, Date, Place From" +
-                            "(SELECT GameID, NickName, RatingChange, Date FROM participations " +
+                            "(SELECT GameID, Nickname, RatingChange, Date FROM participations " +
                             "LEFT JOIN accounts " +
                             "ON participations.AccID = accounts.ID " +
-                            "LEFT JOIN Games " +
-                            "ON GameID = Games.ID " +
+                            "LEFT JOIN games " +
+                            "ON GameID = games.ID " +
                             "WHERE Nickname = ?) AS PA " +
                     "LEFT JOIN participations " +
                     "ON PA.GameID = participations.GameID " +
@@ -125,8 +125,8 @@ public class GameDao {
             try (PreparedStatement pst = conn.prepareStatement(
                     "select PA.GameID, AccID, participations.RatingChange, Date, Place FROM " +
                             "(SELECT GameID, RatingChange, Date FROM participations " +
-                            "LEFT JOIN Games " +
-                            "ON GameID = Games.ID " +
+                            "LEFT JOIN games " +
+                            "ON GameID = games.ID " +
                             "WHERE participations.AccID = ?) AS PA " +
                     "LEFT JOIN participations " +
                     "ON PA.GameID = participations.GameID " +

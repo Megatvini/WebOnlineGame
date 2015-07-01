@@ -31,7 +31,7 @@ public class CachedMessagesDao {
         if (messageMap == null || messageMap.size() == 0) return true;
         try (Connection conn = dataSource.getConnection()) {
             try (PreparedStatement pst = conn.prepareStatement(
-                    "INSERT INTO unreadmessages " +
+                    "INSERT INTO UnreadMessages " +
                     "(ReceiverID, SenderNickname, Text, Date)" +
                     " VALUES (?, ?, ?, ?)")) {
                 for (String senderNickname : messageMap.keySet()) {
@@ -45,13 +45,13 @@ public class CachedMessagesDao {
                     }
                 }
             } catch (SQLException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
                 //System.out.println("addMessages with accID" +
                 //        accID + " size " + messageMap.size() + " failed");
                 throw new SQLException();
             }
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             //System.out.println("addMessages with accID" +
             //        accID + " size " + messageMap.size() + " failed");
             return false;
@@ -70,7 +70,7 @@ public class CachedMessagesDao {
     public boolean addSingleMessage(int accID, String senderNickName, String text, Date date) {
         try (Connection conn = dataSource.getConnection()) {
             try (PreparedStatement pst = conn.prepareStatement(
-                    "INSERT INTO unreadmessages " +
+                    "INSERT INTO UnreadMessages " +
                     "(ReceiverID, SenderNickname, Text, Date)" +
                     "VALUES (?, ?, ?, ?)")) {
                 pst.setInt(1, accID);
@@ -79,13 +79,13 @@ public class CachedMessagesDao {
                 pst.setTimestamp(4, new java.sql.Timestamp(date.getTime()));
                 pst.execute();
             } catch (SQLException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
                 //System.out.println("addSingleMessage accID, senderNickname, text, date "
                 //        + accID + ", " + senderNickName + ", " + text + ", " + date + "failed");
                 throw new SQLException();
             }
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             //System.out.println("addSingleMessage accID, senderNickname, text, date "
             //        + accID + ", " + senderNickName + ", " + text + ", " + date + "failed");
             return false;
@@ -103,32 +103,32 @@ public class CachedMessagesDao {
         try (Connection conn = dataSource.getConnection()) {
             conn.setAutoCommit(false);
             try (PreparedStatement pst = conn.prepareStatement(
-                    "SELECT * FROM unreadmessages " +
+                    "SELECT * FROM UnreadMessages " +
                     "WHERE ReceiverID = ?")) {
                 pst.setInt(1, accID);
                 ResultSet resultSet = pst.executeQuery();
                 assembleResult(res, resultSet);
             } catch (SQLException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
                 //System.out.println("takeMessages with accID " + accID + " failed");
                 conn.rollback();
                 throw new SQLException();
             }
 
             try (PreparedStatement pst = conn.prepareStatement(
-                    "DELETE FROM unreadmessages " +
+                    "DELETE FROM UnreadMessages " +
                     "WHERE ReceiverID = ?")) {
                 pst.setInt(1, accID);
                 pst.execute();
             } catch (SQLException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
                 //System.out.println("removeMessages with accID " + accID + " failed");
                 conn.rollback();
                 throw new SQLException();
             }
             conn.commit();
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             //System.out.println("takeMessages with accID " + accID + " failed");
             return null;
         }

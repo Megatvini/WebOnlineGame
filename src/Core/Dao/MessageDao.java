@@ -51,7 +51,7 @@ public class MessageDao {
 
             } catch (SQLException e) {
                 //System.out.println(e.getErrorCode());
-                //e.printStackTrace();
+                e.printStackTrace();
                 connection.rollback();
                 throw new SQLException();
             }
@@ -74,14 +74,14 @@ public class MessageDao {
 
             } catch (SQLException e) {
                 //System.out.println(e.getErrorCode());
-                //e.printStackTrace();
+                e.printStackTrace();
                 connection.rollback();
                 throw new SQLException();
             }
             connection.commit();
         } catch (SQLException e) {
             //System.out.println(e.getErrorCode());
-            //e.printStackTrace();
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -113,7 +113,7 @@ public class MessageDao {
                     "INNER JOIN conversations " +
                     "ON conversations.ID = messages.Conversations_ID " +
                     "WHERE conversations.AccIDFrom = ? AND conversations.AccIDTo = ? " +
-                    "ORDER BY DATE DESC " +
+                    "ORDER BY Date DESC " +
                     "LIMIT ?")) {
                 pst.setInt(1, userID);
                 pst.setInt(2, friendID);
@@ -130,12 +130,12 @@ public class MessageDao {
                 }
             } catch (SQLException e) {
                 //System.out.println("getMessages userID, friendID " + userID + ", "+ friendID + " failed");
-                //e.printStackTrace();
+                e.printStackTrace();
                 throw new SQLException();
             }
         } catch (SQLException e) {
             //System.out.println("getMessages userID, friendID " + userID + ", "+ friendID + " failed");
-            //e.printStackTrace();
+            e.printStackTrace();
             return null;
         }
         Collections.reverse(messages);

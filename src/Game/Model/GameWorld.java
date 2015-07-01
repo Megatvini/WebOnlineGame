@@ -242,17 +242,16 @@ public class GameWorld implements iWorld {
     @Override
     public boolean setPlayerCoordinates(String playerName, double x, double y) {
         Player p = nameOnPlayer.get(playerName);
-        synchronized (p) {
-            if (!p.getActive()) { return false; }
-            if (state == State.RUNNING && gm.longMove(p.getName(), x, y)) { return false; }
-            //if (gm.collideWall(p.getName(), x, y)) { return false; }
 
-            gm.setPlayerPos(playerName, x, y);
+        if (!p.getActive()) { return false; }
+        if (state == State.RUNNING && gm.longMove(p.getName(), x, y)) { return false; }
+        //if (gm.collideWall(p.getName(), x, y)) { return false; }
 
-            potionsPlayer(p);
-            playersPlayer(p);
-            gameOnCheck();
-        }
+        gm.setPlayerPos(playerName, x, y);
+
+        potionsPlayer(p);
+        playersPlayer(p);
+        gameOnCheck();
 
         return true;
     }
@@ -400,7 +399,7 @@ public class GameWorld implements iWorld {
 
         updateJson.add("finished", isFinished());
 
-        if (isFinished() == true) {
+        if (isFinished()) {
             JsonObjectBuilder resultsJson = factory.createObjectBuilder();
             for (int i = 0; i < plPlaces.size(); i++) {
                 String name = plPlaces.get(i);

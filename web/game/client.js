@@ -1,5 +1,8 @@
 var self = this,
 	gameConfig = {},
+	distanceR1,
+	firstDist,
+	limit = 1.5,
 	connection;
 
 var Client = IgeClass.extend({
@@ -40,7 +43,7 @@ var Client = IgeClass.extend({
 		self.sounds.loop = document.getElementById("loop");
 
 		self.textures[0] = new IgeTexture('./assets/water.png');
-		self.textures[1] = new IgeTexture('./assets/fire.js');
+		self.textures[1] = new IgeTexture('./assets/fire.png');
 		self.textures[2] = new IgeTexture('./assets/ground.png');
 		self.textures[3] = new IgeTexture('./assets/wind.png');
 
@@ -50,7 +53,7 @@ var Client = IgeClass.extend({
 		self.potNumFont = new IgeFontSheet('./assets/agency_fb_20pt.png', 0);
 		self.homePic = new IgeTexture('./assets/home.png');
 
-		self.floorTexture = 	new IgeTexture('./assets/floor.js');
+		self.floorTexture = 	new IgeTexture('./assets/game-background.jpg');
 
 		ige.on('texturesLoaded', function (){
 			// Create the HTML canvas
@@ -125,8 +128,18 @@ function handler(snapShot){
 	var pots = snapShot.potions;
 
 	if(snapShot.type&&snapShot.type=="UPDATE"){
-		self.updateHandler.addUpdate(snapShot);
 
+		//console.log(snapShot.distance);
+		self.updateHandler.addUpdate(snapShot);
+		if (snapShot.distance != distanceR1){
+			if(!this.was){
+				this.was=true;
+				firstDist=snapShot.distance;
+			}
+
+			zoomOut(snapShot.distance,distanceR1);
+			distanceR1 = snapShot.distance;
+		}
 
 	}
 	if(snapShot.type&&snapShot.type=="INIT") {
@@ -138,6 +151,19 @@ function handler(snapShot){
 		self.updateHandler.parsePotions(pots,[]);
 
 	}
+}
+
+function zoomOut (distanceR,distansRold) {
+	if(distanceR>distansRold){
+		if(distanceR/firstDist<=limit) {
+			var dif = distansRold / distanceR;
+			var dif1 = 1 - dif;
+			console.log(dif);
+			self.vp1.camera.scaleBy(-dif1, -dif1, 0);
+		}
+	}
+
+
 }
 
 /**

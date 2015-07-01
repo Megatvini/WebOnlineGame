@@ -52,12 +52,13 @@ var ClientWorld = {
 
 
 
+
         // Create the main viewport and set the scene
         // it will "look" at as the new scene1 we just
         // created above
         this.vp1 = new IgeViewport()
             .id('vp1')
-            .autoSize(true)
+           // .autoSize(true)
             .scene(this.mainScene)
             .drawBounds(false)
             .drawBoundsData(true)

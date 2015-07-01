@@ -62,33 +62,44 @@ var UI = IgeUiElement.extend({
     addPlayers : function (playerTypes) {
 
         var ind  = 0 ;
-        for(var statKey  in playerTypes){
-            var oneType = playerTypes[statKey]
-            new IgeUiElement()
-                .texture(self.textures[oneType])
-                .width(20)
-                .height(20)
-                .mount(self.graphicalUiScene)
-                .top(5+(ind*(50)))
-                .left(10);
+        for(var statKey  in playerTypes) {
+            if (playerTypes.hasOwnProperty(statKey)) {
+                var oneType = playerTypes[statKey];
+                var dy = (ind * (80));
+                new IgeUiElement()
+                    .texture(self.textures[oneType])
+                    .width(20)
+                    .height(20)
+                    .mount(self.graphicalUiScene)
+                    .top(5 + (ind * (54)))
+                    .left(30);
 
-            new IgeFontEntity()
-                .texture(ige.client.textures.font)
-                .textAlignX(0)
-                .textAlignX(0)
-                .width(150)
-                .height(21)
-                .text(statKey)
-                .top(5+(ind*(50)))
-                .left(33)
-                .mount(self.graphicalUiScene);
+                new IgeFontEntity()
+                    .texture(ige.client.textures.font)
+                    .textAlignX(0)
+                    .textAlignY(1)
+                    .width(150)
+                    .height(25)
+                    .text(statKey)
+                    .top(5 + (ind * (54)))
+                    .left(50)
+                    .mount(self.graphicalUiScene);
 
+                self[statKey + 'Pots'] = new IgeFontEntity()
 
+                    .texture(ige.client.textures.font)
+                    .textAlignX(0)
+                    .textAlignY(1)
+                    .width(20)
+                    .height(25)
+                    .top(5 + (ind * (50)))
+                    .left(2)
+                    .mount(self.graphicalUiScene);
 
-            ind ++ ;
+                ind++;
 
+            }
         }
-
     },
 
     removePlayer : function (playerId) {
@@ -238,7 +249,7 @@ var UI = IgeUiElement.extend({
 
 
         uiInstance.redirectHome = function () {
-            window.location.assign("http://localhost:8080")
+            window.location.assign("http://"+window.location.host);
 
         };
 

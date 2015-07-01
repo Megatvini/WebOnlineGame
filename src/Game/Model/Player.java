@@ -124,11 +124,7 @@ public class Player {
 
         playerJson.add("name", name);
 
-        JsonObjectBuilder plPosJson = Json.createObjectBuilder();
-
-        plPosJson.add("x", x).add("y", y);
-
-        playerJson.add("position", plPosJson);
+        playerJson.add("potNum", potNum);
 
         return playerJson;
     }

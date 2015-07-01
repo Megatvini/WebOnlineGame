@@ -29,15 +29,23 @@ public class GameMazeTest {
     // instance to generate pseudo random things(int, double, boolean ...)
     private static Random rand = new Random();
 
-    private double width;
-    private double height;
-    private double wallWidth;
-    private double pRadius;
-    private double maxMove;
-    private double dist;
-    private double potRadius;
-    private double cellWidth;
-    private double cellHeight;
+    int maxPlayers = 4;
+    int numRows = 10;
+    int numCols = 10;
+    double width = 1000;
+    double height = 1000;
+    double wallWidth = 4;
+    double pRadius = 8;
+    double maxMove = 100;
+    double startDist = 100;
+    double plusDist = 6;
+    long plusDistDelay = 10000;
+    double potRadius = 5;
+    int startPotNum = 0;
+    long addPotDelay = 5000;
+    int potForKick = 3;
+    double cellWidth = ((width - (numCols - 1) * wallWidth)) / numCols;
+    double cellHeight = ((height - (numRows - 1) * wallWidth)) / numRows;
 
     @Spy
     Configuration config = Configuration.getInstance();
@@ -53,6 +61,7 @@ public class GameMazeTest {
     @Test
     public void testAddPlayerAtCornerBasics() throws Exception {
         reset(config);
+        makeMazeSquare();
 
         String playerName = "shako";
         String player1Name = "nika";
@@ -91,6 +100,7 @@ public class GameMazeTest {
     @Test
     public void testAddPlayerAtCornerHasCollisionsWithPlayers() throws Exception {
         reset(config);
+        makeMazeSquare();
 
         Map<String, Point2D.Double> nameOnPos = Collections.synchronizedMap(new HashMap<>());
         GameMaze gm = new GameMaze(config, nameOnPos, Collections.synchronizedSet(new HashSet<>()));
@@ -106,15 +116,17 @@ public class GameMazeTest {
     @Test
     public void testAddPlayerAtCornerHasCollisionsWithPotions() throws Exception {
         reset(config);
+        makeMazeSquare();
 
-        double potionRadiusMock = Math.min(cellWidth, cellHeight) / 2;
+        double potionAndPlayerRadiusMock = Math.min(cellWidth, cellHeight) / 2;
 
-        when(config.getPotRadius()).thenReturn(potionRadiusMock);
+        when(config.getPotRadius()).thenReturn(potionAndPlayerRadiusMock);
+        when(config.getPRadius()).thenReturn(potionAndPlayerRadiusMock);
         Set<Point2D.Double> potions = Collections.synchronizedSet(new HashSet<>());
         GameMaze gm = new GameMaze(config, Collections.synchronizedMap(new HashMap<>()), potions);
 
         for (int j = 0; j < 4; j++) {
-            potions.add(randOvalInCell(getCornerCell(j), potionRadiusMock));
+            potions.add(randOvalInCell(getCornerCell(j), potionAndPlayerRadiusMock));
         }
 
         assert !gm.addPlayerAtCorner("colliding player");
@@ -123,6 +135,7 @@ public class GameMazeTest {
     @Test
     public void testAddPlayerAtRandomBasics() throws Exception {
         reset(config);
+        makeMazeSquare();
 
         int playerNum = 1000;
         for (int i = 0; i < playerNum; i++) {
@@ -138,6 +151,7 @@ public class GameMazeTest {
     @Test
     public void testAddPlayerAtRandomHasCollisionWithPlayers() throws Exception {
         reset(config);
+        makeMazeSquare();
 
         when(config.getStartDist()).thenReturn(cellHeight + cellHeight);
         Map<String, Point2D.Double> nameOnPos = Collections.synchronizedMap(new HashMap<>());
@@ -160,19 +174,21 @@ public class GameMazeTest {
     @Test
     public void testAddPlayerAtRandomHasCollisionWithPotions() throws Exception {
         reset(config);
+        makeMazeSquare();
 
-        double potionRadiusMock = Math.min(cellWidth, cellHeight) / 2;
-        when(config.getPotRadius()).thenReturn(potionRadiusMock);
+        double potionAndPlayerRadiusMock = Math.min(cellWidth, cellHeight) / 2;
+        when(config.getPotRadius()).thenReturn(potionAndPlayerRadiusMock);
+        when(config.getPRadius()).thenReturn(potionAndPlayerRadiusMock);
         Set<Point2D.Double> potions = Collections.synchronizedSet(new HashSet<>());
         GameMaze gm = new GameMaze(config, Collections.synchronizedMap(new HashMap<>()), potions);
 
         for (int i = 0; i < gm.numRows; i++) {
             for (int j = 0; j < gm.numCols; j++) {
-                potions.add(randOvalInCell(new Cell(i, j), potionRadiusMock));
+                potions.add(randOvalInCell(new Cell(i, j), potionAndPlayerRadiusMock));
             }
         }
 
-        int tryNum = 5;
+        int tryNum = 1;
         for (int i = 0; i < tryNum; i++) {
             assert !gm.addPlayerAtRandom("colliding player");
         }
@@ -182,6 +198,7 @@ public class GameMazeTest {
     @Test
     public void testAddPlayerInCellBasics() throws Exception {
         reset(config);
+        makeMazeSquare();
 
         when(config.getStartDist()).thenReturn(0.0);
         GameMaze gm = new GameMaze(config);
@@ -200,6 +217,7 @@ public class GameMazeTest {
     @Test
     public void testAddPlayerInCellHasCollisionWithPlayers() throws Exception {
         reset(config);
+        makeMazeSquare();
 
         when(config.getStartDist()).thenReturn(cellHeight + cellHeight);
         Map<String, Point2D.Double> nameOnPos = Collections.synchronizedMap(new HashMap<>());
@@ -224,6 +242,7 @@ public class GameMazeTest {
     @Test
     public void testAddPotAtRandomBasicsConflictAllowed() throws Exception {
         reset(config);
+        makeMazeSquare();
 
         int testNum = 1000;
         for (int i = 0; i < testNum; i++) {
@@ -237,6 +256,7 @@ public class GameMazeTest {
     @Test
     public void testAddPotAtRandomConflictNotAllowedHasCollisionWithPlayers() throws Exception {
         reset(config);
+        makeMazeSquare();
 
         double potionAndPlayerRadiusMock = Math.min(cellWidth, cellHeight) / 2;
         when(config.getPotRadius()).thenReturn(potionAndPlayerRadiusMock);
@@ -260,6 +280,7 @@ public class GameMazeTest {
     @Test
     public void testAddPotInCellBasicsConflictAllowed() throws Exception {
         reset(config);
+        makeMazeSquare();
 
         for (int i = 0; i < gm.numRows; i++) {
             for (int j = 0; j < gm.numCols; j++) {
@@ -274,6 +295,7 @@ public class GameMazeTest {
     @Test
     public void testAddPotInCellConflictNotAllowedHasCollisionWithPlayers() throws Exception {
         reset(config);
+        makeMazeSquare();
 
         double potionAndPlayerRadiusMock = Math.min(cellWidth, cellHeight) / 2;
         when(config.getPotRadius()).thenReturn(potionAndPlayerRadiusMock);
@@ -298,6 +320,8 @@ public class GameMazeTest {
 
     @Test
     public void testRemovePlayer() throws Exception {
+        makeMazeSquare();
+
         String name = "shako";
         gm.addPlayerAtRandom(name);
         assert gm.getPlPosition(name).equals(gm.removePlayer(name));
@@ -306,6 +330,8 @@ public class GameMazeTest {
 
     @Test
     public void testRemovePot() throws Exception {
+        makeMazeSquare();
+
         int potNumToAdd = 1000;
         List<Point2D.Double> addedPots = new ArrayList<>();
         for (int i = 0; i < potNumToAdd; i++) {
@@ -323,6 +349,8 @@ public class GameMazeTest {
 
     @Test
     public void testLongMove() throws Exception {
+        makeMazeSquare();
+
         String name = "shako";
         gm.addPlayerAtRandom(name);
         Point2D.Double pos = gm.getPlPosition(name);
@@ -332,16 +360,22 @@ public class GameMazeTest {
 
     @Test
     public void testCollideWall() throws Exception {
+        makeMazeSquare();
+
         // todo white this test method
     }
 
     @Test
     public void testGetDist() throws Exception {
+        makeMazeSquare();
+
         assert config.getStartDist() == gm.getDist();
     }
 
     @Test
     public void testIncreaseDist() throws Exception {
+        makeMazeSquare();
+
         double plusDist = 55.4;
         double oldDist = gm.getDist();
         gm.increaseDist(plusDist);
@@ -350,6 +384,8 @@ public class GameMazeTest {
 
     @Test
     public void testPlusPlayerPos() throws Exception {
+        makeMazeSquare();
+
         String name = "shako";
         gm.addPlayerAtRandom(name);
         Point2D.Double oldPos = gm.getPlPosition(name);
@@ -364,6 +400,7 @@ public class GameMazeTest {
     @Test
     public void testCollidedPotions() throws Exception {
         reset(config);
+        makeMazeSquare();
 
         double potionAndPlayerRadiusMock = Math.min(cellWidth, cellHeight) / 2;
         when(config.getPotRadius()).thenReturn(potionAndPlayerRadiusMock);
@@ -393,6 +430,7 @@ public class GameMazeTest {
     @Test
     public void testCollidedPlayersToPlayer() throws Exception {
         reset(config);
+        makeMazeSquare();
 
         double distMock = cellWidth + cellHeight;
         when(config.getPRadius()).thenReturn(distMock);
@@ -421,6 +459,7 @@ public class GameMazeTest {
     @Test
     public void testCollidedPlayersToPotion() throws Exception {
         reset(config);
+        makeMazeSquare();
 
         double potionAndPlayerRadiusMock = Math.min(cellWidth, cellHeight) / 2;
         when(config.getPRadius()).thenReturn(potionAndPlayerRadiusMock);
@@ -448,6 +487,8 @@ public class GameMazeTest {
 
     @Test
     public void testConfigJsonBuilder() throws Exception {
+        makeMazeSquare();
+
         // look at it and check lol
         System.out.println(gm.configJsonBuilder());
     }
@@ -457,24 +498,41 @@ public class GameMazeTest {
      */
 
     private void makeMazeSquare() {
-        double width = 500;
-        double height = 500;
+        int maxPlayers = 4;
         int numRows = 10;
         int numCols = 10;
+        double width = 1000;
+        double height = 1000;
         double wallWidth = 4;
         double pRadius = 8;
-        double potRadius = 5;
         double maxMove = 100;
+        double startDist = 100;
+        double plusDist = 6;
+        long plusDistDelay = 10000;
+        double potRadius = 5;
+        int startPotNum = 0;
+        long addPotDelay = 5000;
+        int potForKick = 3;
+        double cellWidth = ((width - (numCols - 1) * wallWidth)) / numCols;
+        double cellHeight = ((height - (numRows - 1) * wallWidth)) / numRows;
 
-        when(config.getWidth()).thenReturn(width);
-        when(config.getHeight()).thenReturn(height);
+        when(config.getMaxPlayers()).thenReturn(maxPlayers);
         when(config.getNumRows()).thenReturn(numRows);
         when(config.getNumCols()).thenReturn(numCols);
+        when(config.getWidth()).thenReturn(width);
+        when(config.getHeight()).thenReturn(height);
         when(config.getWallWidth()).thenReturn(wallWidth);
         when(config.getPRadius()).thenReturn(pRadius);
-        when(config.getPotRadius()).thenReturn(potRadius);
         when(config.getMaxMove()).thenReturn(maxMove);
-
+        when(config.getStartDist()).thenReturn(startDist);
+        when(config.getPlusDist()).thenReturn(plusDist);
+        when(config.getPlusDistDelay()).thenReturn(plusDistDelay);
+        when(config.getPotRadius()).thenReturn(potRadius);
+        when(config.getStartPotNum()).thenReturn(startPotNum);
+        when(config.getAddPotDelay()).thenReturn(addPotDelay);
+        when(config.getPotForKick()).thenReturn(potForKick);
+        when(config.getCellWidth()).thenReturn(cellWidth);
+        when(config.getCellHeight()).thenReturn(cellHeight);
     }
 
     private void readConfig(Configuration config) {
@@ -483,7 +541,6 @@ public class GameMazeTest {
         wallWidth = config.getWallWidth();
         pRadius = config.getPRadius();
         maxMove = config.getMaxMove();
-        dist = config.getStartDist();
         potRadius = config.getPotRadius();
         cellWidth = config.getCellWidth();
         cellHeight = config.getCellHeight();

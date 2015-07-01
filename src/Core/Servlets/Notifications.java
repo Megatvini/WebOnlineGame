@@ -30,7 +30,7 @@ public class Notifications extends HttpServlet {
         try {
             userAccount = accountDao.getUser(userName);
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             return;
         }
 

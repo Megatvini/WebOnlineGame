@@ -20,7 +20,7 @@ var Handler = IgeEntity.extend({
     extrapolation: 100,
 
     init: function () {
-        this. updateBuffer = []
+        this. updateBuffer = [];
         var self = this;
         IgeEntity.prototype.init.call(this);
         self.mount(ige)
@@ -28,6 +28,7 @@ var Handler = IgeEntity.extend({
             .height(0);
         // Load the character texture file
         //.mount(self.scene1)
+        //ige.input.on('keyUp', function (event, keyCode) { self._keyUp(event, keyCode); });
     },
 
     /**
@@ -64,15 +65,13 @@ var Handler = IgeEntity.extend({
                 this.updateBuffer.shift();
 
             } else if (lastUpdate != null) { // inerpolating
-                /* if(update.removePots.length>0)
-                 console.log("removed ");*/
+
                 this.handler(update,lastUpdate);
 
             }
         }
         else if (lastUpdate2 != null && lastUpdate != null) {   //  prediction
-            /* if(update.removePots.length>0)
-             console.log("removed ");*/
+
             this.handler(lastUpdate,lastUpdate,lastUpdate2);
         }
         return null;
@@ -100,6 +99,7 @@ var Handler = IgeEntity.extend({
     } ,
 
 
+
     handler: function(snapShot, interpolated,extrapolated){
 
         /** @namespace snapShot.removePots */
@@ -110,9 +110,6 @@ var Handler = IgeEntity.extend({
         /** @namespace snapShot.finished */
         if(snapShot.finished){
             if(!ige.isOFF) {
-
-                console.log(">>>>>>>>>>>>>>>>>>>>>>>");
-
                 ige.isOFF = true;
                 this.showGameStats(snapShot.results);
                 var self = this ;
@@ -131,7 +128,9 @@ var Handler = IgeEntity.extend({
             /** @namespace snapShot.players */
             this.parsePlayers(snapShot.players,interpolated,extrapolated);
             this.parsePotions(addPots,removePots);
-            if (snapShot.distance != distanceR) {
+            if (snapShot.distance != distanceR ){
+
+                //this.zoomUot(snapShot.distance,distanceR);
                 distanceR = snapShot.distance;
                 this.mountCircles();
             }
@@ -157,6 +156,7 @@ var Handler = IgeEntity.extend({
                         .setType(self.playerTypes[name])
                         .mount(self.objectScene)
                         .depth(2);
+
                     if (name == self.myId) {
                         player1 = newPlayer;
                         player1.addComponent(PlayerComponent);
@@ -164,15 +164,24 @@ var Handler = IgeEntity.extend({
 
                         // Tell the camera to track our player character with some
                         // tracking smoothing (set to 20)
-                        self.vp1.camera.trackTranslate(player1, 20);
+                        self.vp1.camera.trackTranslate(player1, 60);
                     }
                 } else {
                     if (!onePlayer.active) {
                         if (!characters[name].destroed) {
+
                             characters[name].destroy();
                             characters[name].destroed = true;
+                            if(name==self.myId){
+                                self.vp1.camera.lookAt(new IgePoint(0,0,0).mount(self.objectScene));
+                                self.vp1.scaleTo(0.6,0.6,0)
+
+
+                            }
                         }
                     } else {
+                        characters[name].potinsNum=onePlayer.potNum1+"";
+                        self[name+'Pots'].text(characters[name].potinsNum);
                         if (name != self.myId) {
                             if (lastUpdate) {
                                 if (lastUpdate2)
@@ -210,7 +219,7 @@ var Handler = IgeEntity.extend({
             var x = onePotion.x,
                 y = onePotion.y,
                 id= onePotion.id.toString();
-            console.log("potion parser add id " + id);
+           // console.log("potion parser add id " + id);
             if(typeof (potions[id]) == 'undefined')
                 potions[id]=new Potion()
                     .texture(self.textures.potion)
@@ -229,7 +238,7 @@ var Handler = IgeEntity.extend({
             var xy= {
                 x:potPosition.x,
                 y:potPosition.y
-            }
+            };
 
             var type   = 0 ;
 
@@ -277,7 +286,7 @@ var Handler = IgeEntity.extend({
         var i, p  ;
         for(i = 0 ; i < data.players.length; i ++){
             p = data.players[i] ;
-            map[p.name] = {'active': p.active, 'position': p.position} ;
+            map[p.name] = {'active': p.active, 'position': p.position, 'potNum1': p.potNum, 'name': p.name} ;
         }
         data.players=JSON.parse(JSON.stringify(map));
         /*
@@ -313,10 +322,18 @@ var Handler = IgeEntity.extend({
         //self.textures.wall.destroy();
         //ige.stop();
 
-        alert("GAME OVER");
+        //alert("GAME OVER");
+    },
+
+    _keyUp: function (event, keyCode) {
+        if(characters[self.myId].destroed){
+
+            if (keyCode === ige.input.key.space) {
+                // Change the character
+            }
+        }
+
     }
-
-
 
 
 

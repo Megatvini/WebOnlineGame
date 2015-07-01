@@ -16,8 +16,7 @@ var IgeViewport = IgeEntity.extend([
 
 		this._mouseAlwaysInside = true;
 		this._mousePos = new IgePoint(0, 0, 0);
-		this._overflow = '';
-		this._clipping = true;
+		this._overflow = ''; this._clipping = true;
 
 		// Set default options if not specified
 		// TODO: Is this required or even used?
