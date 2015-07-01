@@ -33,8 +33,12 @@ public class CellTest {
 
     @Test
     public void testEquals() throws Exception {
-        // equals
-        assert(new Cell(3, 0).equals(new Cell(3, 0)));
+        // equal pointers
+        Cell c = new Cell(4, 5);
+        assert c.equals(c);
+
+        // equals row and column
+        assert new Cell(3, 0).equals(new Cell(3, 0));
 
         // different with row xor col
         assertFalse(new Cell(12, -2).equals(new Cell(12, 14)));
@@ -42,5 +46,8 @@ public class CellTest {
 
         // different with row and col
         assertFalse(new Cell(41, 3).equals(new Cell(3, 34)));
+
+        // different type object
+        assertFalse(new Cell(4, 1).equals(1));
     }
 }

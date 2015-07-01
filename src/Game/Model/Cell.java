@@ -8,6 +8,11 @@ public class Cell extends Object {
     public int row;
     public int col;
 
+    /**
+     * Cell constructor
+     * @param row row of cell
+     * @param col column of cell
+     */
     public Cell(int row, int col) {
         this.row = row;
         this.col = col;
@@ -24,11 +29,6 @@ public class Cell extends Object {
     public static boolean neighbours(Cell c1, Cell c2) {
         return (Math.abs(c1.row - c2.row) + Math.abs(c1.col - c2.col)) == 1;
     }
-
-    public boolean neighbours1(Cell c1, Cell c2) {
-        return false;
-    }
-
 
 
     /**

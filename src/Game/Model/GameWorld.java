@@ -240,17 +240,19 @@ public class GameWorld implements iWorld {
     }
 
     @Override
-    public synchronized boolean setPlayerCoordinates(String playerName, double x, double y) {
+    public boolean setPlayerCoordinates(String playerName, double x, double y) {
         Player p = nameOnPlayer.get(playerName);
-        if (!p.getActive()) { return false; }
-        if (state == State.RUNNING && gm.longMove(p.getName(), x, y)) { return false; }
-        //if (gm.collideWall(p.getName(), x, y)) { return false; }
+        synchronized (p) {
+            if (!p.getActive()) { return false; }
+            if (state == State.RUNNING && gm.longMove(p.getName(), x, y)) { return false; }
+            //if (gm.collideWall(p.getName(), x, y)) { return false; }
 
-        gm.setPlayerPos(playerName, x, y);
+            gm.setPlayerPos(playerName, x, y);
 
-        potionsPlayer(p);
-        playersPlayer(p);
-        gameOnCheck();
+            potionsPlayer(p);
+            playersPlayer(p);
+            gameOnCheck();
+        }
 
         return true;
     }
@@ -381,6 +383,8 @@ public class GameWorld implements iWorld {
 
         JsonObjectBuilder configJson = gm.configJsonBuilder();
         initJson.add("configuration", configJson);
+
+        System.out.println(initJson.build());
 
         return initJson.build();
     }

@@ -120,7 +120,7 @@ public class PlaneMazeTesterClassNotPartOfProject extends JApplet {
 
     public static void main(String s[]) {
         Configuration config = Configuration.getInstance();
-        GameMaze pm = new GameMaze(config.getNumRows(), config.getNumCols(), config);
+        GameMaze pm = new GameMaze(config);
         GameWorld gw = new GameWorld(pm, config);
         gw.addPlayerAtCorner("nika");
         gw.addPlayerAtCorner("rezo");
