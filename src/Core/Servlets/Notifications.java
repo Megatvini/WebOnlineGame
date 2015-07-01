@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Nika on 19:38, 6/27/2015.
@@ -37,9 +38,14 @@ public class Notifications extends HttpServlet {
                 getServletContext().getAttribute("unreadMessages");
         if (unreadMessages == null) throw new RuntimeException("Unread Messages is NULL");
 
+        Map<String, Map<String, Integer>> gameInvitations = (Map<String, Map<String, Integer>>)
+                getServletContext().getAttribute("gameInvitations");
+        if (gameInvitations == null) throw new RuntimeException("gameInvitations Messages is NULL");
+
+
         Set<String> friendRequestsFrom = friendsDao.getFriendRequestsTo(userAccount.getID());
         Map<String, List<Message>> unreadMessagesFrom = unreadMessages.get(userAccount.getID());
-        Map<String, Integer> inviteGamesFrom = new HashMap<>(); //TODO get it from servletContext
+        Map<String, Integer> inviteGamesFrom = gameInvitations.get(userName);
 
         Notification notification = makeNotification(friendRequestsFrom, unreadMessagesFrom, inviteGamesFrom, accountDao);
 

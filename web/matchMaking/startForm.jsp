@@ -28,8 +28,8 @@
     <label for="checkBox3">
         <input type="checkbox" name="roomsize4" id="checkBox3" onclick="updateButton()"><span>4 Player Room</span>
     </label></fieldset>
-    <button style="margin-left:34%; margin-right:20%; width:60%;" type="submit"
-            class="btn btn-block btn-primary btn-lg" id = "button" disabled>დაიწყე თამაში</button>
+<button style="margin-left:34%; margin-right:20%; width:60%;" type="submit"
+        class="btn btn-block btn-primary btn-lg" id = "button" disabled>დაიწყე თამაში</button>
 <div class="col-md-6" style="float: right; margin-right: 50px; width: 664;">
     <!-- USERS LIST -->
     <div class="box box-danger">
@@ -42,20 +42,35 @@
                     for (String friend : friends) {
                 %>
                 <li>
-                    <img src="default.png" data-path ="<%=friend%>" alt="User Image">
-                    <a class="users-list-name" href="#"><%=friend%></a>
+                    <img src="default.png" data-path ="<%=friend%>" alt="User Image"  onclick="inviteFriend('<%=friend%>')" id="friendPic<%=friend%>">
+                    <a class="users-list-name" href="#" onclick="inviteFriend('<%=friend%>')"><%=friend%></a>
                     <span class="users-list-date"></span>
                 </li>
                 <%}%>
             </ul><!-- /.users-list -->
         </div><!-- /.box-body -->
-        <div class="box-footer text-center">
-            <a href="javascript:" class="uppercase">View All Users</a>
-        </div><!-- /.box-footer -->
     </div><!--/.box -->
 </div>
 <script src="../assignPath.js"></script>
 <script>
+    function inviteFriend(friendName) {
+        $.ajax({
+            url: "/InviteFriend?friendName="+friendName,
+
+            success: function (data) {
+                $("#friendPic"+friendName).css({
+                    "border-style": "groove",
+                    "border-width": "thick",
+                    "border-color": "green"});
+            },
+            error: function(data) {
+                console.log(data)
+            }
+
+        });
+
+    }
+
     function check() {
         $.get('StartingGroupService', function(resp) {
             //console.log(resp);
