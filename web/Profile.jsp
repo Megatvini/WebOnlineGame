@@ -2,6 +2,11 @@
 <%@ page import="Interfaces.iProfile" %>
 <%@ page import="Core.Bean.Account" %>
 <%@ page import="Interfaces.iAccount" %>
+<%@ page import="Core.Dao.GameDao" %>
+<%@ page import="Core.Bean.Game" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.text.Format" %>
+<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: Annie
@@ -49,9 +54,10 @@
 <body class="skin-blue sidebar-mini">
 <div class="wrapper">
   <%
+    Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     AccountDao userControl = (AccountDao)pageContext.getServletContext().getAttribute(AccountDao.class.getName());
 
-    String nickname = request.getParameter("nick");
+    String nickname = (String)request.getParameter("nickname");
     iProfile profile;
     if(nickname == null) {
       String redirectURL = "Accont/Login.jsp";
@@ -63,6 +69,10 @@
       profile = userControl.getUser(nickname);
     }
 
+    GameDao gameDao = (GameDao) application.getAttribute(GameDao.class.getName());
+    List<Game> gamesList = gameDao.getUserGamesByID(profile.getID(),10);
+
+
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
@@ -70,73 +80,204 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
     <div class="box box-primary" style="width: 96%; margin: 20px; min-width: 350px">
-      <form action="/ChangeAccount" method="post">
+      <form action="/ChangeAccount" method="get" accept-charset="UTF-8">
         <div class="box-header">
           <h3 class="box-title">პროფილი</h3>
         </div>
-        <div class="box-body">
-          <div align="center">
-            <div class="form-group" style="width: 300px;">
-              <img data-path="<%=nickname%>" src="default.png" alt="Smiley face" style="border-radius: 50%" height="300" width="300">
-              <br/>
-              <input class="form-control" type="text" name="picture" value="<%= profile.getPicturePath() %>"  placeholder="Default input">
-            </div>
-          </div>
-          <div class="form-group">
-            <label>სახელი</label>
-            <input class="form-control" type="text" name="firstname" value="<%= profile.getFirstName() %>" placeholder="Default input">
-          </div>
-          <div class="form-group">
-            <label>გვარი</label>
-            <input class="form-control" type="text" name="lastname"  value="<%= profile.getLastName() %>" placeholder="Default input">
-          </div>
 
-          <div class="form-group">
-            <label>მეილი</label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-              <input type="email" class="form-control" name="mail"  value="<%= profile.getMail() %>" placeholder="Email">
-            </div>
-          </div>
+        <style type="text/css">
+          .form-group
+          {
+            margin-right: 100px;
+          }
+          .tg  {border-collapse:collapse;border-spacing:0;}
+          .tg td{font-family:Arial, sans-serif;font-size:14px;padding:5px 5px; border-width:0;overflow:hidden;word-break:normal;}
+          .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:5px 5px; border-width:0;overflow:hidden;word-break:normal; width: 450px; vertical-align: top;}
+          #blanket {
+            background-color:#111;
+            opacity: 0.65;
+            *background:none;
+            position:absolute;
+            z-index: 9001;
+            top:0px;
+            left:0px;
+            width:100%;
+          }
 
-          <div class="form-group">
-            <label>Date masks:</label>
-            <div class="input-group">
-              <div class="input-group-addon">
-                <i class="fa fa-calendar"></i>
+          #popUpDiv {
+            position:absolute;
+            width:400px;
+            height:450px;
+            z-index: 9002;
+          }
+        </style>
+        <table class="tg">
+          <tr>
+            <th class="tg-031e" rowspan="6"> <div align="center">
+              <div class="form-group" style="width: 300px;">
+                <input type="hidden" id = "nickname" value="<%=nickname%>" />
+                <div class="form-group" style="width: 300px;" >
+                  <img  id = "profPic" src="default.png" alt="Smiley face"  height="300" width="300">
+                  <script>
+                    var host = "http://"+window.location.host+"/images?nickname=<%=nickname%>";
+                    $("#profPic").attr("src",host)
+                  </script>
+                  <div class="small-box bg-green">
+                    <div class="inner">
+                      <h3><%=profile.getRating()%><sup style="font-size: 20px"></sup></h3>
+                      <p>რეიტინგი</p>
+                    </div>
+                    <div class="icon">
+                      <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">
+                      ყველას რეიტინგი <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                  </div>
+
+
+                </div>
+
               </div>
-              <input type="date" class="form-control" value="<%= profile.getBirthDate() %>" name="date" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
-            </div><!-- /.input group -->
-          </div><!-- /.form group -->
+            </div></th>
+            <th class="tg-031e"> <div class="form-group">
+              <label>სახელი</label>
+              <input disabled class="form-control" type="text" name="firstname" value="<%= profile.getFirstName() %>" >
+            </div></th>
+          </tr>
+          <tr>
+            <td class="tg-031e">   <div class="form-group">
+              <label>გვარი</label>
+              <input disabled class="form-control" type="text" name="lastname"  value="<%= profile.getLastName() %>">
+            </div></td>
+          </tr>
+          <tr>
+            <td class="tg-031e">  <div class="form-group" style="width: 100%; margin-right: 25px">
+              <label>მეილი</label>
+              <div class="input-group" style="margin-right: 100px">
+                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                <input disabled type="email"  class="form-control" name="mail"  value="<%= profile.getMail() %>" >
+              </div>
+            </div></td>
+          </tr>
+          <tr>
+            <td class="tg-031e">  <div class="form-group">
+              <label>Date masks:</label>
+              <div class="input-group" style="width: 100%">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <input disabled type="date" class="form-control" value="<%= profile.getBirthDate() %>" name="date" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
+              </div><!-- /.input group -->
+            </div><!-- /.form group --></td>
+          </tr>
+          <tr>
+            <td class="tg-031e">
+              <div class="form-group" style="width: 70px; float: left">
+                <label>სქესი</label>
+                <div class="radio">
+                  <label>
+                    <input disabled type="radio" name="optionsRadios" id="optionsRadios1" value="option1" <%= profile.getGender() == iAccount.Gender.MALE ? "checked=\"\"" : "" %> >
+                    კაცი
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input disabled type="radio" name="optionsRadios" id="optionsRadios2" value="option2" <%= profile.getGender() == iAccount.Gender.FEMALE ? "checked=\"\"" : "" %>>
+                    ქალი
+                  </label>
+                </div>
 
-          <div class="form-group">
-            <label>არწერა</label>
-            <textarea class="form-control" rows="3" name="about" placeholder="Enter ..."><%= profile.getAbout() %></textarea>
-          </div>
+              </div>
+            </td>
 
-          <div class="form-group">
-            <label>სქესი</label>
-            <div class="radio">
-              <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" <%= profile.getGender() == iAccount.Gender.MALE ? "checked=\"\"" : "" %> >
-                კაცი
-              </label>
-            </div>
-            <div class="radio">
-              <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" <%= profile.getGender() == iAccount.Gender.FEMALE ? "checked=\"\"" : "" %>>
-                ქალი
-              </label>
-            </div>
+          </tr>
 
-          </div>
+        </table>
+        <div class="form-group" style="margin: 25px;">
+          <label>აღწერა</label>
+          <textarea disabled class="form-control" rows="3" name="about" placeholder="Enter ..."><%= profile.getAbout() %></textarea>
+        </div>
 
-        </div><!-- /.box-body -->
-        <div align="center"  style=" padding-bottom: 20px;">   <button class="btn btn-block btn-primary" style="width: 250px;">შენახვა</button></div>
       </form>
+
+      <div id="blanket" style="display:none">
+
+      </div>
+
+
+      <div class="modal-content" id="popUpDiv" style="display:none" >
+        <div class="modal-header">
+          <button onclick="popup('popUpDiv')" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title">Modal Primary</h4>
+        </div>
+        <div class="modal-body"  id = "passwordChange">
+
+          <div class="form-group" style="width: 100%">
+            <label>შეიყვანეთ პაროლი</label>
+            <input class="form-control" type="password" id="oldPassword" name="oldPass" value="" >
+          </div>
+          <div class="form-group" style="width: 100%">
+            <label>ახალი პაროლი</label>
+            <input class="form-control" type="password" id="newPassword" name="newPass" value="" >
+          </div>
+          <div class="form-group" style="width: 100%">
+            <label>გაიმეორეთ ახალი პაროლი</label>
+            <input class="form-control" type="password" id="passAgain"  name="passRep" value="">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" onclick="popup('popUpDiv')" data-dismiss="modal">დახურვა</button>
+          <button type="button" class="btn btn-default" onclick="javascript:savePassword()">შენახვა</button>
+        </div>
+        <div align="center">
+          <label class="text-center" id ="validationInfo" >   </label>
+        </div>
+      </div>
+
+      <div>
+
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">თამაშების ისტორია</h3>
+
+            </div><!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <tbody><tr>
+                  <th>#</th>
+                  <th>თარიღი</th>
+                  <th>ადგილი</th>
+                  <th>მოთამაშეების რაოდენობა</th>
+                  <th>რეიტინგის ცვლილება</th>
+                </tr>
+                <% int index = 1;
+                  for(Game game : gamesList){
+                    int place = game.getPlace();
+                    String cssClass =  place == 1 ? "label-success" : place == 2 ? "label-warning" : place == 3 ? "label-primary" : "label-danger";
+                %>
+                <tr>
+                  <td><%= index++ %></td>
+                  <td><%= formatter.format(game.getDate()) %></td>
+                  <td style=" padding-left: 27px;"><span class="label <%= cssClass %>"><%= place %></span></td>
+                  <td style=" padding-left: 95px;"><%= game.getParticipantIDs().size() %></td>
+                  <td style=" padding-left: 90px;"><%= game.getRatingChange() %></td>
+                </tr>
+                <% }%>
+                </tbody></table>
+            </div><!-- /.box-body -->
+          </div><!-- /.box -->
+        </div>
+      </div>
     </div>
 
+
   </div><!-- /.content-wrapper -->
+
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
 

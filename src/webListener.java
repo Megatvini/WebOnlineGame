@@ -57,7 +57,7 @@ public class webListener implements ServletContextListener,
 
         Set<String> onlineUsers = Collections.synchronizedSet(new HashSet<>());
         Map<Integer, Map<String, List<Message>>> unreadMessages = new ConcurrentHashMap<>();
-
+        Map<String, Map<String, Integer>> gameInvitations = Collections.synchronizedMap(new HashMap<>());
 
         sc.setAttribute(AccountDao.class.getName(), accountDao);
         sc.setAttribute(FriendsDao.class.getName(), friendsDao);
@@ -66,6 +66,8 @@ public class webListener implements ServletContextListener,
         sc.setAttribute(GameDao.class.getName(), gameDao);
         sc.setAttribute("onlineUsers", onlineUsers);
         sc.setAttribute("unreadMessages", unreadMessages);
+        sc.setAttribute("gameInvitations", gameInvitations);
+
 
 
         FileManager fileManager = new FileManager("pics/");
