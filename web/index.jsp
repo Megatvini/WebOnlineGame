@@ -6,6 +6,11 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="Core.Dao.AccountDao" %>
+<%@ page import="Core.Dao.GameDao" %>
+<%@ page import="Core.Bean.Game" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.text.Format" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -65,6 +70,7 @@
 <body class="skin-blue sidebar-mini">
 <div class="wrapper">
   <%
+    Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     AccountDao userControl = (AccountDao)pageContext.getServletContext().getAttribute(AccountDao.class.getName());
 
     String nickname = (String)session.getAttribute("nickname");
@@ -79,16 +85,16 @@
       profile = userControl.getUser(nickname);
     }
 
+    GameDao gameDao = (GameDao) application.getAttribute(GameDao.class.getName());
+    List<Game> gamesList = gameDao.getUserGamesByID(profile.getID(),10);
+
+
   %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
-
-
-
-
     <div class="box box-primary" style="width: 96%; margin: 20px; min-width: 350px">
       <form action="/ChangeAccount" method="get" accept-charset="UTF-8">
         <div class="box-header">
@@ -245,11 +251,45 @@
       <div>
 
       </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">თამაშების ისტორია</h3>
 
+            </div><!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <tbody><tr>
+                  <th>#</th>
+                  <th>თარიღი</th>
+                  <th>ადგილი</th>
+                  <th>მოთამაშეების რაოდენობა</th>
+                  <th>რეიტინგის ცვლილება</th>
+                </tr>
+                <% int index = 1;
+                  for(Game game : gamesList){
+                    int place = game.getPlace();
+                    String cssClass =  place == 1 ? "label-success" : place == 2 ? "label-warning" : place == 3 ? "label-primary" : "label-danger";
+                %>
+                <tr>
+                  <td><%= index++ %></td>
+                  <td><%= formatter.format(game.getDate()) %></td>
+                  <td style=" padding-left: 27px;"><span class="label <%= cssClass %>"><%= place %></span></td>
+                  <td style=" padding-left: 95px;"><%= game.getParticipantIDs().size() %></td>
+                  <td style=" padding-left: 90px;"><%= game.getRatingChange() %></td>
+                </tr>
+                <% }%>
+                </tbody></table>
+            </div><!-- /.box-body -->
+          </div><!-- /.box -->
+        </div>
+      </div>
     </div>
 
 
   </div><!-- /.content-wrapper -->
+
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
 

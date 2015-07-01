@@ -114,7 +114,6 @@
     <div style="background-color: #0063dc; margin: 30px" >
       <% for (String friendNick : friends) {
         iProfile shortProf = userControl.getUser(friendNick);
-
       %>
       <div style="background-color: #B0EDFF; width: 49%; float: left; padding: 5px 5px 5px 20px; border: groove #010046 thin">
         <img src="default.png" data-path ="<%=shortProf.getNickname()%>" alt="Smiley face" style="width: 100px; height: 100px; border-radius: 50%; float: left">

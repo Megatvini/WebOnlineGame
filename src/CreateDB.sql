@@ -127,6 +127,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`participations` (
   `GameID` INT(11) NOT NULL COMMENT '',
   `AccID` INT(11) NOT NULL COMMENT '',
   `RatingChange` INT(11) NOT NULL COMMENT '',
+  `Place` INT(1) NOT NULL COMMENT '',
   PRIMARY KEY (`ID`)  COMMENT '',
   INDEX `fk_Participations_Games1_idx` (`GameID` ASC)  COMMENT '',
   INDEX `fk_Participations_Accounts1_idx` (`AccID` ASC)  COMMENT '',

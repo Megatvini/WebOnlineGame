@@ -1,25 +1,16 @@
 package Game.Controller;
 
+import Core.Controller.RatingManager;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
-import java.util.Collection;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 @ServerEndpoint(value="/gameServer", configurator=ServerConfig.class)
 public class GameServer {
     public static final int WORKING_THREAD_NUMBER = 10;
     private GameManager gameManager;
     private String playerName;
-    /**
-     * constructor only used for testing purposes
-     * @param manager
-     */
-
     /**
      * default constructor
      */

@@ -1,5 +1,7 @@
-<%@ page import="MatchMaking.StartingGroup" %>
-<%@ page import="java.util.Map" %>
+
+<%@ page import="Interfaces.iProfile" %>
+<%@ page import="Core.Bean.Account" %>
+<%@ page import="Core.Dao.AccountDao" %>
 <%--
   Created by IntelliJ IDEA.
   User: gukam
@@ -7,11 +9,11 @@
   Time: 3:31 AM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>AdminLTE 2 | Dashboard</title>
+  <title>თამაშის დაწყება</title>
   <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
   <!-- Bootstrap 3.3.4 -->
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -42,79 +44,81 @@
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+  <!-- jQuery 2.1.4 -->
+  <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+  <!-- jQuery UI 1.11.2 -->
+  <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
+
+  <script src="upload_script.js"></script>
+  <link href="matchMaking/css/buttons.css" rel="stylesheet">
   <![endif]-->
 </head>
-<body class="skin-blue sidebar-mini layout-boxed">
+<body class="skin-blue sidebar-mini">
 <div class="wrapper">
+  <%
+    AccountDao userControl = (AccountDao)pageContext.getServletContext().getAttribute(AccountDao.class.getName());
 
+    String nickname = (String)session.getAttribute("nickname");
+    iProfile profile;
+    if(nickname == null) {
+      String redirectURL = "Accont/Login.jsp";
+      response.sendRedirect(redirectURL);
+      profile = new Account();
+    }
+    else
+    {
+      profile = userControl.getUser(nickname);
+    }
+
+  %>
   <jsp:include page="Controller/Header.jsp" flush="true"></jsp:include>
   <jsp:include page="Controller/Sidebar.jsp" flush="true"></jsp:include>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="padding: 1px;">
-    <form action="/StartGame" method="get">
-      <fieldset>
-        <legend>Choose Room Size</legend>
+    <div class="box box-primary" style="width: 96%; margin: 20px; min-width: 350px">
+      <div class="box-header"><h3 class="box-title">თამაშის დაწყება</h3></div>
+      <div>
+        <form action="/StartGame" method="get">
+          <fieldset>
+            <legend>აირჩიე მოთამაშეები</legend>
+            <fieldset class="innerFieldset">
+              <legend>Player 1</legend>
+              <input name="p1" id="p1" value="Empty" style="border:none" readonly>
+            </fieldset>
+            <br>
 
-        <label for="checkBox1">
-          <input type="checkbox" name="roomsize2" id="checkBox1" onclick="updateButton()"><span>2 Player Room</span>
-        </label>
+            <fieldset class="innerFieldset">
+              <legend>Player 2</legend>
+              <input name="p2" id="p2" value="Empty" style="border:none" readonly>
+            </fieldset>
+            <br>
 
-        <label for="checkBox2">
-          <input type="checkbox" name="roomsize3" id="checkBox2" onclick="updateButton()"><span>3 Player Room</span>
-        </label>
+            <fieldset class="innerFieldset">
+              <legend>Player 3</legend>
+              <input name="p3" id="p3" value="Empty" style="border:none" readonly>
+            </fieldset>
+            <br>
 
-        <label for="checkBox3">
-          <input type="checkbox" name="roomsize4" id="checkBox3" onclick="updateButton()"><span>4 Player Room</span>
-        </label>
-        <br>
-
-        <fieldset>
-          <legend>Player 1</legend>
-          <input name="p1" id="p1" value="Empty" style="border:none" readonly>
-        </fieldset>
-        <br>
-
-        <fieldset>
-          <legend>Player 2</legend>
-          <input name="p2" id="p2" value="Empty" style="border:none" readonly>
-        </fieldset>
-        <br>
-
-        <fieldset>
-          <legend>Player 3</legend>
-          <input name="p3" id="p3" value="Empty" style="border:none" readonly>
-        </fieldset>
-        <br>
-
-        <fieldset>
-          <legend>Player 4</legend>
-          <input name="p4" id="p4" value="Empty" style="border:none" readonly>
-        </fieldset>
-        <br>
-        <%
-          String userName = (String) session.getAttribute("nickname");
-          Map<String, StartingGroup> groupMap = (Map<String, StartingGroup>)
-                  session.getServletContext().getAttribute(StartingGroup.class.getName());
-          StartingGroup group = groupMap.get(userName);
-          if (group == null) response.sendRedirect("index.jsp");
-          else {
-            if (group.getCreator().equals(userName))
-              out.print("        <button style=\"margin-left:20%; margin-right:20%; width:60%;\" " +
-                      "type=\"submit\" " +
-                      "class=\"xlarge blue button\" id = \"button\" disabled>START GAME</button>\n");
-          }
-        %>
-      </fieldset>
-    </form>
+            <fieldset class="innerFieldset">
+              <legend>Player 4</legend>
+              <input name="p4" id="p4" value="Empty" style="border:none" readonly>
+            </fieldset>
+            <br>
+            <%@include  file="matchMaking/submitroom.jsp" %>
+          </fieldset>
+        </form>
+      </div>
+      <div align="left">
+        <p>megobrebis mowveva</p>
+      </div>
+    </div>
   </div><!-- /.content-wrapper -->
+
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
 
-<!-- jQuery 2.1.4 -->
-<script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
-<!-- jQuery UI 1.11.2 -->
-<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);
@@ -150,7 +154,7 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js" type="text/javascript"></script>
-
+<script src="dist/js/popup.js" type="text/javascript"></script>
 <script>
   function check() {
     $.get('StartingGroupService', function(resp) {
@@ -202,6 +206,7 @@
   function updateButton() {
     if ($("#button")) {
       var count = $("[type='checkbox']:checked").length;
+      console.log(count);
       if (count == 0) $("#button").prop("disabled", true);
       else $("#button").prop("disabled", false);
     }

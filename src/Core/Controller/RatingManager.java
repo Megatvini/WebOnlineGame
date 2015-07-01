@@ -11,13 +11,13 @@ import java.util.List;
  * Created by Nika on 16:38, 6/26/2015.
  */
 
-public class GameManager {
-    public static final int DEFAULT_RATING = 1200;
-    public static final int K_RATING_VALUE = 15;
+public class RatingManager {
+    public static final int DEFAULT_RATING = 1000;
+    public static final int K_RATING_VALUE = 70;
     private AccountDao accountDao;
     private GameDao gameDao;
 
-    public GameManager(AccountDao accountDao, GameDao gameDao) {
+    public RatingManager(AccountDao accountDao, GameDao gameDao) {
         this.accountDao = accountDao;
         this.gameDao = gameDao;
     }
@@ -38,7 +38,7 @@ public class GameManager {
         for (int i=0; i < accountPositions.size(); i++) {
             iAccount account = accountPositions.get(i);
             int ratingChange = ratingChanges.get(i);
-            gameDao.addParticipation(gameID, account.getID(), ratingChange);
+            gameDao.addParticipation(gameID, account.getID(), ratingChange, i+1);
             account.setRating(account.getRating() + ratingChange);
             accountDao.changeUser(account);
         }

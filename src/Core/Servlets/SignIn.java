@@ -64,7 +64,7 @@ public class SignIn extends HttpServlet {
         if (unreadMessages == null) throw new RuntimeException("Unread Messages is NULL");
 
         Map<String, List<Message>> newMessageList = cachedMessagesDao.takeMessages(accId);
-        if (unreadMessages.size() != 0) unreadMessages.put(accId, newMessageList);
+        if (newMessageList.size() != 0) unreadMessages.put(accId, newMessageList);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
