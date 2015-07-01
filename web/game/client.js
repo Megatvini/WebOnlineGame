@@ -2,7 +2,7 @@ var self = this,
 	gameConfig = {},
 	distanceR1,
 	firstDist,
-	limit = 1.2,
+	limit = 1.5,
 	connection;
 
 var Client = IgeClass.extend({

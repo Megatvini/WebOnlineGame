@@ -33,8 +33,8 @@
     </annotationProcessing>
   </component>
   <component name="CopyrightManager" default="" />
-  <component name="DataSourceManagerImpl" format="xml" hash="612595957">
-    <data-source source="LOCAL" name="MySQL - mydb@localhost" uuid="ef7ea0e1-13b9-4c82-a3a1-08fc3da7f845">
+  <component name="DataSourceManagerImpl" format="xml" hash="4058744524">
+    <data-source source="LOCAL" name="MySQL - mydb@localhost" uuid="59fe1d2c-d904-411a-ab93-d3f5c8a8e878">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
@@ -198,6 +198,10 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/CreateDB.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/Core/Dao/AccountDao.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Core/Dao/CachedMessagesDao.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Core/Dao/FriendsDao.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Core/Dao/GameDao.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Core/Dao/MessageDao.java" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/CreateDB.sql" dialect="MySQL" />
   </component>
   <component name="VcsDirectoryMappings">
@@ -211,7 +215,7 @@
     </option>
   </component>
   <component name="dataSourceStorageLocal">
-    <data-source name="MySQL - mydb@localhost" uuid="ef7ea0e1-13b9-4c82-a3a1-08fc3da7f845">
+    <data-source name="MySQL - mydb@localhost" uuid="59fe1d2c-d904-411a-ab93-d3f5c8a8e878">
       <secret-storage>master_key</secret-storage>
       <user-name>root</user-name>
       <schema-pattern>mydb.*</schema-pattern>
@@ -221,18 +225,6 @@
   <component name="libraryTable">
     <library name="lib">
       <CLASSES>
-        <root url="file://$USER_HOME$/tomcat/apache-tomcat-8.0.21/lib" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="file://$USER_HOME$/tomcat/apache-tomcat-8.0.21/lib" />
-      </SOURCES>
-      <jarDirectory url="file://$USER_HOME$/tomcat/apache-tomcat-8.0.21/lib" recursive="false" />
-      <jarDirectory url="file://$USER_HOME$/tomcat/apache-tomcat-8.0.21/lib" recursive="false" type="SOURCES" />
-    </library>
-    <library name="WebSocket" type="WebSocket">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/tomcat/apache-tomcat-8.0.21/lib/websocket-api.jar!/" />
         <root url="file://$USER_HOME$/tomcat/apache-tomcat-8.0.21/lib" />
       </CLASSES>
       <JAVADOC />
