@@ -12,7 +12,7 @@ import Game.Model.*;
 public class GameFactory {
     public iWorld getNewInstance() {
         Configuration config = Configuration.getInstance();
-        GameMaze maze = new GameMaze(config.getNumRows(), config.getNumCols(), config);
+        GameMaze maze = new GameMaze(config);
         maze.makePerfect();
         maze.makeThinner(0.3);
         return new GameWorld(maze, config);
