@@ -163,10 +163,9 @@
               <img class="direct-chat-img" src="default.png" data-path= "<%=nickname%>" alt="message user image"><!-- /.direct-chat-img -->
 
               <div class="direct-chat-text">
-                 <%= mess.getText().replace(":D", "<img src=\"dist/img/smiles/smile.gif\" />") %>
+                 <%= mess.getText().replaceAll(":D", "<img src=\"dist/img/smiles/smile.gif\" />") %>
               </div><!-- /.direct-chat-text -->
             </div><!-- /.direc            t-chat-msg -->
-
 
             <% }
             else

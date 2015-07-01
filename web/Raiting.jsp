@@ -107,7 +107,7 @@
             double wid = ((users.size()-index+1) /(double) users.size()) * 100;
           %>
           <tr>
-            <td><%=shortProf.getNickname()%></td>
+            <td><a href="Profile.jsp?nickname=<%=shortProf.getNickname()%>"><%=shortProf.getNickname()%></a></td>
             <td><%=shortProf.getFirstName() + " " + shortProf.getLastName()%></td>
             <td><%=shortProf.getGender()%></td>
             <td> <%= "mdzletamdzle"%></td>
