@@ -1,6 +1,31 @@
 /**
  * Created by Annie on 27-Jun-15.
  */
+function addToInvates(nickname, pic){
+    var val =   '<li class="addedI">' +
+        '<a href="Friends.jsp">' +
+        '<i ></i>' +
+        '<img src="/default.png"  data-path="'+nickname+'" alt="Smiley face" style="width: 50px; height: 50px; border-radius: 50%;">' +
+        nickname +
+        '</a>' +
+        '</li>';
+
+    $("#notInvates").append(val);
+
+
+    $('img').each(function() {
+        var self = $(this),
+            nickname =  $(this).attr('data-path'),
+            fullPath;
+        if(self.attr("src")=='default.png'||self.attr("src")=='/default.png') {
+            fullPath = 'http://' + window.location.host + '/images?nickname=' + nickname;
+        }
+        self.attr("src",fullPath);
+
+    });
+}
+
+
 function addToFriends(nickname, pic){
     var val =   '<li class="addedF">' +
                 '<a href="Friends.jsp">' +
@@ -60,6 +85,7 @@ function addToGames(text, date){
 function notificationCounts(requestsCount, messagesCount, invatesCount){
     $("#requestsSpan").append('<div class="deletable" >' + requestsCount + '</div>');
     $("#messagesSpan").append('<div class="deletable" >' + messagesCount + '</div>');
+    $("#invatesSpan").append('<div class="deletable" >' + invatesCount + '</div>');
 }
 
 function checkNots() {
@@ -77,9 +103,10 @@ function updateNots(data){
 
     var friendRequests = data.friendRequestsFrom;
     var messages = data.newMessages;
+    var invites = data.inviteGamesFrom;
 
     $('.deletable').remove();
-    notificationCounts(friendRequests.length, messages.length);
+    notificationCounts(friendRequests.length, messages.length, invites.length);
     //var gameInvites = data[2];
 
     $('.addedF').remove();
