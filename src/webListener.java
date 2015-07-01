@@ -3,12 +3,12 @@
  */
 
 import Core.Bean.Account;
+import Core.Bean.Game;
 import Core.Bean.Message;
+import Core.Controller.RatingManager;
 import Core.DBInfo;
-import Core.Dao.AccountDao;
-import Core.Dao.CachedMessagesDao;
-import Core.Dao.FriendsDao;
-import Core.Dao.MessageDao;
+import Core.Dao.*;
+import Core.FileUploading.FileManager;
 import Game.Controller.GameFactory;
 import Game.Controller.GameManager;
 import Game.Controller.GameServer;
@@ -52,23 +52,32 @@ public class webListener implements ServletContextListener,
         AccountDao accountDao = new AccountDao(ds);
         FriendsDao friendsDao = new FriendsDao(ds);
         MessageDao messageDao = new MessageDao(ds);
+        GameDao gameDao = new GameDao(ds);
         CachedMessagesDao cachedMessagesDao = new CachedMessagesDao(ds);
 
         Set<String> onlineUsers = Collections.synchronizedSet(new HashSet<>());
-        Map<Integer, Map<String, List<Message>>> unreadMessages = Collections.synchronizedMap(new HashMap<>());
+        Map<Integer, Map<String, List<Message>>> unreadMessages = new ConcurrentHashMap<>();
 
 
         sc.setAttribute(AccountDao.class.getName(), accountDao);
         sc.setAttribute(FriendsDao.class.getName(), friendsDao);
         sc.setAttribute(MessageDao.class.getName(), messageDao);
         sc.setAttribute(CachedMessagesDao.class.getName(), cachedMessagesDao);
+        sc.setAttribute(GameDao.class.getName(), gameDao);
         sc.setAttribute("onlineUsers", onlineUsers);
         sc.setAttribute("unreadMessages", unreadMessages);
 
 
+        FileManager fileManager = new FileManager("pics/");
+        sc.setAttribute(FileManager.class.getName(),fileManager);
+
+
+
+
         Map<String, Collection<String>> roomMates = new ConcurrentHashMap<>();
+        RatingManager ratingManager = new RatingManager(accountDao, gameDao);
         GameManager gameManager = new GameManager(roomMates, new GameFactory(), new UserConnector(),
-                new ScheduledThreadPoolExecutor(GameServer.WORKING_THREAD_NUMBER));
+                new ScheduledThreadPoolExecutor(GameServer.WORKING_THREAD_NUMBER), ratingManager);
 
         sce.getServletContext().setAttribute("roomMates", roomMates);
         sce.getServletContext().setAttribute(MatchMaker.class.getName(),

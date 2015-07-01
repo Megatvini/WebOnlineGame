@@ -1,5 +1,6 @@
 package Game.Controller;
 
+import Core.Controller.RatingManager;
 import Game.Model.GameWorld;
 import org.junit.Test;
 
@@ -22,6 +23,7 @@ public class GameManagerTest {
     private GameFactory factoryMock;
     private UserConnector connectorMock;
     private GameWorld gameWorldMock;
+    private RatingManager ratingManagerMock;
 
 
     private void initMocks() {
@@ -29,6 +31,7 @@ public class GameManagerTest {
         executorMock = mock(ScheduledThreadPoolExecutor.class);
         factoryMock = mock(GameFactory.class);
         gameWorldMock = mock(GameWorld.class);
+        ratingManagerMock = mock(RatingManager.class);
         when(gameWorldMock.getInit()).thenReturn(mock(JsonObject.class));
         when(gameWorldMock.getUpdate(anyString())).thenReturn(mock(JsonObject.class));
         when(factoryMock.getNewInstance()).thenReturn(gameWorldMock);
@@ -55,37 +58,40 @@ public class GameManagerTest {
     @Test
     public void testAddPlayer() throws Exception {
         initMocks();
-        GameManager gameManager = new GameManager(roomMates, factoryMock, connectorMock, executorMock);
+        GameManager gameManager = new GameManager(roomMates, factoryMock, connectorMock, executorMock, ratingManagerMock);
 
         Session sessionMock = mock(Session.class);
         gameManager.addPlayer("room1player1", sessionMock);
-        verify(connectorMock).sendMessageTo(eq("room1player1"), anyString());
-        verify(connectorMock).addUser("room1player1", sessionMock);
+        verify(connectorMock, times(1)).addUser("room1player1", sessionMock);
 
         gameManager.addPlayer("room1player2", sessionMock);
-        verify(connectorMock, times(1)).sendMessageTo(eq("room1player2"), anyString());
         verify(connectorMock, times(1)).addUser("room1player2", sessionMock);
 
-        gameManager.addPlayer("room1player2", sessionMock);
-        verify(connectorMock, times(2)).sendMessageTo(eq("room1player2"), anyString());
-        verify(connectorMock, times(2)).addUser("room1player2", sessionMock);
+        List<String> list = new ArrayList<>();
+        list.add("room1player1");
+        list.add("room1player2");
+        list.add("room1player3");
+        when(gameWorldMock.numberOfPlayers()).thenReturn(3);
+        when(gameWorldMock.getPlayers()).thenReturn(list);
+
+        gameManager.addPlayer("room1player3", sessionMock);
+        verify(connectorMock, times(1)).addUser("room1player3", sessionMock);
+
+        verify(connectorMock, times(1)).sendMessageTo(eq("room1player1"), anyString());
+        verify(connectorMock, times(1)).sendMessageTo(eq("room1player2"), anyString());
+        verify(connectorMock, times(1)).sendMessageTo(eq("room1player3"), anyString());
     }
 
     @Test
     public void testRemovePlayer() throws Exception {
         initMocks();
-        GameManager gameManager = new GameManager(roomMates, factoryMock, connectorMock, executorMock);
+        GameManager gameManager = new GameManager(roomMates, factoryMock, connectorMock, executorMock, ratingManagerMock);
         Session sessionMock1 = mock(Session.class);
         Session sessionMock2 = mock(Session.class);
         Session sessionMock3 = mock(Session.class);
 
-        gameManager.addPlayer("room1player1", sessionMock1);
-        gameManager.addPlayer("room1player2", sessionMock2);
-        gameManager.addPlayer("room1player3", sessionMock3);
-
-        verify(connectorMock).sendMessageTo(eq("room1player1"), anyString());
-        verify(connectorMock).sendMessageTo(eq("room1player2"), anyString());
-        verify(connectorMock).sendMessageTo(eq("room1player3"), anyString());
+        List<String> list = new ArrayList<>();
+        when(gameWorldMock.getPlayers()).thenReturn(list);
 
         gameManager.removePlayer("room1player1");
         gameManager.removePlayer("room1player2");
@@ -99,7 +105,7 @@ public class GameManagerTest {
     @Test
     public void testSetUpdateFromPlayer() throws Exception {
         initMocks();
-        GameManager gameManager = new GameManager(roomMates, factoryMock, connectorMock, executorMock);
+        GameManager gameManager = new GameManager(roomMates, factoryMock, connectorMock, executorMock, ratingManagerMock);
 
         Session sessionMock1 = mock(Session.class);
         Session sessionMock2 = mock(Session.class);
@@ -122,23 +128,6 @@ public class GameManagerTest {
     }
 
     @Test
-    public void combinedTest() {
-        initMocks();
-        GameManager gameManager = new GameManager(roomMates, factoryMock, connectorMock, executorMock);
-        Session sessionMock1 = mock(Session.class);
-        Session sessionMock2 = mock(Session.class);
-        Session sessionMock3 = mock(Session.class);
-
-        gameManager.addPlayer("room1player1", sessionMock1);
-        gameManager.addPlayer("room1player2", sessionMock2);
-        gameManager.addPlayer("room1player3", sessionMock3);
-
-        verify(connectorMock).sendMessageTo(eq("room1player1"), anyString());
-        verify(connectorMock).sendMessageTo(eq("room1player2"), anyString());
-        verify(connectorMock).sendMessageTo(eq("room1player3"), anyString());
-    }
-
-    @Test
     public void combinedTest1() {
         initMocks();
         List<String> list = mock(ArrayList.class);
@@ -146,10 +135,25 @@ public class GameManagerTest {
         when(gameWorldMock.getPlayers()).thenReturn(list);
         when(executorMock.scheduleAtFixedRate(any(), anyInt(), anyInt(), any())).thenReturn(mock(ScheduledFuture.class));
 
-        GameManager gameManager = new GameManager(roomMates, factoryMock, connectorMock, executorMock);
+        GameManager gameManager = new GameManager(roomMates, factoryMock, connectorMock, executorMock, ratingManagerMock);
         gameManager.addPlayer("room1player1", mock(Session.class));
         gameManager.addPlayer("room1player2", mock(Session.class));
         gameManager.addPlayer("room1player3", mock(Session.class));
         verify(executorMock, times(4)).scheduleAtFixedRate(any(), anyInt(), anyInt(), any());
+    }
+
+    @Test
+    public void combinedTest2() {
+        initMocks();
+        List<String> list = mock(ArrayList.class);
+        when(list.size()).thenReturn(1);
+        when(gameWorldMock.getPlayers()).thenReturn(list);
+        when(executorMock.scheduleAtFixedRate(any(), anyInt(), anyInt(), any())).thenReturn(mock(ScheduledFuture.class));
+
+        GameManager gameManager = new GameManager(roomMates, factoryMock, connectorMock, executorMock, ratingManagerMock);
+        gameManager.addPlayer("room1player1", mock(Session.class));
+        gameManager.addPlayer("room1player2", mock(Session.class));
+        gameManager.addPlayer("room1player3", mock(Session.class));
+        verify(executorMock, times(1)).scheduleAtFixedRate(any(), anyInt(), anyInt(), any());
     }
 }

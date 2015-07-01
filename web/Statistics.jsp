@@ -45,6 +45,8 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <!-- jQuery 2.1.4 -->
+  <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
 </head>
 <body class="skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
@@ -124,8 +126,7 @@
   <jsp:include page="Controller/Footer.jsp" flush="true"></jsp:include>
 </div><!-- ./wrapper -->
 
-<!-- jQuery 2.1.4 -->
-<script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+
 <!-- jQuery UI 1.11.2 -->
 <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->

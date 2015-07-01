@@ -1,5 +1,6 @@
 package Game.Controller;
 
+import Core.Controller.RatingManager;
 import Game.Model.iWorld;
 
 import javax.websocket.RemoteEndpoint;
@@ -35,6 +36,9 @@ public class GameManager {
     //running services of scheduledThreadPoolExecutor
     private Map<iWorld, ScheduledFuture> runningServices;
 
+    //change rating of players after game
+    private RatingManager ratingManager;
+
     /**
      *
      * @param roomMates used to distribute connected players in rooms
@@ -43,13 +47,15 @@ public class GameManager {
      * @param executor Thread Pool for completing scheduled tasks
      */
     public GameManager(Map<String, Collection<String>> roomMates, GameFactory factory,
-                       UserConnector connector, ScheduledThreadPoolExecutor executor) {
+                       UserConnector connector, ScheduledThreadPoolExecutor executor,
+                       RatingManager ratingManager) {
         this.roomMates = roomMates;
         this.gameFactory = factory;
         this.connector = connector;
         this.executor = executor;
         this.rooms = Collections.synchronizedMap(new HashMap<>());
         this.runningServices = new ConcurrentHashMap<>();
+        this.ratingManager = ratingManager;
 
         scheduleCleaningService();
     }
@@ -68,6 +74,7 @@ public class GameManager {
                     rooms.remove(x);
                     connector.removeUser(x);
                 });
+                ratingManager.addNewGameResults(world.playerPlaces());
             }
         }), SERVICE_CANCEL_INTERVAL, SERVICE_CANCEL_INTERVAL, TimeUnit.MILLISECONDS);
     }
@@ -117,7 +124,7 @@ public class GameManager {
         System.out.println("PLayers size " + players.size());
         if (players.size() == roomMates.get(playerName).size()) {
             System.out.println("Room is Full");
-            players.forEach(p->connector.sendMessageTo(p, world.getInit().toString()));
+            players.forEach(this::sendInit);
             scheduleUpdate(world);
             world.startGame();
         }
@@ -133,7 +140,7 @@ public class GameManager {
             world.getPlayers().forEach(x -> connector.sendMessageTo(x, world.getUpdate(x).toString()));
            // System.out.println("sent update");
         }, INITIAL_UPDATE_DELAY, UPDATE_INTERVAL, TimeUnit.MILLISECONDS);
-        runningServices.put(world, scheduledFuture);
+        if (scheduledFuture != null) runningServices.put(world, scheduledFuture);
     }
 
     /**

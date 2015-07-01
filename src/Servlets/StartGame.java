@@ -31,16 +31,15 @@ public class StartGame extends HttpServlet {
         readParameters(request, arbitraryRoomMates, roomSizes);
 
         if (roomSizes.size() == 0) {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/matchMaking/play.jsp");
-            dispatcher.forward(request, response);
+            response.sendRedirect("/matchMaking/play.jsp");
             return;
         }
 
         if (!validate(roomSizes, arbitraryRoomMates)) {
-            request.getRequestDispatcher("play.jsp").forward(request, response);
+            response.sendRedirect("play.jsp");
         } else {
             matchMaker.addParticipants(arbitraryRoomMates, roomSizes);
-            request.getRequestDispatcher("matchMaking/loading.jsp").forward(request, response);
+            response.sendRedirect("matchMaking/loading.jsp");
         }
     }
 

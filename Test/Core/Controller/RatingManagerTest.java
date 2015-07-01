@@ -8,20 +8,19 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 
 /**
  * Created by Nika on 00:55, 6/29/2015.
  */
-public class GameManagerTest {
+public class RatingManagerTest {
     @Test
     public void testAddNewGameResults() throws Exception {
         AccountDao accountDaoMock = mock(AccountDao.class);
         GameDao gameDaoMock = mock(GameDao.class);
 
-        GameManager gameManager = new GameManager(accountDaoMock, gameDaoMock);
+        RatingManager gameManager = new RatingManager(accountDaoMock, gameDaoMock);
         List<String> gameResult = new ArrayList<>();
         gameResult.add("nika");
         gameResult.add("rezo");
