@@ -14,13 +14,13 @@ var image = {
             y:entity._translate.y
         };
 
-        var grd = ctx.createRadialGradient(centre.x, centre.y, 1, centre.x, centre.y, entity._geometry.x);
+        var grd = ctx.createRadialGradient(centre.x, centre.y, 1, centre.x, centre.y, entity._geometry.x/2);
         var circleRadius = entity._geometry.x ;
         var playerRadius = entity.radius;
         var dr = playerRadius/circleRadius;
-        grd.addColorStop(dr, 'rgba(0,0,0,0)');
-        grd.addColorStop(dr, 'rgba(0,0,255,.6)');
-        grd.addColorStop(1, 'rgba(0,0,255,.1)');
+        grd.addColorStop(dr-0.05, 'rgba(0,0,0,0)');
+        grd.addColorStop(dr-0.05, 'rgba(0,0,255,.3)');
+        grd.addColorStop(1, 'rgba(0,0,255,.0)');
 
         ctx.beginPath();
         ctx.arc(centre.x,centre.y,entity._geometry.x,0,2*Math.PI);

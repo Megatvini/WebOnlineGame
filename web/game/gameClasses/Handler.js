@@ -28,6 +28,7 @@ var Handler = IgeEntity.extend({
             .height(0);
         // Load the character texture file
         //.mount(self.scene1)
+        //ige.input.on('keyUp', function (event, keyCode) { self._keyUp(event, keyCode); });
     },
 
     /**
@@ -170,8 +171,16 @@ var Handler = IgeEntity.extend({
                 } else {
                     if (!onePlayer.active) {
                         if (!characters[name].destroed) {
+
                             characters[name].destroy();
                             characters[name].destroed = true;
+                            if(name==self.myId){
+                                self.vp1.camera.lookAt(self.mainScene);
+                                self.vp1.camera.trackTranslate(self.mainScene);
+                                self.vp1.scaleTo(0.6,0.6)
+
+
+                            }
                         }
                     } else {
                         if (name != self.myId) {
@@ -315,9 +324,17 @@ var Handler = IgeEntity.extend({
         //ige.stop();
 
         alert("GAME OVER");
+    },
+
+    _keyUp: function (event, keyCode) {
+        if(characters[self.myId].destroed){
+
+            if (keyCode === ige.input.key.space) {
+                // Change the character
+            }
+        }
+
     }
-
-
 
 
 
