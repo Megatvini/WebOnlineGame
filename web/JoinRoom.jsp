@@ -174,7 +174,7 @@
     $.get('StartingGroupService', function (arr) {
       console.log(arr);
       if (arr.length == 0) {
-        window.location.replace("/game/fourColors.html");
+        window.location.replace("matchMaking/loading.jsp");
       } else{
         var i = 0;
         for (; i < arr.length; i++) {
