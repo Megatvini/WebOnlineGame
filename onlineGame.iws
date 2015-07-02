@@ -1,0 +1,1869 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e1c936c0-64fa-4b23-84e1-a7c39d78dde2" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test/Game/Model/GameMazeTest.java" afterPath="$PROJECT_DIR$/Test/Game/Model/GameMazeTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/onlineGame.iws" afterPath="$PROJECT_DIR$/onlineGame.iws" />
+    </list>
+    <ignored path="onlineGame.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <ignored path=".idea/" />
+    <ignored mask=".iws" />
+    <ignored path="onlineGame.iml" />
+    <ignored path="onlineGame.ipr" />
+    <ignored path="lib/" />
+    <ignored path="src/Core/DBInfo.java" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DatabaseView">
+    <option name="FLATTEN" value="false" />
+    <option name="GROUP_BY_TYPE" value="true" />
+    <option name="SORT_CHILDREN" value="false" />
+    <option name="SHOW_TABLE_CONSTRAINTS" value="true" />
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="MySQL - mydb@localhost" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="mydb" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="waitingfriends" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="MySQL - mydb@localhost" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="mydb" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="UnreadMessages" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="MySQL - mydb@localhost" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="mydb" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="participations" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="MySQL - mydb@localhost" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="mydb" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="MySQL - mydb@localhost" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="mydb" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="games" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="MySQL - mydb@localhost" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="mydb" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="friends" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="MySQL - mydb@localhost" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="mydb" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="conversations" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="MySQL - mydb@localhost" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="mydb" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="accounts" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="onlineGame" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="UI.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/game/gameClasses/UI.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="82" column="34" selection-start-line="82" selection-start-column="34" selection-end-line="82" selection-end-column="34" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="client.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/game/client.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.8">
+              <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Configuration.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Game/Model/Configuration.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Circle.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/game/assets/Circle.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameWorld.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Game/Model/GameWorld.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="393" column="0" selection-start-line="393" selection-start-column="0" selection-end-line="394" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Player.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Game/Model/Player.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3561431">
+              <caret line="114" column="24" selection-start-line="114" selection-start-column="24" selection-end-line="114" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameMazeTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Test/Game/Model/GameMazeTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="641" column="1" selection-start-line="641" selection-start-column="1" selection-end-line="641" selection-end-column="1" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="docComment;class#GameMazeTest#0" expanded="false" />
+                <element signature="e#21636#21637#0" expanded="true" />
+                <element signature="e#21696#21697#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Handler.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/game/gameClasses/Handler.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="186" column="26" selection-start-line="186" selection-start-column="26" selection-end-line="186" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="loading.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/matchMaking/loading.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-14.148149">
+              <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Jsp File" />
+        <option value="JavaScript File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="MERGE" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="NewSiteBranch" />
+      </map>
+    </option>
+    <option name="RESET_MODE" value="MIXED" />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/web/upload_script.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/web/index.jsp" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/Servlets/MatchMaker.java" />
+        <option value="$PROJECT_DIR$/src/Servlets/QuickPlay.java" />
+        <option value="$PROJECT_DIR$/src/Servlets/StartingGroupService.java" />
+        <option value="$PROJECT_DIR$/web/matchMaking/newroom.jsp" />
+        <option value="$PROJECT_DIR$/web/matchMaking/userInGame.jsp" />
+        <option value="$PROJECT_DIR$/web/game/ige/engine/CoreConfig.js" />
+        <option value="$PROJECT_DIR$/src/Core/Servlets/SignIn.java" />
+        <option value="$PROJECT_DIR$/src/webListener.java" />
+        <option value="$PROJECT_DIR$/src/Core/Bean/Account.java" />
+        <option value="$PROJECT_DIR$/src/Core/FileUploading/Downloader.java" />
+        <option value="$PROJECT_DIR$/src/Core/FileUploading/FileManager.java" />
+        <option value="$PROJECT_DIR$/web/Raiting.jsp" />
+        <option value="$PROJECT_DIR$/web/Profile.jsp" />
+        <option value="$PROJECT_DIR$/web/Users.jsp" />
+        <option value="$PROJECT_DIR$/web/Messages.jsp" />
+        <option value="$PROJECT_DIR$/web/assignPath.js" />
+        <option value="$PROJECT_DIR$/web/Controller/Sidebar.jsp" />
+        <option value="$PROJECT_DIR$/web/NotificationScripts.js" />
+        <option value="$PROJECT_DIR$/web/upload_script.js" />
+        <option value="$PROJECT_DIR$/web/Friends.jsp" />
+        <option value="$PROJECT_DIR$/src/Core/FileUploading/UploadServlet.java" />
+        <option value="$PROJECT_DIR$/src/Core/Servlets/Main.java" />
+        <option value="$PROJECT_DIR$/src/Core/Servlets/AddToFriend.java" />
+        <option value="$PROJECT_DIR$/src/CreateDB.sql" />
+        <option value="$PROJECT_DIR$/src/Core/Servlets/Register.java" />
+        <option value="$PROJECT_DIR$/src/Core/Servlets/passwordChange.java" />
+        <option value="$PROJECT_DIR$/web/index.jsp" />
+        <option value="$PROJECT_DIR$/web/passValidate.js" />
+        <option value="$PROJECT_DIR$/web/Accont/Login.jsp" />
+        <option value="$PROJECT_DIR$/web/game/ige/engine/core/IgeViewport.js" />
+        <option value="$PROJECT_DIR$/web/game/fourColors.html" />
+        <option value="$PROJECT_DIR$/web/game/assets/wall.js" />
+        <option value="$PROJECT_DIR$/onlineGame.iws" />
+        <option value="$PROJECT_DIR$/src/Core/DBInfo.java" />
+        <option value="$PROJECT_DIR$/src/Core/Dao/GameDao.java" />
+        <option value="$PROJECT_DIR$/src/Core/Dao/AccountDao.java" />
+        <option value="$PROJECT_DIR$/src/Core/Dao/CachedMessagesDao.java" />
+        <option value="$PROJECT_DIR$/src/Core/Dao/FriendsDao.java" />
+        <option value="$PROJECT_DIR$/src/Core/Dao/MessageDao.java" />
+        <option value="$PROJECT_DIR$/src/Core/Servlets/Notifications.java" />
+        <option value="$PROJECT_DIR$/web/game/gameClasses/ClientWorld.js" />
+        <option value="vm:266" />
+        <option value="$PROJECT_DIR$/src/Game/Model/GameWorld.java" />
+        <option value="$PROJECT_DIR$/src/Game/Model/Player.java" />
+        <option value="$PROJECT_DIR$/web/game/gameClasses/UI.js" />
+        <option value="$PROJECT_DIR$/web/game/gameClasses/Handler.js" />
+        <option value="$PROJECT_DIR$/src/ConfigFile.properties" />
+        <option value="$PROJECT_DIR$/web/game/assets/Circle.js" />
+        <option value="$PROJECT_DIR$/web/game/client.js" />
+        <option value="$PROJECT_DIR$/src/a.java" />
+        <option value="$PROJECT_DIR$/Test/Game/Model/GameMazeTest.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="NamedScopeManager">
+    <order />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="65" />
+    <option name="y" value="-4" />
+    <option name="width" value="1301" />
+    <option name="height" value="772" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="onlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="onlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebOnlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="onlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebOnlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="onlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebOnlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="onlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebOnlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameClasses" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="onlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebOnlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="onlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebOnlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="onlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebOnlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="onlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WebOnlineGame" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Core/DBInfo.java" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="recentsLimit" value="5" />
+    <property name="restartRequiresConfirmation" value="true" />
+    <property name="FullScreen" value="false" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Ignored.Files" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="dynamic.classpath" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/web/game/assets" />
+      <recent name="$PROJECT_DIR$/lib" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/web/game" />
+      <recent name="$PROJECT_DIR$/web" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Tomcat Server.RUN">
+    <configuration default="false" name="index.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="/usr/local/bin/node" path-to-js-file="index.js" working-dir="$PROJECT_DIR$/web/game">
+      <method />
+    </configuration>
+    <configuration default="false" name="upload_script.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="/usr/local/bin/node" path-to-js-file="upload_script.js" working-dir="$PROJECT_DIR$/web">
+      <method />
+    </configuration>
+    <configuration default="false" name="index.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.0.212" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/game/index.jsp" />
+      <deployment>
+        <artifact name="onlineGame:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="index_jsp_onlineGame" />
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="onlineGame:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <configuration default="false" name="PlaneMazeTesterClassNotPartOfProject" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="Game.Model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="Game.Model.PlaneMazeTesterClassNotPartOfProject" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="onlineGame" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Handler.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="/usr/local/bin/node" path-to-js-file="Handler.js" working-dir="$PROJECT_DIR$/web/game/gameClasses">
+      <method />
+    </configuration>
+    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
+      <deployment />
+      <server-settings />
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <method />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="myFilePath" />
+      <option name="GLUE" />
+      <option name="myNameFilter" />
+      <option name="myGeneratedName" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
+      <option name="BCName" value="" />
+      <option name="IOSSimulatorSdkPath" value="" />
+      <option name="adlOptions" value="" />
+      <option name="airProgramParameters" value="" />
+      <option name="appDescriptorForEmulator" value="Android" />
+      <option name="debugTransport" value="USB" />
+      <option name="debuggerSdkRaw" value="BC SDK" />
+      <option name="emulator" value="NexusOne" />
+      <option name="emulatorAdlOptions" value="" />
+      <option name="fastPackaging" value="true" />
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="launchUrl" value="false" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="/usr/bin/flashplayerdebugger" />
+        </LauncherParameters>
+      </option>
+      <option name="mobileRunTarget" value="Emulator" />
+      <option name="moduleName" value="" />
+      <option name="overriddenMainClass" value="" />
+      <option name="overriddenOutputFileName" value="" />
+      <option name="overrideMainClass" value="false" />
+      <option name="runTrusted" value="true" />
+      <option name="screenDpi" value="0" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="url" value="http://" />
+      <option name="usbDebugPort" value="7936" />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
+      <option name="BCName" value="" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="/usr/bin/flashplayerdebugger" />
+        </LauncherParameters>
+      </option>
+      <option name="moduleName" value="" />
+      <option name="trusted" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+      <module name="" />
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="depsClasspath" value="false" />
+      <setting name="passParentEnv" value="true" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <setting name="launchBrowser" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Run Launcher">
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
+      <method />
+    </configuration>
+    <configuration default="false" name="RUN" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.0.212" ALTERNATIVE_JRE_ENABLED="false" ALTERNATIVE_JRE_PATH="">
+      <deployment>
+        <artifact name="onlineGame:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_(1)_onlineGame" />
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="32816" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="onlineGame:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <configuration default="false" name="Unnamed" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.0.212" ALTERNATIVE_JRE_ENABLED="false" ALTERNATIVE_JRE_PATH="">
+      <option name="START_JAVASCRIPT_DEBUGGER" value="true" />
+      <deployment>
+        <artifact name="onlineGame:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_onlineGame_2" />
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="50141" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="onlineGame:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <list size="7">
+      <item index="0" class="java.lang.String" itemvalue="Tomcat Server.RUN" />
+      <item index="1" class="java.lang.String" itemvalue="Tomcat Server.Unnamed" />
+      <item index="2" class="java.lang.String" itemvalue="Node.js.index.js" />
+      <item index="3" class="java.lang.String" itemvalue="Node.js.upload_script.js" />
+      <item index="4" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
+      <item index="5" class="java.lang.String" itemvalue="Application.PlaneMazeTesterClassNotPartOfProject" />
+      <item index="6" class="java.lang.String" itemvalue="Node.js.Handler.js" />
+    </list>
+    <recent_temporary>
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Node.js.Handler.js" />
+        <item index="1" class="java.lang.String" itemvalue="Application.PlaneMazeTesterClassNotPartOfProject" />
+        <item index="2" class="java.lang.String" itemvalue="Node.js.upload_script.js" />
+        <item index="3" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
+        <item index="4" class="java.lang.String" itemvalue="Node.js.index.js" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e1c936c0-64fa-4b23-84e1-a7c39d78dde2" name="Default" comment="" />
+      <created>1435538711754</created>
+      <option name="number" value="Default" />
+      <updated>1435538711754</updated>
+      <workItem from="1435538711356" duration="2477000" />
+      <workItem from="1435541275852" duration="14362000" />
+      <workItem from="1435558214123" duration="1352000" />
+      <workItem from="1435562911668" duration="1388000" />
+      <workItem from="1435571555975" duration="5902000" />
+      <workItem from="1435599711219" duration="21637000" />
+      <workItem from="1435654653785" duration="23220000" />
+      <workItem from="1435685680300" duration="28180000" />
+      <workItem from="1435721343689" duration="180000" />
+      <workItem from="1435721531606" duration="2031000" />
+      <workItem from="1435723630769" duration="784000" />
+      <workItem from="1435724474401" duration="13512000" />
+    </task>
+    <task id="LOCAL-00001" summary="saboloo">
+      <created>1435541871142</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1435541871142</updated>
+    </task>
+    <task id="LOCAL-00002" summary="saboloo">
+      <created>1435546646410</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1435546646410</updated>
+    </task>
+    <task id="LOCAL-00003" summary="saboloo">
+      <created>1435555672110</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1435555672110</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Merge branch 'NewSiteBranch' into GameDevelopment&#10;&#10;Conflicts:&#10;&#9;.idea/artifacts/WebOnlineGame_war_exploded.xml&#10;&#9;.idea/misc.xml&#10;&#9;WebOnlineGame.iml&#10;&#9;onlineGame.iml&#10;&#9;onlineGame.ipr&#10;&#9;src/Servlets/Listener.java&#10;&#9;web/game/assets/chars.png&#10;&#9;web/game/assets/readme.md&#10;&#9;web/game/css/default.css&#10;&#9;web/game/fourColors.html&#10;&#9;web/game/gameClasses/PlayerComponent.js&#10;&#9;web/game/ige/engine/CoreConfig.js&#10;&#9;web/game/ige/engine/assets/IgeCuboidSmartTexture.js&#10;&#9;web/game/ige/engine/assets/IgeFontSmartTexture.js&#10;&#9;web/game/ige/engine/components/IgeAnimationComponent.js&#10;&#9;web/game/ige/engine/components/IgeEntityManagerComponent.js&#10;&#9;web/game/ige/engine/components/IgeInputComponent.js&#10;&#9;web/game/ige/engine/components/IgeMousePanComponent.js&#10;&#9;web/game/ige/engine/components/IgeMouseZoomComponent.js&#10;&#9;web/game/ige/engine/components/IgePathComponent.js&#10;&#9;web/game/ige/engine/components/IgeTiledComponent.js&#10;&#9;web/game/ige/engine/components/IgeTimeComponent.js&#10;&#9;web/game/ige/engine/components/IgeTweenComponent.js&#10;&#9;web/game/ige/engine/components/IgeUiManagerComponent.js&#10;&#9;web/game/ige/engine/components/IgeVelocityComponent.js&#10;&#9;web/game/ige/engine/components/chat/IgeChatClient.js&#10;&#9;web/game/ige/engine/components/chat/IgeChatComponent.js&#10;&#9;web/game/ige/engine/components/chat/IgeChatServer.js&#10;&#9;web/game/ige/engine/components/chat/readme.md&#10;&#9;web/game/ige/engine/components/cocoonjs/IgeCocoonJsComponent.js&#10;&#9;web/game/ige/engine/components/database/mongodb/IgeMongoDb.js&#10;&#9;web/game/ige/engine/components/database/mongodb/IgeMongoDbComponent.js&#10;&#9;web/game/ige/engine/components/database/mysql/IgeMySql.js&#10;&#9;web/game/ige/engine/components/database/mysql/IgeMySqlComponent.js&#10;&#9;web/game/ige/engine/components/editor/IgeEditorComponent.js&#10;&#9;web/game/ige/engine/components/editor/IgeEditorRotateComponent.js&#10;&#9;web/game/ige/engine/components/editor/IgeEditorTranslateComponent.js&#10;&#9;web/game/ige/engine/components/editor/panels/IgeEditorPanelsComponent.js&#10;&#9;web/game/ige/engine/components/editor/panels/templates/IgePoint.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/IgeTexture.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberFloat.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberFloatMinMax.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberFloatXYZ.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberInt.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberIntMinMax.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/group.html&#10;&#9;web/game/ige/engine/components/editor/vendor/jsRender.js&#10;&#9;web/game/ige/engine/components/entityManager/IgeEntityManager.js&#10;&#9;web/game/ige/engine/components/network/IgeNetworkClient.js&#10;&#9;web/game/ige/engine/components/network/IgeTimeSyncExtension.js&#10;&#9;web/game/ige/engine/components/network/net.io/IgeNetIoClient.js&#10;&#9;web/game/ige/engine/components/network/net.io/IgeNetIoComponent.js&#10;&#9;web/game/ige/engine/components/network/net.io/IgeNetIoServer.js&#10;&#9;web/game/ige/engine/components/network/net.io/net.io-client/index.js&#10;&#9;web/game/ige/engine/components/network/socket.io/IgeSocketIoClient.js&#10;&#9;web/game/ige/engine/components/network/socket.io/IgeSocketIoComponent.js&#10;&#9;web/game/ige/engine/components/network/socket.io/IgeSocketIoServer.js&#10;&#9;web/game/ige/engine/components/network/socket.io/client/WebSocketMain.swf&#10;&#9;web/game/ige/engine/components/network/socket.io/client/WebSocketMainInsecure.swf&#10;&#9;web/game/ige/engine/components/network/socket.io/client/socket.io.js&#10;&#9;web/game/ige/engine/components/network/socket.io/client/socket.io.min.js&#10;&#9;web/game/ige/engine/components/network/stream/IgeStreamComponent.js&#10;&#9;web/game/ige/engine/components/physics/box2d/IgeBox2dComponent.js&#10;&#9;web/game/ige/engine/components/physics/box2d/IgeBox2dWorker.js&#10;&#9;web/game/ige/engine/components/physics/box2d/IgeEntityBox2d.js&#10;&#9;web/game/ige/engine/components/physics/box2d/lib_box2d.js&#10;&#9;web/game/ige/engine/components/physics/box2d/lib_box2d.min.js&#10;&#9;web/game/ige/engine/components/physics/cannon/IgeCannonComponent.js&#10;&#9;web/game/ige/engine/components/physics/cannon/IgeEntityCannon.js&#10;&#9;web/game/ige/engine/components/physics/cannon/lib_cannon.js&#10;&#9;web/game/ige/engine/components/stackTrace/lib_stack.js&#10;&#9;web/game/ige/engine/components/three/BloomPass.js&#10;&#9;web/game/ige/engine/components/three/DotScreenPass.js&#10;&#9;web/game/ige/engine/components/three/EffectComposer.js&#10;&#9;web/game/ige/engine/components/three/FilmPass.js&#10;&#9;web/game/ige/engine/components/three/IgeThree.js&#10;&#9;web/game/ige/engine/components/three/MaskPass.js&#10;&#9;web/game/ige/engine/components/three/RenderPass.js&#10;&#9;web/game/ige/engine/components/three/ShaderExtras.js&#10;&#9;web/game/ige/engine/components/three/ShaderPass.js&#10;&#9;web/game/ige/engine/components/three/Sparks.js&#10;&#9;web/game/ige/engine/components/three/TexturePass.js&#10;&#9;web/game/ige/engine/components/three/TrackballControls.js&#10;&#9;web/game/ige/engine/components/three/Tween.js&#10;&#9;web/game/ige/engine/components/three/three.js&#10;&#9;web/game/ige/engine/components/three/three.min.js&#10;&#9;web/game/ige/engine/components/three/three.rev49.js&#10;&#9;web/game/ige/engine/core/IgeBase.js&#10;&#9;web/game/ige/engine/core/IgeBaseScene.js&#10;&#9;web/game/ige/engine/core/IgeCamera.js&#10;&#9;web/game/ige/engine/core/IgeCellSheet.js&#10;&#9;web/game/ige/engine/core/IgeClass.js&#10;&#9;web/game/ige/engine/core/IgeCollisionMap2d.js&#10;&#9;web/game/ige/engine/core/IgeDummyCanvas.js&#10;&#9;web/game/ige/engine/core/IgeDummyContext.js&#10;&#9;web/game/ige/engine/core/IgeEngine.js&#10;&#9;web/game/ige/engine/core/IgeEntity.js&#10;&#9;web/game/ige/engine/core/IgeEventingClass.js&#10;&#9;web/game/ige/engine/core/IgeFilters.js&#10;&#9;web/game/ige/engine/core/IgeFontEntity.js&#10;&#9;web/game/ige/engine/core/IgeFontSheet.js&#10;&#9;web/game/ige/engine/core/IgeInterval.js&#10;&#9;web/game/ige/engine/core/IgeMap2d.js&#10;&#9;web/game/ige/engine/core/IgeMapStack2d.js&#10;&#9;web/game/ige/engine/core/IgeMatrix2d.js&#10;&#9;web/game/ige/engine/core/IgeObject.js&#10;&#9;web/game/ige/engine/core/IgeParticleEmitter.js&#10;&#9;web/game/ige/engine/core/IgePathFinder.js&#10;&#9;web/game/ige/engine/core/IgePathNode.js&#10;&#9;web/game/ige/engine/core/IgePoint.js&#10;&#9;web/game/ige/engine/core/IgePoly2d.js&#10;&#9;web/game/ige/engine/core/IgeQuest.js&#10;&#9;web/game/ige/engine/core/IgeRect.js&#10;&#9;web/game/ige/engine/core/IgeScene2d.js&#10;&#9;web/game/ige/engine/core/IgeSceneGraph.js&#10;&#9;web/game/ige/engine/core/IgeSpriteSheet.js&#10;&#9;web/game/ige/engine/core/IgeTexture.js&#10;&#9;web/game/ige/engine/core/IgeTextureAtlas.js&#10;&#9;web/game/ige/engine/core/IgeTextureMap.js&#10;&#9;web/game/ige/engine/core/IgeTileMap2d.js&#10;&#9;web/game/ige/engine/core/IgeTileMapStack2d.js&#10;&#9;web/game/ige/engine/core/IgeTimeout.js&#10;&#9;web/game/ige/engine/core/IgeTween.js&#10;&#9;web/game/ige/engine/core/IgeUiElement.js&#10;&#9;web/game/ige/engine/core/IgeUiEntity.js&#10;&#9;web/game/ige/engine/core/IgeViewport.js&#10;&#9;web/game/ige/engine/extensions/IgeUiPositionExtension.js&#10;&#9;web/game/ige/engine/extensions/IgeUiStyleExtension.js&#10;&#9;web/game/ige/engine/filters/blur.js&#10;&#9;web/game/ige/engine/filters/brighten.js&#10;&#9;web/game/ige/engine/filters/colorOverlay.js&#10;&#9;web/game/ige/engine/filters/convolute.js&#10;&#9;web/game/ige/engine/filters/edgeDetect.js&#10;&#9;web/game/ige/engine/filters/edgeEnhance.js&#10;&#9;web/game/ige/engine/filters/emboss.js&#10;&#9;web/game/ige/engine/filters/glowMask.js&#10;&#9;web/game/ige/engine/filters/greyScale.js&#10;&#9;web/game/ige/engine/filters/invert.js&#10;&#9;web/game/ige/engine/filters/outlineDetect.js&#10;&#9;web/game/ige/engine/filters/sharpen.js&#10;&#9;web/game/ige/engine/filters/sobel.js&#10;&#9;web/game/ige/engine/filters/threshold.js&#10;&#9;web/game/ige/engine/loader.js&#10;&#9;web/game/ige/engine/primitives/IgeCuboid.js&#10;&#9;web/game/ige/engine/ui/IgeUiAutoFlow.js&#10;&#9;web/game/ige/engine/ui/IgeUiButton.js&#10;&#9;web/game/ige/engine/ui/IgeUiGridPanel.js&#10;&#9;web/game/ige/engine/ui/IgeUiLabel.js&#10;&#9;web/game/ige/engine/ui/IgeUiMenu.js&#10;&#9;web/game/ige/engine/ui/IgeUiProgressBar.js&#10;&#9;web/game/ige/engine/ui/IgeUiRadioButton.js&#10;&#9;web/game/ige/engine/ui/IgeUiTextBox.js&#10;&#9;web/game/ige/engine/ui/IgeUiTimeStream.js&#10;&#9;web/game/ige/engine/ui/IgeUiTogglePanel.js&#10;&#9;web/game/ige/engine/ui/IgeUiTooltip.js&#10;&#9;web/game/index.js&#10;&#9;web/index.jsp&#10;&#9;web/plugins/datatables/extensions/ColReorder/License.txt&#10;&#9;web/plugins/datatables/extensions/ColVis/License.txt&#10;">
+      <created>1435558732464</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1435558732464</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Merge branch 'NewSiteBranch' into GameDevelopment&#10;&#10;Conflicts:&#10;&#9;.idea/artifacts/WebOnlineGame_war_exploded.xml&#10;&#9;.idea/misc.xml&#10;&#9;WebOnlineGame.iml&#10;&#9;onlineGame.iml&#10;&#9;onlineGame.ipr&#10;&#9;src/Servlets/Listener.java&#10;&#9;web/game/assets/chars.png&#10;&#9;web/game/assets/readme.md&#10;&#9;web/game/css/default.css&#10;&#9;web/game/fourColors.html&#10;&#9;web/game/gameClasses/PlayerComponent.js&#10;&#9;web/game/ige/engine/CoreConfig.js&#10;&#9;web/game/ige/engine/assets/IgeCuboidSmartTexture.js&#10;&#9;web/game/ige/engine/assets/IgeFontSmartTexture.js&#10;&#9;web/game/ige/engine/components/IgeAnimationComponent.js&#10;&#9;web/game/ige/engine/components/IgeEntityManagerComponent.js&#10;&#9;web/game/ige/engine/components/IgeInputComponent.js&#10;&#9;web/game/ige/engine/components/IgeMousePanComponent.js&#10;&#9;web/game/ige/engine/components/IgeMouseZoomComponent.js&#10;&#9;web/game/ige/engine/components/IgePathComponent.js&#10;&#9;web/game/ige/engine/components/IgeTiledComponent.js&#10;&#9;web/game/ige/engine/components/IgeTimeComponent.js&#10;&#9;web/game/ige/engine/components/IgeTweenComponent.js&#10;&#9;web/game/ige/engine/components/IgeUiManagerComponent.js&#10;&#9;web/game/ige/engine/components/IgeVelocityComponent.js&#10;&#9;web/game/ige/engine/components/chat/IgeChatClient.js&#10;&#9;web/game/ige/engine/components/chat/IgeChatComponent.js&#10;&#9;web/game/ige/engine/components/chat/IgeChatServer.js&#10;&#9;web/game/ige/engine/components/chat/readme.md&#10;&#9;web/game/ige/engine/components/cocoonjs/IgeCocoonJsComponent.js&#10;&#9;web/game/ige/engine/components/database/mongodb/IgeMongoDb.js&#10;&#9;web/game/ige/engine/components/database/mongodb/IgeMongoDbComponent.js&#10;&#9;web/game/ige/engine/components/database/mysql/IgeMySql.js&#10;&#9;web/game/ige/engine/components/database/mysql/IgeMySqlComponent.js&#10;&#9;web/game/ige/engine/components/editor/IgeEditorComponent.js&#10;&#9;web/game/ige/engine/components/editor/IgeEditorRotateComponent.js&#10;&#9;web/game/ige/engine/components/editor/IgeEditorTranslateComponent.js&#10;&#9;web/game/ige/engine/components/editor/panels/IgeEditorPanelsComponent.js&#10;&#9;web/game/ige/engine/components/editor/panels/templates/IgePoint.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/IgeTexture.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberFloat.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberFloatMinMax.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberFloatXYZ.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberInt.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberIntMinMax.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/group.html&#10;&#9;web/game/ige/engine/components/editor/vendor/jsRender.js&#10;&#9;web/game/ige/engine/components/entityManager/IgeEntityManager.js&#10;&#9;web/game/ige/engine/components/network/IgeNetworkClient.js&#10;&#9;web/game/ige/engine/components/network/IgeTimeSyncExtension.js&#10;&#9;web/game/ige/engine/components/network/net.io/IgeNetIoClient.js&#10;&#9;web/game/ige/engine/components/network/net.io/IgeNetIoComponent.js&#10;&#9;web/game/ige/engine/components/network/net.io/IgeNetIoServer.js&#10;&#9;web/game/ige/engine/components/network/net.io/net.io-client/index.js&#10;&#9;web/game/ige/engine/components/network/socket.io/IgeSocketIoClient.js&#10;&#9;web/game/ige/engine/components/network/socket.io/IgeSocketIoComponent.js&#10;&#9;web/game/ige/engine/components/network/socket.io/IgeSocketIoServer.js&#10;&#9;web/game/ige/engine/components/network/socket.io/client/WebSocketMain.swf&#10;&#9;web/game/ige/engine/components/network/socket.io/client/WebSocketMainInsecure.swf&#10;&#9;web/game/ige/engine/components/network/socket.io/client/socket.io.js&#10;&#9;web/game/ige/engine/components/network/socket.io/client/socket.io.min.js&#10;&#9;web/game/ige/engine/components/network/stream/IgeStreamComponent.js&#10;&#9;web/game/ige/engine/components/physics/box2d/IgeBox2dComponent.js&#10;&#9;web/game/ige/engine/components/physics/box2d/IgeBox2dWorker.js&#10;&#9;web/game/ige/engine/components/physics/box2d/IgeEntityBox2d.js&#10;&#9;web/game/ige/engine/components/physics/box2d/lib_box2d.js&#10;&#9;web/game/ige/engine/components/physics/box2d/lib_box2d.min.js&#10;&#9;web/game/ige/engine/components/physics/cannon/IgeCannonComponent.js&#10;&#9;web/game/ige/engine/components/physics/cannon/IgeEntityCannon.js&#10;&#9;web/game/ige/engine/components/physics/cannon/lib_cannon.js&#10;&#9;web/game/ige/engine/components/stackTrace/lib_stack.js&#10;&#9;web/game/ige/engine/components/three/BloomPass.js&#10;&#9;web/game/ige/engine/components/three/DotScreenPass.js&#10;&#9;web/game/ige/engine/components/three/EffectComposer.js&#10;&#9;web/game/ige/engine/components/three/FilmPass.js&#10;&#9;web/game/ige/engine/components/three/IgeThree.js&#10;&#9;web/game/ige/engine/components/three/MaskPass.js&#10;&#9;web/game/ige/engine/components/three/RenderPass.js&#10;&#9;web/game/ige/engine/components/three/ShaderExtras.js&#10;&#9;web/game/ige/engine/components/three/ShaderPass.js&#10;&#9;web/game/ige/engine/components/three/Sparks.js&#10;&#9;web/game/ige/engine/components/three/TexturePass.js&#10;&#9;web/game/ige/engine/components/three/TrackballControls.js&#10;&#9;web/game/ige/engine/components/three/Tween.js&#10;&#9;web/game/ige/engine/components/three/three.js&#10;&#9;web/game/ige/engine/components/three/three.min.js&#10;&#9;web/game/ige/engine/components/three/three.rev49.js&#10;&#9;web/game/ige/engine/core/IgeBase.js&#10;&#9;web/game/ige/engine/core/IgeBaseScene.js&#10;&#9;web/game/ige/engine/core/IgeCamera.js&#10;&#9;web/game/ige/engine/core/IgeCellSheet.js&#10;&#9;web/game/ige/engine/core/IgeClass.js&#10;&#9;web/game/ige/engine/core/IgeCollisionMap2d.js&#10;&#9;web/game/ige/engine/core/IgeDummyCanvas.js&#10;&#9;web/game/ige/engine/core/IgeDummyContext.js&#10;&#9;web/game/ige/engine/core/IgeEngine.js&#10;&#9;web/game/ige/engine/core/IgeEntity.js&#10;&#9;web/game/ige/engine/core/IgeEventingClass.js&#10;&#9;web/game/ige/engine/core/IgeFilters.js&#10;&#9;web/game/ige/engine/core/IgeFontEntity.js&#10;&#9;web/game/ige/engine/core/IgeFontSheet.js&#10;&#9;web/game/ige/engine/core/IgeInterval.js&#10;&#9;web/game/ige/engine/core/IgeMap2d.js&#10;&#9;web/game/ige/engine/core/IgeMapStack2d.js&#10;&#9;web/game/ige/engine/core/IgeMatrix2d.js&#10;&#9;web/game/ige/engine/core/IgeObject.js&#10;&#9;web/game/ige/engine/core/IgeParticleEmitter.js&#10;&#9;web/game/ige/engine/core/IgePathFinder.js&#10;&#9;web/game/ige/engine/core/IgePathNode.js&#10;&#9;web/game/ige/engine/core/IgePoint.js&#10;&#9;web/game/ige/engine/core/IgePoly2d.js&#10;&#9;web/game/ige/engine/core/IgeQuest.js&#10;&#9;web/game/ige/engine/core/IgeRect.js&#10;&#9;web/game/ige/engine/core/IgeScene2d.js&#10;&#9;web/game/ige/engine/core/IgeSceneGraph.js&#10;&#9;web/game/ige/engine/core/IgeSpriteSheet.js&#10;&#9;web/game/ige/engine/core/IgeTexture.js&#10;&#9;web/game/ige/engine/core/IgeTextureAtlas.js&#10;&#9;web/game/ige/engine/core/IgeTextureMap.js&#10;&#9;web/game/ige/engine/core/IgeTileMap2d.js&#10;&#9;web/game/ige/engine/core/IgeTileMapStack2d.js&#10;&#9;web/game/ige/engine/core/IgeTimeout.js&#10;&#9;web/game/ige/engine/core/IgeTween.js&#10;&#9;web/game/ige/engine/core/IgeUiElement.js&#10;&#9;web/game/ige/engine/core/IgeUiEntity.js&#10;&#9;web/game/ige/engine/core/IgeViewport.js&#10;&#9;web/game/ige/engine/extensions/IgeUiPositionExtension.js&#10;&#9;web/game/ige/engine/extensions/IgeUiStyleExtension.js&#10;&#9;web/game/ige/engine/filters/blur.js&#10;&#9;web/game/ige/engine/filters/brighten.js&#10;&#9;web/game/ige/engine/filters/colorOverlay.js&#10;&#9;web/game/ige/engine/filters/convolute.js&#10;&#9;web/game/ige/engine/filters/edgeDetect.js&#10;&#9;web/game/ige/engine/filters/edgeEnhance.js&#10;&#9;web/game/ige/engine/filters/emboss.js&#10;&#9;web/game/ige/engine/filters/glowMask.js&#10;&#9;web/game/ige/engine/filters/greyScale.js&#10;&#9;web/game/ige/engine/filters/invert.js&#10;&#9;web/game/ige/engine/filters/outlineDetect.js&#10;&#9;web/game/ige/engine/filters/sharpen.js&#10;&#9;web/game/ige/engine/filters/sobel.js&#10;&#9;web/game/ige/engine/filters/threshold.js&#10;&#9;web/game/ige/engine/loader.js&#10;&#9;web/game/ige/engine/primitives/IgeCuboid.js&#10;&#9;web/game/ige/engine/ui/IgeUiAutoFlow.js&#10;&#9;web/game/ige/engine/ui/IgeUiButton.js&#10;&#9;web/game/ige/engine/ui/IgeUiGridPanel.js&#10;&#9;web/game/ige/engine/ui/IgeUiLabel.js&#10;&#9;web/game/ige/engine/ui/IgeUiMenu.js&#10;&#9;web/game/ige/engine/ui/IgeUiProgressBar.js&#10;&#9;web/game/ige/engine/ui/IgeUiRadioButton.js&#10;&#9;web/game/ige/engine/ui/IgeUiTextBox.js&#10;&#9;web/game/ige/engine/ui/IgeUiTimeStream.js&#10;&#9;web/game/ige/engine/ui/IgeUiTogglePanel.js&#10;&#9;web/game/ige/engine/ui/IgeUiTooltip.js&#10;&#9;web/game/index.js&#10;&#9;web/index.jsp&#10;&#9;web/plugins/datatables/extensions/ColReorder/License.txt&#10;&#9;web/plugins/datatables/extensions/ColVis/License.txt&#10;">
+      <created>1435558779359</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1435558779359</updated>
+    </task>
+    <task id="LOCAL-00006" summary="failis atvirtva gasworda&#10;&#10;Conflicts:&#10;&#9;.idea/artifacts/WebOnlineGame_war_exploded.xml&#10;&#9;.idea/misc.xml&#10;&#9;WebOnlineGame.iml&#10;&#9;onlineGame.iml&#10;&#9;onlineGame.ipr&#10;&#9;src/Servlets/Listener.java&#10;&#9;web/game/assets/chars.png&#10;&#9;web/game/assets/readme.md&#10;&#9;web/game/css/default.css&#10;&#9;web/game/fourColors.html&#10;&#9;web/game/gameClasses/PlayerComponent.js&#10;&#9;web/game/ige/engine/CoreConfig.js&#10;&#9;web/game/ige/engine/assets/IgeCuboidSmartTexture.js&#10;&#9;web/game/ige/engine/assets/IgeFontSmartTexture.js&#10;&#9;web/game/ige/engine/components/IgeAnimationComponent.js&#10;&#9;web/game/ige/engine/components/IgeEntityManagerComponent.js&#10;&#9;web/game/ige/engine/components/IgeInputComponent.js&#10;&#9;web/game/ige/engine/components/IgeMousePanComponent.js&#10;&#9;web/game/ige/engine/components/IgeMouseZoomComponent.js&#10;&#9;web/game/ige/engine/components/IgePathComponent.js&#10;&#9;web/game/ige/engine/components/IgeTiledComponent.js&#10;&#9;web/game/ige/engine/components/IgeTimeComponent.js&#10;&#9;web/game/ige/engine/components/IgeTweenComponent.js&#10;&#9;web/game/ige/engine/components/IgeUiManagerComponent.js&#10;&#9;web/game/ige/engine/components/IgeVelocityComponent.js&#10;&#9;web/game/ige/engine/components/chat/IgeChatClient.js&#10;&#9;web/game/ige/engine/components/chat/IgeChatComponent.js&#10;&#9;web/game/ige/engine/components/chat/IgeChatServer.js&#10;&#9;web/game/ige/engine/components/chat/readme.md&#10;&#9;web/game/ige/engine/components/cocoonjs/IgeCocoonJsComponent.js&#10;&#9;web/game/ige/engine/components/database/mongodb/IgeMongoDb.js&#10;&#9;web/game/ige/engine/components/database/mongodb/IgeMongoDbComponent.js&#10;&#9;web/game/ige/engine/components/database/mysql/IgeMySql.js&#10;&#9;web/game/ige/engine/components/database/mysql/IgeMySqlComponent.js&#10;&#9;web/game/ige/engine/components/editor/IgeEditorComponent.js&#10;&#9;web/game/ige/engine/components/editor/IgeEditorRotateComponent.js&#10;&#9;web/game/ige/engine/components/editor/IgeEditorTranslateComponent.js&#10;&#9;web/game/ige/engine/components/editor/panels/IgeEditorPanelsComponent.js&#10;&#9;web/game/ige/engine/components/editor/panels/templates/IgePoint.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/IgeTexture.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberFloat.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberFloatMinMax.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberFloatXYZ.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberInt.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberIntMinMax.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/group.html&#10;&#9;web/game/ige/engine/components/editor/vendor/jsRender.js&#10;&#9;web/game/ige/engine/components/entityManager/IgeEntityManager.js&#10;&#9;web/game/ige/engine/components/network/IgeNetworkClient.js&#10;&#9;web/game/ige/engine/components/network/IgeTimeSyncExtension.js&#10;&#9;web/game/ige/engine/components/network/net.io/IgeNetIoClient.js&#10;&#9;web/game/ige/engine/components/network/net.io/IgeNetIoComponent.js&#10;&#9;web/game/ige/engine/components/network/net.io/IgeNetIoServer.js&#10;&#9;web/game/ige/engine/components/network/net.io/net.io-client/index.js&#10;&#9;web/game/ige/engine/components/network/socket.io/IgeSocketIoClient.js&#10;&#9;web/game/ige/engine/components/network/socket.io/IgeSocketIoComponent.js&#10;&#9;web/game/ige/engine/components/network/socket.io/IgeSocketIoServer.js&#10;&#9;web/game/ige/engine/components/network/socket.io/client/WebSocketMain.swf&#10;&#9;web/game/ige/engine/components/network/socket.io/client/WebSocketMainInsecure.swf&#10;&#9;web/game/ige/engine/components/network/socket.io/client/socket.io.js&#10;&#9;web/game/ige/engine/components/network/socket.io/client/socket.io.min.js&#10;&#9;web/game/ige/engine/components/network/stream/IgeStreamComponent.js&#10;&#9;web/game/ige/engine/components/physics/box2d/IgeBox2dComponent.js&#10;&#9;web/game/ige/engine/components/physics/box2d/IgeBox2dWorker.js&#10;&#9;web/game/ige/engine/components/physics/box2d/IgeEntityBox2d.js&#10;&#9;web/game/ige/engine/components/physics/box2d/lib_box2d.js&#10;&#9;web/game/ige/engine/components/physics/box2d/lib_box2d.min.js&#10;&#9;web/game/ige/engine/components/physics/cannon/IgeCannonComponent.js&#10;&#9;web/game/ige/engine/components/physics/cannon/IgeEntityCannon.js&#10;&#9;web/game/ige/engine/components/physics/cannon/lib_cannon.js&#10;&#9;web/game/ige/engine/components/stackTrace/lib_stack.js&#10;&#9;web/game/ige/engine/components/three/BloomPass.js&#10;&#9;web/game/ige/engine/components/three/DotScreenPass.js&#10;&#9;web/game/ige/engine/components/three/EffectComposer.js&#10;&#9;web/game/ige/engine/components/three/FilmPass.js&#10;&#9;web/game/ige/engine/components/three/IgeThree.js&#10;&#9;web/game/ige/engine/components/three/MaskPass.js&#10;&#9;web/game/ige/engine/components/three/RenderPass.js&#10;&#9;web/game/ige/engine/components/three/ShaderExtras.js&#10;&#9;web/game/ige/engine/components/three/ShaderPass.js&#10;&#9;web/game/ige/engine/components/three/Sparks.js&#10;&#9;web/game/ige/engine/components/three/TexturePass.js&#10;&#9;web/game/ige/engine/components/three/TrackballControls.js&#10;&#9;web/game/ige/engine/components/three/Tween.js&#10;&#9;web/game/ige/engine/components/three/three.js&#10;&#9;web/game/ige/engine/components/three/three.min.js&#10;&#9;web/game/ige/engine/components/three/three.rev49.js&#10;&#9;web/game/ige/engine/core/IgeBase.js&#10;&#9;web/game/ige/engine/core/IgeBaseScene.js&#10;&#9;web/game/ige/engine/core/IgeCamera.js&#10;&#9;web/game/ige/engine/core/IgeCellSheet.js&#10;&#9;web/game/ige/engine/core/IgeClass.js&#10;&#9;web/game/ige/engine/core/IgeCollisionMap2d.js&#10;&#9;web/game/ige/engine/core/IgeDummyCanvas.js&#10;&#9;web/game/ige/engine/core/IgeDummyContext.js&#10;&#9;web/game/ige/engine/core/IgeEngine.js&#10;&#9;web/game/ige/engine/core/IgeEntity.js&#10;&#9;web/game/ige/engine/core/IgeEventingClass.js&#10;&#9;web/game/ige/engine/core/IgeFilters.js&#10;&#9;web/game/ige/engine/core/IgeFontEntity.js&#10;&#9;web/game/ige/engine/core/IgeFontSheet.js&#10;&#9;web/game/ige/engine/core/IgeInterval.js&#10;&#9;web/game/ige/engine/core/IgeMap2d.js&#10;&#9;web/game/ige/engine/core/IgeMapStack2d.js&#10;&#9;web/game/ige/engine/core/IgeMatrix2d.js&#10;&#9;web/game/ige/engine/core/IgeObject.js&#10;&#9;web/game/ige/engine/core/IgeParticleEmitter.js&#10;&#9;web/game/ige/engine/core/IgePathFinder.js&#10;&#9;web/game/ige/engine/core/IgePathNode.js&#10;&#9;web/game/ige/engine/core/IgePoint.js&#10;&#9;web/game/ige/engine/core/IgePoly2d.js&#10;&#9;web/game/ige/engine/core/IgeQuest.js&#10;&#9;web/game/ige/engine/core/IgeRect.js&#10;&#9;web/game/ige/engine/core/IgeScene2d.js&#10;&#9;web/game/ige/engine/core/IgeSceneGraph.js&#10;&#9;web/game/ige/engine/core/IgeSpriteSheet.js&#10;&#9;web/game/ige/engine/core/IgeTexture.js&#10;&#9;web/game/ige/engine/core/IgeTextureAtlas.js&#10;&#9;web/game/ige/engine/core/IgeTextureMap.js&#10;&#9;web/game/ige/engine/core/IgeTileMap2d.js&#10;&#9;web/game/ige/engine/core/IgeTileMapStack2d.js&#10;&#9;web/game/ige/engine/core/IgeTimeout.js&#10;&#9;web/game/ige/engine/core/IgeTween.js&#10;&#9;web/game/ige/engine/core/IgeUiElement.js&#10;&#9;web/game/ige/engine/core/IgeUiEntity.js&#10;&#9;web/game/ige/engine/core/IgeViewport.js&#10;&#9;web/game/ige/engine/extensions/IgeUiPositionExtension.js&#10;&#9;web/game/ige/engine/extensions/IgeUiStyleExtension.js&#10;&#9;web/game/ige/engine/filters/blur.js&#10;&#9;web/game/ige/engine/filters/brighten.js&#10;&#9;web/game/ige/engine/filters/colorOverlay.js&#10;&#9;web/game/ige/engine/filters/convolute.js&#10;&#9;web/game/ige/engine/filters/edgeDetect.js&#10;&#9;web/game/ige/engine/filters/edgeEnhance.js&#10;&#9;web/game/ige/engine/filters/emboss.js&#10;&#9;web/game/ige/engine/filters/glowMask.js&#10;&#9;web/game/ige/engine/filters/greyScale.js&#10;&#9;web/game/ige/engine/filters/invert.js&#10;&#9;web/game/ige/engine/filters/outlineDetect.js&#10;&#9;web/game/ige/engine/filters/sharpen.js&#10;&#9;web/game/ige/engine/filters/sobel.js&#10;&#9;web/game/ige/engine/filters/threshold.js&#10;&#9;web/game/ige/engine/loader.js&#10;&#9;web/game/ige/engine/primitives/IgeCuboid.js&#10;&#9;web/game/ige/engine/ui/IgeUiAutoFlow.js&#10;&#9;web/game/ige/engine/ui/IgeUiButton.js&#10;&#9;web/game/ige/engine/ui/IgeUiGridPanel.js&#10;&#9;web/game/ige/engine/ui/IgeUiLabel.js&#10;&#9;web/game/ige/engine/ui/IgeUiMenu.js&#10;&#9;web/game/ige/engine/ui/IgeUiProgressBar.js&#10;&#9;web/game/ige/engine/ui/IgeUiRadioButton.js&#10;&#9;web/game/ige/engine/ui/IgeUiTextBox.js&#10;&#9;web/game/ige/engine/ui/IgeUiTimeStream.js&#10;&#9;web/game/ige/engine/ui/IgeUiTogglePanel.js&#10;&#9;web/game/ige/engine/ui/IgeUiTooltip.js&#10;&#9;web/game/index.js&#10;&#9;web/index.jsp&#10;&#9;web/plugins/datatables/extensions/ColReorder/License.txt&#10;&#9;web/plugins/datatables/extensions/ColVis/License.txt&#10;">
+      <created>1435605320059</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1435605320059</updated>
+    </task>
+    <task id="LOCAL-00007" summary="failis atvirtva gasworda vizualuradac &#10;">
+      <created>1435620151754</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1435620151754</updated>
+    </task>
+    <task id="LOCAL-00008" summary="failis atvirtva gasworda&#10;&#10;Conflicts:&#10;&#9;.idea/artifacts/WebOnlineGame_war_exploded.xml&#10;&#9;.idea/misc.xml&#10;&#9;WebOnlineGame.iml&#10;&#9;onlineGame.iml&#10;&#9;onlineGame.ipr&#10;&#9;src/Servlets/Listener.java&#10;&#9;web/game/assets/chars.png&#10;&#9;web/game/assets/readme.md&#10;&#9;web/game/css/default.css&#10;&#9;web/game/fourColors.html&#10;&#9;web/game/gameClasses/PlayerComponent.js&#10;&#9;web/game/ige/engine/CoreConfig.js&#10;&#9;web/game/ige/engine/assets/IgeCuboidSmartTexture.js&#10;&#9;web/game/ige/engine/assets/IgeFontSmartTexture.js&#10;&#9;web/game/ige/engine/components/IgeAnimationComponent.js&#10;&#9;web/game/ige/engine/components/IgeEntityManagerComponent.js&#10;&#9;web/game/ige/engine/components/IgeInputComponent.js&#10;&#9;web/game/ige/engine/components/IgeMousePanComponent.js&#10;&#9;web/game/ige/engine/components/IgeMouseZoomComponent.js&#10;&#9;web/game/ige/engine/components/IgePathComponent.js&#10;&#9;web/game/ige/engine/components/IgeTiledComponent.js&#10;&#9;web/game/ige/engine/components/IgeTimeComponent.js&#10;&#9;web/game/ige/engine/components/IgeTweenComponent.js&#10;&#9;web/game/ige/engine/components/IgeUiManagerComponent.js&#10;&#9;web/game/ige/engine/components/IgeVelocityComponent.js&#10;&#9;web/game/ige/engine/components/chat/IgeChatClient.js&#10;&#9;web/game/ige/engine/components/chat/IgeChatComponent.js&#10;&#9;web/game/ige/engine/components/chat/IgeChatServer.js&#10;&#9;web/game/ige/engine/components/chat/readme.md&#10;&#9;web/game/ige/engine/components/cocoonjs/IgeCocoonJsComponent.js&#10;&#9;web/game/ige/engine/components/database/mongodb/IgeMongoDb.js&#10;&#9;web/game/ige/engine/components/database/mongodb/IgeMongoDbComponent.js&#10;&#9;web/game/ige/engine/components/database/mysql/IgeMySql.js&#10;&#9;web/game/ige/engine/components/database/mysql/IgeMySqlComponent.js&#10;&#9;web/game/ige/engine/components/editor/IgeEditorComponent.js&#10;&#9;web/game/ige/engine/components/editor/IgeEditorRotateComponent.js&#10;&#9;web/game/ige/engine/components/editor/IgeEditorTranslateComponent.js&#10;&#9;web/game/ige/engine/components/editor/panels/IgeEditorPanelsComponent.js&#10;&#9;web/game/ige/engine/components/editor/panels/templates/IgePoint.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/IgeTexture.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberFloat.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberFloatMinMax.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberFloatXYZ.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberInt.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberIntMinMax.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/group.html&#10;&#9;web/game/ige/engine/components/editor/vendor/jsRender.js&#10;&#9;web/game/ige/engine/components/entityManager/IgeEntityManager.js&#10;&#9;web/game/ige/engine/components/network/IgeNetworkClient.js&#10;&#9;web/game/ige/engine/components/network/IgeTimeSyncExtension.js&#10;&#9;web/game/ige/engine/components/network/net.io/IgeNetIoClient.js&#10;&#9;web/game/ige/engine/components/network/net.io/IgeNetIoComponent.js&#10;&#9;web/game/ige/engine/components/network/net.io/IgeNetIoServer.js&#10;&#9;web/game/ige/engine/components/network/net.io/net.io-client/index.js&#10;&#9;web/game/ige/engine/components/network/socket.io/IgeSocketIoClient.js&#10;&#9;web/game/ige/engine/components/network/socket.io/IgeSocketIoComponent.js&#10;&#9;web/game/ige/engine/components/network/socket.io/IgeSocketIoServer.js&#10;&#9;web/game/ige/engine/components/network/socket.io/client/WebSocketMain.swf&#10;&#9;web/game/ige/engine/components/network/socket.io/client/WebSocketMainInsecure.swf&#10;&#9;web/game/ige/engine/components/network/socket.io/client/socket.io.js&#10;&#9;web/game/ige/engine/components/network/socket.io/client/socket.io.min.js&#10;&#9;web/game/ige/engine/components/network/stream/IgeStreamComponent.js&#10;&#9;web/game/ige/engine/components/physics/box2d/IgeBox2dComponent.js&#10;&#9;web/game/ige/engine/components/physics/box2d/IgeBox2dWorker.js&#10;&#9;web/game/ige/engine/components/physics/box2d/IgeEntityBox2d.js&#10;&#9;web/game/ige/engine/components/physics/box2d/lib_box2d.js&#10;&#9;web/game/ige/engine/components/physics/box2d/lib_box2d.min.js&#10;&#9;web/game/ige/engine/components/physics/cannon/IgeCannonComponent.js&#10;&#9;web/game/ige/engine/components/physics/cannon/IgeEntityCannon.js&#10;&#9;web/game/ige/engine/components/physics/cannon/lib_cannon.js&#10;&#9;web/game/ige/engine/components/stackTrace/lib_stack.js&#10;&#9;web/game/ige/engine/components/three/BloomPass.js&#10;&#9;web/game/ige/engine/components/three/DotScreenPass.js&#10;&#9;web/game/ige/engine/components/three/EffectComposer.js&#10;&#9;web/game/ige/engine/components/three/FilmPass.js&#10;&#9;web/game/ige/engine/components/three/IgeThree.js&#10;&#9;web/game/ige/engine/components/three/MaskPass.js&#10;&#9;web/game/ige/engine/components/three/RenderPass.js&#10;&#9;web/game/ige/engine/components/three/ShaderExtras.js&#10;&#9;web/game/ige/engine/components/three/ShaderPass.js&#10;&#9;web/game/ige/engine/components/three/Sparks.js&#10;&#9;web/game/ige/engine/components/three/TexturePass.js&#10;&#9;web/game/ige/engine/components/three/TrackballControls.js&#10;&#9;web/game/ige/engine/components/three/Tween.js&#10;&#9;web/game/ige/engine/components/three/three.js&#10;&#9;web/game/ige/engine/components/three/three.min.js&#10;&#9;web/game/ige/engine/components/three/three.rev49.js&#10;&#9;web/game/ige/engine/core/IgeBase.js&#10;&#9;web/game/ige/engine/core/IgeBaseScene.js&#10;&#9;web/game/ige/engine/core/IgeCamera.js&#10;&#9;web/game/ige/engine/core/IgeCellSheet.js&#10;&#9;web/game/ige/engine/core/IgeClass.js&#10;&#9;web/game/ige/engine/core/IgeCollisionMap2d.js&#10;&#9;web/game/ige/engine/core/IgeDummyCanvas.js&#10;&#9;web/game/ige/engine/core/IgeDummyContext.js&#10;&#9;web/game/ige/engine/core/IgeEngine.js&#10;&#9;web/game/ige/engine/core/IgeEntity.js&#10;&#9;web/game/ige/engine/core/IgeEventingClass.js&#10;&#9;web/game/ige/engine/core/IgeFilters.js&#10;&#9;web/game/ige/engine/core/IgeFontEntity.js&#10;&#9;web/game/ige/engine/core/IgeFontSheet.js&#10;&#9;web/game/ige/engine/core/IgeInterval.js&#10;&#9;web/game/ige/engine/core/IgeMap2d.js&#10;&#9;web/game/ige/engine/core/IgeMapStack2d.js&#10;&#9;web/game/ige/engine/core/IgeMatrix2d.js&#10;&#9;web/game/ige/engine/core/IgeObject.js&#10;&#9;web/game/ige/engine/core/IgeParticleEmitter.js&#10;&#9;web/game/ige/engine/core/IgePathFinder.js&#10;&#9;web/game/ige/engine/core/IgePathNode.js&#10;&#9;web/game/ige/engine/core/IgePoint.js&#10;&#9;web/game/ige/engine/core/IgePoly2d.js&#10;&#9;web/game/ige/engine/core/IgeQuest.js&#10;&#9;web/game/ige/engine/core/IgeRect.js&#10;&#9;web/game/ige/engine/core/IgeScene2d.js&#10;&#9;web/game/ige/engine/core/IgeSceneGraph.js&#10;&#9;web/game/ige/engine/core/IgeSpriteSheet.js&#10;&#9;web/game/ige/engine/core/IgeTexture.js&#10;&#9;web/game/ige/engine/core/IgeTextureAtlas.js&#10;&#9;web/game/ige/engine/core/IgeTextureMap.js&#10;&#9;web/game/ige/engine/core/IgeTileMap2d.js&#10;&#9;web/game/ige/engine/core/IgeTileMapStack2d.js&#10;&#9;web/game/ige/engine/core/IgeTimeout.js&#10;&#9;web/game/ige/engine/core/IgeTween.js&#10;&#9;web/game/ige/engine/core/IgeUiElement.js&#10;&#9;web/game/ige/engine/core/IgeUiEntity.js&#10;&#9;web/game/ige/engine/core/IgeViewport.js&#10;&#9;web/game/ige/engine/extensions/IgeUiPositionExtension.js&#10;&#9;web/game/ige/engine/extensions/IgeUiStyleExtension.js&#10;&#9;web/game/ige/engine/filters/blur.js&#10;&#9;web/game/ige/engine/filters/brighten.js&#10;&#9;web/game/ige/engine/filters/colorOverlay.js&#10;&#9;web/game/ige/engine/filters/convolute.js&#10;&#9;web/game/ige/engine/filters/edgeDetect.js&#10;&#9;web/game/ige/engine/filters/edgeEnhance.js&#10;&#9;web/game/ige/engine/filters/emboss.js&#10;&#9;web/game/ige/engine/filters/glowMask.js&#10;&#9;web/game/ige/engine/filters/greyScale.js&#10;&#9;web/game/ige/engine/filters/invert.js&#10;&#9;web/game/ige/engine/filters/outlineDetect.js&#10;&#9;web/game/ige/engine/filters/sharpen.js&#10;&#9;web/game/ige/engine/filters/sobel.js&#10;&#9;web/game/ige/engine/filters/threshold.js&#10;&#9;web/game/ige/engine/loader.js&#10;&#9;web/game/ige/engine/primitives/IgeCuboid.js&#10;&#9;web/game/ige/engine/ui/IgeUiAutoFlow.js&#10;&#9;web/game/ige/engine/ui/IgeUiButton.js&#10;&#9;web/game/ige/engine/ui/IgeUiGridPanel.js&#10;&#9;web/game/ige/engine/ui/IgeUiLabel.js&#10;&#9;web/game/ige/engine/ui/IgeUiMenu.js&#10;&#9;web/game/ige/engine/ui/IgeUiProgressBar.js&#10;&#9;web/game/ige/engine/ui/IgeUiRadioButton.js&#10;&#9;web/game/ige/engine/ui/IgeUiTextBox.js&#10;&#9;web/game/ige/engine/ui/IgeUiTimeStream.js&#10;&#9;web/game/ige/engine/ui/IgeUiTogglePanel.js&#10;&#9;web/game/ige/engine/ui/IgeUiTooltip.js&#10;&#9;web/game/index.js&#10;&#9;web/index.jsp&#10;&#9;web/plugins/datatables/extensions/ColReorder/License.txt&#10;&#9;web/plugins/datatables/extensions/ColVis/License.txt&#10;">
+      <created>1435658378878</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1435658378878</updated>
+    </task>
+    <task id="LOCAL-00009" summary="failis atvirtva gasworda&#10;&#10;">
+      <created>1435663720558</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1435663720558</updated>
+    </task>
+    <task id="LOCAL-00010" summary="parolis shecvla daemata &#10;">
+      <created>1435680148346</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1435680148346</updated>
+    </task>
+    <task id="LOCAL-00011" summary="daemata zoom">
+      <created>1435697113288</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1435697113288</updated>
+    </task>
+    <task id="LOCAL-00012" summary="daemata zoom">
+      <created>1435714102418</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1435714102418</updated>
+    </task>
+    <task id="LOCAL-00013" summary="daemata zoom">
+      <created>1435738303186</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1435738303186</updated>
+    </task>
+    <task id="LOCAL-00014" summary="daemata zoom">
+      <created>1435738372809</created>
+      <option name="number" value="00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1435738372809</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="115031000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58246654" sideWeight="0.48525897" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21912351" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4383358" sideWeight="0.4860558" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5185735" sideWeight="0.5139442" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.51708764" sideWeight="0.4860558" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33283803" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24541833" sideWeight="0.50520056" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986626" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2549801" sideWeight="0.4947994" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49925706" sideWeight="0.47171316" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Dynamic Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21912351" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5185735" sideWeight="0.5139442" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.51708764" sideWeight="0.4860558" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32986626" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2549801" sideWeight="0.4947994" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49925706" sideWeight="0.47171316" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58246654" sideWeight="0.48525897" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4383358" sideWeight="0.4860558" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33283803" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Dynamic Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24541833" sideWeight="0.50520056" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="saboloo" />
+    <MESSAGE value="Merge branch 'NewSiteBranch' into GameDevelopment&#10;&#10;Conflicts:&#10;&#9;.idea/artifacts/WebOnlineGame_war_exploded.xml&#10;&#9;.idea/misc.xml&#10;&#9;WebOnlineGame.iml&#10;&#9;onlineGame.iml&#10;&#9;onlineGame.ipr&#10;&#9;src/Servlets/Listener.java&#10;&#9;web/game/assets/chars.png&#10;&#9;web/game/assets/readme.md&#10;&#9;web/game/css/default.css&#10;&#9;web/game/fourColors.html&#10;&#9;web/game/gameClasses/PlayerComponent.js&#10;&#9;web/game/ige/engine/CoreConfig.js&#10;&#9;web/game/ige/engine/assets/IgeCuboidSmartTexture.js&#10;&#9;web/game/ige/engine/assets/IgeFontSmartTexture.js&#10;&#9;web/game/ige/engine/components/IgeAnimationComponent.js&#10;&#9;web/game/ige/engine/components/IgeEntityManagerComponent.js&#10;&#9;web/game/ige/engine/components/IgeInputComponent.js&#10;&#9;web/game/ige/engine/components/IgeMousePanComponent.js&#10;&#9;web/game/ige/engine/components/IgeMouseZoomComponent.js&#10;&#9;web/game/ige/engine/components/IgePathComponent.js&#10;&#9;web/game/ige/engine/components/IgeTiledComponent.js&#10;&#9;web/game/ige/engine/components/IgeTimeComponent.js&#10;&#9;web/game/ige/engine/components/IgeTweenComponent.js&#10;&#9;web/game/ige/engine/components/IgeUiManagerComponent.js&#10;&#9;web/game/ige/engine/components/IgeVelocityComponent.js&#10;&#9;web/game/ige/engine/components/chat/IgeChatClient.js&#10;&#9;web/game/ige/engine/components/chat/IgeChatComponent.js&#10;&#9;web/game/ige/engine/components/chat/IgeChatServer.js&#10;&#9;web/game/ige/engine/components/chat/readme.md&#10;&#9;web/game/ige/engine/components/cocoonjs/IgeCocoonJsComponent.js&#10;&#9;web/game/ige/engine/components/database/mongodb/IgeMongoDb.js&#10;&#9;web/game/ige/engine/components/database/mongodb/IgeMongoDbComponent.js&#10;&#9;web/game/ige/engine/components/database/mysql/IgeMySql.js&#10;&#9;web/game/ige/engine/components/database/mysql/IgeMySqlComponent.js&#10;&#9;web/game/ige/engine/components/editor/IgeEditorComponent.js&#10;&#9;web/game/ige/engine/components/editor/IgeEditorRotateComponent.js&#10;&#9;web/game/ige/engine/components/editor/IgeEditorTranslateComponent.js&#10;&#9;web/game/ige/engine/components/editor/panels/IgeEditorPanelsComponent.js&#10;&#9;web/game/ige/engine/components/editor/panels/templates/IgePoint.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/IgeTexture.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberFloat.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberFloatMinMax.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberFloatXYZ.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberInt.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberIntMinMax.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/group.html&#10;&#9;web/game/ige/engine/components/editor/vendor/jsRender.js&#10;&#9;web/game/ige/engine/components/entityManager/IgeEntityManager.js&#10;&#9;web/game/ige/engine/components/network/IgeNetworkClient.js&#10;&#9;web/game/ige/engine/components/network/IgeTimeSyncExtension.js&#10;&#9;web/game/ige/engine/components/network/net.io/IgeNetIoClient.js&#10;&#9;web/game/ige/engine/components/network/net.io/IgeNetIoComponent.js&#10;&#9;web/game/ige/engine/components/network/net.io/IgeNetIoServer.js&#10;&#9;web/game/ige/engine/components/network/net.io/net.io-client/index.js&#10;&#9;web/game/ige/engine/components/network/socket.io/IgeSocketIoClient.js&#10;&#9;web/game/ige/engine/components/network/socket.io/IgeSocketIoComponent.js&#10;&#9;web/game/ige/engine/components/network/socket.io/IgeSocketIoServer.js&#10;&#9;web/game/ige/engine/components/network/socket.io/client/WebSocketMain.swf&#10;&#9;web/game/ige/engine/components/network/socket.io/client/WebSocketMainInsecure.swf&#10;&#9;web/game/ige/engine/components/network/socket.io/client/socket.io.js&#10;&#9;web/game/ige/engine/components/network/socket.io/client/socket.io.min.js&#10;&#9;web/game/ige/engine/components/network/stream/IgeStreamComponent.js&#10;&#9;web/game/ige/engine/components/physics/box2d/IgeBox2dComponent.js&#10;&#9;web/game/ige/engine/components/physics/box2d/IgeBox2dWorker.js&#10;&#9;web/game/ige/engine/components/physics/box2d/IgeEntityBox2d.js&#10;&#9;web/game/ige/engine/components/physics/box2d/lib_box2d.js&#10;&#9;web/game/ige/engine/components/physics/box2d/lib_box2d.min.js&#10;&#9;web/game/ige/engine/components/physics/cannon/IgeCannonComponent.js&#10;&#9;web/game/ige/engine/components/physics/cannon/IgeEntityCannon.js&#10;&#9;web/game/ige/engine/components/physics/cannon/lib_cannon.js&#10;&#9;web/game/ige/engine/components/stackTrace/lib_stack.js&#10;&#9;web/game/ige/engine/components/three/BloomPass.js&#10;&#9;web/game/ige/engine/components/three/DotScreenPass.js&#10;&#9;web/game/ige/engine/components/three/EffectComposer.js&#10;&#9;web/game/ige/engine/components/three/FilmPass.js&#10;&#9;web/game/ige/engine/components/three/IgeThree.js&#10;&#9;web/game/ige/engine/components/three/MaskPass.js&#10;&#9;web/game/ige/engine/components/three/RenderPass.js&#10;&#9;web/game/ige/engine/components/three/ShaderExtras.js&#10;&#9;web/game/ige/engine/components/three/ShaderPass.js&#10;&#9;web/game/ige/engine/components/three/Sparks.js&#10;&#9;web/game/ige/engine/components/three/TexturePass.js&#10;&#9;web/game/ige/engine/components/three/TrackballControls.js&#10;&#9;web/game/ige/engine/components/three/Tween.js&#10;&#9;web/game/ige/engine/components/three/three.js&#10;&#9;web/game/ige/engine/components/three/three.min.js&#10;&#9;web/game/ige/engine/components/three/three.rev49.js&#10;&#9;web/game/ige/engine/core/IgeBase.js&#10;&#9;web/game/ige/engine/core/IgeBaseScene.js&#10;&#9;web/game/ige/engine/core/IgeCamera.js&#10;&#9;web/game/ige/engine/core/IgeCellSheet.js&#10;&#9;web/game/ige/engine/core/IgeClass.js&#10;&#9;web/game/ige/engine/core/IgeCollisionMap2d.js&#10;&#9;web/game/ige/engine/core/IgeDummyCanvas.js&#10;&#9;web/game/ige/engine/core/IgeDummyContext.js&#10;&#9;web/game/ige/engine/core/IgeEngine.js&#10;&#9;web/game/ige/engine/core/IgeEntity.js&#10;&#9;web/game/ige/engine/core/IgeEventingClass.js&#10;&#9;web/game/ige/engine/core/IgeFilters.js&#10;&#9;web/game/ige/engine/core/IgeFontEntity.js&#10;&#9;web/game/ige/engine/core/IgeFontSheet.js&#10;&#9;web/game/ige/engine/core/IgeInterval.js&#10;&#9;web/game/ige/engine/core/IgeMap2d.js&#10;&#9;web/game/ige/engine/core/IgeMapStack2d.js&#10;&#9;web/game/ige/engine/core/IgeMatrix2d.js&#10;&#9;web/game/ige/engine/core/IgeObject.js&#10;&#9;web/game/ige/engine/core/IgeParticleEmitter.js&#10;&#9;web/game/ige/engine/core/IgePathFinder.js&#10;&#9;web/game/ige/engine/core/IgePathNode.js&#10;&#9;web/game/ige/engine/core/IgePoint.js&#10;&#9;web/game/ige/engine/core/IgePoly2d.js&#10;&#9;web/game/ige/engine/core/IgeQuest.js&#10;&#9;web/game/ige/engine/core/IgeRect.js&#10;&#9;web/game/ige/engine/core/IgeScene2d.js&#10;&#9;web/game/ige/engine/core/IgeSceneGraph.js&#10;&#9;web/game/ige/engine/core/IgeSpriteSheet.js&#10;&#9;web/game/ige/engine/core/IgeTexture.js&#10;&#9;web/game/ige/engine/core/IgeTextureAtlas.js&#10;&#9;web/game/ige/engine/core/IgeTextureMap.js&#10;&#9;web/game/ige/engine/core/IgeTileMap2d.js&#10;&#9;web/game/ige/engine/core/IgeTileMapStack2d.js&#10;&#9;web/game/ige/engine/core/IgeTimeout.js&#10;&#9;web/game/ige/engine/core/IgeTween.js&#10;&#9;web/game/ige/engine/core/IgeUiElement.js&#10;&#9;web/game/ige/engine/core/IgeUiEntity.js&#10;&#9;web/game/ige/engine/core/IgeViewport.js&#10;&#9;web/game/ige/engine/extensions/IgeUiPositionExtension.js&#10;&#9;web/game/ige/engine/extensions/IgeUiStyleExtension.js&#10;&#9;web/game/ige/engine/filters/blur.js&#10;&#9;web/game/ige/engine/filters/brighten.js&#10;&#9;web/game/ige/engine/filters/colorOverlay.js&#10;&#9;web/game/ige/engine/filters/convolute.js&#10;&#9;web/game/ige/engine/filters/edgeDetect.js&#10;&#9;web/game/ige/engine/filters/edgeEnhance.js&#10;&#9;web/game/ige/engine/filters/emboss.js&#10;&#9;web/game/ige/engine/filters/glowMask.js&#10;&#9;web/game/ige/engine/filters/greyScale.js&#10;&#9;web/game/ige/engine/filters/invert.js&#10;&#9;web/game/ige/engine/filters/outlineDetect.js&#10;&#9;web/game/ige/engine/filters/sharpen.js&#10;&#9;web/game/ige/engine/filters/sobel.js&#10;&#9;web/game/ige/engine/filters/threshold.js&#10;&#9;web/game/ige/engine/loader.js&#10;&#9;web/game/ige/engine/primitives/IgeCuboid.js&#10;&#9;web/game/ige/engine/ui/IgeUiAutoFlow.js&#10;&#9;web/game/ige/engine/ui/IgeUiButton.js&#10;&#9;web/game/ige/engine/ui/IgeUiGridPanel.js&#10;&#9;web/game/ige/engine/ui/IgeUiLabel.js&#10;&#9;web/game/ige/engine/ui/IgeUiMenu.js&#10;&#9;web/game/ige/engine/ui/IgeUiProgressBar.js&#10;&#9;web/game/ige/engine/ui/IgeUiRadioButton.js&#10;&#9;web/game/ige/engine/ui/IgeUiTextBox.js&#10;&#9;web/game/ige/engine/ui/IgeUiTimeStream.js&#10;&#9;web/game/ige/engine/ui/IgeUiTogglePanel.js&#10;&#9;web/game/ige/engine/ui/IgeUiTooltip.js&#10;&#9;web/game/index.js&#10;&#9;web/index.jsp&#10;&#9;web/plugins/datatables/extensions/ColReorder/License.txt&#10;&#9;web/plugins/datatables/extensions/ColVis/License.txt&#10;" />
+    <MESSAGE value="failis atvirtva gasworda vizualuradac &#10;" />
+    <MESSAGE value="failis atvirtva gasworda&#10;&#10;Conflicts:&#10;&#9;.idea/artifacts/WebOnlineGame_war_exploded.xml&#10;&#9;.idea/misc.xml&#10;&#9;WebOnlineGame.iml&#10;&#9;onlineGame.iml&#10;&#9;onlineGame.ipr&#10;&#9;src/Servlets/Listener.java&#10;&#9;web/game/assets/chars.png&#10;&#9;web/game/assets/readme.md&#10;&#9;web/game/css/default.css&#10;&#9;web/game/fourColors.html&#10;&#9;web/game/gameClasses/PlayerComponent.js&#10;&#9;web/game/ige/engine/CoreConfig.js&#10;&#9;web/game/ige/engine/assets/IgeCuboidSmartTexture.js&#10;&#9;web/game/ige/engine/assets/IgeFontSmartTexture.js&#10;&#9;web/game/ige/engine/components/IgeAnimationComponent.js&#10;&#9;web/game/ige/engine/components/IgeEntityManagerComponent.js&#10;&#9;web/game/ige/engine/components/IgeInputComponent.js&#10;&#9;web/game/ige/engine/components/IgeMousePanComponent.js&#10;&#9;web/game/ige/engine/components/IgeMouseZoomComponent.js&#10;&#9;web/game/ige/engine/components/IgePathComponent.js&#10;&#9;web/game/ige/engine/components/IgeTiledComponent.js&#10;&#9;web/game/ige/engine/components/IgeTimeComponent.js&#10;&#9;web/game/ige/engine/components/IgeTweenComponent.js&#10;&#9;web/game/ige/engine/components/IgeUiManagerComponent.js&#10;&#9;web/game/ige/engine/components/IgeVelocityComponent.js&#10;&#9;web/game/ige/engine/components/chat/IgeChatClient.js&#10;&#9;web/game/ige/engine/components/chat/IgeChatComponent.js&#10;&#9;web/game/ige/engine/components/chat/IgeChatServer.js&#10;&#9;web/game/ige/engine/components/chat/readme.md&#10;&#9;web/game/ige/engine/components/cocoonjs/IgeCocoonJsComponent.js&#10;&#9;web/game/ige/engine/components/database/mongodb/IgeMongoDb.js&#10;&#9;web/game/ige/engine/components/database/mongodb/IgeMongoDbComponent.js&#10;&#9;web/game/ige/engine/components/database/mysql/IgeMySql.js&#10;&#9;web/game/ige/engine/components/database/mysql/IgeMySqlComponent.js&#10;&#9;web/game/ige/engine/components/editor/IgeEditorComponent.js&#10;&#9;web/game/ige/engine/components/editor/IgeEditorRotateComponent.js&#10;&#9;web/game/ige/engine/components/editor/IgeEditorTranslateComponent.js&#10;&#9;web/game/ige/engine/components/editor/panels/IgeEditorPanelsComponent.js&#10;&#9;web/game/ige/engine/components/editor/panels/templates/IgePoint.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/IgeTexture.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberFloat.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberFloatMinMax.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberFloatXYZ.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberInt.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/NumberIntMinMax.html&#10;&#9;web/game/ige/engine/components/editor/panels/templates/group.html&#10;&#9;web/game/ige/engine/components/editor/vendor/jsRender.js&#10;&#9;web/game/ige/engine/components/entityManager/IgeEntityManager.js&#10;&#9;web/game/ige/engine/components/network/IgeNetworkClient.js&#10;&#9;web/game/ige/engine/components/network/IgeTimeSyncExtension.js&#10;&#9;web/game/ige/engine/components/network/net.io/IgeNetIoClient.js&#10;&#9;web/game/ige/engine/components/network/net.io/IgeNetIoComponent.js&#10;&#9;web/game/ige/engine/components/network/net.io/IgeNetIoServer.js&#10;&#9;web/game/ige/engine/components/network/net.io/net.io-client/index.js&#10;&#9;web/game/ige/engine/components/network/socket.io/IgeSocketIoClient.js&#10;&#9;web/game/ige/engine/components/network/socket.io/IgeSocketIoComponent.js&#10;&#9;web/game/ige/engine/components/network/socket.io/IgeSocketIoServer.js&#10;&#9;web/game/ige/engine/components/network/socket.io/client/WebSocketMain.swf&#10;&#9;web/game/ige/engine/components/network/socket.io/client/WebSocketMainInsecure.swf&#10;&#9;web/game/ige/engine/components/network/socket.io/client/socket.io.js&#10;&#9;web/game/ige/engine/components/network/socket.io/client/socket.io.min.js&#10;&#9;web/game/ige/engine/components/network/stream/IgeStreamComponent.js&#10;&#9;web/game/ige/engine/components/physics/box2d/IgeBox2dComponent.js&#10;&#9;web/game/ige/engine/components/physics/box2d/IgeBox2dWorker.js&#10;&#9;web/game/ige/engine/components/physics/box2d/IgeEntityBox2d.js&#10;&#9;web/game/ige/engine/components/physics/box2d/lib_box2d.js&#10;&#9;web/game/ige/engine/components/physics/box2d/lib_box2d.min.js&#10;&#9;web/game/ige/engine/components/physics/cannon/IgeCannonComponent.js&#10;&#9;web/game/ige/engine/components/physics/cannon/IgeEntityCannon.js&#10;&#9;web/game/ige/engine/components/physics/cannon/lib_cannon.js&#10;&#9;web/game/ige/engine/components/stackTrace/lib_stack.js&#10;&#9;web/game/ige/engine/components/three/BloomPass.js&#10;&#9;web/game/ige/engine/components/three/DotScreenPass.js&#10;&#9;web/game/ige/engine/components/three/EffectComposer.js&#10;&#9;web/game/ige/engine/components/three/FilmPass.js&#10;&#9;web/game/ige/engine/components/three/IgeThree.js&#10;&#9;web/game/ige/engine/components/three/MaskPass.js&#10;&#9;web/game/ige/engine/components/three/RenderPass.js&#10;&#9;web/game/ige/engine/components/three/ShaderExtras.js&#10;&#9;web/game/ige/engine/components/three/ShaderPass.js&#10;&#9;web/game/ige/engine/components/three/Sparks.js&#10;&#9;web/game/ige/engine/components/three/TexturePass.js&#10;&#9;web/game/ige/engine/components/three/TrackballControls.js&#10;&#9;web/game/ige/engine/components/three/Tween.js&#10;&#9;web/game/ige/engine/components/three/three.js&#10;&#9;web/game/ige/engine/components/three/three.min.js&#10;&#9;web/game/ige/engine/components/three/three.rev49.js&#10;&#9;web/game/ige/engine/core/IgeBase.js&#10;&#9;web/game/ige/engine/core/IgeBaseScene.js&#10;&#9;web/game/ige/engine/core/IgeCamera.js&#10;&#9;web/game/ige/engine/core/IgeCellSheet.js&#10;&#9;web/game/ige/engine/core/IgeClass.js&#10;&#9;web/game/ige/engine/core/IgeCollisionMap2d.js&#10;&#9;web/game/ige/engine/core/IgeDummyCanvas.js&#10;&#9;web/game/ige/engine/core/IgeDummyContext.js&#10;&#9;web/game/ige/engine/core/IgeEngine.js&#10;&#9;web/game/ige/engine/core/IgeEntity.js&#10;&#9;web/game/ige/engine/core/IgeEventingClass.js&#10;&#9;web/game/ige/engine/core/IgeFilters.js&#10;&#9;web/game/ige/engine/core/IgeFontEntity.js&#10;&#9;web/game/ige/engine/core/IgeFontSheet.js&#10;&#9;web/game/ige/engine/core/IgeInterval.js&#10;&#9;web/game/ige/engine/core/IgeMap2d.js&#10;&#9;web/game/ige/engine/core/IgeMapStack2d.js&#10;&#9;web/game/ige/engine/core/IgeMatrix2d.js&#10;&#9;web/game/ige/engine/core/IgeObject.js&#10;&#9;web/game/ige/engine/core/IgeParticleEmitter.js&#10;&#9;web/game/ige/engine/core/IgePathFinder.js&#10;&#9;web/game/ige/engine/core/IgePathNode.js&#10;&#9;web/game/ige/engine/core/IgePoint.js&#10;&#9;web/game/ige/engine/core/IgePoly2d.js&#10;&#9;web/game/ige/engine/core/IgeQuest.js&#10;&#9;web/game/ige/engine/core/IgeRect.js&#10;&#9;web/game/ige/engine/core/IgeScene2d.js&#10;&#9;web/game/ige/engine/core/IgeSceneGraph.js&#10;&#9;web/game/ige/engine/core/IgeSpriteSheet.js&#10;&#9;web/game/ige/engine/core/IgeTexture.js&#10;&#9;web/game/ige/engine/core/IgeTextureAtlas.js&#10;&#9;web/game/ige/engine/core/IgeTextureMap.js&#10;&#9;web/game/ige/engine/core/IgeTileMap2d.js&#10;&#9;web/game/ige/engine/core/IgeTileMapStack2d.js&#10;&#9;web/game/ige/engine/core/IgeTimeout.js&#10;&#9;web/game/ige/engine/core/IgeTween.js&#10;&#9;web/game/ige/engine/core/IgeUiElement.js&#10;&#9;web/game/ige/engine/core/IgeUiEntity.js&#10;&#9;web/game/ige/engine/core/IgeViewport.js&#10;&#9;web/game/ige/engine/extensions/IgeUiPositionExtension.js&#10;&#9;web/game/ige/engine/extensions/IgeUiStyleExtension.js&#10;&#9;web/game/ige/engine/filters/blur.js&#10;&#9;web/game/ige/engine/filters/brighten.js&#10;&#9;web/game/ige/engine/filters/colorOverlay.js&#10;&#9;web/game/ige/engine/filters/convolute.js&#10;&#9;web/game/ige/engine/filters/edgeDetect.js&#10;&#9;web/game/ige/engine/filters/edgeEnhance.js&#10;&#9;web/game/ige/engine/filters/emboss.js&#10;&#9;web/game/ige/engine/filters/glowMask.js&#10;&#9;web/game/ige/engine/filters/greyScale.js&#10;&#9;web/game/ige/engine/filters/invert.js&#10;&#9;web/game/ige/engine/filters/outlineDetect.js&#10;&#9;web/game/ige/engine/filters/sharpen.js&#10;&#9;web/game/ige/engine/filters/sobel.js&#10;&#9;web/game/ige/engine/filters/threshold.js&#10;&#9;web/game/ige/engine/loader.js&#10;&#9;web/game/ige/engine/primitives/IgeCuboid.js&#10;&#9;web/game/ige/engine/ui/IgeUiAutoFlow.js&#10;&#9;web/game/ige/engine/ui/IgeUiButton.js&#10;&#9;web/game/ige/engine/ui/IgeUiGridPanel.js&#10;&#9;web/game/ige/engine/ui/IgeUiLabel.js&#10;&#9;web/game/ige/engine/ui/IgeUiMenu.js&#10;&#9;web/game/ige/engine/ui/IgeUiProgressBar.js&#10;&#9;web/game/ige/engine/ui/IgeUiRadioButton.js&#10;&#9;web/game/ige/engine/ui/IgeUiTextBox.js&#10;&#9;web/game/ige/engine/ui/IgeUiTimeStream.js&#10;&#9;web/game/ige/engine/ui/IgeUiTogglePanel.js&#10;&#9;web/game/ige/engine/ui/IgeUiTooltip.js&#10;&#9;web/game/index.js&#10;&#9;web/index.jsp&#10;&#9;web/plugins/datatables/extensions/ColReorder/License.txt&#10;&#9;web/plugins/datatables/extensions/ColVis/License.txt&#10;" />
+    <MESSAGE value="failis atvirtva gasworda&#10;&#10;" />
+    <MESSAGE value="parolis shecvla daemata &#10;" />
+    <MESSAGE value="daemata zoom" />
+    <option name="LAST_COMMIT_MESSAGE" value="daemata zoom" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Core/FileUploading/UploadServlet.java</url>
+          <line>31</line>
+          <properties />
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Core/FileUploading/UploadServlet.java</url>
+          <line>68</line>
+          <properties />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Core/FileUploading/UploadServlet.java</url>
+          <line>66</line>
+          <properties />
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Core/Servlets/AddToFriend.java</url>
+          <line>26</line>
+          <properties />
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Core/Servlets/AddToFriend.java</url>
+          <line>27</line>
+          <properties />
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Core/Servlets/Main.java</url>
+          <line>19</line>
+          <properties />
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Core/Servlets/Main.java</url>
+          <line>26</line>
+          <properties />
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Core/Servlets/Register.java</url>
+          <line>29</line>
+          <properties />
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Core/Servlets/Main.java</url>
+          <line>25</line>
+          <properties />
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Core/Servlets/Main.java</url>
+          <line>20</line>
+          <properties />
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Core/Servlets/passwordChange.java</url>
+          <line>62</line>
+          <properties />
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/web/passValidate.js</url>
+          <line>22</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/web/game/gameClasses/Handler.js</url>
+          <line>288</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/web/game/gameClasses/Handler.js</url>
+          <line>159</line>
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/web/game/client.js</url>
+          <line>107</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/web/game/client.js</url>
+          <line>108</line>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="65" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/web/game/ige/engine/core/IgeViewport.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/tomcat/apache-tomcat-8.0.21/lib/catalina.jar!/org/apache/catalina/startup/Catalina.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16476347">
+          <caret line="304" column="0" selection-start-line="304" selection-start-column="0" selection-end-line="304" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/game/ige/engine/core/IgeEntity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.00311042">
+          <caret line="2612" column="4" selection-start-line="2612" selection-start-column="4" selection-end-line="2612" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/game/assets/deltatime.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/game/assets/sound_mute.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/game/fourColors.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-24.148148">
+          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/game/assets/wall.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33592534">
+          <caret line="12" column="38" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/Accont/Login.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.6666667">
+          <caret line="77" column="40" selection-start-line="77" selection-start-column="40" selection-end-line="77" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Controller/GameFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/Game/Model/CellTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.64385694">
+          <caret line="31" column="5" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/onlineGame.iws">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.083981335">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/game/assets/floor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/Core/HashingTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Core/DBInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="43" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/59fe1d2c-d904-411a-ab93-d3f5c8a8e878/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/onlineGame30ab6431/59fe1d2c-d904-411a-ab93-d3f5c8a8e878/mydb..participations">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Core/Servlets/SignIn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="53" column="9" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CreateDB.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="128" column="45" selection-start-line="128" selection-start-column="45" selection-end-line="128" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/onlineGame30ab6431/59fe1d2c-d904-411a-ab93-d3f5c8a8e878/mydb..UnreadMessages">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/onlineGame30ab6431/59fe1d2c-d904-411a-ab93-d3f5c8a8e878/mydb..games">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/onlineGame30ab6431/59fe1d2c-d904-411a-ab93-d3f5c8a8e878/mydb..friends">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Core/Dao/AccountDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12908243">
+          <caret line="90" column="12" selection-start-line="90" selection-start-column="12" selection-end-line="90" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CreateDB.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30793157">
+          <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Core/Dao/MessageDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12908243">
+          <caret line="53" column="16" selection-start-line="53" selection-start-column="16" selection-end-line="53" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Core/Dao/GameDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2488336">
+          <caret line="76" column="53" selection-start-line="76" selection-start-column="53" selection-end-line="76" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Core/Servlets/Notifications.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.503888">
+          <caret line="31" column="12" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/onlineGame30ab6431/59fe1d2c-d904-411a-ab93-d3f5c8a8e878/mydb..accounts">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Core/Dao/CachedMessagesDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12908243">
+          <caret line="47" column="16" selection-start-line="47" selection-start-column="16" selection-end-line="47" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Core/Dao/FriendsDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12908243">
+          <caret line="41" column="16" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Model/PlaneMazeTesterClassNotPartOfProject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="120" column="40" selection-start-line="120" selection-start-column="40" selection-end-line="120" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/game/gameClasses/Character.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/game/gameClasses/Circle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/game/ige/engine/core/IgeCamera.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33281493">
+          <caret line="92" column="4" selection-start-line="92" selection-start-column="4" selection-end-line="92" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/game/gameClasses/Map.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/tomcat/apache-tomcat-8.0.21/lib/websocket-api.jar!/javax/websocket/RemoteEndpoint.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34910277">
+          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/game/gameClasses/PlayerComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.02799378">
+          <caret line="23" column="38" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Controller/GameManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.61494255">
+          <caret line="139" column="59" selection-start-line="139" selection-start-column="59" selection-end-line="139" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Controller/UserConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.2787356">
+          <caret line="52" column="33" selection-start-line="52" selection-start-column="33" selection-end-line="52" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/game/gameClasses/ClientWorld.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.224138">
+          <caret line="43" column="26" selection-start-line="43" selection-start-column="17" selection-end-line="43" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/matchMaking/loading.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.148149">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/game/gameClasses/Handler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="186" column="26" selection-start-line="186" selection-start-column="26" selection-end-line="186" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/game/assets/wind.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Model/Configuration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/game/assets/Circle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Model/GameWorld.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="393" column="0" selection-start-line="393" selection-start-column="0" selection-end-line="394" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ConfigFile.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.22395024">
+          <caret line="8" column="18" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/game/gameClasses/UI.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="82" column="34" selection-start-line="82" selection-start-column="34" selection-end-line="82" selection-end-column="34" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/game/client.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.8">
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/Game/Model/GameMazeTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="641" column="1" selection-start-line="641" selection-start-column="1" selection-end-line="641" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#GameMazeTest#0" expanded="false" />
+            <element signature="e#21636#21637#0" expanded="true" />
+            <element signature="e#21696#21697#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Model/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3561431">
+          <caret line="114" column="24" selection-start-line="114" selection-start-column="24" selection-end-line="114" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>onlineGame:war exploded</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Web (onlineGame)|Web</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>onlineGame</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>lib</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

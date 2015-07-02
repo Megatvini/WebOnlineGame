@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="game-engine-origin" content="http://www.isogenicengine.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=9" >
+    <title>Example Suite - Isogenic Engine</title>
+
+    <!-- STYLES -->
+    <link href="css/default.css" rel="stylesheet" type="text/css" />
+
+    <!-- Isogenic Loader -->
+    <script type="text/javascript">var igeRoot = './ige/engine/';</script>
+    <script type="text/javascript" src="./ige/engine/loader.js"></script>
+</head>
+<body>
+
+<div id = "audio">
+
+    <audio id = "p1"  preload >
+        <source src="assets/sound/p1.wav"  type="audio/wav"/>
+    </audio>
+
+
+    <audio id = "p2"  preload >
+        <source src="assets/sound/p2.wav" type="audio/wav"/>
+    </audio>
+
+    <audio id = "p3" preload >
+        <source src="assets/sound/p3.wav" type="audio/wav"/>
+    </audio>
+
+
+    <audio id = "p4"  preload >
+        <source src="assets/sound/p4.wav" type="audio/wav"/>
+    </audio>
+
+
+    <audio id = "I_WON_SOUND"  >
+        <source src="assets/sound/win.wav" type="audio/wav"/>
+    </audio>
+
+    <audio id = "loop"  loop preload >
+        <source src="assets/sound/loop.mp3" type="audio/mp3"/>
+    </audio>
+
+</div>
+
+
+
+<div class="igeLoading loadingFloat">
+    <div class="loadingLogo"></div>
+    <div class="loadingCircle"></div>
+    <div class="loadingCircleInner"></div>
+    <div class="loadingText" id="loadingText">
+        Loading
+    </div>
+
+    <script>console.log("READY!")</script>
+</div>
+</body>
+</html>

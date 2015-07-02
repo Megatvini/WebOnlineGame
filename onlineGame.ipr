@@ -33,8 +33,27 @@
     </annotationProcessing>
   </component>
   <component name="CopyrightManager" default="" />
+  <component name="DataSourceManagerImpl" format="xml" hash="4058744524">
+    <data-source source="LOCAL" name="MySQL - mydb@localhost" uuid="59fe1d2c-d904-411a-ab93-d3f5c8a8e878">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/mydb</jdbc-url>
+      <driver-properties>
+        <property name="zeroDateTimeBehavior" value="convertToNull" />
+        <property name="tinyInt1isBit" value="false" />
+        <property name="characterEncoding" value="utf8" />
+        <property name="characterSetResults" value="utf8" />
+        <property name="yearIsDateType" value="false" />
+      </driver-properties>
+      <libraries />
+    </data-source>
+  </component>
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
+  </component>
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/web/web/web/WEB-INF/web.xml" />
   </component>
   <component name="IdProvider" IDEtalkID="15BA6517AC4D15E0E4BF0A2199D952DE" />
   <component name="Palette2">
@@ -176,13 +195,36 @@
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/CreateDB.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Core/Dao/AccountDao.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Core/Dao/CachedMessagesDao.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Core/Dao/FriendsDao.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Core/Dao/GameDao.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Core/Dao/MessageDao.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/CreateDB.sql" dialect="MySQL" />
+  </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/web/index.jsp" value="file://$PROJECT_DIR$/web" />
+      </map>
+    </option>
+  </component>
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - mydb@localhost" uuid="59fe1d2c-d904-411a-ab93-d3f5c8a8e878">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>mydb.*</schema-pattern>
+      <default-schemas>mydb.*</default-schemas>
+    </data-source>
+  </component>
   <component name="libraryTable">
-    <library name="WebSocket" type="WebSocket">
+    <library name="lib">
       <CLASSES>
-        <root url="jar://$USER_HOME$/tomcat/apache-tomcat-8.0.21/lib/websocket-api.jar!/" />
         <root url="file://$USER_HOME$/tomcat/apache-tomcat-8.0.21/lib" />
       </CLASSES>
       <JAVADOC />
