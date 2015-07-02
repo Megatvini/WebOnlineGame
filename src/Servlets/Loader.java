@@ -32,6 +32,12 @@ public class Loader extends HttpServlet {
         Map<String, Collection<String>> roomMates = (Map<String, Collection<String>>) getServletContext().getAttribute("roomMates");
         if (roomMates == null) throw new RuntimeException("roomMates is null");
         boolean resp = roomMates.containsKey(userName);
+        if (resp) {
+            Map<String, StartingGroup> groupMap = (Map<String, StartingGroup>)
+                    getServletContext().getAttribute(StartingGroup.class.getName());
+            if (groupMap == null) throw new RuntimeException("groupMap is null");
+            groupMap.remove(userName);
+        }
         response.getWriter().print(resp);
     }
 }
