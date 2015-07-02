@@ -19,9 +19,9 @@ var image = {
         var playerRadius = entity.radius;
         var dr = playerRadius/circleRadius;
         grd.addColorStop(dr , 'rgba(0,0,0,0)');
-        grd.addColorStop(dr , 'rgba(0,0,255,.5)');
-        grd.addColorStop(.9 , 'rgba(0,0,255,.1)');
-        grd.addColorStop(1, 'rgba(0,0,255,.0)');
+        grd.addColorStop(dr , 'rgba(0,0,255,.7)');
+        grd.addColorStop(1 , 'rgba(0,0,255,0)');
+
 
         ctx.beginPath();
         ctx.arc(centre.x,centre.y,entity._geometry.x,0,2*Math.PI);

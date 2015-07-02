@@ -38,12 +38,12 @@ public class StartGame extends HttpServlet {
         readParameters(request, arbitraryRoomMates, roomSizes);
 
         if (roomSizes.size() == 0) {
-            response.sendRedirect("/matchMaking/play.jsp");
+            response.sendRedirect("index.jsp");
             return;
         }
 
         if (!validate(roomSizes, arbitraryRoomMates)) {
-            response.sendRedirect("play.jsp");
+            response.sendRedirect("index.jsp");
         } else {
             matchMaker.addParticipants(arbitraryRoomMates, roomSizes);
             groupMap.get(userName).setGameStarted(true);

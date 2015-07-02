@@ -2,7 +2,7 @@ var self = this,
 	gameConfig = {},
 	distanceR1,
 	firstDist,
-	limit = 1.5,
+	limit = 1,
 	connection;
 
 var Client = IgeClass.extend({
@@ -105,6 +105,7 @@ function initSocket() {
 	};
 	connection.onmessage = function(e){
 		//console.log(e.data);
+		if (e.data == "hello") return;
 		var snapShot = JSON.parse(e.data);
 		handler(snapShot);
 

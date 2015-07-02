@@ -164,7 +164,7 @@ var Handler = IgeEntity.extend({
 
                         // Tell the camera to track our player character with some
                         // tracking smoothing (set to 20)
-                        self.vp1.camera.trackTranslate(player1, 60);
+                        self.vp1.camera.trackTranslate(player1, 80);
                     }
                 } else {
                     if (!onePlayer.active) {

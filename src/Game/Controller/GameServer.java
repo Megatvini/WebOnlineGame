@@ -5,6 +5,7 @@ import Core.Controller.RatingManager;
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
 
 @ServerEndpoint(value="/gameServer", configurator=ServerConfig.class)
 public class GameServer {
@@ -24,7 +25,11 @@ public class GameServer {
         HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
         String userName = (String) httpSession.getAttribute("nickname");
         playerName = userName;
-
+        try {
+            session.getBasicRemote().sendText("hello");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //initialize gameManager
         initGameManager(httpSession);
         System.out.println("connected: " + playerName + " Session:" + session + " http: " + httpSession);
@@ -90,12 +95,14 @@ public class GameServer {
      */
     @OnClose
     public void onClose(Session session) {
+        gameManager.removePlayer(playerName);
         System.out.println("connection closed with " + playerName);
     }
 
     @OnError
     public void onError(Session session, Throwable t) {
         System.out.println("OnError");
+        gameManager.removePlayer(playerName);
         //t.printStackTrace();
     }
 }

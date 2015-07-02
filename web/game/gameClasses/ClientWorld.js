@@ -63,6 +63,7 @@ var ClientWorld = {
             .drawBounds(false)
             .drawBoundsData(true)
             .mount(ige);
+        //self.vp1.scaleTo(0.6,0.6,0);
 
         //////////////////////////////////////////////////////////////////
 

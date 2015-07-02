@@ -158,7 +158,7 @@ public class GameManager {
      * @param yCoord y coordinate of a player
      * @return returns true iff information passed is valid
      */
-    public boolean setUpdateFromPlayer(String playerName, int xCoord, int yCoord) {
+    public synchronized boolean setUpdateFromPlayer(String playerName, int xCoord, int yCoord) {
         iWorld world = rooms.get(playerName);
         if (world == null) return false;
         world.setPlayerCoordinates(playerName, xCoord, yCoord);
